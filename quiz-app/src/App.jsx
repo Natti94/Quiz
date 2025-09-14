@@ -19,8 +19,8 @@ function App() {
         <div className="quiz-wrapper">
           <div className="header-bar">
             <h1 className="app-title">
-              Quiz App - Made by Natnael Berhane. Visit other Projects on my
-              Portfolio page
+              Quiz App - Made by Natnael Berhane. Visit other projects on my
+              portfolio page.
             </h1>
             <Nav />
           </div>
