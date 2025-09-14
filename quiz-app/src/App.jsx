@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Form from "./components/form";
-import Subject from "./components/subject";
 import Nav from "./components/nav";
+import Subject from "./components/subject";
 
 function App() {
   const [subject, setSubject] = useState(null);
