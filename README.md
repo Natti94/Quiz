@@ -1,4 +1,6 @@
-# Quiz App (React + Vite)
+# Quiz App
+
+> **Note:** This repository contains the finalized version of the project, forked from another of my repositories. As a result, there are few or no commits here aside from the initial import.
 
 A responsive quiz application with multiple subjects. Choose a subject, answer questions with instant feedback and explanations, and cancel at any time to see a summary of your current score.
 
