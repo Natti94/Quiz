@@ -1,6 +1,7 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
-import { questionsPlu } from "../data/plu";
 import { questionsApt } from "../data/apt";
+import { questionsPlu } from "../data/plu";
+import { questionsPluExam } from "../data/pluExam";
 
 function Subject({ subject }, ref) {
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
@@ -27,6 +28,11 @@ function Subject({ subject }, ref) {
       setScore(0);
     } else if (subject === "apt") {
       setShuffledQuestions(shuffleArray(questionsApt));
+      setIndex(0);
+      setSelected(null);
+      setScore(0);
+    } else if (subject === "plu-exam") {
+      setShuffledQuestions(shuffleArray(questionsPluExam));
       setIndex(0);
       setSelected(null);
       setScore(0);

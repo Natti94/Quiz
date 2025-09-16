@@ -11,7 +11,8 @@ function Form({ onSelect }) {
       <div className="helper-text">
         <p>Välj ett område att öva på. </p>
         <p className="warning-text">
-          OBS! Avbryter du quizet innan det är klart visas ändå ditt aktuella resultat.
+          OBS! Avbryter du quizet innan det är klart visas ändå ditt aktuella
+          resultat.
         </p>
       </div>
       <div className="subject-chooser">
@@ -31,7 +32,24 @@ function Form({ onSelect }) {
             </div>
           </div>
         </button>
-
+        <button
+          type="button"
+          className="subject-card"
+          onClick={() => onSelect && onSelect("plu-exam")}
+          aria-label="Välj Paketering, Leverans och Uppföljning"
+        >
+          <div className="icon plu" aria-hidden>
+            📦
+          </div>
+          <div className="content">
+            <div className="title" style={{ color: "red" }}>
+              {"Tenta: "} Paketering, Leverans & Uppföljning
+            </div>
+            <div className="desc">
+              Planera leveranser, uppföljning och kvalitetssäkring.
+            </div>
+          </div>
+        </button>
         <button
           type="button"
           className="subject-card"
