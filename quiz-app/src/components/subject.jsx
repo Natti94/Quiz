@@ -26,13 +26,13 @@ function Subject({ subject }, ref) {
       setIndex(0);
       setSelected(null);
       setScore(0);
-    } else if (subject === "apt") {
-      setShuffledQuestions(shuffleArray(questionsApt));
+    } else if (subject === "plu-exam") {
+      setShuffledQuestions(shuffleArray(questionsPluExam));
       setIndex(0);
       setSelected(null);
       setScore(0);
-    } else if (subject === "plu-exam") {
-      setShuffledQuestions(shuffleArray(questionsPluExam));
+    } else if (subject === "apt") {
+      setShuffledQuestions(shuffleArray(questionsApt));
       setIndex(0);
       setSelected(null);
       setScore(0);

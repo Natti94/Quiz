@@ -11,6 +11,15 @@ function App() {
   const subjectMeta = {
     plu: { label: "Paketering, Leverans & Uppföljning", icon: "📦" },
     apt: { label: "Agil Projektmetodik & Testning", icon: "🧪" },
+    // Support both kebab-case and camelCase keys for exam subject
+    "plu-exam": {
+      label: "[Tenta] Paketering, Leverans & Uppföljning",
+      icon: "📦",
+    },
+    pluExam: {
+      label: "[Tenta] Paketering, Leverans & Uppföljning",
+      icon: "📦",
+    },
   };
 
   return (
