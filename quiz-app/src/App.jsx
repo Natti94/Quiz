@@ -60,7 +60,7 @@ function App() {
             <>
               {lastSummary && (
                 <div className="result" role="status" aria-live="polite">
-                  <h2>Quiz avbrutet</h2>
+                  <h2 style={{ color: "red" }}>Quiz avbrutet!</h2>
                   <p>
                     Du fick {lastSummary.score} poäng av {lastSummary.attempted}{" "}
                     försök (totalt {lastSummary.total} frågor) i{" "}

@@ -6,7 +6,7 @@ function Form({ onSelect }) {
       aria-labelledby="choose-subject-heading"
     >
       <h1 id="choose-subject-heading" className="quiz-title">
-        Välj ämne
+       Ämnen
       </h1>
       <div className="helper-text">
         <p>Välj ett område att öva på. </p>
