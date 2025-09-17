@@ -42,8 +42,8 @@ function Form({ onSelect }) {
             📦
           </div>
           <div className="content">
-            <div className="title">
-              {"Tenta: "} Paketering, Leverans & Uppföljning
+            <div className="title" style={{color: 'red'}}>
+              {"Tenta: "} Paketering, Leverans & Uppföljning 🔓🤪
             </div>
             <div className="desc">
               Planera leveranser, uppföljning och kvalitetssäkring.

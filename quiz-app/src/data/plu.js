@@ -779,8 +779,7 @@ questionsPlu.push(
       "Logghantering",
     ],
     correct: 1,
-    explanation:
-      "Frontend omfattar UI, interaktion och rendering i klienten.",
+    explanation: "Frontend omfattar UI, interaktion och rendering i klienten.",
   },
   {
     question: "Vad betyder Web MVC?",
@@ -1177,6 +1176,5 @@ questionsPlu.push(
     correct: 1,
     explanation:
       "Olika miljöer isolerar förändringar och möjliggör säkra releaser genom separata konfigurationer.",
-  },
-
+  }
 );
