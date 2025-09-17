@@ -1,7 +1,7 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
-import { questionsApt } from "../data/apt";
 import { questionsPlu } from "../data/plu";
 import { questionsPluExam } from "../data/pluExam";
+import { questionsApt } from "../data/apt";
 
 function Subject({ subject }, ref) {
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
@@ -20,19 +20,30 @@ function Subject({ subject }, ref) {
     return newArray;
   }
 
+  function shuffleQuestionsWithShuffledOptions(questions) {
+    return shuffleArray(questions).map((q) => {
+      if (!q.options || typeof q.correct !== "number") return q;
+      const optionPairs = q.options.map((opt, idx) => ({ opt, idx }));
+      const shuffled = shuffleArray(optionPairs);
+      const newOptions = shuffled.map((p) => p.opt);
+      const newCorrect = shuffled.findIndex((p) => p.idx === q.correct);
+      return { ...q, options: newOptions, correct: newCorrect };
+    });
+  }
+
   useEffect(() => {
     if (subject === "plu") {
-      setShuffledQuestions(shuffleArray(questionsPlu));
+      setShuffledQuestions(shuffleQuestionsWithShuffledOptions(questionsPlu));
       setIndex(0);
       setSelected(null);
       setScore(0);
     } else if (subject === "plu-exam") {
-      setShuffledQuestions(shuffleArray(questionsPluExam));
+      setShuffledQuestions(shuffleQuestionsWithShuffledOptions(questionsPluExam));
       setIndex(0);
       setSelected(null);
       setScore(0);
     } else if (subject === "apt") {
-      setShuffledQuestions(shuffleArray(questionsApt));
+      setShuffledQuestions(shuffleQuestionsWithShuffledOptions(questionsApt));
       setIndex(0);
       setSelected(null);
       setScore(0);

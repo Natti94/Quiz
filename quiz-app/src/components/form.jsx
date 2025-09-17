@@ -36,14 +36,13 @@ function Form({ onSelect }) {
           type="button"
           className="subject-card"
           onClick={() => onSelect && onSelect("plu-exam")}
-          aria-label="[Tenta] Välj Paketering, Leverans och Uppföljning"
-          
+          aria-label=" Välj Tenta: Paketering, Leverans och Uppföljning"
         >
           <div className="icon plu" aria-hidden>
             📦
           </div>
           <div className="content">
-            <div className="title" style={{ color: "red" }}>
+            <div className="title">
               {"Tenta: "} Paketering, Leverans & Uppföljning
             </div>
             <div className="desc">

@@ -481,7 +481,6 @@ export const questionsPlu = [
   },
 ];
 
-// Extra frågor tillagda för att täcka resterande begrepp i materialet
 questionsPlu.push(
   {
     question: "Vad är ett repository (repo) i Git?",
