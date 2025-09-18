@@ -76,16 +76,10 @@ function Form({ onSelect }) {
           </div>
         </button>
 
-        <div
-          className={`subject-card gated-card ${
-            examUnlocked ? "unlocked" : ""
-          }`}
-          role="group"
-          aria-label="Tenta: Paketering, Leverans och Uppföljning"
-        >
+        <div className="gated-wrapper" aria-label="Tenta: Paketering, Leverans och Uppföljning" role="group">
           <button
             type="button"
-            className="unlock-trigger"
+            className={`subject-card gated-card ${examUnlocked ? "unlocked" : ""}`}
             onClick={handleExamClick}
             aria-expanded={showUnlock}
             aria-controls="exam-unlock-panel"
@@ -95,9 +89,7 @@ function Form({ onSelect }) {
               📦
             </div>
             <div className="content">
-              <div className="title">
-                Tenta: Paketering, Leverans & Uppföljning
-              </div>
+              <div className="title">Tenta: Paketering, Leverans & Uppföljning</div>
               <div className="desc">
                 Planera leveranser, uppföljning och kvalitetssäkring.
                 {examUnlocked ? "🔓" : "🔐"}
@@ -122,9 +114,7 @@ function Form({ onSelect }) {
                 />
               </label>
               <div className="unlock-actions">
-                <button type="submit" className="unlock-btn">
-                  Lås upp
-                </button>
+                <button type="submit" className="unlock-btn">Lås upp</button>
                 <button
                   type="button"
                   className="cancel-unlock-btn"
@@ -137,11 +127,7 @@ function Form({ onSelect }) {
                   Avbryt
                 </button>
               </div>
-              {error && (
-                <div className="unlock-error" role="alert">
-                  {error}
-                </div>
-              )}
+              {error && <div className="unlock-error" role="alert">{error}</div>}
             </form>
           )}
         </div>

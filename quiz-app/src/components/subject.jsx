@@ -130,7 +130,7 @@ function Subject({ subject }, ref) {
                 </button>
                 <p className="next-hint">
                   {index + 1 === shuffledQuestions.length
-                    ? "Tryck nästa för att se ditt resultat"
+                    ? "Tryck nästa för att se ditt resultat!"
                     : ""}
                 </p>
               </>

@@ -135,7 +135,7 @@
   display: grid;
   grid-template-columns: 64px 1fr;
   gap: 16px;
-  align-items: flex-start; /* top align icon + text so taller cards grow downward */
+  align-items: flex-start;
   padding: clamp(12px, 2vw, 16px);
   border-radius: 12px;
   border: 1px solid #e5e7eb;
@@ -191,22 +191,23 @@
 .app-shell .quiz-wrapper .subject-card .icon.apt {
   background: #e9d5ff;
 }
+
+.app-shell .quiz-wrapper .gated-wrapper {
+  position: relative;
+  display: grid;
+  gap: 8px;
+}
+
 .app-shell .quiz-wrapper .gated-card {
   position: relative;
 }
 
 .app-shell .quiz-wrapper .gated-card.unlocked {
   border-color: #16a34a;
-  box-shadow: 0 0 0 1px #16a34a40, 0 4px 14px -4px rgba(22,163,74,0.35);
+  box-shadow: 0 0 0 1px #16a34a40, 0 4px 14px -4px rgba(22, 163, 74, 0.35);
 }
 
-.app-shell .quiz-wrapper .gated-card .unlock-trigger {
-  all: unset;
-  cursor: pointer;
-  display: contents; /* allows entire card to act as button without extra wrapper */
-}
-
-.app-shell .quiz-wrapper .gated-card .unlock-panel {
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel {
   margin-top: 12px;
   grid-column: 1 / -1;
   display: grid;
@@ -219,11 +220,18 @@
 }
 
 @keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(-4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.app-shell .quiz-wrapper .gated-card .unlock-label {
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-label {
   font-size: .8rem;
   font-weight: 600;
   display: grid;
@@ -231,7 +239,7 @@
   color: #334155;
 }
 
-.app-shell .quiz-wrapper .gated-card .unlock-input {
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-input {
   font: inherit;
   padding: 6px 8px;
   border: 1px solid #cbd5e1;
@@ -239,20 +247,20 @@
   background: #fff;
 }
 
-.app-shell .quiz-wrapper .gated-card .unlock-input:focus-visible {
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-input:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 1px;
 }
 
-.app-shell .quiz-wrapper .gated-card .unlock-actions {
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-actions {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
   margin-top: 4px;
 }
 
-.app-shell .quiz-wrapper .gated-card .unlock-btn,
-.app-shell .quiz-wrapper .gated-card .cancel-unlock-btn {
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-btn,
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .cancel-unlock-btn {
   font: inherit;
   padding: 6px 12px;
   border-radius: 6px;
@@ -262,18 +270,26 @@
   transition: background .12s ease, transform .05s ease;
 }
 
-.app-shell .quiz-wrapper .gated-card .unlock-btn {
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-btn {
   background: #0d9488;
   color: #fff;
   border-color: #0d9488;
 }
 
-.app-shell .quiz-wrapper .gated-card .unlock-btn:hover { background:#0f766e; }
-.app-shell .quiz-wrapper .gated-card .cancel-unlock-btn:hover { background:#f1f5f9; }
-.app-shell .quiz-wrapper .gated-card .unlock-btn:active,
-.app-shell .quiz-wrapper .gated-card .cancel-unlock-btn:active { transform: translateY(1px); }
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-btn:hover {
+  background: #0f766e;
+}
 
-.app-shell .quiz-wrapper .gated-card .unlock-error {
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .cancel-unlock-btn:hover {
+  background: #f1f5f9;
+}
+
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-btn:active,
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .cancel-unlock-btn:active {
+  transform: translateY(1px);
+}
+
+.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-error {
   font-size: .75rem;
   color: #b91c1c;
   background: #fee2e2;
@@ -281,8 +297,6 @@
   padding: 6px 8px;
   border-radius: 6px;
 }
-
-.app-shell .quiz-wrapper .gated-card .content .title { display:flex; flex-wrap:wrap; gap:4px; }
 
 .app-shell .quiz-wrapper .helper-text {
   margin-top: 10px;
