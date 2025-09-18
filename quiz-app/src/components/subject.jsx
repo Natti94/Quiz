@@ -38,7 +38,9 @@ function Subject({ subject }, ref) {
       setSelected(null);
       setScore(0);
     } else if (subject === "plu-exam") {
-      setShuffledQuestions(shuffleQuestionsWithShuffledOptions(questionsPluExam));
+      setShuffledQuestions(
+        shuffleQuestionsWithShuffledOptions(questionsPluExam)
+      );
       setIndex(0);
       setSelected(null);
       setScore(0);
@@ -96,9 +98,13 @@ function Subject({ subject }, ref) {
     [score, index, selected, shuffledQuestions.length, subject]
   );
 
+  if (!subject) return null;
+
+  const isQuizDone = index >= shuffledQuestions.length;
+
   return (
     <>
-      {subject && index < shuffledQuestions.length && (
+      {!isQuizDone && (
         <div className="quiz-card">
           <div className="quiz-left">
             <h2 className="quiz-title">
@@ -117,14 +123,19 @@ function Subject({ subject }, ref) {
                 </li>
               ))}
             </ul>
-
             {selected !== null && (
-              <button className="next-btn" onClick={nextQuestion}>
-                Nästa fråga
-              </button>
+              <>
+                <button className="next-btn" onClick={nextQuestion}>
+                  <strong>Nästa</strong>
+                </button>
+                <p className="next-hint">
+                  {index + 1 === shuffledQuestions.length
+                    ? "Tryck nästa för att se ditt resultat"
+                    : ""}
+                </p>
+              </>
             )}
           </div>
-
           {selected !== null && (
             <div className="explanation">
               <strong>Förklaring:</strong>
@@ -134,7 +145,7 @@ function Subject({ subject }, ref) {
         </div>
       )}
 
-      {subject && index >= shuffledQuestions.length && (
+      {isQuizDone && (
         <div className="result">
           <h2>Quiz klart!</h2>
           <p>
