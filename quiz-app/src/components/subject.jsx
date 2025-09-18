@@ -68,7 +68,8 @@ function Subject({ subject }, ref) {
       setIndex((idx) => idx + 1);
       setSelected(null);
     } else {
-      // END
+      setIndex((idx) => idx + 1);
+      setSelected(null);
     }
   }
 
