@@ -85,6 +85,20 @@ function Subject({ subject }, ref) {
     return base.join(" ");
   };
 
+  function levelClass(q) {
+    const lv = q?.level;
+    if (!lv) return "N/A";
+    if (typeof lv === "string") {
+      const up = lv.toUpperCase();
+      if (up === "G" || up === "VG") return up;
+      return up;
+    }
+    if (Array.isArray(lv)) return lv.join(", ");
+    if (typeof lv === "object" && lv.grade)
+      return String(lv.grade).toUpperCase();
+    return String(lv);
+  }
+
   useImperativeHandle(
     ref,
     () => ({
@@ -108,10 +122,11 @@ function Subject({ subject }, ref) {
         <div className="quiz-card">
           <div className="quiz-left">
             <h2 className="quiz-title">
-              Fråga {index + 1} av {shuffledQuestions.length}
+              Fråga: {index + 1} av {shuffledQuestions.length}
+              <br />
+              Nivå: {levelClass(question)}
             </h2>
             <p className="quiz-question">{question?.question}</p>
-
             <ul className="options">
               {question?.options.map((opt, i) => (
                 <li
@@ -129,6 +144,7 @@ function Subject({ subject }, ref) {
                   <strong>Nästa</strong>
                 </button>
                 <p className="next-hint">
+                  {}
                   {index + 1 === shuffledQuestions.length
                     ? "Tryck nästa för att se ditt resultat!"
                     : ""}
