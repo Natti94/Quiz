@@ -69,9 +69,9 @@ function Form({ onSelect }) {
             📦
           </div>
           <div className="content">
-            <div className="title">Paketering, Leverans & Uppföljning</div>
+            <div className="title">Paketering, Leverans och Uppföljning</div>
             <div className="desc">
-              Planera; Leveranser, Uppföljning och Kvalitetssäkring.
+              Leveranser, Uppföljning och Kvalitetssäkring.
             </div>
           </div>
         </button>
@@ -96,10 +96,10 @@ function Form({ onSelect }) {
             </div>
             <div className="content">
               <div className="title">
-                Tenta: Paketering, Leverans & Uppföljning
+                Tenta: Paketering, Leverans och Uppföljning
               </div>
               <div className="desc">
-                Planera; Leveranser, Uppföljning och Kvalitetssäkring.
+                Leveranser, Uppföljning och Kvalitetssäkring.
                 {examUnlocked ? "🔓" : "🔐"}
               </div>
             </div>
