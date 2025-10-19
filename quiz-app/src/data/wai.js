@@ -156,7 +156,6 @@ export const questionsWai = [
       "CAPTCHA (t.ex. reCAPTCHA) bygger på idéer från Turingtestet för att verifiera att en användare är människa.",
   },
 
-  // Kryptografi & Nyckelhantering
   {
     question: "Vad är en hemlig (privat) nyckel?",
     options: [
@@ -240,5 +239,164 @@ export const questionsWai = [
     correct: 0,
     explanation:
       "Trace-loggning ger finmaskig insyn i kodens exekvering (metodanrop, variabler) och är värdefull vid felsökning.",
+  },
+
+  {
+    question: "Vad avser 'Identification and Authentication Failures'?",
+    options: [
+      "Brister i hur identiteter verifieras och hanteras (svaga lösenord, dålig sessionshantering, bristande MFA)",
+      "Brister i hur bilder komprimeras på servern",
+      "Fel i hur CSS laddas i webbläsaren",
+      "Avsaknad av cache-hantering i CDN",
+    ],
+    correct: 0,
+    explanation:
+      "Kategorin handlar om svag autentisering, exponerade tokens och felaktig sessionhantering. Åtgärder: starka lösenord, MFA, säkra sessioner.",
+  },
+  {
+    question: "Vad innebär 'Vulnerable and Outdated Components'?",
+    options: [
+      "Risker från föråldrade/sårbara bibliotek och beroenden",
+      "Att kod inte är minifierad",
+      "Att CSS-variabler saknas",
+      "Att bilder inte har alt-texter",
+    ],
+    correct: 0,
+    explanation:
+      "Användning av gamla/osäkra komponenter kan utnyttjas av angripare. Håll beroenden uppdaterade och använd t.ex. npm audit.",
+  },
+  {
+    question: "Vad är 'Injection' i säkerhetssammanhang?",
+    options: [
+      "När osäker indata blandas med kommandon/queries (t.ex. SQL/NoSQL/kommandoinjektion)",
+      "När CSS injiceras för att ändra utseende",
+      "När en bild bäddas in i HTML",
+      "När ett script laddas via CDN",
+    ],
+    correct: 0,
+    explanation:
+      "Förebygg med parametriserade frågor/prepared statements, inputvalidering och undvik att sammanfoga användardata med kommandon.",
+  },
+  {
+    question: "Vad menas med 'Security Misconfiguration'?",
+    options: [
+      "Felaktiga/bristfälliga säkerhetsinställningar (standardlösenord, onödiga tjänster, fel konfigurerade headers)",
+      "Felaktig CSS-animering",
+      "Saknad av favicon",
+      "Fel i responsiva breakpoints",
+    ],
+    correct: 0,
+    explanation:
+      "Säkra installationer, inaktivera onödiga funktioner och håll konfiguration uppdaterad. Automatisera härdning där möjligt.",
+  },
+  {
+    question: "Vad avses med 'Cryptographic Failures'?",
+    options: [
+      "Brister i skydd av känslig data (svaga algoritmer, klartext, fel nyckelhantering)",
+      "Fel i layoutgrid",
+      "För många HTTP-cookies",
+      "Saknad av sitemap.xml",
+    ],
+    correct: 0,
+    explanation:
+      "Använd moderna algoritmer, kryptera data i vila och i transit, hantera nycklar/certifikat korrekt.",
+  },
+  {
+    question: "Vad är 'Software and Data Integrity Failures'?",
+    options: [
+      "Bristande integritetskontroller i kod/artefakter (osäkra uppdateringar, opålitliga källor, osäker deserialisering)",
+      "Fel i bildkomprimering",
+      "Saknad av mörkt läge",
+      "Fel i ARIA-attribut",
+    ],
+    correct: 0,
+    explanation:
+      "Verifiera källor/signaturer, säkra CI/CD, undvik opålitliga repos/CDN och hantera deserialisering säkert.",
+  },
+  {
+    question: "Vad beskriver SSRF (Server-Side Request Forgery)?",
+    options: [
+      "Angriparen får servern att göra nätverksanrop till interna/externa resurser",
+      "En metod för att snabba upp serversvar",
+      "Ett sätt att cacha assets på servern",
+      "En teknik för att rendera server-side HTML",
+    ],
+    correct: 0,
+    explanation:
+      "Motverka med strikt URL-validering, allowlists, segmentering och att interna tjänster inte exponeras från utsatta endpoints.",
+  },
+  {
+    question: "Vad innebär 'Insecure Design'?",
+    options: [
+      "Att nödvändiga säkerhetskontroller saknas i designen från början",
+      "Att UI inte följer designguidelines",
+      "Att bilder inte är optimerade",
+      "Att loggar inte är färgglada",
+    ],
+    correct: 0,
+    explanation:
+      "Inför säkerhet tidigt: hotmodellering, säkra mönster/krav och kontroller i designfasen – det kan inte 'patchas' i efterhand.",
+  },
+  {
+    question: "Vad är 'Broken Access Control'?",
+    options: [
+      "När åtkomstkontroller inte korrekt begränsar åtkomst till data/funktioner",
+      "När användare inte kan logga in",
+      "När en API-nyckel har för kort längd",
+      "När servern svarar långsamt",
+    ],
+    correct: 0,
+    explanation:
+      "Implementera minst privilegium, konsekventa kontroller på servern och skydda mot manipulation av URL:er/parametrar/API-anrop.",
+  },
+  // Fördjupning: CA och localhost
+  {
+    question: "Kan man få ett CA-utfärdat certifikat för localhost?",
+    options: [
+      "Nej, CA validerar domäner du äger; för localhost används självsignerade/dev-certifikat",
+      "Ja, alla CA utfärdar certifikat för localhost",
+      "Ja, men endast som wildcard-certifikat utan domän",
+      "Endast om man använder HTTP istället för HTTPS",
+    ],
+    correct: 0,
+    explanation:
+      "Publika CA utfärdar certifikat för verifierbara domäner (FQDN), inte 'localhost'. Lokalt används ofta självsignerade eller utvecklingscertifikat.",
+  },
+  // Fördjupning: Express params/query/body
+  {
+    question: "I Express: var hämtar du path-parametern i routen '/user/:id'?",
+    options: [
+      "req.params.id",
+      "req.query.id",
+      "req.body.id",
+      "req.headers.id",
+    ],
+    correct: 0,
+    explanation:
+      "Path-parametrar (':id') nås via req.params.id. Query-parametrar finns i req.query och POST/JSON-data i req.body.",
+  },
+  {
+    question: "I Express: var hittar du query-parametern i '/users?role=admin'?",
+    options: [
+      "req.query.role",
+      "req.params.role",
+      "req.body.role",
+      "req.cookies.role",
+    ],
+    correct: 0,
+    explanation:
+      "Query-strängens nycklar finns i req.query. I exemplet hämtas 'admin' via req.query.role.",
+  },
+  {
+    question: "POST med 'Content-Type: application/json' – var läser du den skickade datan i Express?",
+    options: [
+      "req.body",
+      "req.params",
+      "req.query",
+      "res.locals",
+    ],
+    correct: 0,
+    explanation:
+      "JSON-payload läses från req.body (förutsatt att JSON-body parser är aktiverad). Path/query används för parametrar i URL:en.",
   },
 ];

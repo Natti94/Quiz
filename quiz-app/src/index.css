@@ -11,7 +11,10 @@
   font-family: sans-serif;
   min-height: 100vh;
   display: block;
-  padding: calc(24px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left));
+  padding: calc(24px + env(safe-area-inset-top))
+    calc(20px + env(safe-area-inset-right))
+    calc(20px + env(safe-area-inset-bottom))
+    calc(20px + env(safe-area-inset-left));
   background-color: #f0f0f0;
 }
 
@@ -114,7 +117,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.app-shell .quiz-wrapper .result+.result {
+.app-shell .quiz-wrapper .result + .result {
   margin-top: clamp(12px, 2vw, 20px);
 }
 
@@ -143,7 +146,10 @@
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
   text-align: left;
   cursor: pointer;
-  transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    background 0.12s ease;
 }
 
 .app-shell .quiz-wrapper .subject-card:hover {
@@ -181,7 +187,7 @@
 
 .app-shell .quiz-wrapper .subject-card .desc {
   color: #4b5563;
-  font-size: clamp(.9rem, 1.6vw, .95rem);
+  font-size: clamp(0.9rem, 1.6vw, 0.95rem);
 }
 
 .app-shell .quiz-wrapper .subject-card .icon.plu {
@@ -208,7 +214,9 @@
 
 .app-shell .quiz-wrapper .gated-card.unlocked {
   border-color: #16a34a;
-  box-shadow: 0 0 0 1px #16a34a40, 0 4px 14px -4px rgba(22, 163, 74, 0.35);
+  box-shadow:
+    0 0 0 1px #16a34a40,
+    0 4px 14px -4px rgba(22, 163, 74, 0.35);
 }
 
 .app-shell .quiz-wrapper .gated-wrapper .unlock-panel {
@@ -220,7 +228,7 @@
   border: 1px solid #e2e8f0;
   padding: 12px 14px;
   border-radius: 10px;
-  animation: fadeSlide .18s ease;
+  animation: fadeSlide 0.18s ease;
 }
 
 @keyframes fadeSlide {
@@ -236,7 +244,7 @@
 }
 
 .app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-label {
-  font-size: .8rem;
+  font-size: 0.8rem;
   font-weight: 600;
   display: grid;
   gap: 4px;
@@ -251,7 +259,11 @@
   background: #fff;
 }
 
-.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-input:focus-visible {
+.app-shell
+  .quiz-wrapper
+  .gated-wrapper
+  .unlock-panel
+  .unlock-input:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 1px;
 }
@@ -271,7 +283,9 @@
   border: 1px solid #64748b;
   background: #fff;
   cursor: pointer;
-  transition: background .12s ease, transform .05s ease;
+  transition:
+    background 0.12s ease,
+    transform 0.05s ease;
 }
 
 .app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-btn {
@@ -289,12 +303,16 @@
 }
 
 .app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-btn:active,
-.app-shell .quiz-wrapper .gated-wrapper .unlock-panel .cancel-unlock-btn:active {
+.app-shell
+  .quiz-wrapper
+  .gated-wrapper
+  .unlock-panel
+  .cancel-unlock-btn:active {
   transform: translateY(1px);
 }
 
 .app-shell .quiz-wrapper .gated-wrapper .unlock-panel .unlock-error {
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: #b91c1c;
   background: #fee2e2;
   border: 1px solid #fecaca;
@@ -305,7 +323,7 @@
 .app-shell .quiz-wrapper .helper-text {
   margin-top: 10px;
   color: #6b7280;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .app-shell .quiz-wrapper .warning-text {
@@ -351,7 +369,9 @@
   padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background .12s ease, transform .05s ease;
+  transition:
+    background 0.12s ease,
+    transform 0.05s ease;
 }
 
 .app-shell .quiz-wrapper .cancel-btn:hover {
@@ -405,7 +425,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   .app-shell .quiz-wrapper .subject-card,
   .app-shell .quiz-wrapper .option,
   .app-shell .quiz-wrapper .cancel-btn {

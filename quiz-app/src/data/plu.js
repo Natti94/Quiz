@@ -1176,5 +1176,5 @@ questionsPlu.push(
     correct: 1,
     explanation:
       "Olika miljöer isolerar förändringar och möjliggör säkra releaser genom separata konfigurationer.",
-  }
+  },
 );

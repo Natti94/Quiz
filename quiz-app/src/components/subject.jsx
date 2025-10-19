@@ -40,7 +40,7 @@ function Subject({ subject }, ref) {
       setScore(0);
     } else if (subject === "plu-exam") {
       setShuffledQuestions(
-        shuffleQuestionsWithShuffledOptions(questionsPluExam)
+        shuffleQuestionsWithShuffledOptions(questionsPluExam),
       );
       setIndex(0);
       setSelected(null);
@@ -115,7 +115,7 @@ function Subject({ subject }, ref) {
         subject,
       }),
     }),
-    [score, index, selected, shuffledQuestions.length, subject]
+    [score, index, selected, shuffledQuestions.length, subject],
   );
 
   if (!subject) return null;

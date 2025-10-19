@@ -7,12 +7,19 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "strip:comments": "node ./scripts/removeComments.mjs",
+    "format:repo": "node ./scripts/formatRepo.mjs",
+    "sanitize": "npm run strip:comments && npm run format:repo"
   },
   "dependencies": {
     "dotenv": "^17.2.2",
+    "fast-glob": "^3.3.3",
+    "prettier": "^3.6.2",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "strip-comments": "^2.0.1",
+    "strip-css-comments": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
