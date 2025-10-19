@@ -2,7 +2,7 @@
 
 > **Note:** This repository contains the finalized version of the project, forked from another of my repositories. As a result, there are few or no commits here aside from the initial import.
 
-A responsive quiz application with multiple subjects. Choose a subject, answer questions with instant feedback and explanations, and cancel at any time to see a summary of your current score. Includes a gated exam with an unlock key and per-question level (G/VG).
+A responsive quiz application with multiple subjects. Choose a subject, answer questions with instant feedback and explanations, and cancel at any time to see a summary of your current score. Includes a gated exam with an unlock key and per-question level (G/VG). Now also includes a WAI subject (Web Architecture & Internet) covering HTTP/HTTPS, proxies, authentication/authorization, cryptography, logging, and OWASP Top 10 topics.
 
 ## Features
 
@@ -15,6 +15,7 @@ A responsive quiz application with multiple subjects. Choose a subject, answer q
 - Gated exam subject with unlock key (persisted in `localStorage`)
 - Per-question level display (G/VG) for exam questions
 - Netlify Function for external links/assets via environment variables
+- WAI subject: Web Architecture & Internet (HTTP, HTTPS, CA, Proxy, AuthN/Z, Helmet, OWASP, crypto, logging)
 
 ## Project Structure
 
@@ -35,7 +36,8 @@ src/
   data/
     apt.js               # APT questions (export const questionsApt)
     plu.js               # PLU questions (export const questionsPlu)
-  pluExam.js           # PLU exam (14 Q) with { level: "G"|"VG", ... }
+    pluExam.js           # PLU exam (G/VG) with { level: "G"|"VG", ... }
+    wai.js               # WAI questions (export const questionsWai)
 index.html               # Vite HTML
 vite.config.js           # Vite config
 package.json             # Scripts and dependencies
@@ -101,7 +103,17 @@ Question object shape:
 
 - Edit arrays in `src/data/apt.js` and `src/data/plu.js` (named exports).
 - Exam questions live in `src/data/pluExam.js` and include a `level` (G/VG). The UI shows the level on each question.
+- Existing subjects: APT, PLU, PLU Exam, and WAI (Web Architecture & Internet).
 - Add a new subject by creating `src/data/<name>.js` (export a named array), wiring it in `subject.jsx` (based on the `subject` prop), adding a card in `form.jsx`, and extending `subjectMeta` in `App.jsx` with a label and icon.
+
+### WAI subject
+
+The WAI (Web Architecture & Internet) subject covers:
+- HTTP/HTTPS basics, CA/certificates, proxies, idempotency
+- Authentication vs authorization (incl. JWT), Helmet, OWASP overview
+- Cryptography concepts: public/private keys, hashing, salting
+- Logging types: audit, access, trace
+- OWASP Top 10 themes: Identification & Authentication Failures, Vulnerable & Outdated Components, Injection, Security Misconfiguration, Cryptographic Failures, Software & Data Integrity Failures, SSRF, Insecure Design, Broken Access Control
 
 ## Notes & Troubleshooting
 
