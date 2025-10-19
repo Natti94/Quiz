@@ -192,6 +192,10 @@
   background: #e9d5ff;
 }
 
+.app-shell .quiz-wrapper .subject-card .icon.wai {
+  background: #d1fae5;
+}
+
 .app-shell .quiz-wrapper .gated-wrapper {
   position: relative;
   display: grid;
