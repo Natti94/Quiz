@@ -71,7 +71,7 @@ function Form({ onSelect }) {
           <div className="content">
             <div className="title">Paketering, Leverans & Uppföljning</div>
             <div className="desc">
-              Planera Leveranser, Uppföljning och Kvalitetssäkring.
+              Planera; Leveranser, Uppföljning och Kvalitetssäkring.
             </div>
           </div>
         </button>
@@ -99,7 +99,7 @@ function Form({ onSelect }) {
                 Tenta: Paketering, Leverans & Uppföljning
               </div>
               <div className="desc">
-                Planera Leveranser, Uppföljning och Kvalitetssäkring.
+                Planera; Leveranser, Uppföljning och Kvalitetssäkring.
                 {examUnlocked ? "🔓" : "🔐"}
               </div>
             </div>
