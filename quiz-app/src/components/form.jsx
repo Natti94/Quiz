@@ -52,7 +52,7 @@ function Form({ onSelect }) {
         Ämnen
       </h1>
       <div className="helper-text">
-        <p>Välj ett område att öva på. </p>
+        <p>Välj ett område att öva på: </p>
         <p className="warning-text">
           OBS! Avbryter du quizet innan det är klart visas ändå ditt aktuella
           resultat.
