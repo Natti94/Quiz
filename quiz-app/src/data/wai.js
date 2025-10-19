@@ -1,0 +1,244 @@
+export const questionsWai = [
+  {
+    question: "Vad står HTTP för och vad är det?",
+    options: [
+      "HyperText Transfer Protocol – protokoll för att överföra hypertext över nätverk",
+      "High Throughput Transport – ett protokoll för filöverföring mellan servrar",
+      "Hyper Terminal Text Processor – ett verktyg för att komprimera webbsidor",
+      "Host Transfer Protocol – ett DNS-protokoll för att översätta domäner",
+    ],
+    correct: 0,
+    explanation:
+      "HTTP står för HyperText Transfer Protocol och används för att hämta och visa webbsidor från en server i webbläsaren.",
+  },
+  {
+    question: "Vad betyder S i HTTPS?",
+    options: [
+      "Secure – krypterad överföring via SSL/TLS",
+      "Static – oföränderliga resurser",
+      "Server – serveroptimerad överföring",
+      "Signed – digitalt signerade webbsidor",
+    ],
+    correct: 0,
+    explanation:
+      "HTTPS = Hypertext Transfer Protocol Secure och använder SSL/TLS för att kryptera trafiken mellan klient och server.",
+  },
+  {
+    question: "Vad fyller en Certificate Authority (CA) för roll?",
+    options: [
+      "Utfärdar och verifierar digitala certifikat för domäner",
+      "Lagrar all webbhistorik i en central databas",
+      "Skapar DNS-poster automatiskt",
+      "Genererar HTML-sidor på servern",
+    ],
+    correct: 0,
+    explanation:
+      "En CA är en betrodd tredje part som utfärdar certifikat som bevisar domänägarskap och möjliggör kryptering (t.ex. Let's Encrypt).",
+  },
+  {
+    question: "Vad gör en proxy?",
+    options: [
+      "Agerar förmedlare mellan klient och internettrafik",
+      "Krypterar alla databaser automatiskt",
+      "Renderar HTML i webbläsaren",
+      "Byter ut HTTP mot FTP",
+    ],
+    correct: 0,
+    explanation:
+      "En proxy är en mellanhand som vidarebefordrar trafik mellan klient och målserver, ofta för cache, filtrering eller säkerhet.",
+  },
+  {
+    question: "Vad är en GET-request?",
+    options: [
+      "En begäran för att hämta data från en server",
+      "En begäran för att skapa data på servern",
+      "En begäran som alltid ändrar serverns tillstånd",
+      "En begäran som bara används för filuppladdning",
+    ],
+    correct: 0,
+    explanation:
+      "GET hämtar resurser. Bland HTTP-verb är GET, POST, PUT och DELETE vanligast.",
+  },
+  {
+    question: "Vad är en POST-request?",
+    options: [
+      "En begäran för att skicka data till servern för behandling/lagring",
+      "En begäran som enbart läser data",
+      "En begäran som tar bort en resurs",
+      "En begäran som ändrar HTTP till HTTPS",
+    ],
+    correct: 0,
+    explanation:
+      "POST skickar data till servern, ofta för att skapa något. Andra vanliga verb är GET, PUT och DELETE.",
+  },
+  {
+    question: "Vad menas med att ett HTTP-request är idempotent?",
+    options: [
+      "Att samma anrop kan köras flera gånger utan att ändra resultatet",
+      "Att det alltid kräver autentisering",
+      "Att det alltid är krypterat",
+      "Att det alltid skapar nya resurser",
+    ],
+    correct: 0,
+    explanation:
+      "Idempotenta anrop (t.ex. GET) kan upprepas utan att resursens tillstånd förändras. POST/PUT/DELETE är typiskt icke-idempotenta.",
+  },
+  {
+    question: "Vad är autentisering?",
+    options: [
+      "Verifiering av en användares identitet",
+      "Tilldelning av behörigheter",
+      "Kryptering av nätverkstrafik",
+      "Loggning av systemhändelser",
+    ],
+    correct: 0,
+    explanation:
+      "Autentisering bekräftar vem användaren är, t.ex. via lösenord, BankID eller OAuth (Google, Apple, Git).",
+  },
+  {
+    question: "Vad är auktorisering?",
+    options: [
+      "Bedömning av vad en användare får göra efter autentisering",
+      "Processen att skapa användarkonton",
+      "Kryptering av lösenord vid lagring",
+      "Detektion av intrång i nätverket",
+    ],
+    correct: 0,
+    explanation:
+      "Auktorisering avgör behörigheter och åtkomst, ofta med t.ex. JWT som bärare av roller/claims.",
+  },
+  {
+    question: "Vad är Helmet i Node/Express?",
+    options: [
+      "Middleware som sätter säkerhetshuvuden i HTTP-svar",
+      "Ett ramverk för autentisering",
+      "Ett lastbalanseringsverktyg",
+      "Ett testbibliotek för API:er",
+    ],
+    correct: 0,
+    explanation:
+      "Helmet hjälper till att skydda mot vanliga webbsårbarheter genom att sätta säkra HTTP-huvuden (XSS, clickjacking m.m.).",
+  },
+  {
+    question: "Vad är OWASP?",
+    options: [
+      "En ideell organisation som förbättrar säkerheten i webbapplikationer",
+      "Ett kommersiellt antivirusprogram",
+      "En webbläsarmotor",
+      "En databasstandard",
+    ],
+    correct: 0,
+    explanation:
+      "OWASP (Open Web Application Security Project) publicerar bl.a. OWASP Top 10 och verktyg/guider för säkrare mjukvara.",
+  },
+  {
+    question: "Vad är ett penetrationstest?",
+    options: [
+      "En aktiv testning för att hitta sårbarheter genom att simulera attacker",
+      "En automatisk backup av databasen",
+      "En test av användarvänlighet (UX)",
+      "Enhetstest av en funktion",
+    ],
+    correct: 0,
+    explanation:
+      "Pen-test simulerar angripare för att hitta svagheter. ZAP (från OWASP) kan användas för webbsårbarhetstester.",
+  },
+  {
+    question: "Vad är Turingtestet relaterat till CAPTCHA?",
+    options: [
+      "Ett sätt att skilja människor från botar med uppgifter svåra för maskiner",
+      "Ett protokoll för krypterad kommunikation",
+      "En teknik för att optimera databassökningar",
+      "En metod för att komprimera bilder",
+    ],
+    correct: 0,
+    explanation:
+      "CAPTCHA (t.ex. reCAPTCHA) bygger på idéer från Turingtestet för att verifiera att en användare är människa.",
+  },
+
+  // Kryptografi & Nyckelhantering
+  {
+    question: "Vad är en hemlig (privat) nyckel?",
+    options: [
+      "Den hemliga delen av ett asymmetriskt nyckelpar som används för dekryptering och signering",
+      "En publik nyckel som delas öppet",
+      "Ett engångslösenord som byts varje minut",
+      "En hashfunktion för att lagra lösenord",
+    ],
+    correct: 0,
+    explanation:
+      "Privata nyckeln hålls hemlig och används för att dekryptera och skapa digitala signaturer.",
+  },
+  {
+    question: "Vad är en publik nyckel?",
+    options: [
+      "Den öppet delade nyckeln i asymmetrisk kryptering som andra kan använda för att kryptera eller verifiera signaturer",
+      "En nyckel som lagras i cookies",
+      "En master-nyckel som ger full åtkomst till systemet",
+      "En hash av lösenordet",
+    ],
+    correct: 0,
+    explanation:
+      "Publika nyckeln delas fritt för att möjliggöra kryptering till mottagaren och verifiering av digitala signaturer.",
+  },
+  {
+    question: "Vad är hashning?",
+    options: [
+      "En funktion som deterministiskt mappar data till ett fast längd-värde",
+      "En metod för att kryptera och dekryptera data",
+      "En algoritm som komprimerar bilder",
+      "Ett protokoll för lastbalansering",
+    ],
+    correct: 0,
+    explanation:
+      "Hashfunktioner ger ett fast hashvärde av indata, svårt att invertera. Vanligt för integritetskontroll och lösenordslagring.",
+  },
+  {
+    question: "Vad är saltning i samband med lösenord?",
+    options: [
+      "Att lägga till slumpdata till lösenord innan hashning för att göra hashvärden unika",
+      "Att kryptera lösenord med en publik nyckel",
+      "Att lagra lösenord i klartext men på en säker server",
+      "Att byta lösenord var 90:e dag",
+    ],
+    correct: 0,
+    explanation:
+      "Saltning motverkar rainbow tables och gör förhandsberäknade angrepp svårare genom unika hashvärden per lösenord.",
+  },
+  {
+    question: "Vad är audit-loggning?",
+    options: [
+      "Loggning av viktiga aktiviteter: vem gjorde vad, när och hur",
+      "En logg som endast innehåller serverstart och stop",
+      "Komprimerade loggar för att spara diskutrymme",
+      "Automatisk radering av gamla loggar",
+    ],
+    correct: 0,
+    explanation:
+      "Auditloggar stödjer spårbarhet, regelefterlevnad och säkerhetsgranskning genom detaljer om åtgärder i systemet.",
+  },
+  {
+    question: "Vad är access-loggning?",
+    options: [
+      "Registrering av alla åtkomstförsök till resurser, oavsett autentisering",
+      "Loggning enbart av lyckade inloggningar",
+      "Endast loggning av administratörers aktiviteter",
+      "En loggtyp som bara används vid felsökning",
+    ],
+    correct: 0,
+    explanation:
+      "Accessloggar visar vem som försökte komma åt vad och när, lyckat eller misslyckat, och används för övervakning och analys.",
+  },
+  {
+    question: "Vad är trace-loggning?",
+    options: [
+      "Detaljerad loggning av programflöde för felsökning",
+      "En logg som endast visar fel (errors)",
+      "En logg som bara visas i produktion",
+      "En logg över CPU- och minnesanvändning",
+    ],
+    correct: 0,
+    explanation:
+      "Trace-loggning ger finmaskig insyn i kodens exekvering (metodanrop, variabler) och är värdefull vid felsökning.",
+  },
+];

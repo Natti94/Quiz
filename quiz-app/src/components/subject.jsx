@@ -2,6 +2,7 @@ import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { questionsPlu } from "../data/plu";
 import { questionsPluExam } from "../data/pluExam";
 import { questionsApt } from "../data/apt";
+import { questionsWai } from "../data/wai";
 
 function Subject({ subject }, ref) {
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
@@ -46,6 +47,11 @@ function Subject({ subject }, ref) {
       setScore(0);
     } else if (subject === "apt") {
       setShuffledQuestions(shuffleQuestionsWithShuffledOptions(questionsApt));
+      setIndex(0);
+      setSelected(null);
+      setScore(0);
+    } else if (subject === "wai") {
+      setShuffledQuestions(shuffleQuestionsWithShuffledOptions(questionsWai));
       setIndex(0);
       setSelected(null);
       setScore(0);

@@ -19,6 +19,7 @@ function App() {
       icon: "📦",
     },
     apt: { label: "Agil Projektmetodik & Testning", icon: "🧪" },
+    wai: { label: "Webbsäkerhet; Analys och Implementation", icon: "🌐" },
   };
 
   return (

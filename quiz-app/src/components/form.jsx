@@ -71,7 +71,7 @@ function Form({ onSelect }) {
           <div className="content">
             <div className="title">Paketering, Leverans & Uppföljning</div>
             <div className="desc">
-              Planera leveranser, uppföljning och kvalitetssäkring.
+              Planera Leveranser, Uppföljning och Kvalitetssäkring.
             </div>
           </div>
         </button>
@@ -99,7 +99,7 @@ function Form({ onSelect }) {
                 Tenta: Paketering, Leverans & Uppföljning
               </div>
               <div className="desc">
-                Planera leveranser, uppföljning och kvalitetssäkring.
+                Planera Leveranser, Uppföljning och Kvalitetssäkring.
                 {examUnlocked ? "🔓" : "🔐"}
               </div>
             </div>
@@ -158,7 +158,24 @@ function Form({ onSelect }) {
           <div className="content">
             <div className="title">Agil Projektmetodik & Testning</div>
             <div className="desc">
-              Scrum, sprintar, teststrategier och verktyg.
+              Scrum, Sprintar, Teststrategier och Verktyg.
+            </div>
+          </div>
+        </button>
+
+        <button
+          type="button"
+          className="subject-card"
+          onClick={() => onSelect && onSelect("wai")}
+          aria-label="Välj Webbsäkerhet; Analys och Implementation"
+        >
+          <div className="icon wai" aria-hidden>
+            🌐
+          </div>
+          <div className="content">
+            <div className="title">Webbsäkerhet; Analys och Implementation</div>
+            <div className="desc">
+              HTTP, Säkerhet, Kryptografi och Loggning.
             </div>
           </div>
         </button>
