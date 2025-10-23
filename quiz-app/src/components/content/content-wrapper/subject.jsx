@@ -1,8 +1,8 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
-import { questionsPlu } from "../data/plu";
-import { questionsPluExam } from "../data/pluExam";
-import { questionsApt } from "../data/apt";
-import { questionsWai } from "../data/wai";
+import { questionsPlu } from "../../../data/index";
+import { questionsPluExam } from "../../../data/index";
+import { questionsApt } from "../../../data/index";
+import { questionsWai } from "../../../data/index";
 
 function Subject({ subject }, ref) {
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
@@ -72,21 +72,17 @@ function Subject({ subject }, ref) {
   }
 
   function nextQuestion() {
-    if (index + 1 < shuffledQuestions.length) {
-      setIndex((idx) => idx + 1);
-      setSelected(null);
-    } else {
-      setIndex((idx) => idx + 1);
-      setSelected(null);
-    }
+    setIndex((idx) => idx + 1);
+    setSelected(null);
   }
 
   const optionClass = (i) => {
-    const base = ["option"];
-    if (selected === null) base.push("selectable");
+    const base = ["quiz__option"];
+    if (selected === null) base.push("quiz__option--selectable");
     if (selected !== null && question) {
-      if (i === question.correct) base.push("correct");
-      if (i === selected && i !== question.correct) base.push("wrong-selected");
+      if (i === question.correct) base.push("quiz__option--correct");
+      if (i === selected && i !== question.correct)
+        base.push("quiz__option--wrong-selected");
     }
     return base.join(" ");
   };
@@ -125,15 +121,15 @@ function Subject({ subject }, ref) {
   return (
     <>
       {!isQuizDone && (
-        <div className="quiz-card">
-          <div className="quiz-left">
-            <h2 className="quiz-title">
+        <div className="quiz">
+          <div className="quiz__left">
+            <h2 className="quiz__title">
               Fråga: {index + 1} av {shuffledQuestions.length}
               <br />
               Nivå: {levelClass(question)}
             </h2>
-            <p className="quiz-question">{question?.question}</p>
-            <ul className="options">
+            <p className="quiz__question">{question?.question}</p>
+            <ul className="quiz__options">
               {question?.options.map((opt, i) => (
                 <li
                   key={i}
@@ -146,22 +142,21 @@ function Subject({ subject }, ref) {
             </ul>
             {selected !== null && (
               <>
-                <button className="next-btn" onClick={nextQuestion}>
+                <button className="quiz__next-btn" onClick={nextQuestion}>
                   <strong>Nästa</strong>
                 </button>
-                <p className="next-hint">
-                  {}
-                  {index + 1 === shuffledQuestions.length
-                    ? "Tryck nästa för att se ditt resultat!"
-                    : ""}
-                </p>
+                {index + 1 === shuffledQuestions.length && (
+                  <p className="quiz__next-hint">
+                    Tryck nästa för att se ditt resultat!
+                  </p>
+                )}
               </>
             )}
           </div>
           {selected !== null && (
-            <div className="explanation">
+            <div className="quiz__explanation">
               <strong>Förklaring:</strong>
-              <p className="explanation-text">{question?.explanation}</p>
+              <p className="quiz__explanation-text">{question?.explanation}</p>
             </div>
           )}
         </div>

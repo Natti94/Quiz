@@ -1,12 +1,3 @@
-// This script removes comments from JS/JSX/CSS/HTML across the repo (excluding node_modules, dist, etc.).
-// How to run - Windows PowerShell/Git Bash:
-//    From the frontend folder:
-//    npm run strip:comments
-//
-//    Or run directly with Node:
-//    node ./scripts/removeComments.mjs
-//
-
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -18,11 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const scriptDir = path.dirname(__filename);
 const repoRoot = path.resolve(scriptDir, "..", "..");
 
-const globs = [
-  "**/components/**/*.{js,jsx,css,html}",
-  "**/data/**/*.{js,jsx,css,html}",
-  "**/services/**/*.{js,jsx,css,html}",
-];
+const globs = ["**/*.{js,jsx,css,html}"];
 
 const ignore = [
   "**/node_modules/**",
@@ -74,28 +61,10 @@ async function main() {
   let total = 0;
   const extCounts = new Map();
   const stillHasComment = [];
-  const formPath = path
-    .join(
-      repoRoot,
-      "tibia-optimizer-frontend",
-      "src",
-      "components",
-      "optimizer",
-      "form",
-      "form.jsx"
-    )
-    .toLowerCase();
   console.log("[strip] Root:", repoRoot);
-  console.log(
-    "[strip] Files matched (components/data/services only):",
-    entries.length
-  );
+  console.log("[strip] Files matched:", entries.length);
   for (const file of entries) {
     total += 1;
-    const lower = file.toLowerCase();
-    if (lower === formPath) {
-      console.log("[strip] Matched form.jsx");
-    }
     const before = await fs.readFile(file, "utf8");
     await processFile(file);
     const after = await fs.readFile(file, "utf8");

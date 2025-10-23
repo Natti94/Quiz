@@ -349,7 +349,7 @@ export const questionsWai = [
     explanation:
       "Implementera minst privilegium, konsekventa kontroller på servern och skydda mot manipulation av URL:er/parametrar/API-anrop.",
   },
-  // Fördjupning: CA och localhost
+
   {
     question: "Kan man få ett CA-utfärdat certifikat för localhost?",
     options: [
@@ -362,21 +362,17 @@ export const questionsWai = [
     explanation:
       "Publika CA utfärdar certifikat för verifierbara domäner (FQDN), inte 'localhost'. Lokalt används ofta självsignerade eller utvecklingscertifikat.",
   },
-  // Fördjupning: Express params/query/body
+
   {
     question: "I Express: var hämtar du path-parametern i routen '/user/:id'?",
-    options: [
-      "req.params.id",
-      "req.query.id",
-      "req.body.id",
-      "req.headers.id",
-    ],
+    options: ["req.params.id", "req.query.id", "req.body.id", "req.headers.id"],
     correct: 0,
     explanation:
       "Path-parametrar (':id') nås via req.params.id. Query-parametrar finns i req.query och POST/JSON-data i req.body.",
   },
   {
-    question: "I Express: var hittar du query-parametern i '/users?role=admin'?",
+    question:
+      "I Express: var hittar du query-parametern i '/users?role=admin'?",
     options: [
       "req.query.role",
       "req.params.role",
@@ -388,13 +384,9 @@ export const questionsWai = [
       "Query-strängens nycklar finns i req.query. I exemplet hämtas 'admin' via req.query.role.",
   },
   {
-    question: "POST med 'Content-Type: application/json' – var läser du den skickade datan i Express?",
-    options: [
-      "req.body",
-      "req.params",
-      "req.query",
-      "res.locals",
-    ],
+    question:
+      "POST med 'Content-Type: application/json' – var läser du den skickade datan i Express?",
+    options: ["req.body", "req.params", "req.query", "res.locals"],
     correct: 0,
     explanation:
       "JSON-payload läses från req.body (förutsatt att JSON-body parser är aktiverad). Path/query används för parametrar i URL:en.",

@@ -1,3 +1,5 @@
+import "./nav.css";
+
 function Nav() {
   const isProd = import.meta.env.PROD;
 
@@ -8,8 +10,9 @@ function Nav() {
   };
 
   return (
-    <nav>
+    <nav className="nav">
       <button
+        className="nav__btn"
         onClick={() =>
           window.open(assets.projects_link, "_blank", "noreferrer")
         }

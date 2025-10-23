@@ -1,0 +1,89 @@
+.updates {
+  margin: 16px 0 12px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  background: #ffffffcc;
+  border-radius: 10px;
+}
+
+.updates a {
+  color: #1f2937;
+  text-decoration: none;
+}
+.updates a:hover {
+  text-decoration: underline;
+}
+
+.updates__title {
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.updates__message {
+  color: #1f2937;
+}
+
+.updates__date {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.updates__error {
+  color: #b91c1c;
+  font-size: 0.9rem;
+}
+
+.updates__empty {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.updates__viewer {
+  display: grid;
+  gap: 10px;
+}
+
+.updates__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.updates__controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.updates__btn {
+  appearance: none;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #111827;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+.updates__btn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+.updates__btn:active {
+  background: #e5e7eb;
+}
+.updates__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.updates__counter {
+  color: #6b7280;
+  font-size: 0.85rem;
+}

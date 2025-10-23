@@ -1,0 +1,11 @@
+.app-footer {
+  margin-top: 20px;
+  color: #374151;
+  text-align: center;
+}
+.app-footer__inner {
+  display: block;
+}
+.app-footer__copyright {
+  font-size: 0.9rem;
+}

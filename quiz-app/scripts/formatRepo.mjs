@@ -1,13 +1,3 @@
-// How to run (Windows PowerShell):
-// 1) From the frontend folder:
-//    npm run format:repo
-//
-// 2) Or run directly with Node:
-//    node ./scripts/formatRepo.mjs
-//
-// This script formats files across the entire repo (frontend + backend)
-// using Prettier. It mirrors the same root + ignore rules as removeComments.mjs.
-
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";

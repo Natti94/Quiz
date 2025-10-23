@@ -1,1 +1,3 @@
 /*    /index.html   200
+/api/commits    /.netlify/functions/getCommits   200
+/api/assets     /.netlify/functions/getAssets    200

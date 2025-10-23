@@ -1,0 +1,24 @@
+.nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav__btn {
+  font: inherit;
+  border: 1px solid #64748b;
+  color: #111827;
+  background: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    transform 0.05s ease;
+}
+
+.nav__btn:hover {
+  background: #f1f5f9;
+}
+.nav__btn:active {
+  transform: translateY(1px);
+}
