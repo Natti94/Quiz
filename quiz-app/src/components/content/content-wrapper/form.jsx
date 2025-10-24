@@ -4,9 +4,9 @@ function Form({ onSelect }) {
   const [showUnlock, setShowUnlock] = useState(false);
   const [examUnlocked, setExamUnlocked] = useState(false);
   const [secretInput, setSecretInput] = useState("");
+  const [recipient, setRecipient] = useState("");
   const [error, setError] = useState("");
-
-  const SECRET = import.meta.env.VITE_SECRET_KEY;
+  const [info, setInfo] = useState("");
 
   const handleExamClick = () => {
     if (examUnlocked) {
@@ -16,31 +16,74 @@ function Form({ onSelect }) {
     setShowUnlock((v) => !v);
   };
 
-  const attemptUnlock = (e) => {
+  const attemptUnlock = async (e) => {
     e.preventDefault();
-    if (!secretInput.trim()) {
+    setError("");
+    const key = secretInput.trim();
+    if (!key) {
       setError("Nyckel krävs");
       return;
     }
-    if (secretInput === SECRET) {
+    try {
+      const res = await fetch("/api/verifyUnlock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok || !data?.token) {
+        setError("Fel nyckel");
+        return;
+      }
+      localStorage.setItem("examToken", data.token);
       setExamUnlocked(true);
-      setError("");
       onSelect && onSelect("plu-exam");
-      localStorage.setItem("examUnlocked", "true");
       setShowUnlock(false);
-    } else {
-      setError("Fel nyckel");
+    } catch (err) {
+      setError("Tekniskt fel. Försök igen.");
     }
   };
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem("examUnlocked");
-      if (stored === "true") {
-        setExamUnlocked(true);
+      const token = localStorage.getItem("examToken");
+      if (!token) return;
+      const parts = token.split(".");
+      if (parts.length !== 3) return;
+      const payload = JSON.parse(atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")));
+      if (payload && typeof payload.exp === "number") {
+        const now = Math.floor(Date.now() / 1000);
+        if (payload.exp > now) setExamUnlocked(true);
+        else localStorage.removeItem("examToken");
       }
-    } catch (err) {}
+    } catch {}
   }, []);
+
+  async function requestUnlock(e) {
+    e?.preventDefault?.();
+    setError("");
+    setInfo("");
+    const email = recipient.trim();
+    if (!email) {
+      setError("E-post krävs");
+      return;
+    }
+    try {
+      const res = await fetch("/api/requestUnlock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recipient: email }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data?.error || `Fel ${res.status}`);
+      }
+      setInfo("Begäran skickad. Du kontaktas via e-post.");
+      setRecipient("");
+    } catch (err) {
+      setError(`Kunde inte skicka begäran: ${err.message}`);
+    }
+  }
 
   return (
     <div
@@ -137,14 +180,35 @@ function Form({ onSelect }) {
                     setShowUnlock(false);
                     setSecretInput("");
                     setError("");
+                    setInfo("");
                   }}
                 >
                   Avbryt
                 </button>
+                <div className="subjects__request-key">
+                  <label className="subjects__unlock-label" style={{ display: "block" }}>
+                    Din e-post för nyckel:
+                    <input
+                      type="email"
+                      value={recipient}
+                      onChange={(e) => setRecipient(e.target.value)}
+                      placeholder="namn@example.com"
+                      className="subjects__unlock-input"
+                    />
+                  </label>
+                  <button type="button" className="subjects__resend-btn" onClick={requestUnlock}>
+                    Begär nyckel
+                  </button>
+                </div>
               </div>
               {error && (
                 <div className="subjects__unlock-error" role="alert">
                   {error}
+                </div>
+              )}
+              {info && (
+                <div className="subjects__unlock-info" role="status">
+                  {info}
                 </div>
               )}
             </form>
