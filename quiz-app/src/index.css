@@ -17,7 +17,10 @@ body,
   font-family: sans-serif;
   min-height: 100vh;
   display: block;
-  padding: calc(24px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left));
+  padding: calc(24px + env(safe-area-inset-top))
+    calc(20px + env(safe-area-inset-right))
+    calc(20px + env(safe-area-inset-bottom))
+    calc(20px + env(safe-area-inset-left));
   background-color: #f0f0f0;
 }
 
@@ -45,8 +48,8 @@ body,
   text-align: center;
 }
 
-.app-header, nav {
-  /* Center th  e nav under the title across breakpoints */
+.app-header,
+nav {
   grid-column: 1 / -1;
   justify-self: center;
 }

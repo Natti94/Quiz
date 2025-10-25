@@ -3,3 +3,4 @@
 /api/assets     /.netlify/functions/getAssets    200
 /api/requestUnlock /.netlify/functions/requestUnlock 200
 /api/verifyUnlock /.netlify/functions/verifyUnlock 200
+/api/getDevUnlockKey /.netlify/functions/getDevUnlockKey 200

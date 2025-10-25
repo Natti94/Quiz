@@ -1,0 +1,42 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Local dev server (Netlify CLI will proxy to Vite by default)
+[dev]
+  framework = "vite"
+  targetPort = 5173
+  port = 8888
+
+# Ensure /api/* works both in dev and prod
+[[redirects]]
+  from = "/api/verifyUnlock"
+  to = "/.netlify/functions/verifyUnlock"
+  status = 200
+
+[[redirects]]
+  from = "/api/requestUnlock"
+  to = "/.netlify/functions/requestUnlock"
+  status = 200
+
+[[redirects]]
+  from = "/api/commits"
+  to = "/.netlify/functions/getCommits"
+  status = 200
+
+[[redirects]]
+  from = "/api/assets"
+  to = "/.netlify/functions/getAssets"
+  status = 200
+
+[[redirects]]
+  from = "/api/getDevUnlockKey"
+  to = "/.netlify/functions/getDevUnlockKey"
+  status = 200
+
+# SPA fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

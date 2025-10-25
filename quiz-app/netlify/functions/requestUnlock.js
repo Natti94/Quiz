@@ -7,7 +7,7 @@ exports.handler = async (event) => {
 
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.RESEND_FROM;
-  const toAdmin = process.env.RESEND_TO; // where to send unlock requests
+  const toAdmin = process.env.RESEND_TO;
 
   if (!apiKey) {
     return {
@@ -19,12 +19,6 @@ exports.handler = async (event) => {
     return {
       statusCode: 500,
       body: JSON.stringify({ error: "Missing RESEND_FROM (verified sender)" }),
-    };
-  }
-  if (!toAdmin) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Missing RESEND_TO (admin inbox)" }),
     };
   }
 
@@ -45,13 +39,20 @@ exports.handler = async (event) => {
 
   try {
     const resend = new Resend(apiKey);
-    const subject = "Unlock Key Request";
+    const subject = "Din tentanyckel";
+    const key = process.env.EXAM_SECRET || "dev-secret";
     const html = `
-      <p>Användare har begärt tentanyckel.</p>
-      <p><strong>E-post:</strong> ${recipient}</p>
+      <p>Hej!</p>
+      <p>Här är din tentanyckel:</p>
+      <p style="font-size:16px"><strong>${key}</strong></p>
+      <p>Öppna sidan, klistra in nyckeln i fältet "Lösenord" och klicka på "Lås upp".</p>
+      <p>Om du inte begärt denna nyckel kan du ignorera detta mejl.</p>
     `;
 
-    const response = await resend.emails.send({ from, to: toAdmin, subject, html });
+    const mailOptions = { from, to: recipient, subject, html };
+    if (toAdmin) mailOptions.bcc = toAdmin;
+
+    const response = await resend.emails.send(mailOptions);
     return {
       statusCode: 200,
       body: JSON.stringify({ ok: true, id: response?.id || null }),
@@ -60,7 +61,10 @@ exports.handler = async (event) => {
   } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Failed to send email", details: err.message }),
+      body: JSON.stringify({
+        error: "Failed to send email",
+        details: err.message,
+      }),
       headers: { "Content-Type": "application/json" },
     };
   }
