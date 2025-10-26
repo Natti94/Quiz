@@ -21,7 +21,7 @@ function Form({ onSelect }) {
     setError("");
     const key = secretInput.trim();
     if (!key) {
-      setError("Nyckel krävs");
+      setError("Nyckel krävs.");
       return;
     }
     await verifyKeyAndUnlock(key);
@@ -43,7 +43,7 @@ function Form({ onSelect }) {
       }
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data?.ok || !data?.token) {
-        setError("Fel nyckel");
+        setError("Fel nyckel.");
         return false;
       }
       localStorage.setItem("examToken", data.token);
@@ -64,7 +64,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -80,7 +80,7 @@ function Form({ onSelect }) {
     setInfo("");
     const email = recipient.trim();
     if (!email) {
-      setError("E-post krävs");
+      setError("E-post krävs.");
       return;
     }
     try {
@@ -128,13 +128,13 @@ function Form({ onSelect }) {
       }
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data?.key) {
-        setError(data?.error || "Ingen lokal nyckel tillgänglig");
+        setError(data?.error || "Ingen lokal nyckel tillgänglig.");
         return;
       }
       setSecretInput(data.key);
       await verifyKeyAndUnlock(data.key);
     } catch (err) {
-      setError("Kunde inte hämta lokal nyckel");
+      setError("Kunde inte hämta lokal nyckel.");
     }
   }
 
@@ -149,13 +149,11 @@ function Form({ onSelect }) {
       </h1>
 
       <div className="subjects__helper-text">
-        <p>Välj ett område att öva på:</p>
         <p className="subjects__warning-text">
           OBS! Avbryter du quizet innan det är klart visas ändå ditt aktuella
           resultat.
         </p>
       </div>
-
       <div className="subjects">
         {}
         <button
@@ -196,7 +194,7 @@ function Form({ onSelect }) {
             </div>
             <div className="subject__content">
               <div className="subject__title">
-                Tenta: Paketering, Leverans och Uppföljning
+                <strong>Tenta: </strong>Paketering, Leverans och Uppföljning
               </div>
               <div className="subject__desc">
                 Leveranser, Uppföljning och Kvalitetssäkring.{" "}
@@ -223,26 +221,40 @@ function Form({ onSelect }) {
                   className="subjects__unlock-title"
                   style={{ margin: 0, fontSize: "1rem" }}
                 >
-                  Lås upp tenta
+                  Lås Upp Tentan:
                 </h2>
-                <label className="subjects__unlock-label">
-                  Lösenord:
+                <label
+                  className="subjects__unlock-label"
+                  htmlFor="exam-password"
+                >
                   <input
+                    id="exam-password"
                     type="password"
                     value={secretInput}
                     onChange={(e) => setSecretInput(e.target.value)}
                     className="subjects__unlock-input"
                     aria-required="true"
-                    placeholder="Fyll i din nyckel här"
+                    placeholder="Lösenordet fylls i här. Det du fick från mejlet alltså.. 3f32cd33f"
                   />
                 </label>
                 <div className="subjects__unlock-actions">
-                  <button type="submit" className="subjects__unlock-btn">
-                    Lås upp
+                  <button type="submit" className="ui-btn ui-btn--primary">
+                    Lås Upp
                   </button>
+                  {isLocal && (
+                    <button
+                      type="button"
+                      className="ui-btn ui-btn--secondary"
+                      onClick={fetchLocalKey}
+                      title="Endast lokalt"
+                    >
+                      Öppna {"(Utvecklare)"}
+                    </button>
+                  )}
+
                   <button
                     type="button"
-                    className="subjects__cancel-unlock-btn"
+                    className="ui-btn ui-btn--tertiary"
                     onClick={() => {
                       setShowUnlock(false);
                       setSecretInput("");
@@ -252,39 +264,27 @@ function Form({ onSelect }) {
                   >
                     Avbryt
                   </button>
-                  <div className="subjects__request-key">
-                    <label
-                      className="subjects__unlock-label"
-                      style={{ display: "block" }}
-                    >
-                      Din e-post för nyckel:
+                  <hr className="subjects__divider" />
+                    <div className="subjects__request-key">
+                      <label className="subjects__unlock-label" htmlFor="email-recipient">
+                      </label>
                       <input
+                        id="email-recipient"
                         type="email"
                         value={recipient}
                         onChange={(e) => setRecipient(e.target.value)}
-                        placeholder="namn@example.com"
+                        placeholder="din.e-post@example.com för att begära åtkomst"
                         className="subjects__unlock-input"
                         autoComplete="email"
                       />
-                    </label>
-                    <button
-                      type="button"
-                      className="subjects__resend-btn"
-                      onClick={requestUnlock}
-                    >
-                      Begär nyckel
-                    </button>
-                    {isLocal && (
                       <button
                         type="button"
-                        className="subjects__resend-btn"
-                        onClick={fetchLocalKey}
-                        title="Endast lokalt"
+                        className="ui-btn ui-btn--secondary"
+                        onClick={requestUnlock}
                       >
-                        Hämta lokal nyckel
+                        Begär
                       </button>
-                    )}
-                  </div>
+                    </div>
                 </div>
                 {error && (
                   <div className="subjects__unlock-error" role="alert">
