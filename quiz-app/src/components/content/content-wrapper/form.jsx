@@ -29,18 +29,11 @@ function Form({ onSelect }) {
 
   const verifyKeyAndUnlock = async (key) => {
     try {
-      let res = await fetch("/api/verifyUnlock", {
+      const res = await callFunction("verifyUnlock", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key }),
       });
-      if (res.status === 404) {
-        res = await fetch("/.netlify/functions/verifyUnlock", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ key }),
-        });
-      }
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data?.ok || !data?.token) {
         setError("Fel nyckel.");
@@ -74,6 +67,37 @@ function Form({ onSelect }) {
     } catch {}
   }, []);
 
+  function getFunctionBases() {
+    try {
+      const pref = localStorage.getItem("fnBase");
+      if (pref === "/.netlify/functions")
+        return ["/.netlify/functions", "/api"];
+      if (pref === "/api") return ["/api", "/.netlify/functions"];
+    } catch {}
+
+    return ["/.netlify/functions", "/api"];
+  }
+
+  async function callFunction(name, init) {
+    const bases = getFunctionBases();
+    let lastRes;
+    for (const base of bases) {
+      try {
+        const res = await fetch(`${base}/${name}`, init);
+        lastRes = res;
+        if (res.status !== 404) {
+          if (res.ok) {
+            try {
+              localStorage.setItem("fnBase", base);
+            } catch {}
+          }
+          return res;
+        }
+      } catch {}
+    }
+    return lastRes;
+  }
+
   async function requestUnlock(e) {
     e?.preventDefault?.();
     setError("");
@@ -84,18 +108,11 @@ function Form({ onSelect }) {
       return;
     }
     try {
-      let res = await fetch("/api/requestUnlock", {
+      const res = await callFunction("requestUnlock", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ recipient: email }),
       });
-      if (res.status === 404) {
-        res = await fetch("/.netlify/functions/requestUnlock", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ recipient: email }),
-        });
-      }
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data?.error || `Fel ${res.status}`);
@@ -122,10 +139,7 @@ function Form({ onSelect }) {
       const headers = devToken
         ? { ...baseHeaders, "x-dev-token": devToken }
         : baseHeaders;
-      let res = await fetch("/api/getDevUnlockKey", { headers });
-      if (res.status === 404) {
-        res = await fetch("/.netlify/functions/getDevUnlockKey", { headers });
-      }
+      const res = await callFunction("getDevUnlockKey", { headers });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data?.key) {
         setError(data?.error || "Ingen lokal nyckel tillgänglig.");
