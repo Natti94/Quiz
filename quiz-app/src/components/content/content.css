@@ -49,7 +49,7 @@
   place-items: center;
   font-size: clamp(32px, 5vw, 40px);
   line-height: 1;
-  background: #f1f5f9; /* universal subtle background for icons */
+  background: #f1f5f9;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
 }
@@ -202,7 +202,7 @@
   border-radius: 6px;
   background: #fff;
   width: 100%;
-  box-sizing: border-box; /* ensure padding/border don’t overflow container */
+  box-sizing: border-box;
 }
 
 .subjects__unlock-input:focus-visible {
@@ -219,47 +219,44 @@
 }
 
 .subjects__divider {
-  flex-basis: 100%; /* force a new row in the flex container */
+  flex-basis: 100%;
   width: 100%;
   height: 1px;
   border: 0;
-  background: #e5e7eb; /* light gray */
+  background: #e5e7eb;
   margin: 8px 0;
 }
 
 .subjects__request-key {
   display: grid;
   gap: 8px;
-  grid-template-columns: 1fr auto; /* input + button on same row */
+  grid-template-columns: 1fr auto;
   align-items: center;
   justify-items: stretch;
-  flex-basis: 100%; /* as a flex child, span full row width */
+  flex-basis: 100%;
   width: 100%;
 }
 
 .subjects__request-key .subjects__unlock-label {
-  grid-column: 1 / -1; /* place label above: span both columns */
+  grid-column: 1 / -1;
   width: 100%;
 }
 
 @media (max-width: 420px) {
   .subjects__request-key {
-    grid-template-columns: 1fr; /* stack on small screens */
+    grid-template-columns: 1fr;
   }
 }
 
-/* Label text alignment in request section */
 .subjects__request-key .subjects__unlock-label {
   text-align: left;
 }
 
-/* Place the icon button to the right of the input */
 .subjects__request-key .subjects__action-btn,
 .subjects__request-key .subjects__request-btn {
   justify-self: end;
 }
 
-/* Universal icon action button (used for unlock, cancel, request, local) */
 .subjects__action-btn {
   font: inherit;
   display: inline-flex;
@@ -268,29 +265,33 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: #f1f5f9; /* universal neutral */
+  background: #f1f5f9;
   border: 1px solid #e2e8f0;
   color: #0f172a;
   cursor: pointer;
-  transition: background 0.12s ease, box-shadow 0.12s ease, transform 0.05s ease;
+  transition:
+    background 0.12s ease,
+    box-shadow 0.12s ease,
+    transform 0.05s ease;
 }
 .subjects__action-btn:hover {
   background: #e2e8f0;
-  box-shadow: 0 2px 6px rgba(2,6,23,0.08);
+  box-shadow: 0 2px 6px rgba(2, 6, 23, 0.08);
 }
 .subjects__action-btn:active {
   transform: translateY(1px);
 }
 .subjects__action-btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px #dbeafe, 0 2px 6px rgba(2,6,23,0.1);
+  box-shadow:
+    0 0 0 3px #dbeafe,
+    0 2px 6px rgba(2, 6, 23, 0.1);
 }
 .subjects__action-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* Universal text button styles (use across the modal) */
 .ui-btn {
   font: inherit;
   display: inline-flex;
@@ -300,42 +301,60 @@
   padding: 8px 14px;
   min-height: 40px;
   border-radius: 8px;
-  border: 1px solid #94a3b8; /* slate-400 default */
+  border: 1px solid #94a3b8;
   background: #ffffff;
   color: #0f172a;
   cursor: pointer;
-  transition: background 0.12s ease, box-shadow 0.12s ease, transform 0.05s ease;
+  transition:
+    background 0.12s ease,
+    box-shadow 0.12s ease,
+    transform 0.05s ease;
 }
 .ui-btn:hover {
   background: #f1f5f9;
 }
-.ui-btn:active { transform: translateY(1px); }
-.ui-btn:focus-visible { outline: 2px solid #3b82f6; outline-offset: 1px; }
-.ui-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.ui-btn:active {
+  transform: translateY(1px);
+}
+.ui-btn:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 1px;
+}
+.ui-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 .ui-btn--primary {
   background: #0d9488;
   color: #ffffff;
   border-color: #0d9488;
 }
-.ui-btn--primary:hover { background: #0f766e; }
+.ui-btn--primary:hover {
+  background: #0f766e;
+}
 
 .ui-btn--secondary {
   background: #ffffff;
   color: #0d9488;
   border-color: #0d9488;
 }
-.ui-btn--secondary:hover { background: #f0fdfa; }
+.ui-btn--secondary:hover {
+  background: #f0fdfa;
+}
 
 .ui-btn--tertiary {
   background: #ffffff;
   color: #334155;
   border-color: #cbd5e1;
 }
-.ui-btn--tertiary:hover { background: #f8fafc; }
+.ui-btn--tertiary:hover {
+  background: #f8fafc;
+}
 
-/* Align request button to the right of the email input */
-.subjects__request-key .ui-btn { justify-self: end; }
+.subjects__request-key .ui-btn {
+  justify-self: end;
+}
 
 .subjects__unlock-btn,
 .subjects__cancel-unlock-btn {

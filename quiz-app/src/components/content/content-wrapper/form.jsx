@@ -64,7 +64,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -265,26 +265,28 @@ function Form({ onSelect }) {
                     Avbryt
                   </button>
                   <hr className="subjects__divider" />
-                    <div className="subjects__request-key">
-                      <label className="subjects__unlock-label" htmlFor="email-recipient">
-                      </label>
-                      <input
-                        id="email-recipient"
-                        type="email"
-                        value={recipient}
-                        onChange={(e) => setRecipient(e.target.value)}
-                        placeholder="din.e-post@example.com för att begära åtkomst"
-                        className="subjects__unlock-input"
-                        autoComplete="email"
-                      />
-                      <button
-                        type="button"
-                        className="ui-btn ui-btn--secondary"
-                        onClick={requestUnlock}
-                      >
-                        Begär
-                      </button>
-                    </div>
+                  <div className="subjects__request-key">
+                    <label
+                      className="subjects__unlock-label"
+                      htmlFor="email-recipient"
+                    ></label>
+                    <input
+                      id="email-recipient"
+                      type="email"
+                      value={recipient}
+                      onChange={(e) => setRecipient(e.target.value)}
+                      placeholder="din.e-post@example.com för att begära åtkomst"
+                      className="subjects__unlock-input"
+                      autoComplete="email"
+                    />
+                    <button
+                      type="button"
+                      className="ui-btn ui-btn--secondary"
+                      onClick={requestUnlock}
+                    >
+                      Begär
+                    </button>
+                  </div>
                 </div>
                 {error && (
                   <div className="subjects__unlock-error" role="alert">
