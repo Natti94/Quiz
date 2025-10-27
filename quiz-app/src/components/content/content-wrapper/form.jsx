@@ -3,17 +3,58 @@ import { useState, useEffect } from "react";
 function Form({ onSelect }) {
   const [showUnlock, setShowUnlock] = useState(false);
   const [examUnlocked, setExamUnlocked] = useState(false);
+  const [formKey, setFormKey] = useState("");
   const [secretInput, setSecretInput] = useState("");
   const [recipient, setRecipient] = useState("");
   const [error, setError] = useState("");
   const [info, setInfo] = useState("");
+  const [unlockStep, setUnlockStep] = useState("request");
+  const [preToken, setPreToken] = useState("");
+  const [hasPreAccess, setHasPreAccess] = useState(false);
 
   const handleExamClick = () => {
     if (examUnlocked) {
       onSelect && onSelect("plu-exam");
       return;
     }
-    setShowUnlock((v) => !v);
+    setShowUnlock((v) => {
+      const next = !v;
+      if (next) setUnlockStep("request");
+      return next;
+    });
+  };
+
+  const verifyPreAccess = async (e) => {
+    e.preventDefault();
+    setError("");
+    const adminKey = formKey.trim();
+    if (!adminKey) {
+      setError(
+        "Du behöver en admin-nyckel. Kontakta Administratören via Discord.",
+      );
+      return;
+    }
+    try {
+      const res = await callFunction("verifyPreaccess", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ key: adminKey }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data?.ok || !data?.token) {
+        setError(data?.error || "Fel admin-nyckel.");
+        return;
+      }
+      localStorage.setItem("preToken", data.token);
+      setPreToken(data.token);
+      setHasPreAccess(true);
+      setInfo(
+        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln.",
+      );
+      setFormKey("");
+    } catch (err) {
+      setError("Tekniskt fel. Försök igen.");
+    }
   };
 
   const attemptUnlock = async (e) => {
@@ -42,7 +83,6 @@ function Form({ onSelect }) {
       localStorage.setItem("examToken", data.token);
       setExamUnlocked(true);
       onSelect && onSelect("plu-exam");
-      setShowUnlock(false);
       return true;
     } catch (err) {
       setError("Tekniskt fel. Försök igen.");
@@ -63,6 +103,25 @@ function Form({ onSelect }) {
         const now = Math.floor(Date.now() / 1000);
         if (payload.exp > now) setExamUnlocked(true);
         else localStorage.removeItem("examToken");
+      }
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try {
+      const t = localStorage.getItem("preToken");
+      if (!t) return;
+      const parts = t.split(".");
+      if (parts.length !== 3) return;
+      const payload = JSON.parse(
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+      );
+      const now = Math.floor(Date.now() / 1000);
+      if (payload && payload.exp && payload.exp > now) {
+        setPreToken(t);
+        setHasPreAccess(true);
+      } else {
+        localStorage.removeItem("preToken");
       }
     } catch {}
   }, []);
@@ -102,6 +161,10 @@ function Form({ onSelect }) {
     e?.preventDefault?.();
     setError("");
     setInfo("");
+    if (!hasPreAccess || !preToken) {
+      setError("Admin-nyckel krävs innan du kan begära tentanyckel.");
+      return;
+    }
     const email = recipient.trim();
     if (!email) {
       setError("E-post krävs.");
@@ -110,14 +173,20 @@ function Form({ onSelect }) {
     try {
       const res = await callFunction("requestUnlock", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${preToken}`,
+        },
         body: JSON.stringify({ recipient: email }),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
         throw new Error(data?.error || `Fel ${res.status}`);
       }
-      setInfo("Nyckel skickad till din e-post (kolla även skräppost).");
+      setInfo(
+        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp.",
+      );
+      setUnlockStep("unlock");
       setRecipient("");
     } catch (err) {
       setError(`Kunde inte skicka begäran: ${err.message}`);
@@ -216,7 +285,6 @@ function Form({ onSelect }) {
               </div>
             </div>
           </button>
-
           {showUnlock && !examUnlocked && (
             <div
               className="subjects__overlay"
@@ -230,77 +298,135 @@ function Form({ onSelect }) {
                 className="subjects__unlock-panel"
                 aria-label="Lås upp tenta"
               >
+                {}
                 <h2
                   id="unlock-title"
                   className="subjects__unlock-title"
                   style={{ margin: 0, fontSize: "1rem" }}
                 >
-                  Lås Upp Tentan:
+                  Steg 1: Verifiera admin-nyckel
                 </h2>
-                <label
-                  className="subjects__unlock-label"
-                  htmlFor="exam-password"
+                <div
+                  className="subjects__request-key"
+                  style={{ marginBottom: "1rem" }}
                 >
+                  <label
+                    className="subjects__unlock-label"
+                    htmlFor="admin-key"
+                  ></label>
                   <input
-                    id="exam-password"
-                    type="password"
-                    value={secretInput}
-                    onChange={(e) => setSecretInput(e.target.value)}
+                    id="admin-key"
+                    type="text"
+                    value={formKey}
+                    onChange={(e) => setFormKey(e.target.value)}
+                    placeholder="Admin-nyckel (GUID) från Administratören"
                     className="subjects__unlock-input"
-                    aria-required="true"
-                    placeholder="Lösenordet fylls i här. Det du fick från mejlet alltså.. 3f32cd33f"
                   />
-                </label>
-                <div className="subjects__unlock-actions">
-                  <button type="submit" className="ui-btn ui-btn--primary">
-                    Lås Upp
+                  <button
+                    type="button"
+                    className="ui-btn ui-btn--secondary"
+                    onClick={verifyPreAccess}
+                  >
+                    Verifiera
                   </button>
-                  {isLocal && (
-                    <button
-                      type="button"
-                      className="ui-btn ui-btn--secondary"
-                      onClick={fetchLocalKey}
-                      title="Endast lokalt"
-                    >
-                      Öppna {"(Utvecklare)"}
-                    </button>
-                  )}
+                </div>
 
+                {}
+                {hasPreAccess && (
+                  <>
+                    <h3
+                      className="subjects__unlock-title"
+                      style={{ margin: 0, fontSize: "1rem" }}
+                    >
+                      Steg 2: Skicka nyckel till din e-post
+                    </h3>
+                    <div
+                      className="subjects__request-key"
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <label
+                        className="subjects__unlock-label"
+                        htmlFor="email-recipient"
+                      ></label>
+                      <input
+                        id="email-recipient"
+                        type="email"
+                        value={recipient}
+                        onChange={(e) => setRecipient(e.target.value)}
+                        placeholder="din.e-post@example.com"
+                        className="subjects__unlock-input"
+                        autoComplete="email"
+                      />
+                      <button
+                        type="button"
+                        className="ui-btn ui-btn--secondary"
+                        onClick={requestUnlock}
+                      >
+                        Skicka nyckel
+                      </button>
+                    </div>
+                  </>
+                )}
+
+                {}
+                {(unlockStep === "unlock" || isLocal) && (
+                  <>
+                    <h3
+                      className="subjects__unlock-title"
+                      style={{ margin: 0, fontSize: "1rem" }}
+                    >
+                      Steg 2: Lås upp med din nyckel
+                    </h3>
+                    <label
+                      className="subjects__unlock-label"
+                      htmlFor="exam-password"
+                    >
+                      <input
+                        id="exam-password"
+                        type="text"
+                        value={secretInput}
+                        onChange={(e) => setSecretInput(e.target.value)}
+                        className="subjects__unlock-input"
+                        aria-required="true"
+                        placeholder="Engångsnyckeln från e-post"
+                      />
+                    </label>
+                    <div className="subjects__unlock-actions">
+                      <button type="submit" className="ui-btn ui-btn--primary">
+                        Lås Upp
+                      </button>
+                      {isLocal && (
+                        <button
+                          type="button"
+                          className="ui-btn ui-btn--secondary"
+                          onClick={fetchLocalKey}
+                          title="Endast lokalt"
+                        >
+                          Öppna {"(Utvecklare)"}
+                        </button>
+                      )}
+                    </div>
+                  </>
+                )}
+
+                <div
+                  className="subjects__unlock-actions"
+                  style={{ marginTop: "0.75rem" }}
+                >
                   <button
                     type="button"
                     className="ui-btn ui-btn--tertiary"
                     onClick={() => {
                       setShowUnlock(false);
                       setSecretInput("");
+                      setRecipient("");
                       setError("");
                       setInfo("");
+                      setUnlockStep("request");
                     }}
                   >
                     Avbryt
                   </button>
-                  <hr className="subjects__divider" />
-                  <div className="subjects__request-key">
-                    <label
-                      className="subjects__unlock-label"
-                      htmlFor="email-recipient"
-                    ></label>
-                    <input
-                      id="email-recipient"
-                      type="email"
-                      value={recipient}
-                      onChange={(e) => setRecipient(e.target.value)}
-                      placeholder="din.e-post@example.com för att begära åtkomst"
-                      className="subjects__unlock-input"
-                      autoComplete="email"
-                    />
-                    <button
-                      type="button"
-                      className="ui-btn ui-btn--secondary"
-                      onClick={requestUnlock}
-                    >
-                      Begär
-                    </button>
-                  </div>
                 </div>
                 {error && (
                   <div className="subjects__unlock-error" role="alert">

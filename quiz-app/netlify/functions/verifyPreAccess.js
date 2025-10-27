@@ -9,7 +9,7 @@ function b64url(input) {
     .replace(/\//g, "_");
 }
 
-function signJWT(payload, secret, ttlSec = 6 * 60 * 60) {
+function signJWT(payload, secret, ttlSec) {
   const header = { alg: "HS256", typ: "JWT" };
   const now = Math.floor(Date.now() / 1000);
   const body = { ...payload, iat: now, exp: now + ttlSec };
@@ -30,6 +30,17 @@ function sha256Hex(s) {
   return crypto.createHash("sha256").update(s).digest("hex");
 }
 
+function getBlobsStore(name) {
+  const siteID =
+    process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
+  const token =
+    process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
+  if (siteID && token) {
+    return getStore(name, { siteID, token });
+  }
+  return getStore(name);
+}
+
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
@@ -46,21 +57,11 @@ export const handler = async (event) => {
     .trim()
     .toUpperCase();
   if (!provided) {
-    await new Promise((r) => setTimeout(r, 200));
     return { statusCode: 400, body: JSON.stringify({ error: "Key required" }) };
   }
 
-  const jwtSecret = process.env.JWT_SECRET || "dev-secret";
-  const siteID =
-    process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
-  const blobsToken =
-    process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
-  const store =
-    siteID && blobsToken
-      ? getStore("unlock-keys", { siteID, token: blobsToken })
-      : getStore("unlock-keys");
+  const store = getBlobsStore("pre-keys");
   const keyHash = sha256Hex(provided);
-
   const rec = await store.getJSON(keyHash);
   if (!rec) {
     return {
@@ -68,7 +69,6 @@ export const handler = async (event) => {
       body: JSON.stringify({ ok: false, error: "Invalid key" }),
     };
   }
-
   const now = Date.now();
   if (rec.expiresAt && now > rec.expiresAt) {
     try {
@@ -84,7 +84,9 @@ export const handler = async (event) => {
     await store.delete(keyHash);
   } catch {}
 
-  const { token, exp } = signJWT({ sub: "exam" }, jwtSecret, 6 * 60 * 60);
+  const jwtSecret = process.env.JWT_SECRET || "dev-secret";
+  const { token, exp } = signJWT({ scope: "pre" }, jwtSecret, 30 * 60);
+
   return {
     statusCode: 200,
     headers: { "Content-Type": "application/json" },
