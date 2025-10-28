@@ -303,26 +303,27 @@ function Form({ onSelect }) {
               aria-modal="true"
               aria-labelledby="unlock-title"
             >
-              <button
-                type="button"
-                className="subjects__discord-btn"
-                onClick={() => window.open(assets.discord_link, "_blank")}
-                aria-label="Öppna Discord för att få admin-nyckeln"
-                title="Öppna Discord (få admin-nyckeln)"
-              >
-                <img
-                  src={assets.discord_icon}
-                  alt="Discord Icon"
-                  className="subjects__discord-icon"
-                />
-              </button>
-
               <form
                 id="exam-unlock-panel"
                 onSubmit={attemptUnlock}
                 className="subjects__unlock-panel"
                 aria-label="Lås upp tenta"
               >
+                {/* Discord icon inside the container (no animation) */}
+                <a
+                  href={assets.discord_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="subjects__discord-link"
+                  aria-label="Öppna Discord för att få admin-nyckeln"
+                  title="Öppna Discord (få admin-nyckeln)"
+                >
+                  <img
+                    src={assets.discord_icon}
+                    alt="Discord"
+                    className="subjects__discord-icon-static"
+                  />
+                </a>
                 {}
                 <h2
                   id="unlock-title"

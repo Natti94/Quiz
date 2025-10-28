@@ -62,13 +62,22 @@ export const handler = async (event) => {
   }
 
   if (data.type === 1) {
+    console.log("[discord] Received PING (type=1). Bypass:", bypassVerify);
     return jsonResponse({ type: 1 });
   }
 
   if (data.type === 2) {
     const name = data.data?.name?.toLowerCase();
     const channelId = data.channel_id;
+    console.log(
+      "[discord] Command received",
+      JSON.stringify({ name, channelId, bypassVerify })
+    );
     if (allowedChannel && channelId !== allowedChannel) {
+      console.log(
+        "[discord] Command used in disallowed channel",
+        JSON.stringify({ channelId, allowedChannel })
+      );
       return jsonResponse({
         type: 4,
         data: {
@@ -91,6 +100,7 @@ export const handler = async (event) => {
       );
 
       const content = `Din admin-nyckel (giltig i ${ttlMinutes} min): ${code}`;
+      console.log("[discord] Prekey generated, ttlMinutes=", ttlMinutes);
 
       return jsonResponse({ type: 4, data: { content, flags: 64 } });
     }
