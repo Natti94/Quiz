@@ -82,6 +82,20 @@ npm run dev
 
 Then open http://localhost:5173.
 
+### Local dev with API (/api/\*)
+
+To use the unlock and updates APIs locally, run the Netlify Dev server (proxies Vite and mounts functions) and open the app on port 8888:
+
+```powershell
+npm run dev:netlify        # starts Netlify Dev
+# or (Windows): auto-open browser, then start Netlify Dev
+npm run dev:netlify:open
+```
+
+Note: Some Netlify CLI versions don’t support a --open flag. The "dev:netlify:open" script opens http://localhost:8888 via PowerShell and then launches Netlify Dev.
+
+Then open (or it will open automatically): http://localhost:8888. If you see 404s for /api/\* on port 5173, you’re on the Vite-only server; use the Netlify Dev URL instead.
+
 ### Build & Preview
 
 ```powershell
@@ -96,21 +110,37 @@ npm run preview
 
 Create a local `.env` inside `quiz-app/` (do not commit it; the repo ignores `.env`). Configure the same keys in your Netlify site settings for production.
 
-Required (app behavior):
+Required
+
+Client (public):
 
 ```
 VITE_CLOUDINARY_PROJECTS_LINK=https://your-projects-site.example.com/
-VITE_SECRET_KEY=your-exam-unlock-key
 ```
 
-- In production, the app calls `/.netlify/functions/getAssets?asset=projects_link` which redirects to the URL above.
-- In development, the URL is read directly from `VITE_CLOUDINARY_PROJECTS_LINK`.
-- The exam unlock form compares the input to `VITE_SECRET_KEY`. When unlocked, a `localStorage` flag `examUnlocked=true` is stored.
+Server (Netlify Functions):
+
+```
+EXAM_SECRET=your-local-or-prod-exam-key
+JWT_SECRET=your-jwt-signing-secret
+```
+
+- The client calls `/api/verifyUnlock`, which validates the user’s key server‑side against `EXAM_SECRET` and returns a short‑lived JWT signed with `JWT_SECRET`.
+- The client stores the token in `localStorage` and auto-unlocks while it’s valid.
+- The “Begär nyckel” button posts `/api/requestUnlock` and the server emails the user a key (requires Resend settings below).
 
 Optional (Netlify Function → GitHub API):
 
 - `GITHUB_TOKEN` or `GH_TOKEN` — Personal Access Token to avoid GitHub API rate limits when fetching commits.
 - `GITHUB_OWNER` (default: `Natti94`) and `GITHUB_REPO` (default: `Quiz`) — The function enforces a single allowed repo; override only if you know what you’re doing.
+
+Optional (email via Resend):
+
+```
+RESEND_API_KEY=...
+RESEND_FROM=verified@sender.tld
+RESEND_TO=admin@your.tld   # optional BCC for audit
+```
 
 ## Deploying to Netlify
 
@@ -120,12 +150,14 @@ Optional (Netlify Function → GitHub API):
 - Redirects: ensure `public/_redirects` includes API routes and SPA fallback, e.g.
 
   ```
-  /api/commits    /.netlify/functions/getCommits   200
-  /api/assets     /.netlify/functions/getAssets    200
-  /*              /index.html                      200
+  /api/commits         /.netlify/functions/getCommits      200
+  /api/assets          /.netlify/functions/getAssets       200
+  /api/requestUnlock   /.netlify/functions/requestUnlock   200
+  /api/verifyUnlock    /.netlify/functions/verifyUnlock    200
+  /*                   /index.html                         200
   ```
 
-- Add environment variables (`VITE_CLOUDINARY_PROJECTS_LINK`, `VITE_SECRET_KEY`, and optionally `GITHUB_TOKEN`) in your site settings.
+- Add environment variables (`VITE_CLOUDINARY_PROJECTS_LINK`, `EXAM_SECRET`, `JWT_SECRET`, and optionally `GITHUB_TOKEN`, `RESEND_*`) in your site settings.
 
 ## Editing questions / adding subjects
 
