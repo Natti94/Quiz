@@ -39,6 +39,20 @@ export const handler = async (event) => {
     ? Buffer.from(event.body || "", "base64").toString("utf8")
     : event.body || "";
 
+  // Early trace to confirm invocations reach the function (safe, no secrets logged)
+  try {
+    console.log(
+      "[discord] invoke",
+      JSON.stringify({
+        method: event.httpMethod,
+        path: event.path,
+        bypassVerify,
+        hasSig: !!signature,
+        hasTs: !!timestamp,
+      }),
+    );
+  } catch {}
+
   // Verify signature per Discord Interactions (allow temporary bypass via env for initial handshake/debug)
   if (!bypassVerify) {
     try {
@@ -47,9 +61,12 @@ export const handler = async (event) => {
         Buffer.from(signature, "hex"),
         Buffer.from(publicKey, "hex"),
       );
-      if (!isVerified)
+      if (!isVerified) {
+        console.warn("[discord] signature verification failed (invalid).");
         return { statusCode: 401, body: "invalid request signature" };
+      }
     } catch {
+      console.warn("[discord] signature verification threw (invalid).");
       return { statusCode: 401, body: "invalid request signature" };
     }
   }
