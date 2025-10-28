@@ -17,6 +17,17 @@ function jsonResponse(obj, statusCode = 200, headers = {}) {
   };
 }
 
+function getBlobsStore(name) {
+  const siteID =
+    process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
+  const token =
+    process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
+  if (siteID && token) {
+    return getStore(name, { siteID, token });
+  }
+  return getStore(name);
+}
+
 export const handler = async (event) => {
   const publicKey = process.env.DISCORD_PUBLIC_KEY;
   const botToken = process.env.DISCORD_BOT_TOKEN;
@@ -109,7 +120,7 @@ export const handler = async (event) => {
       const expiresAt = now + ttlMinutes * 60 * 1000;
       const code = makeGUID();
       const hash = sha256Hex(code);
-      const store = getStore("pre-keys");
+  const store = getBlobsStore("pre-keys");
       await store.setJSON(
         hash,
         { createdAt: now, expiresAt },
