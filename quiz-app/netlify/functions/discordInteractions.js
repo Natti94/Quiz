@@ -28,14 +28,16 @@ function getBlobsStore(name) {
       : process.env.NETLIFY_API_TOKEN
         ? "NETLIFY_API_TOKEN"
         : "none";
-    console.log(
-      "[blobs] config",
-      JSON.stringify({ hasSiteID: !!siteID, tokenSource })
-    );
+    const info = {
+      hasSiteID: !!siteID,
+      tokenSource,
+      siteIDLen: siteID ? String(siteID).length : 0,
+      tokenLen: token ? String(token).length : 0,
+    };
+    console.log("[blobs] config", JSON.stringify(info));
   } catch {}
-  if (siteID && token) {
-    return getStore(name, { siteID, token });
-  }
+  // Prefer explicit credentials when available; otherwise rely on Netlify-provided context.
+  if (siteID && token) return getStore(name, { siteID, token });
   return getStore(name);
 }
 
