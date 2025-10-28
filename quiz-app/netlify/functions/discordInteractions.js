@@ -1,6 +1,6 @@
 import nacl from "tweetnacl";
 import crypto from "crypto";
-import { getStore } from "@netlify/blobs";
+import { getDataStore } from "./_store.js";
 
 function makeGUID() {
   return crypto.randomUUID().toUpperCase();
@@ -18,27 +18,18 @@ function jsonResponse(obj, statusCode = 200, headers = {}) {
 }
 
 function getBlobsStore(name) {
-  const siteID =
-    process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
-  const token =
-    process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
   try {
-    const tokenSource = process.env.NETLIFY_BLOBS_TOKEN
-      ? "NETLIFY_BLOBS_TOKEN"
-      : process.env.NETLIFY_API_TOKEN
-        ? "NETLIFY_API_TOKEN"
-        : "none";
+    const siteID = process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
+    const token = process.env.NETLIFY_BLOBS_TOKEN;
     const info = {
       hasSiteID: !!siteID,
-      tokenSource,
+      tokenSource: token ? "NETLIFY_BLOBS_TOKEN" : "none",
       siteIDLen: siteID ? String(siteID).length : 0,
       tokenLen: token ? String(token).length : 0,
     };
     console.log("[blobs] config", JSON.stringify(info));
   } catch {}
-  // Prefer explicit credentials when available; otherwise rely on Netlify-provided context.
-  if (siteID && token) return getStore(name, { siteID, token });
-  return getStore(name);
+  return getDataStore(name);
 }
 
 export const handler = async (event) => {

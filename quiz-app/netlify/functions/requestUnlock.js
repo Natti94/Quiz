@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { Resend } from "resend";
-import { getStore } from "@netlify/blobs";
+import { getDataStore } from "./_store.js";
 
 function parseJWT(token) {
   try {
@@ -98,14 +98,7 @@ export const handler = async (event) => {
 
   try {
     const code = crypto.randomUUID().toUpperCase();
-    const siteID =
-      process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
-    const blobsToken =
-      process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
-    const store =
-      siteID && blobsToken
-        ? getStore("unlock-keys", { siteID, token: blobsToken })
-        : getStore("unlock-keys");
+    const store = getDataStore("unlock-keys");
     const ttlMinutes = Math.max(
       5,
       Math.min(24 * 60, Number(body.ttlMinutes) || 120),

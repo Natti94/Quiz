@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { getStore } from "@netlify/blobs";
+import { getDataStore } from "./_store.js";
 
 function b64url(input) {
   return Buffer.from(input)
@@ -31,14 +31,7 @@ function sha256Hex(s) {
 }
 
 function getBlobsStore(name) {
-  const siteID =
-    process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
-  const token =
-    process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
-  if (siteID && token) {
-    return getStore(name, { siteID, token });
-  }
-  return getStore(name);
+  return getDataStore(name);
 }
 
 export const handler = async (event) => {

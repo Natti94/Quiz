@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { getStore } from "@netlify/blobs";
+import { getDataStore } from "./_store.js";
 
 function b64url(input) {
   return Buffer.from(input)
@@ -51,14 +51,7 @@ export const handler = async (event) => {
   }
 
   const jwtSecret = process.env.JWT_SECRET || "dev-secret";
-  const siteID =
-    process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
-  const blobsToken =
-    process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
-  const store =
-    siteID && blobsToken
-      ? getStore("unlock-keys", { siteID, token: blobsToken })
-      : getStore("unlock-keys");
+  const store = getDataStore("unlock-keys");
   const keyHash = sha256Hex(provided);
 
   const rec = await store.getJSON(keyHash);
