@@ -22,6 +22,17 @@ function getBlobsStore(name) {
     process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
   const token =
     process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
+  try {
+    const tokenSource = process.env.NETLIFY_BLOBS_TOKEN
+      ? "NETLIFY_BLOBS_TOKEN"
+      : process.env.NETLIFY_API_TOKEN
+        ? "NETLIFY_API_TOKEN"
+        : "none";
+    console.log(
+      "[blobs] config",
+      JSON.stringify({ hasSiteID: !!siteID, tokenSource })
+    );
+  } catch {}
   if (siteID && token) {
     return getStore(name, { siteID, token });
   }
