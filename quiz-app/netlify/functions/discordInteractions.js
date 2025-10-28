@@ -23,7 +23,8 @@ export const handler = async (event) => {
   const allowedChannel = process.env.DISCORD_ALLOWED_CHANNEL_ID;
   const bypassVerify =
     String(process.env.DISCORD_BYPASS_VERIFY || "").toLowerCase() === "true";
-  if (!publicKey)
+  // Only require the public key when we're actually verifying signatures.
+  if (!bypassVerify && !publicKey)
     return jsonResponse({ error: "Missing DISCORD_PUBLIC_KEY" }, 500);
 
   const headers = Object.fromEntries(

@@ -12,6 +12,17 @@ function Form({ onSelect }) {
   const [preToken, setPreToken] = useState("");
   const [hasPreAccess, setHasPreAccess] = useState(false);
 
+  const isProd = import.meta.env.PROD;
+
+  const assets = {
+    discord_link: isProd
+      ? `/api/getAssets?asset=discord_link`
+      : import.meta.env.VITE_DISCORD_LINK,
+    discord_icon: isProd
+      ? `/api/getAssets?asset=discord_icon`
+      : import.meta.env.VITE_DISCORD_ICON,
+  };
+
   const handleExamClick = () => {
     if (examUnlocked) {
       onSelect && onSelect("plu-exam");
@@ -30,7 +41,7 @@ function Form({ onSelect }) {
     const adminKey = formKey.trim();
     if (!adminKey) {
       setError(
-        "Du behöver en admin-nyckel. Kontakta Administratören via Discord.",
+        "Du behöver en admin-nyckel. Kontakta Administratören via Discord."
       );
       return;
     }
@@ -49,7 +60,7 @@ function Form({ onSelect }) {
       setPreToken(data.token);
       setHasPreAccess(true);
       setInfo(
-        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln.",
+        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln."
       );
       setFormKey("");
     } catch (err) {
@@ -97,7 +108,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -114,7 +125,7 @@ function Form({ onSelect }) {
       const parts = t.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       const now = Math.floor(Date.now() / 1000);
       if (payload && payload.exp && payload.exp > now) {
@@ -184,7 +195,7 @@ function Form({ onSelect }) {
         throw new Error(data?.error || `Fel ${res.status}`);
       }
       setInfo(
-        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp.",
+        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp."
       );
       setUnlockStep("unlock");
       setRecipient("");
@@ -292,6 +303,20 @@ function Form({ onSelect }) {
               aria-modal="true"
               aria-labelledby="unlock-title"
             >
+              <button
+                type="button"
+                className="subjects__discord-btn"
+                onClick={() => window.open(assets.discord_link, "_blank")}
+                aria-label="Öppna Discord för att få admin-nyckeln"
+                title="Öppna Discord (få admin-nyckeln)"
+              >
+                <img
+                  src={assets.discord_icon}
+                  alt="Discord Icon"
+                  className="subjects__discord-icon"
+                />
+              </button>
+
               <form
                 id="exam-unlock-panel"
                 onSubmit={attemptUnlock}
