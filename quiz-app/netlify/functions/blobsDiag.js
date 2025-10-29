@@ -9,7 +9,8 @@ function json(statusCode, body) {
 }
 
 function getBlobsStore(name) {
-  const siteID = process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
+  const siteID =
+    process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
   const token = process.env.NETLIFY_BLOBS_TOKEN;
   const info = {
     hasSiteID: !!siteID,
@@ -17,19 +18,22 @@ function getBlobsStore(name) {
     siteIDLen: siteID ? String(siteID).length : 0,
     tokenLen: token ? String(token).length : 0,
   };
-  try { console.log("[blobsDiag] config", JSON.stringify(info)); } catch {}
+  try {
+    console.log("[blobsDiag] config", JSON.stringify(info));
+  } catch {}
   return getDataStore(name);
 }
 
 export const handler = async () => {
   try {
-  const store = getBlobsStore("diag");
+    const store = getBlobsStore("diag");
     const key = `probe-${Date.now()}`;
     await store.set(key, "ok", { ttl: 60 });
     const val = await store.get(key, { type: "text" });
     return json(200, { ok: true, wrote: key, readBack: val });
   } catch (err) {
-    const siteID = process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
+    const siteID =
+      process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
     const token = process.env.NETLIFY_BLOBS_TOKEN;
     return json(500, {
       ok: false,

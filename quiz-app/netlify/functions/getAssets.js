@@ -19,14 +19,14 @@ export async function handler(event) {
   if (!url) {
     console.error(
       `Asset '${asset}' not found or environment variable not set. Available assets: ${Object.keys(
-        assetPaths
-      ).join(", ")}`
+        assetPaths,
+      ).join(", ")}`,
     );
     return {
       statusCode: 400,
       body: JSON.stringify({
         error: `Asset '${asset}' not found or environment variable not set. Available assets: ${Object.keys(
-          assetPaths
+          assetPaths,
         ).join(", ")}`,
       }),
     };

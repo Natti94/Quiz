@@ -292,12 +292,11 @@
   cursor: not-allowed;
 }
 
-/* Discord CTA button (animated to draw attention) */
 .subjects__discord-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-margin-top: 10%;
+  margin-top: 10%;
   width: 234px;
   height: 234px;
   border-radius: 12px;
@@ -309,7 +308,6 @@ margin-top: 10%;
   animation: fadeSlide 0.18s ease;
 }
 
-/* Discord icon inside container (no animation) */
 .subjects__discord-link {
   float: right;
   margin-left: 0.5rem;

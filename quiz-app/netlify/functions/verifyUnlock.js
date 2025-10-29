@@ -54,7 +54,7 @@ export const handler = async (event) => {
   const store = getDataStore("unlock-keys");
   const keyHash = sha256Hex(provided);
 
-  const rec = await store.getJSON(keyHash);
+  const rec = (await (store.consumeJSON?.(keyHash))) || (await store.getJSON(keyHash));
   if (!rec) {
     return {
       statusCode: 401,
@@ -73,9 +73,12 @@ export const handler = async (event) => {
     };
   }
 
-  try {
-    await store.delete(keyHash);
-  } catch {}
+  // If the backend didn't support atomic consume, delete after read.
+  if (!store.consumeJSON) {
+    try {
+      await store.delete(keyHash);
+    } catch {}
+  }
 
   const { token, exp } = signJWT({ sub: "exam" }, jwtSecret, 6 * 60 * 60);
   return {

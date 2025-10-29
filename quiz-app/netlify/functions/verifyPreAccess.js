@@ -70,35 +70,33 @@ export const handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: "Invalid JSON" }) };
   }
 
-  const provided = String(body.key || "")
-    .trim()
-    .toUpperCase();
-  if (!provided) {
+  const rawKey = String(body.key || "").trim();
+  if (!rawKey) {
     return { statusCode: 400, body: JSON.stringify({ error: "Key required" }) };
   }
 
   const jwtSecret = process.env.JWT_SECRET || "dev-secret";
-  // Path 1: If admin supplied a stateless preaccess JWT (Discord /prekey token), accept it directly
-  if (provided.includes(".")) {
-    const payload = verifyJWT(provided, jwtSecret);
+
+  if (rawKey.split(".").length === 3) {
+    const payload = verifyJWT(rawKey, jwtSecret);
     if (payload && payload.scope === "pre") {
       return {
         statusCode: 200,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ok: true, token: provided, exp: payload.exp }),
+        body: JSON.stringify({ ok: true, token: rawKey, exp: payload.exp }),
       };
     }
-    // If it looks like a JWT but invalid, treat as invalid key
+
     return {
       statusCode: 401,
       body: JSON.stringify({ ok: false, error: "Invalid key" }),
     };
   }
 
-  // Path 2: Legacy one-time code backed by storage (Blobs/Upstash)
   const store = getBlobsStore("pre-keys");
-  const keyHash = sha256Hex(provided);
-  const rec = await store.getJSON(keyHash);
+  const code = rawKey.toUpperCase();
+  const keyHash = sha256Hex(code);
+  const rec = (await (store.consumeJSON?.(keyHash))) || (await store.getJSON(keyHash));
   if (!rec) {
     return {
       statusCode: 401,
@@ -116,9 +114,11 @@ export const handler = async (event) => {
     };
   }
 
-  try {
-    await store.delete(keyHash);
-  } catch {}
+  if (!store.consumeJSON) {
+    try {
+      await store.delete(keyHash);
+    } catch {}
+  }
 
   const { token, exp } = signJWT({ scope: "pre" }, jwtSecret, 30 * 60);
 

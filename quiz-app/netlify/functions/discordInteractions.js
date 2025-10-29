@@ -44,7 +44,8 @@ function jsonResponse(obj, statusCode = 200, headers = {}) {
 
 function getBlobsStore(name) {
   try {
-    const siteID = process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
+    const siteID =
+      process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
     const token = process.env.NETLIFY_BLOBS_TOKEN;
     const info = {
       hasSiteID: !!siteID,
@@ -63,7 +64,7 @@ export const handler = async (event) => {
   const allowedChannel = process.env.DISCORD_ALLOWED_CHANNEL_ID;
   const bypassVerify =
     String(process.env.DISCORD_BYPASS_VERIFY || "").toLowerCase() === "true";
-  // Only require the public key when we're actually verifying signatures.
+
   if (!bypassVerify && !publicKey)
     return jsonResponse({ error: "Missing DISCORD_PUBLIC_KEY" }, 500);
 
@@ -93,7 +94,6 @@ export const handler = async (event) => {
     );
   } catch {}
 
-  // Verify signature per Discord Interactions (allow temporary bypass via env for initial handshake/debug)
   if (!bypassVerify) {
     try {
       const isVerified = nacl.sign.detached.verify(
@@ -128,12 +128,12 @@ export const handler = async (event) => {
     const channelId = data.channel_id;
     console.log(
       "[discord] Command received",
-      JSON.stringify({ name, channelId, bypassVerify })
+      JSON.stringify({ name, channelId, bypassVerify }),
     );
     if (allowedChannel && channelId !== allowedChannel) {
       console.log(
         "[discord] Command used in disallowed channel",
-        JSON.stringify({ channelId, allowedChannel })
+        JSON.stringify({ channelId, allowedChannel }),
       );
       return jsonResponse({
         type: 4,
@@ -145,8 +145,12 @@ export const handler = async (event) => {
     }
     if (name === "prekey") {
       const jwtSecret = process.env.JWT_SECRET || "dev-secret";
-      const ttlMinutes = 30; // short-lived preaccess token
-      const { token, exp } = signJWT({ scope: "pre" }, jwtSecret, ttlMinutes * 60);
+      const ttlMinutes = 30;
+      const { token, exp } = signJWT(
+        { scope: "pre" },
+        jwtSecret,
+        ttlMinutes * 60,
+      );
       const content = `Första stegets token (giltig i ${ttlMinutes} min):\n${token}`;
       console.log("[discord] Preaccess token minted, ttlMinutes=", ttlMinutes);
       return jsonResponse({ type: 4, data: { content, flags: 64 } });
