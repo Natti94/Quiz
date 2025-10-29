@@ -1,11 +1,30 @@
 // Unified storage wrapper: prefers Netlify Blobs, optionally falls back to Upstash Redis (REST)
 import { getStore as getBlobs } from "@netlify/blobs";
 
-function makeBlobsStore(name) {
+function makeBlobsStore(name, upstash) {
   const siteID = process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
   const token = process.env.NETLIFY_BLOBS_TOKEN;
-  if (siteID && token) return getBlobs(name, { siteID, token });
-  return getBlobs(name);
+  const base = siteID && token ? getBlobs(name, { siteID, token }) : getBlobs(name);
+  // Wrap calls so if the runtime throws MissingBlobsEnvironmentError, we can fall back to Upstash when configured.
+  const wrap = (fn) => async (...args) => {
+    try {
+      return await base[fn](...args);
+    } catch (err) {
+      const msg = String(err?.name || err?.message || err);
+      const isMissing = msg.includes("MissingBlobsEnvironmentError");
+      if (isMissing && upstash) {
+        return await upstash[fn](...args);
+      }
+      throw err;
+    }
+  };
+  return {
+    setJSON: wrap("setJSON"),
+    getJSON: wrap("getJSON"),
+    delete: wrap("delete"),
+    set: wrap("set"),
+    get: wrap("get"),
+  };
 }
 
 function makeUpstashStore(name) {
@@ -70,13 +89,7 @@ function makeUpstashStore(name) {
 }
 
 export function getDataStore(name) {
-  // Prefer Blobs. If ambient or token-backed Blobs are unavailable and Upstash is configured, use it.
-  try {
-    return makeBlobsStore(name);
-  } catch (e) {
-    // Fall through to Upstash if configured.
-    const up = makeUpstashStore(name);
-    if (up) return up;
-    throw e;
-  }
+  // Prefer Blobs. If Blobs ops throw MissingBlobsEnvironmentError and Upstash is configured, seamlessly fall back.
+  const up = makeUpstashStore(name);
+  return makeBlobsStore(name, up);
 }

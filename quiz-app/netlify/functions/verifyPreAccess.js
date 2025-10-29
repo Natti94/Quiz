@@ -34,6 +34,30 @@ function getBlobsStore(name) {
   return getDataStore(name);
 }
 
+function verifyJWT(token, secret) {
+  try {
+    const [h, p, s] = token.split(".");
+    if (!h || !p || !s) return null;
+    const data = `${h}.${p}`;
+    const expected = crypto
+      .createHmac("sha256", secret)
+      .update(data)
+      .digest("base64")
+      .replace(/=/g, "")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_");
+    if (expected !== s) return null;
+    const payload = JSON.parse(
+      Buffer.from(p.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString(),
+    );
+    const now = Math.floor(Date.now() / 1000);
+    if (typeof payload.exp === "number" && now > payload.exp) return null;
+    return payload;
+  } catch {
+    return null;
+  }
+}
+
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
@@ -53,6 +77,25 @@ export const handler = async (event) => {
     return { statusCode: 400, body: JSON.stringify({ error: "Key required" }) };
   }
 
+  const jwtSecret = process.env.JWT_SECRET || "dev-secret";
+  // Path 1: If admin supplied a stateless preaccess JWT (Discord /prekey token), accept it directly
+  if (provided.includes(".")) {
+    const payload = verifyJWT(provided, jwtSecret);
+    if (payload && payload.scope === "pre") {
+      return {
+        statusCode: 200,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ok: true, token: provided, exp: payload.exp }),
+      };
+    }
+    // If it looks like a JWT but invalid, treat as invalid key
+    return {
+      statusCode: 401,
+      body: JSON.stringify({ ok: false, error: "Invalid key" }),
+    };
+  }
+
+  // Path 2: Legacy one-time code backed by storage (Blobs/Upstash)
   const store = getBlobsStore("pre-keys");
   const keyHash = sha256Hex(provided);
   const rec = await store.getJSON(keyHash);
@@ -77,7 +120,6 @@ export const handler = async (event) => {
     await store.delete(keyHash);
   } catch {}
 
-  const jwtSecret = process.env.JWT_SECRET || "dev-secret";
   const { token, exp } = signJWT({ scope: "pre" }, jwtSecret, 30 * 60);
 
   return {
