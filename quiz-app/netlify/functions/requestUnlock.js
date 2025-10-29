@@ -77,7 +77,7 @@ export const handler = async (event) => {
   if (!payload || payload.scope !== "pre") {
     return {
       statusCode: 401,
-      body: JSON.stringify({ error: "Preaccess required" }),
+      body: JSON.stringify({ error: "Pre-Access required" }),
     };
   }
 

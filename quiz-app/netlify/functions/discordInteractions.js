@@ -152,7 +152,7 @@ export const handler = async (event) => {
         ttlMinutes * 60,
       );
       const content = `Första stegets token (giltig i ${ttlMinutes} min):\n${token}`;
-      console.log("[discord] Preaccess token minted, ttlMinutes=", ttlMinutes);
+      console.log("[discord] Pre-Access token minted, ttlMinutes=", ttlMinutes);
       return jsonResponse({ type: 4, data: { content, flags: 64 } });
     }
   }
