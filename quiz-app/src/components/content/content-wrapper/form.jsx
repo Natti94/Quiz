@@ -140,12 +140,12 @@ function Form({ onSelect }) {
   function getFunctionBases() {
     try {
       const pref = localStorage.getItem("fnBase");
-      if (pref === "/.netlify/functions")
-        return ["/.netlify/functions", "/api"];
-      if (pref === "/api") return ["/api", "/.netlify/functions"];
+      if (pref === "/.netlify/functions/auth")
+        return ["/.netlify/functions/auth", "/api"];
+      if (pref === "/api") return ["/api", "/.netlify/functions/auth"];
     } catch {}
 
-    return ["/.netlify/functions", "/api"];
+    return ["/.netlify/functions/auth", "/api"];
   }
 
   async function callFunction(name, init) {
