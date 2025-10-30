@@ -1,12 +1,12 @@
 # API → Netlify Functions
-/api/auth/verifyPreAccess   /.netlify/functions/auth/verifyPreAccess   200
-/api/auth/verifyUnlock      /.netlify/functions/auth/verifyUnlock       200
-/api/admin/requestUnlock    /.netlify/functions/admin/requestUnlock     200
-/api/admin/getDevUnlockKey  /.netlify/functions/admin/getDevUnlockKey   200
-/api/generateUnlockKey      /.netlify/functions/generateUnlockKey       200
-/api/discordInteractions    /.netlify/functions/discordInteractions     200
-/api/assets                 /.netlify/functions/getAssets               200
-/api/commits                /.netlify/functions/getCommits              200
+/api/auth/verifyPreAccess   /.netlify/functions/auth-verifyPreAccess   200
+/api/auth/verifyUnlock      /.netlify/functions/auth-verifyUnlock      200
+/api/admin/requestUnlock    /.netlify/functions/admin-requestUnlock    200
+/api/admin/getDevUnlockKey  /.netlify/functions/admin-getDevUnlockKey  200
+/api/generateUnlockKey      /.netlify/functions/generateUnlockKey      200
+/api/discordInteractions    /.netlify/functions/discordInteractions    200
+/api/assets                 /.netlify/functions/getAssets              200
+/api/commits                /.netlify/functions/getCommits             200
 
 # SPA Fallback
 /*                          /index.html                                 200
