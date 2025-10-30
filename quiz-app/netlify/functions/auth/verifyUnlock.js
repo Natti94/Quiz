@@ -1,34 +1,5 @@
-import crypto from "crypto";
-import { getDataStore } from "./_store.js";
-
-function b64url(input) {
-  return Buffer.from(input)
-    .toString("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-}
-
-function signJWT(payload, secret, ttlSec = 6 * 60 * 60) {
-  const header = { alg: "HS256", typ: "JWT" };
-  const now = Math.floor(Date.now() / 1000);
-  const body = { ...payload, iat: now, exp: now + ttlSec };
-  const h = b64url(JSON.stringify(header));
-  const p = b64url(JSON.stringify(body));
-  const data = `${h}.${p}`;
-  const sig = crypto
-    .createHmac("sha256", secret)
-    .update(data)
-    .digest("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-  return { token: `${data}.${sig}`, exp: body.exp };
-}
-
-function sha256Hex(s) {
-  return crypto.createHash("sha256").update(s).digest("hex");
-}
+import { getDataStore } from "../_store.js";
+import { b64url, signJWT, sha256Hex } from "../_lib/jwtUtils.js";
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -73,7 +44,6 @@ export const handler = async (event) => {
     };
   }
 
-  // If the backend didn't support atomic consume, delete after read.
   if (!store.consumeJSON) {
     try {
       await store.delete(keyHash);

@@ -1,50 +1,6 @@
-import crypto from "crypto";
 import { Resend } from "resend";
-import { getDataStore } from "./_store.js";
-
-function parseJWT(token) {
-  try {
-    const [h, p, s] = token.split(".");
-    const payload = JSON.parse(
-      Buffer.from(p.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString(),
-    );
-    return { header: h, payload, signature: s };
-  } catch {
-    return null;
-  }
-}
-
-function b64url(input) {
-  return Buffer.from(input)
-    .toString("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-}
-
-function verifyJWT(token, secret) {
-  try {
-    const [h, p, s] = token.split(".");
-    if (!h || !p || !s) return null;
-    const data = `${h}.${p}`;
-    const expected = crypto
-      .createHmac("sha256", secret)
-      .update(data)
-      .digest("base64")
-      .replace(/=/g, "")
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_");
-    if (expected !== s) return null;
-    const payload = JSON.parse(
-      Buffer.from(p.replace(/-/g, "+").replace(/_/g, "/"), "base64").toString(),
-    );
-    const now = Math.floor(Date.now() / 1000);
-    if (typeof payload.exp === "number" && now > payload.exp) return null;
-    return payload;
-  } catch {
-    return null;
-  }
-}
+import { getDataStore } from "../_store.js";
+import { verifyJWT } from "../_lib/jwtUtils.js";
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {

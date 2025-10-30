@@ -1,37 +1,9 @@
 import nacl from "tweetnacl";
-import crypto from "crypto";
 import { getDataStore } from "./_store.js";
+import { b64url, signJWT, sha256Hex } from "./_lib/jwtUtils.js";
 
 function makeGUID() {
   return crypto.randomUUID().toUpperCase();
-}
-function sha256Hex(s) {
-  return crypto.createHash("sha256").update(s).digest("hex");
-}
-
-function b64url(input) {
-  return Buffer.from(input)
-    .toString("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-}
-
-function signJWT(payload, secret, ttlSec) {
-  const header = { alg: "HS256", typ: "JWT" };
-  const now = Math.floor(Date.now() / 1000);
-  const body = { ...payload, iat: now, exp: now + ttlSec };
-  const h = b64url(JSON.stringify(header));
-  const p = b64url(JSON.stringify(body));
-  const data = `${h}.${p}`;
-  const sig = crypto
-    .createHmac("sha256", secret)
-    .update(data)
-    .digest("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-  return { token: `${data}.${sig}`, exp: body.exp };
 }
 
 function jsonResponse(obj, statusCode = 200, headers = {}) {

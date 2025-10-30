@@ -325,37 +325,41 @@ function Form({ onSelect }) {
                   />
                 </a>
                 {}
-                <h2
-                  id="unlock-title"
-                  className="subjects__unlock-title"
-                  style={{ margin: 0, fontSize: "1rem" }}
-                >
-                  Steg 1: Verifiera admin-nyckel
-                </h2>
-                <div
-                  className="subjects__request-key"
-                  style={{ marginBottom: "1rem" }}
-                >
-                  <label
-                    className="subjects__unlock-label"
-                    htmlFor="admin-key"
-                  ></label>
-                  <input
-                    id="admin-key"
-                    type="text"
-                    value={formKey}
-                    onChange={(e) => setFormKey(e.target.value)}
-                    placeholder="Admin-nyckel (GUID) från Administratören"
-                    className="subjects__unlock-input"
-                  />
-                  <button
-                    type="button"
-                    className="ui-btn ui-btn--secondary"
-                    onClick={verifyPreAccess}
-                  >
-                    Verifiera
-                  </button>
-                </div>
+                {!hasPreAccess && (
+                  <>
+                    <h2
+                      id="unlock-title"
+                      className="subjects__unlock-title"
+                      style={{ margin: 0, fontSize: "1rem" }}
+                    >
+                      Steg 1: Verifiera admin-nyckel
+                    </h2>
+                    <div
+                      className="subjects__request-key"
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      <label
+                        className="subjects__unlock-label"
+                        htmlFor="admin-key"
+                      ></label>
+                      <input
+                        id="admin-key"
+                        type="text"
+                        value={formKey}
+                        onChange={(e) => setFormKey(e.target.value)}
+                        placeholder="Admin-nyckel (GUID) från Administratören"
+                        className="subjects__unlock-input"
+                      />
+                      <button
+                        type="button"
+                        className="ui-btn ui-btn--secondary"
+                        onClick={verifyPreAccess}
+                      >
+                        Verifiera
+                      </button>
+                    </div>
+                  </>
+                )}
 
                 {}
                 {hasPreAccess && (
