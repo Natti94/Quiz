@@ -22,7 +22,7 @@ export const handler = async (event) => {
   }
 
   const jwtSecret = process.env.JWT_SECRET || "dev-secret";
-  const store = getDataStore("unlock-keys");
+  // const store = getDataStore("unlock-keys");
   const keyHash = sha256Hex(provided);
 
   const rec = (await (store.consumeJSON?.(keyHash))) || (await store.getJSON(keyHash));

@@ -32,11 +32,8 @@ export const handler = async (event) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ok: true, token: rawKey, exp: payload.exp }),
       };
-    }
-
-    return {
-      statusCode: 401,
-      body: JSON.stringify({ ok: false, error: "Invalid key" }),
+      // Blobs-related logic removed
+        const store = getDataStore("pre-keys");
     };
   }
 

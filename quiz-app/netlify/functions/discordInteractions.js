@@ -2,32 +2,12 @@ import nacl from "tweetnacl";
 import { getDataStore } from "./_store.js";
 import { b64url, signJWT, sha256Hex } from "./_lib/jwtUtils.js";
 
-function makeGUID() {
-  return crypto.randomUUID().toUpperCase();
-}
-
 function jsonResponse(obj, statusCode = 200, headers = {}) {
   return {
     statusCode,
     headers: { "Content-Type": "application/json", ...headers },
     body: JSON.stringify(obj),
   };
-}
-
-function getBlobsStore(name) {
-  try {
-    const siteID =
-      process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
-    const token = process.env.NETLIFY_BLOBS_TOKEN;
-    const info = {
-      hasSiteID: !!siteID,
-      tokenSource: token ? "NETLIFY_BLOBS_TOKEN" : "none",
-      siteIDLen: siteID ? String(siteID).length : 0,
-      tokenLen: token ? String(token).length : 0,
-    };
-    console.log("[blobs] config", JSON.stringify(info));
-  } catch {}
-  return getDataStore(name);
 }
 
 export const handler = async (event) => {
@@ -44,7 +24,7 @@ export const handler = async (event) => {
     Object.entries(event.headers || {}).map(([k, v]) => [
       String(k).toLowerCase(),
       v,
-    ]),
+    ])
   );
   const signature = headers["x-signature-ed25519"];
   const timestamp = headers["x-signature-timestamp"];
@@ -52,7 +32,6 @@ export const handler = async (event) => {
     ? Buffer.from(event.body || "", "base64").toString("utf8")
     : event.body || "";
 
-  // Early trace to confirm invocations reach the function (safe, no secrets logged)
   try {
     console.log(
       "[discord] invoke",
@@ -62,7 +41,7 @@ export const handler = async (event) => {
         bypassVerify,
         hasSig: !!signature,
         hasTs: !!timestamp,
-      }),
+      })
     );
   } catch {}
 
@@ -71,7 +50,7 @@ export const handler = async (event) => {
       const isVerified = nacl.sign.detached.verify(
         Buffer.from(timestamp + bodyRaw),
         Buffer.from(signature, "hex"),
-        Buffer.from(publicKey, "hex"),
+        Buffer.from(publicKey, "hex")
       );
       if (!isVerified) {
         console.warn("[discord] signature verification failed (invalid).");
@@ -100,12 +79,12 @@ export const handler = async (event) => {
     const channelId = data.channel_id;
     console.log(
       "[discord] Command received",
-      JSON.stringify({ name, channelId, bypassVerify }),
+      JSON.stringify({ name, channelId, bypassVerify })
     );
     if (allowedChannel && channelId !== allowedChannel) {
       console.log(
         "[discord] Command used in disallowed channel",
-        JSON.stringify({ channelId, allowedChannel }),
+        JSON.stringify({ channelId, allowedChannel })
       );
       return jsonResponse({
         type: 4,
@@ -116,12 +95,12 @@ export const handler = async (event) => {
       });
     }
     if (name === "prekey") {
-      const jwtSecret = process.env.JWT_SECRET || "dev-secret";
+      const jwtSecret = process.env.JWT_SECRET;
       const ttlMinutes = 30;
       const { token, exp } = signJWT(
         { scope: "pre" },
         jwtSecret,
-        ttlMinutes * 60,
+        ttlMinutes * 60
       );
       const content = `Första stegets token (giltig i ${ttlMinutes} min):\n${token}`;
       console.log("[discord] Pre-Access token minted, ttlMinutes=", ttlMinutes);

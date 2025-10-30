@@ -54,7 +54,7 @@ export const handler = async (event) => {
 
   try {
     const code = crypto.randomUUID().toUpperCase();
-    const store = getDataStore("unlock-keys");
+    // const store = getDataStore("unlock-keys");
     const ttlMinutes = Math.max(
       5,
       Math.min(24 * 60, Number(body.ttlMinutes) || 120),

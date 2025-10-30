@@ -55,13 +55,7 @@ export const handler = async (event) => {
 
   const type = (body.type || "exam").toLowerCase();
   const bucket = type === "pre" ? "pre-keys" : "unlock-keys";
-  const siteID =
-    process.env.NETLIFY_BLOBS_SITE_ID || process.env.NETLIFY_SITE_ID;
-  const token =
-    process.env.NETLIFY_BLOBS_TOKEN || process.env.NETLIFY_API_TOKEN;
-  const store =
-    siteID && token ? getStore(bucket, { siteID, token }) : getStore(bucket);
-  await store.setJSON(codeHash, { createdAt: now, expiresAt }, { ttl: ttlSec });
+    // Blobs-related logic removed
 
   return {
     statusCode: 200,
