@@ -46,7 +46,7 @@ function Form({ onSelect }) {
       return;
     }
     try {
-      const res = await callFunction("auth-verifyPreAccess", {
+      const res = await callFunction("auth/verifyPreAccess", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key: adminKey }),
@@ -81,7 +81,7 @@ function Form({ onSelect }) {
 
   const verifyKeyAndUnlock = async (key) => {
     try {
-      const res = await callFunction("auth-verifyUnlock", {
+      const res = await callFunction("auth/verifyUnlock", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key }),
