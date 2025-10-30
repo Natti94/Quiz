@@ -22,6 +22,7 @@ export function makeMongoStore(name) {
   const dbName = process.env.MONGODB_DB || "app";
   return {
     async setJSON(key, value, opts = {}) {
+      console.log(`[mongoStore] setJSON: collection=${name}, key=${key}`);
       const client = await getMongoClient();
       if (!client) throw new Error("MongoDB client not available");
       const coll = client.db(dbName).collection(name);
@@ -34,6 +35,7 @@ export function makeMongoStore(name) {
       );
     },
     async getJSON(key) {
+      console.log(`[mongoStore] getJSON: collection=${name}, key=${key}`);
       const client = await getMongoClient();
       if (!client) throw new Error("MongoDB client not available");
       const coll = client.db(dbName).collection(name);
@@ -46,6 +48,7 @@ export function makeMongoStore(name) {
       return doc.json ?? null;
     },
     async consumeJSON(key) {
+      console.log(`[mongoStore] consumeJSON: collection=${name}, key=${key}`);
       const client = await getMongoClient();
       if (!client) throw new Error("MongoDB client not available");
       const coll = client.db(dbName).collection(name);
@@ -56,12 +59,14 @@ export function makeMongoStore(name) {
       return doc.json ?? null;
     },
     async delete(key) {
+      console.log(`[mongoStore] delete: collection=${name}, key=${key}`);
       const client = await getMongoClient();
       if (!client) throw new Error("MongoDB client not available");
       const coll = client.db(dbName).collection(name);
       await coll.deleteOne({ _id: key });
     },
     async set(key, value, opts = {}) {
+      console.log(`[mongoStore] set: collection=${name}, key=${key}`);
       const client = await getMongoClient();
       if (!client) throw new Error("MongoDB client not available");
       const coll = client.db(dbName).collection(name);
@@ -74,6 +79,7 @@ export function makeMongoStore(name) {
       );
     },
     async get(key, { type } = {}) {
+      console.log(`[mongoStore] get: collection=${name}, key=${key}`);
       const client = await getMongoClient();
       if (!client) throw new Error("MongoDB client not available");
       const coll = client.db(dbName).collection(name);
