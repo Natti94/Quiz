@@ -182,7 +182,7 @@ function Form({ onSelect }) {
       return;
     }
     try {
-      const res = await callFunction("admin-requestUnlock", {
+      const res = await callFunction("requestUnlock", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
