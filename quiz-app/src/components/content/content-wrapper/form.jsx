@@ -81,7 +81,7 @@ function Form({ onSelect }) {
 
   const verifyKeyAndUnlock = async (key) => {
     try {
-      const res = await callFunction("verifyUnlock", {
+      const res = await callFunction("auth-verifyUnlock", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key }),
@@ -140,12 +140,12 @@ function Form({ onSelect }) {
   function getFunctionBases() {
     try {
       const pref = localStorage.getItem("fnBase");
-      if (pref === "/.netlify/functions/auth")
-        return ["/.netlify/functions/auth", "/api"];
-      if (pref === "/api") return ["/api", "/.netlify/functions/auth"];
+      if (pref === "/.netlify/functions")
+        return ["/.netlify/functions", "/api"];
+      if (pref === "/api") return ["/api", "/.netlify/functions"];
     } catch {}
 
-    return ["/.netlify/functions/auth", "/api"];
+    return ["/.netlify/functions", "/api"];
   }
 
   async function callFunction(name, init) {
@@ -182,7 +182,7 @@ function Form({ onSelect }) {
       return;
     }
     try {
-      const res = await callFunction("requestUnlock", {
+      const res = await callFunction("admin-requestUnlock", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
