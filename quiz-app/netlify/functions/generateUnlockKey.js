@@ -1,5 +1,4 @@
 import crypto from "crypto";
-import { getStore } from "@netlify/blobs";
 
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
