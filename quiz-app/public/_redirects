@@ -1,8 +1,8 @@
 # API → Netlify Functions
-/api/auth/verifyPreAccess   /.netlify/functions/auth-verifyPreAccess   200
-/api/auth/verifyUnlock      /.netlify/functions/auth-verifyUnlock      200
-/api/admin/requestUnlock    /.netlify/functions/admin-requestUnlock    200
-/api/admin/getDevUnlockKey  /.netlify/functions/admin-getDevUnlockKey  200
+/api/verifyPreAccess   /.netlify/functions/verifyPreAccess   200
+/api/verifyUnlock      /.netlify/functions/verifyUnlock      200
+/api/requestUnlock    /.netlify/functions/requestUnlock    200
+/api/getDevUnlockKey  /.netlify/functions/getDevUnlockKey  200
 /api/generateUnlockKey      /.netlify/functions/generateUnlockKey      200
 /api/discordInteractions    /.netlify/functions/discordInteractions    200
 /api/assets                 /.netlify/functions/getAssets              200
