@@ -3,6 +3,8 @@ import { sha256Hex, signJWT, verifyJWT } from "../_lib/jwtUtils.js";
 
 const store = getDataStore("pre-keys");
 
+console.log("[mongo] Using store:", "pre-keys");
+
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
