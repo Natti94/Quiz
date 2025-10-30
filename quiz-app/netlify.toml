@@ -1,42 +1,44 @@
 [build]
-  command = "npm run build"
-  publish = "dist"
   functions = "netlify/functions"
+  publish   = "dist"   # <-- adjust if your client build goes elsewhere
 
-# Local dev server (Netlify CLI will proxy to Vite by default)
-[dev]
-  framework = "vite"
-  targetPort = 5173
-  port = 8888
-
-# Ensure /api/* works both in dev and prod
 [[redirects]]
-  from = "/api/verifyUnlock"
-  to = "/.netlify/functions/verifyUnlock"
+  # All API routes → Netlify Functions
+  # (order does not matter – Netlify matches the longest first)
+  path = "/api/auth/verifyPreAccess"
+  to   = "/.netlify/functions/auth/verifyPreAccess"
   status = 200
 
-[[redirects]]
-  from = "/api/requestUnlock"
-  to = "/.netlify/functions/requestUnlock"
+  path = "/api/auth/verifyUnlock"
+  to   = "/.netlify/functions/auth/verifyUnlock"
   status = 200
 
-[[redirects]]
-  from = "/api/commits"
-  to = "/.netlify/functions/getCommits"
+  path = "/api/admin/requestUnlock"
+  to   = "/.netlify/functions/admin/requestUnlock"
   status = 200
 
-[[redirects]]
-  from = "/api/assets"
-  to = "/.netlify/functions/getAssets"
+  path = "/api/admin/getDevUnlockKey"
+  to   = "/.netlify/functions/admin/getDevUnlockKey"
   status = 200
 
-[[redirects]]
-  from = "/api/getDevUnlockKey"
-  to = "/.netlify/functions/getDevUnlockKey"
+  path = "/api/generateUnlockKey"
+  to   = "/.netlify/functions/generateUnlockKey"
   status = 200
 
-# SPA fallback
+  path = "/api/discordInteractions"
+  to   = "/.netlify/functions/discordInteractions"
+  status = 200
+
+  path = "/api/assets"
+  to   = "/.netlify/functions/getAssets"
+  status = 200
+
+  path = "/api/commits"
+  to   = "/.netlify/functions/getCommits"
+  status = 200
+
+# Catch-all for client SPA
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  path = "/*"
+  to   = "/index.html"
   status = 200

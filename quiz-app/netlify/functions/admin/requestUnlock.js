@@ -1,6 +1,8 @@
+// netlify/functions/admin/requestUnlock.js
 import { Resend } from "resend";
 import { getDataStore } from "../_store.js";
 import { verifyJWT } from "../_lib/jwtUtils.js";
+import crypto from "crypto";
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -13,89 +15,70 @@ export const handler = async (event) => {
   const jwtSecret = process.env.JWT_SECRET || "dev-secret";
 
   if (!apiKey) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Missing RESEND_API_KEY" }),
-    };
+    return { statusCode: 500, body: JSON.stringify({ error: "Missing RESEND_API_KEY" }) };
   }
   if (!from) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Missing RESEND_FROM (verified sender)" }),
-    };
+    return { statusCode: 500, body: JSON.stringify({ error: "Missing RESEND_FROM" }) };
   }
 
-  const auth =
-    event.headers["authorization"] || event.headers["Authorization"] || "";
-  const m = auth.match(/^Bearer\s+(.+)$/i);
-  const preToken = m ? m[1] : "";
+  // ---- Auth: pre-access token required ----
+  const authHeader = event.headers["authorization"] || event.headers["Authorization"] || "";
+  const match = authHeader.match(/^Bearer\s+(.+)$/i);
+  const preToken = match ? match[1] : "";
   const payload = preToken ? verifyJWT(preToken, jwtSecret) : null;
   if (!payload || payload.scope !== "pre") {
-    return {
-      statusCode: 401,
-      body: JSON.stringify({ error: "Pre-Access required" }),
-    };
+    return { statusCode: 401, body: JSON.stringify({ error: "Pre-Access required" }) };
   }
 
+  // ---- Parse body ----
   let body;
   try {
     body = JSON.parse(event.body || "{}");
-  } catch (e) {
+  } catch {
     return { statusCode: 400, body: JSON.stringify({ error: "Invalid JSON" }) };
   }
 
   const recipient = String(body.recipient || "").trim();
   if (!recipient) {
-    return {
-      statusCode: 400,
-      body: JSON.stringify({ error: "recipient is required" }),
-    };
+    return { statusCode: 400, body: JSON.stringify({ error: "recipient required" }) };
   }
 
+  // ---- Generate one-time code ----
+  const ttlMinutes = Math.max(5, Math.min(24 * 60, Number(body.ttlMinutes) || 120));
+  const now = Date.now();
+  const expiresAt = now + ttlMinutes * 60 * 1000;
+  const code = crypto.randomUUID().toUpperCase();
+  const hash = crypto.createHash("sha256").update(code).digest("hex");
+
+  const store = getDataStore("unlock-keys");
+  await store.setJSON(hash, { createdAt: now, expiresAt }, { ttl: ttlMinutes * 60 });
+
+  // ---- Send email ----
+  const resend = new Resend(apiKey);
+  const subject = "Din tentanyckel (engångs)";
+  const html = `
+    <p>Hej!</p>
+    <p>Här är din engångsnyckel för tentan:</p>
+    <p style="font-size:16px"><strong>${code}</strong></p>
+    <p>Öppna sidan, klistra in nyckeln och klicka <strong>Lås upp</strong>.</p>
+    <p>Nyckeln upphör efter första användning eller när den löper ut.</p>
+  `;
+
+  const mail = { from, to: recipient, subject, html };
+  if (toAdmin) mail.bcc = toAdmin;
+
   try {
-    const code = crypto.randomUUID().toUpperCase();
-    // const store = getDataStore("unlock-keys");
-    const ttlMinutes = Math.max(
-      5,
-      Math.min(24 * 60, Number(body.ttlMinutes) || 120),
-    );
-    const now = Date.now();
-    const expiresAt = now + ttlMinutes * 60 * 1000;
-    const hash = crypto.createHash("sha256").update(code).digest("hex");
-    await store.setJSON(
-      hash,
-      { createdAt: now, expiresAt },
-      { ttl: ttlMinutes * 60 },
-    );
-
-    const resend = new Resend(apiKey);
-    const subject = "Din tentanyckel (engångs)";
-    const key = code;
-    const html = `
-      <p>Hej!</p>
-      <p>Här är din engångsnyckel för att låsa upp tentan:</p>
-      <p style="font-size:16px"><strong>${key}</strong></p>
-      <p>Öppna sidan, klistra in nyckeln i fältet "Lösenord" och klicka på "Lås upp". Nyckeln upphör att gälla efter användning eller när den löper ut.</p>
-      <p>Om du inte begärt denna nyckel kan du ignorera detta mejl.</p>
-    `;
-
-    const mailOptions = { from, to: recipient, subject, html };
-    if (toAdmin) mailOptions.bcc = toAdmin;
-
-    const response = await resend.emails.send(mailOptions);
+    const { data } = await resend.emails.send(mail);
     return {
       statusCode: 200,
-      body: JSON.stringify({ ok: true, id: response?.id || null, expiresAt }),
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ok: true, id: data?.id ?? null, expiresAt }),
     };
   } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({
-        error: "Failed to send email",
-        details: err.message,
-      }),
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Failed to send email", details: err.message }),
     };
   }
 };

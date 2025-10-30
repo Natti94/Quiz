@@ -1,3 +1,4 @@
+// netlify/functions/generateUnlockKey.js
 import crypto from "crypto";
 
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -5,9 +6,7 @@ const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 function makeCode(len = 10) {
   const bytes = crypto.randomBytes(len);
   let out = "";
-  for (let i = 0; i < len; i++) {
-    out += ALPHABET[bytes[i] % ALPHABET.length];
-  }
+  for (let i = 0; i < len; i++) out += ALPHABET[bytes[i] % ALPHABET.length];
   return out;
 }
 
@@ -28,14 +27,9 @@ export const handler = async (event) => {
   }
 
   let body = {};
-  try {
-    body = JSON.parse(event.body || "{}");
-  } catch {}
+  try { body = JSON.parse(event.body || "{}"); } catch {}
 
-  const ttlMinutes = Math.max(
-    1,
-    Math.min(24 * 60, Number(body.ttlMinutes) || 60),
-  );
+  const ttlMinutes = Math.max(1, Math.min(24 * 60, Number(body.ttlMinutes) || 60));
   const ttlSec = ttlMinutes * 60;
 
   let code = String(body.code || "").trim();
@@ -54,7 +48,9 @@ export const handler = async (event) => {
 
   const type = (body.type || "exam").toLowerCase();
   const bucket = type === "pre" ? "pre-keys" : "unlock-keys";
-    // Blobs-related logic removed
+
+  const store = getDataStore(bucket);
+  await store.setJSON(codeHash, { createdAt: now, expiresAt }, { ttl: ttlSec });
 
   return {
     statusCode: 200,
