@@ -1,4 +1,3 @@
-// netlify/functions/generateUnlockKey.js
 import crypto from "crypto";
 
 const ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -27,9 +26,14 @@ export const handler = async (event) => {
   }
 
   let body = {};
-  try { body = JSON.parse(event.body || "{}"); } catch {}
+  try {
+    body = JSON.parse(event.body || "{}");
+  } catch {}
 
-  const ttlMinutes = Math.max(1, Math.min(24 * 60, Number(body.ttlMinutes) || 60));
+  const ttlMinutes = Math.max(
+    1,
+    Math.min(24 * 60, Number(body.ttlMinutes) || 60),
+  );
   const ttlSec = ttlMinutes * 60;
 
   let code = String(body.code || "").trim();

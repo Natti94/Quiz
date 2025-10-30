@@ -1,4 +1,3 @@
-// netlify/functions/admin/getDevUnlockKey.js
 export const handler = async (event) => {
   const headers = event.headers || {};
   const host = headers.host || headers["x-forwarded-host"] || "";
@@ -34,7 +33,10 @@ export const handler = async (event) => {
   const key = process.env.EXAM_SECRET || "dev-secret";
   return {
     statusCode: 200,
-    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store",
+    },
     body: JSON.stringify({ key }),
   };
 };

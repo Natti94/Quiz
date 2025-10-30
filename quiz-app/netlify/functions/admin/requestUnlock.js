@@ -1,4 +1,3 @@
-// netlify/functions/admin/requestUnlock.js
 import { Resend } from "resend";
 import { getDataStore } from "../_store.js";
 import { verifyJWT } from "../_lib/jwtUtils.js";
@@ -15,22 +14,30 @@ export const handler = async (event) => {
   const jwtSecret = process.env.JWT_SECRET || "dev-secret";
 
   if (!apiKey) {
-    return { statusCode: 500, body: JSON.stringify({ error: "Missing RESEND_API_KEY" }) };
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Missing RESEND_API_KEY" }),
+    };
   }
   if (!from) {
-    return { statusCode: 500, body: JSON.stringify({ error: "Missing RESEND_FROM" }) };
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Missing RESEND_FROM" }),
+    };
   }
 
-  // ---- Auth: pre-access token required ----
-  const authHeader = event.headers["authorization"] || event.headers["Authorization"] || "";
+  const authHeader =
+    event.headers["authorization"] || event.headers["Authorization"] || "";
   const match = authHeader.match(/^Bearer\s+(.+)$/i);
   const preToken = match ? match[1] : "";
   const payload = preToken ? verifyJWT(preToken, jwtSecret) : null;
   if (!payload || payload.scope !== "pre") {
-    return { statusCode: 401, body: JSON.stringify({ error: "Pre-Access required" }) };
+    return {
+      statusCode: 401,
+      body: JSON.stringify({ error: "Pre-Access required" }),
+    };
   }
 
-  // ---- Parse body ----
   let body;
   try {
     body = JSON.parse(event.body || "{}");
@@ -40,20 +47,28 @@ export const handler = async (event) => {
 
   const recipient = String(body.recipient || "").trim();
   if (!recipient) {
-    return { statusCode: 400, body: JSON.stringify({ error: "recipient required" }) };
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "recipient required" }),
+    };
   }
 
-  // ---- Generate one-time code ----
-  const ttlMinutes = Math.max(5, Math.min(24 * 60, Number(body.ttlMinutes) || 120));
+  const ttlMinutes = Math.max(
+    5,
+    Math.min(24 * 60, Number(body.ttlMinutes) || 120),
+  );
   const now = Date.now();
   const expiresAt = now + ttlMinutes * 60 * 1000;
   const code = crypto.randomUUID().toUpperCase();
   const hash = crypto.createHash("sha256").update(code).digest("hex");
 
   const store = getDataStore("unlock-keys");
-  await store.setJSON(hash, { createdAt: now, expiresAt }, { ttl: ttlMinutes * 60 });
+  await store.setJSON(
+    hash,
+    { createdAt: now, expiresAt },
+    { ttl: ttlMinutes * 60 },
+  );
 
-  // ---- Send email ----
   const resend = new Resend(apiKey);
   const subject = "Din tentanyckel (engångs)";
   const html = `
@@ -78,7 +93,10 @@ export const handler = async (event) => {
     return {
       statusCode: 500,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Failed to send email", details: err.message }),
+      body: JSON.stringify({
+        error: "Failed to send email",
+        details: err.message,
+      }),
     };
   }
 };

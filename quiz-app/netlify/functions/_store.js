@@ -1,4 +1,3 @@
-// netlify/functions/_store.js
 let client = null;
 let db = null;
 
@@ -13,10 +12,6 @@ function getClient() {
   return client;
 }
 
-/**
- * Returns a tiny key-value store backed by MongoDB.
- * If MONGODB_URI is not set we return a safe stub that never throws.
- */
 export function getDataStore(bucket) {
   if (!process.env.MONGODB_URI) {
     console.warn("[_store] MONGODB_URI missing – using in-memory stub");
@@ -34,13 +29,12 @@ export function getDataStore(bucket) {
       async delete(key) {
         mem.delete(key);
       },
-      // consumeJSON is optional – we keep it undefined
     };
   }
 
   if (!db) {
     const c = getClient();
-    // Change "quiz" to the DB name you use in Atlas
+
     db = c.db();
   }
 

@@ -1,43 +1,55 @@
 [build]
   functions = "netlify/functions"
-  publish   = "dist"   # <-- adjust if your client build goes elsewhere
+  publish   = "dist"   # Change if your build output folder is different
+
+# ==============================
+# API → Netlify Functions
+# ==============================
 
 [[redirects]]
-  # All API routes → Netlify Functions
-  # (order does not matter – Netlify matches the longest first)
   path = "/api/auth/verifyPreAccess"
   to   = "/.netlify/functions/auth/verifyPreAccess"
   status = 200
 
+[[redirects]]
   path = "/api/auth/verifyUnlock"
   to   = "/.netlify/functions/auth/verifyUnlock"
   status = 200
 
+[[redirects]]
   path = "/api/admin/requestUnlock"
   to   = "/.netlify/functions/admin/requestUnlock"
   status = 200
 
+[[redirects]]
   path = "/api/admin/getDevUnlockKey"
   to   = "/.netlify/functions/admin/getDevUnlockKey"
   status = 200
 
+[[redirects]]
   path = "/api/generateUnlockKey"
   to   = "/.netlify/functions/generateUnlockKey"
   status = 200
 
+[[redirects]]
   path = "/api/discordInteractions"
   to   = "/.netlify/functions/discordInteractions"
   status = 200
 
+[[redirects]]
   path = "/api/assets"
   to   = "/.netlify/functions/getAssets"
   status = 200
 
+[[redirects]]
   path = "/api/commits"
   to   = "/.netlify/functions/getCommits"
   status = 200
 
-# Catch-all for client SPA
+# ==============================
+# SPA Fallback
+# ==============================
+
 [[redirects]]
   path = "/*"
   to   = "/index.html"
