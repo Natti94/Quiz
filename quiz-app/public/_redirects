@@ -1,7 +1,7 @@
 /*    /index.html   200
 /api/commits    /.netlify/functions/getCommits   200
 /api/assets     /.netlify/functions/getAssets    200
-/api/requestUnlock     /.netlify/functions/auth/requestUnlock   200
-/api/verifyUnlock      /.netlify/functions/auth/verifyUnlock    200
-/api/getDevUnlockKey   /.netlify/functions/admin/getDevUnlockKey 200
-/api/verifyPreAccess   /.netlify/functions/auth/verifyPreAccess 200
+/api/requestUnlock     /.netlify/functions/auth-requestUnlock   200
+/api/verifyUnlock      /.netlify/functions/auth-verifyUnlock    200
+/api/getDevUnlockKey   /.netlify/functions/admin-getDevUnlockKey 200
+/api/verifyPreAccess   /.netlify/functions/auth-verifyPreAccess 200

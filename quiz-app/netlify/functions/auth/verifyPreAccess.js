@@ -43,7 +43,8 @@ export const handler = async (event) => {
   const store = getBlobsStore("pre-keys");
   const code = rawKey.toUpperCase();
   const keyHash = sha256Hex(code);
-  const rec = (await (store.consumeJSON?.(keyHash))) || (await store.getJSON(keyHash));
+  const rec =
+    (await store.consumeJSON?.(keyHash)) || (await store.getJSON(keyHash));
   if (!rec) {
     return {
       statusCode: 401,
