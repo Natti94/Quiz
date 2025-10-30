@@ -1,5 +1,4 @@
 import nacl from "tweetnacl";
-import { getDataStore } from "./_store.js";
 import { signJWT } from "./jwtUtils.js";
 
 function jsonResponse(obj, status = 200) {
