@@ -5,9 +5,12 @@ const store = getDataStore("pre-keys");
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {
-  console.log("[verifyPreAccess] Handler triggered", event.httpMethod, event.path);
+    console.log(
+      "[verifyPreAccess] Handler triggered",
+      event.httpMethod,
+      event.path,
+    );
     return { statusCode: 405, body: "Method Not Allowed" };
-    
   }
 
   let body;

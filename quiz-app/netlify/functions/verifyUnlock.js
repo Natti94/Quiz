@@ -1,4 +1,4 @@
-import { getDataStore } from "./functions/_store.js";
+import { getDataStore } from "./_store.js";
 import { signJWT, sha256Hex } from "./jwtUtils.js";
 
 export const handler = async (event) => {
@@ -17,7 +17,6 @@ export const handler = async (event) => {
     .trim()
     .toUpperCase();
   if (!provided) {
-    // tiny delay to thwart timing attacks
     await new Promise((r) => setTimeout(r, 200));
     return { statusCode: 400, body: JSON.stringify({ error: "Key required" }) };
   }
