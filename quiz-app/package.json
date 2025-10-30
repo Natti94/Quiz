@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@netlify/blobs": "^8.0.0",
-    "crypto": "^1.0.1",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "fast-glob": "^3.3.3",
