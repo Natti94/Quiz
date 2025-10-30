@@ -46,7 +46,7 @@ function Form({ onSelect }) {
       return;
     }
     try {
-      const res = await callFunction("verifyPreAccess", {
+      const res = await callFunction("auth-verifyPreAccess", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key: adminKey }),
