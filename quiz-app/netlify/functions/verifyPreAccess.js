@@ -1,5 +1,5 @@
-import { getDataStore } from "../_store.js";
-import { sha256Hex, signJWT, verifyJWT } from "../_lib/jwtUtils.js";
+import { getDataStore } from "./_store.js";
+import { sha256Hex, signJWT, verifyJWT } from "./jwtUtils.js";
 
 const store = getDataStore("pre-keys");
 

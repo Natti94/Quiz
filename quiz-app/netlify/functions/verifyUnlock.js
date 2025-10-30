@@ -1,5 +1,5 @@
-import { getDataStore } from "../_store.js";
-import { signJWT, sha256Hex } from "../_lib/jwtUtils.js";
+import { getDataStore } from "./functions/_store.js";
+import { signJWT, sha256Hex } from "./jwtUtils.js";
 
 export const handler = async (event) => {
   if (event.httpMethod !== "POST") {

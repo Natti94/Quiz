@@ -1,6 +1,6 @@
 import { Resend } from "resend";
-import { getDataStore } from "../_store.js";
-import { verifyJWT } from "../_lib/jwtUtils.js";
+import { getDataStore } from "./_store.js";
+import { verifyJWT } from "./jwtUtils.js";
 import crypto from "crypto";
 
 export const handler = async (event) => {
