@@ -362,7 +362,7 @@ function Form({ onSelect }) {
                 )}
 
                 {}
-                {hasPreAccess && (
+                {hasPreAccess && unlockStep !== "unlock" && (
                   <>
                     <h3
                       className="subjects__unlock-title"
@@ -399,7 +399,7 @@ function Form({ onSelect }) {
                 )}
 
                 {}
-                {(hasPreAccess && unlockStep === "unlock" || isLocal) && (
+                {(unlockStep === "unlock" || isLocal) && (
                   <>
                     <h3
                       className="subjects__unlock-title"
