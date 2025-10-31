@@ -323,6 +323,9 @@ function Form({ onSelect }) {
                     alt="Discord"
                     className="subjects__discord-icon-static"
                   />
+                  <p style={{ fontStyle: "italic" }}>
+                    Öppna Discord för att få admin-nyckeln
+                  </p>
                 </a>
                 {}
                 {!hasPreAccess && (
