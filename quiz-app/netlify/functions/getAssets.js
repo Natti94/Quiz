@@ -1,7 +1,7 @@
 const assetPaths = {
   projects_link: process.env.VITE_CLOUDINARY_PROJECTS_LINK,
-  discord_icon: process.env.VITE_DISCORD_ICON,
   discord_link: process.env.VITE_DISCORD_LINK,
+  discord_icon: process.env.VITE_DISCORD_ICON,
 };
 
 export async function handler(event) {
@@ -19,14 +19,14 @@ export async function handler(event) {
   if (!url) {
     console.error(
       `Asset '${asset}' not found or environment variable not set. Available assets: ${Object.keys(
-        assetPaths,
-      ).join(", ")}`,
+        assetPaths
+      ).join(", ")}`
     );
     return {
       statusCode: 400,
       body: JSON.stringify({
         error: `Asset '${asset}' not found or environment variable not set. Available assets: ${Object.keys(
-          assetPaths,
+          assetPaths
         ).join(", ")}`,
       }),
     };
