@@ -16,10 +16,10 @@ function Form({ onSelect }) {
 
   const assets = {
     discord_link: isProd
-      ? `/api/assets?asset=discord_link`
+      ? "/api/assets?asset=discord_link"
       : import.meta.env.VITE_DISCORD_LINK,
     discord_icon: isProd
-      ? `/api/assets?asset=discord_icon`
+      ? "/api/assets?asset=discord_icon"
       : import.meta.env.VITE_DISCORD_ICON,
   };
 
