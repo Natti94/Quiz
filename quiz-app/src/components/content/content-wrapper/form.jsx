@@ -399,13 +399,13 @@ function Form({ onSelect }) {
                 )}
 
                 {}
-                {(unlockStep === "unlock" || isLocal) && (
+                {(hasPreAccess && unlockStep === "unlock" || isLocal) && (
                   <>
                     <h3
                       className="subjects__unlock-title"
                       style={{ margin: 0, fontSize: "1rem" }}
                     >
-                      Steg 2: Lås upp med din nyckel
+                      Steg 3: Lås upp med din nyckel
                     </h3>
                     <label
                       className="subjects__unlock-label"
