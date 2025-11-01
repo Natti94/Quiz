@@ -23,8 +23,29 @@ export default defineConfig([
       },
     },
     rules: {
-      "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
+      "no-unused-vars": [
+        "error",
+        {
+          varsIgnorePattern: "^[A-Z_]",
+          argsIgnorePattern: "^_|^err$",
+          caughtErrors: "none",
+        },
+      ],
+      "no-empty": ["warn", { allowEmptyCatch: true }],
     },
-    "prop-types": [0],
+  },
+  // Node.js environment for Netlify Functions
+  {
+    files: ["netlify/functions/**/*.js", "netlify/functions/**/*.mjs"],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.node,
+      parserOptions: { sourceType: "module" },
+    },
+    rules: {
+      "no-undef": "off",
+      "no-empty": "off",
+      "no-unused-vars": "off",
+    },
   },
 ]);
