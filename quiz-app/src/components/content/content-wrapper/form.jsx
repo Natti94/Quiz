@@ -316,7 +316,7 @@ function Form({ onSelect }) {
                   rel="noopener noreferrer"
                   className="subjects__discord-link"
                   aria-label="Öppna Discord för att få admin-nyckeln"
-                  title="Öppna Discord (få admin-nyckeln)"
+                  title="Öppna Discord"
                 >
                   <img
                     src={assets.discord_icon}
@@ -347,7 +347,7 @@ function Form({ onSelect }) {
                         type="text"
                         value={formKey}
                         onChange={(e) => setFormKey(e.target.value)}
-                        placeholder="Admin-nyckel (GUID) från Administratören"
+                        placeholder="Besök min Discord server för att få tillgång till Pre-Access Nyckel"
                         className="subjects__unlock-input"
                       />
                       <button
