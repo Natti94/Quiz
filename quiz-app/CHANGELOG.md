@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/Natti94/Quiz/compare/v1.0.1...v1.0.2) (2025-11-01)
+
+### Bug Fixes
+
+* testing new tag for version when committing and pushing work and changes to README ([a0c5445](https://github.com/Natti94/Quiz/commit/a0c544543b156dda3434ab619036e950896fdff4))
+
 ## 1.0.0 (2025-11-01)
 
 ### ⚠ BREAKING CHANGES
