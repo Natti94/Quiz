@@ -316,7 +316,7 @@ function Form({ onSelect }) {
                   rel="noopener noreferrer"
                   className="subjects__discord-link"
                   aria-label="Öppna Discord för att få admin-nyckeln"
-                  title="Öppna Discord"
+                  title="Discord"
                 >
                   <img
                     src={assets.discord_icon}
