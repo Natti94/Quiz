@@ -1,7 +1,5 @@
 # Quiz App
 
-> Note: This repo is the finalized version of the project (imported from another repo), so the Git history is intentionally minimal.
-
 A responsive quiz application with multiple subjects. Choose a subject, answer questions with instant feedback and explanations, and cancel at any time to see a summary of your current score. Includes a gated exam with an unlock key and per-question level (G/VG). The WAI subject (Web Architecture & Internet) covers HTTP/HTTPS, proxies, authN/Z, crypto, logging, and OWASP Top 10 topics. An Updates section displays the latest commits from this repository via a Netlify Function (with Prev/Next navigation).
 
 Automated releases: the project uses Conventional Commits + semantic-release to auto-bump versions (patch/minor/major), generate a changelog, tag, and publish GitHub Releases on pushes to main. The current version is also shown in the app header.
