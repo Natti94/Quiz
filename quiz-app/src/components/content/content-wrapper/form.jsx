@@ -323,12 +323,9 @@ function Form({ onSelect }) {
                     alt="Discord"
                     className="subjects__discord-icon-static"
                   />
-                  <p style={{ fontStyle: "italic" }}>
-                    Öppna Discord för att få admin-nyckeln
-                  </p>
                 </a>
                 {}
-                {!hasPreAccess && (
+                {!hasPreAccess && !isLocal && (
                   <>
                     <h2
                       id="unlock-title"
@@ -435,7 +432,7 @@ function Form({ onSelect }) {
                           onClick={fetchLocalKey}
                           title="Endast lokalt"
                         >
-                          Öppna {"(Utvecklare)"}
+                          Öppna <strong>{"(Utvecklare)"}</strong>
                         </button>
                       )}
                     </div>

@@ -25,6 +25,21 @@ export const handler = async (event) => {
   const store = getDataStore("unlock-keys");
   const keyHash = sha256Hex(provided);
 
+  // Dev shortcut: allow EXAM_SECRET directly in Netlify Dev without hitting the store
+  const headers = event.headers || {};
+  const host = headers.host || headers["x-forwarded-host"] || "";
+  const isLocalHost = /^(localhost|127\.0\.0\.1)(:\d+)?$/i.test(host);
+  const isDev = process.env.NETLIFY_DEV === "true" || isLocalHost;
+  const devSecret = (process.env.EXAM_SECRET || "").trim().toUpperCase();
+  if (isDev && devSecret && provided === devSecret) {
+    const { token, exp } = signJWT({ sub: "exam" }, jwtSecret, 6 * 60 * 60);
+    return {
+      statusCode: 200,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ok: true, token, exp }),
+    };
+  }
+
   const rec =
     (await store.consumeJSON?.(keyHash)) || (await store.getJSON(keyHash));
 

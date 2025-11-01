@@ -314,9 +314,11 @@
 }
 
 .subjects__discord-icon-static {
-  width: 24px;
-  height: 24px;
+  width: 64px;
+  height: 64px;
   display: block;
+  margin: 0 auto 8px auto;
+
 }
 .subjects__discord-btn:hover {
   transform: translateY(-1px) scale(1.03);
