@@ -1,23 +1,54 @@
-name: Notify Discord
+name: Release
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
-  notify:
+  release:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: quiz-app
     steps:
-      - name: Send message to Discord
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: quiz-app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci || npm i --no-audit --no-fund
+
+      - name: Semantic Release
+        id: semantic
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Notify Discord
+        if: success()  # Only send if Semantic Release succeeds
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
           args: |
-            🚀 New push to **main**
-            📦 Repo: ${{ github.repository }}
-            👤 Author: ${{ github.actor }}
-            📝 Commit: ${{ github.event.head_commit.message }}
-            🔗 Link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+            🚀 **New Release Published!**
+            📦 **Repository:** ${{ github.repository }}
+            🏷️ **Tag:** ${{ steps.semantic.outputs.new_release_git_tag }}
+            👤 **Released by:** ${{ github.actor }}
+            🔗 **View Release:** https://github.com/${{ github.repository }}/releases/tag/${{ steps.semantic.outputs.new_release_git_tag }}
+
+            
