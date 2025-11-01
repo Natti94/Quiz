@@ -4,6 +4,8 @@
 
 A responsive quiz application with multiple subjects. Choose a subject, answer questions with instant feedback and explanations, and cancel at any time to see a summary of your current score. Includes a gated exam with an unlock key and per-question level (G/VG). The WAI subject (Web Architecture & Internet) covers HTTP/HTTPS, proxies, authN/Z, crypto, logging, and OWASP Top 10 topics. An Updates section displays the latest commits from this repository via a Netlify Function (with Prev/Next navigation).
 
+Automated releases: the project uses Conventional Commits + semantic-release to auto-bump versions (patch/minor/major), generate a changelog, tag, and publish GitHub Releases on pushes to main. The current version is also shown in the app header.
+
 ## Features
 
 - Subject chooser with card UI
@@ -34,8 +36,13 @@ quiz-app/
 
   netlify/
     functions/
-      getAssets.js       # Netlify Function to serve external links from env
-      getCommits.js      # Netlify Function proxy to GitHub commits (single repo)
+      getAssets.js         # Serve external links from env
+      getCommits.js        # Proxy to GitHub commits (single repo)
+      verifyPreAccess.js   # Step 1: verify admin key (JWT pre-token)
+      requestUnlock.js     # Step 2: email a one-time key (Resend)
+      verifyUnlock.js      # Step 3: verify key → issue unlock JWT
+      getDevUnlockKey.js   # Dev-only helper to fetch local key
+      _store.js, jwtUtils.js, generateUnlockKey.js
 
   src/
     main.jsx             # React entry
@@ -87,7 +94,7 @@ Then open http://localhost:5173.
 To use the unlock and updates APIs locally, run the Netlify Dev server (proxies Vite and mounts functions) and open the app on port 8888:
 
 ```powershell
-npm run dev:netlify        # starts Netlify Dev
+npm run dev:netlify        # starts Netlify Dev (uses npx to run the CLI)
 # or (Windows): auto-open browser, then start Netlify Dev
 npm run dev:netlify:open
 ```
@@ -142,6 +149,22 @@ RESEND_FROM=verified@sender.tld
 RESEND_TO=admin@your.tld   # optional BCC for audit
 ```
 
+### Local dev behavior
+
+- In Netlify Dev (localhost), the unlock flow can skip email/DB. The app can fetch a developer key ("Öppna (Utvecklare)") and `verifyUnlock` accepts `EXAM_SECRET` directly.
+- The data store uses an in-memory map in dev (no MongoDB needed). You can omit `MONGODB_URI` in local `.env`.
+
+### Automated releases (semantic-release)
+
+- Workflow: `.github/workflows/release.yml` (runs on push to `main`).
+- Config: `quiz-app/.releaserc.json`.
+- Versions are inferred from commit messages (Conventional Commits):
+  - `fix: …` → patch (e.g., 2.0.1 → 2.0.2)
+  - `feat: …` → minor (e.g., 2.0.2 → 2.1.0)
+  - `feat!: …` or a `BREAKING CHANGE:` footer → major (e.g., 2.1.0 → 3.0.0)
+- Outputs: updates `CHANGELOG.md`, bumps `package.json`/`package-lock.json`, creates a tag and GitHub Release.
+- The version is injected at build time and shown in the UI header.
+
 ## Deploying to Netlify
 
 - Build command: `npm run build`
@@ -152,6 +175,7 @@ RESEND_TO=admin@your.tld   # optional BCC for audit
   ```
   /api/commits         /.netlify/functions/getCommits      200
   /api/assets          /.netlify/functions/getAssets       200
+  /api/getDevUnlockKey /.netlify/functions/getDevUnlockKey 200
   /api/requestUnlock   /.netlify/functions/requestUnlock   200
   /api/verifyUnlock    /.netlify/functions/verifyUnlock    200
   /*                   /index.html                         200
@@ -195,9 +219,10 @@ The WAI (Web Architecture & Internet) subject covers:
 - If the "Visit Other Projects" button fails in production, verify the Netlify env var `VITE_CLOUDINARY_PROJECTS_LINK` is set.
 - Styles are intentionally scoped (e.g., `.app-shell .quiz-wrapper ...`) to avoid leaking into other pages.
 - Exam not unlocking:
-  - Ensure `.env` has `VITE_SECRET_KEY` (restart dev server after changes).
-  - Clear `localStorage` key `examUnlocked` (DevTools → Application → Local Storage) to re-lock for testing.
-  - In production, confirm the env var is configured on Netlify and a fresh deploy is live.
+  - Ensure `.env` has `EXAM_SECRET` and `JWT_SECRET` (restart dev server after changes).
+  - For local testing, use the developer button ("Öppna (Utvecklare)") or paste `EXAM_SECRET` directly; no email/DB required.
+  - Clear `localStorage` keys `preToken` and `examToken` (DevTools → Application → Local Storage) to re-lock for testing.
+  - In production, confirm env vars are set on Netlify and a fresh deploy is live.
 - Updates not showing or rate-limited:
   - Ensure `public/_redirects` contains the `/api/commits` mapping shown above.
   - Set `GITHUB_TOKEN` in Netlify to avoid GitHub API rate limits.
