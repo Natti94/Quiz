@@ -13,7 +13,7 @@ function shuffleArray(array) {
   return newArray;
 }
 
-function shuffleQuestions(questions) {
+function shuffleQuestion(questions) {
   return shuffleArray(questions).map((q) => {
     if (!q.options || typeof q.correct !== "number") return q;
     const optionPairs = q.options.map((opt, idx) => ({ opt, idx }));
@@ -34,22 +34,22 @@ function Subject({ subject }, ref) {
 
   useEffect(() => {
     if (subject === "plu") {
-      setShuffledQuestions(shuffleQuestions(questionsPlu));
+      setShuffledQuestions(shuffleQuestion(questionsPlu));
       setIndex(0);
       setSelected(null);
       setScore(0);
     } else if (subject === "plu-exam") {
-      setShuffledQuestions(shuffleQuestions(questionsPluExam));
+      setShuffledQuestions(shuffleQuestion(questionsPluExam));
       setIndex(0);
       setSelected(null);
       setScore(0);
     } else if (subject === "apt") {
-      setShuffledQuestions(shuffleQuestions(questionsApt));
+      setShuffledQuestions(shuffleQuestion(questionsApt));
       setIndex(0);
       setSelected(null);
       setScore(0);
     } else if (subject === "wai") {
-      setShuffledQuestions(shuffleQuestions(questionsWai));
+      setShuffledQuestions(shuffleQuestion(questionsWai));
       setIndex(0);
       setSelected(null);
       setScore(0);
