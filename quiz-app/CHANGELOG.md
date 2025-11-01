@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/Natti94/Quiz/compare/v1.0.3...v1.0.4) (2025-11-01)
+
+### Bug Fixes
+
+* testing pipeline again ([db5c171](https://github.com/Natti94/Quiz/commit/db5c171d8d221c73c2b3053333d1f60eeda0bc75))
+
 ## 1.0.0 (2025-11-01)
 
 ### ⚠ BREAKING CHANGES
