@@ -49,4 +49,4 @@ jobs:
             📦 **Repository:** ${{ github.repository }}
             🏷️ **Tag:** ${{ steps.semantic.outputs.new_release_git_tag }}
             👤 **Released by:** ${{ github.actor }}
-            🔗 **View Release:** https://github.com/${{ github.repository }}/releases/tag/${{ steps.semantic.outputs.new_release_git_tag }}
+            🔗 **View Release & Changelog:** https://github.com/${{ github.repository }}/releases/tag/${{ steps.semantic.outputs.new_release_git_tag }}
