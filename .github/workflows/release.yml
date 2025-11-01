@@ -21,6 +21,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          fetch-tags: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -28,6 +29,11 @@ jobs:
           node-version: 20
           cache: npm
           cache-dependency-path: quiz-app/package-lock.json
+
+      - name: Ensure tags are fetched
+        run: |
+          git fetch --tags --force --prune
+          echo "Last 10 tags:" && git tag -l | tail -n 10
 
       - name: Install dependencies
         run: npm ci || npm i --no-audit --no-fund
