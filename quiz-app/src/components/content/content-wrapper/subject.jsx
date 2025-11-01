@@ -1,8 +1,28 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { questionsPlu } from "../../../data/index";
-import { questionsPluExam } from "../../../data/index";
 import { questionsApt } from "../../../data/index";
 import { questionsWai } from "../../../data/index";
+import { questionsPluExam } from "../../../data/index";
+
+function shuffleArray(array) {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
+
+function shuffleQuestions(questions) {
+  return shuffleArray(questions).map((q) => {
+    if (!q.options || typeof q.correct !== "number") return q;
+    const optionPairs = q.options.map((opt, idx) => ({ opt, idx }));
+    const shuffled = shuffleArray(optionPairs);
+    const newOptions = shuffled.map((p) => p.opt);
+    const newCorrect = shuffled.findIndex((p) => p.idx === q.correct);
+    return { ...q, options: newOptions, correct: newCorrect };
+  });
+}
 
 function Subject({ subject }, ref) {
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
@@ -12,46 +32,24 @@ function Subject({ subject }, ref) {
 
   const question = shuffledQuestions[index];
 
-  function shuffleArray(array) {
-    const newArray = [...array];
-    for (let i = newArray.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    }
-    return newArray;
-  }
-
-  function shuffleQuestionsWithShuffledOptions(questions) {
-    return shuffleArray(questions).map((q) => {
-      if (!q.options || typeof q.correct !== "number") return q;
-      const optionPairs = q.options.map((opt, idx) => ({ opt, idx }));
-      const shuffled = shuffleArray(optionPairs);
-      const newOptions = shuffled.map((p) => p.opt);
-      const newCorrect = shuffled.findIndex((p) => p.idx === q.correct);
-      return { ...q, options: newOptions, correct: newCorrect };
-    });
-  }
-
   useEffect(() => {
     if (subject === "plu") {
-      setShuffledQuestions(shuffleQuestionsWithShuffledOptions(questionsPlu));
+      setShuffledQuestions(shuffleQuestions(questionsPlu));
       setIndex(0);
       setSelected(null);
       setScore(0);
     } else if (subject === "plu-exam") {
-      setShuffledQuestions(
-        shuffleQuestionsWithShuffledOptions(questionsPluExam),
-      );
+      setShuffledQuestions(shuffleQuestions(questionsPluExam));
       setIndex(0);
       setSelected(null);
       setScore(0);
     } else if (subject === "apt") {
-      setShuffledQuestions(shuffleQuestionsWithShuffledOptions(questionsApt));
+      setShuffledQuestions(shuffleQuestions(questionsApt));
       setIndex(0);
       setSelected(null);
       setScore(0);
     } else if (subject === "wai") {
-      setShuffledQuestions(shuffleQuestionsWithShuffledOptions(questionsWai));
+      setShuffledQuestions(shuffleQuestions(questionsWai));
       setIndex(0);
       setSelected(null);
       setScore(0);
@@ -111,7 +109,7 @@ function Subject({ subject }, ref) {
         subject,
       }),
     }),
-    [score, index, selected, shuffledQuestions.length, subject],
+    [score, index, selected, shuffledQuestions.length, subject]
   );
 
   if (!subject) return null;
