@@ -15,7 +15,7 @@ export default defineConfig([
     ],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: { ...globals.browser, __APP_VERSION__: "readonly" },
       parserOptions: {
         ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
@@ -34,7 +34,15 @@ export default defineConfig([
       "no-empty": ["warn", { allowEmptyCatch: true }],
     },
   },
-  // Node.js environment for Netlify Functions
+
+  {
+    files: ["vite.config.js"],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.node,
+    },
+  },
+
   {
     files: ["netlify/functions/**/*.js", "netlify/functions/**/*.mjs"],
     languageOptions: {

@@ -24,7 +24,16 @@ function App() {
       <div className="app">
         <div className="app__content">
           <div className="app-header">
-            <h1 className="app-header__title">Quiz App</h1>
+            <h1 className="app-header__title">
+              Quiz App
+              {typeof __APP_VERSION__ !== "undefined" && (
+                <small
+                  style={{ marginLeft: 8, fontSize: "0.8em", opacity: 0.7 }}
+                >
+                  v{__APP_VERSION__}
+                </small>
+              )}
+            </h1>
             <Nav />
           </div>
 

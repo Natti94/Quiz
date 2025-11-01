@@ -25,7 +25,6 @@ export const handler = async (event) => {
   const store = getDataStore("unlock-keys");
   const keyHash = sha256Hex(provided);
 
-  // Dev shortcut: allow EXAM_SECRET directly in Netlify Dev without hitting the store
   const headers = event.headers || {};
   const host = headers.host || headers["x-forwarded-host"] || "";
   const isLocalHost = /^(localhost|127\.0\.0\.1)(:\d+)?$/i.test(host);

@@ -13,11 +13,7 @@ async function getClient() {
 }
 
 export function getDataStore(bucket) {
-  // In Netlify Dev or when Mongo is not configured, use an in-memory stub.
-  if (
-    process.env.NETLIFY_DEV === "true" ||
-    !process.env.MONGODB_URI
-  ) {
+  if (process.env.NETLIFY_DEV === "true" || !process.env.MONGODB_URI) {
     console.warn("[_store] MONGODB_URI missing – using in-memory stub");
     const mem = new Map();
     return {
