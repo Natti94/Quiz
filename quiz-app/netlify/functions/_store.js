@@ -1,9 +1,9 @@
 let client = null;
 let db = null;
 
-function getClient() {
+async function getClient() {
   if (!client && process.env.MONGODB_URI) {
-    const { MongoClient } = require("mongodb");
+    const { MongoClient } = await import("mongodb");
     client = new MongoClient(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -32,20 +32,24 @@ export function getDataStore(bucket) {
     };
   }
 
-  if (!db) {
-    const c = getClient();
-
-    db = c.db();
+  async function ensureDb() {
+    if (!db) {
+      const c = await getClient();
+      db = c.db();
+    }
+    return db;
   }
-
-  const col = db.collection(bucket);
 
   return {
     async getJSON(key) {
+      const database = await ensureDb();
+      const col = database.collection(bucket);
       const doc = await col.findOne({ _id: key });
       return doc?.data ?? null;
     },
     async setJSON(key, data, { ttl } = {}) {
+      const database = await ensureDb();
+      const col = database.collection(bucket);
       const update = { $set: { data } };
       if (ttl) {
         update.$set.expireAt = new Date(Date.now() + ttl * 1000);
@@ -53,6 +57,8 @@ export function getDataStore(bucket) {
       await col.updateOne({ _id: key }, update, { upsert: true });
     },
     async delete(key) {
+      const database = await ensureDb();
+      const col = database.collection(bucket);
       await col.deleteOne({ _id: key });
     },
   };

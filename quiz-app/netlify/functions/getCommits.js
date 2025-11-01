@@ -1,4 +1,4 @@
-exports.handler = async (event) => {
+export const handler = async (event) => {
   const qs = event.queryStringParameters || {};
 
   const ALLOWED_OWNER = process.env.GITHUB_OWNER || "Natti94";
