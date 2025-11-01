@@ -203,16 +203,6 @@ Question object shape:
 - Existing subjects: APT, PLU, PLU Exam, and WAI (Web Architecture & Internet).
 - Add a new subject by creating `src/data/quiz/<name>.js` (export a named array), wiring it in `subject.jsx` (based on the `subject` prop), adding a card in `form.jsx`, and extending any subject metadata registry (label/icon) used in `App.jsx`.
 
-### WAI subject
-
-The WAI (Web Architecture & Internet) subject covers:
-
-- HTTP/HTTPS basics, CA/certificates, proxies, idempotency
-- Authentication vs authorization (incl. JWT), Helmet, OWASP overview
-- Cryptography concepts: public/private keys, hashing, salting
-- Logging types: audit, access, trace
-- OWASP Top 10 themes: Identification & Authentication Failures, Vulnerable & Outdated Components, Injection, Security Misconfiguration, Cryptographic Failures, Software & Data Integrity Failures, SSRF, Insecure Design, Broken Access Control
-
 ## Notes & troubleshooting
 
 - Cancel summary shows points out of attempted, plus the total available for the chosen subject. The current question counts as attempted only if you selected an answer.
