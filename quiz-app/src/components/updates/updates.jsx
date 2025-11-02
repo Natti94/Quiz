@@ -27,8 +27,6 @@ export default function Updates() {
   const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
 
-  const updatesUrl = import.meta.env.GITHUB_QUIZ_UPDATES_URL;
-
   useEffect(() => {
     const params = new URLSearchParams({
       owner: "Natti94",
@@ -57,11 +55,16 @@ export default function Updates() {
       });
 
     const fetchFromGithub = () => {
-      const ghUrl = updatesUrl;
-      return fetch(ghUrl).then((res) => {
-        if (!res.ok) throw new Error(`GitHub HTTP ${res.status}`);
-        return res.json();
-      });
+      const perPage = 5;
+      const page = 1;
+      const updatesUrl = import.meta.env.VITE_GITHUB_QUIZ_UPDATES_URL;
+      if (updatesUrl) {
+        const ghUrl = `${updatesUrl}?per_page=${perPage}&page=${page}`;
+        return fetch(ghUrl).then((res) => {
+          if (!res.ok) throw new Error(`GitHub HTTP ${res.status}`);
+          return res.json();
+        });
+      }
     };
 
     fetchFromApi()
@@ -91,7 +94,7 @@ export default function Updates() {
       })
       .catch((e) => setError(e.message || "Failed to load commits"))
       .finally(() => setLoading(false));
-  }, [updatesUrl]);
+  }, []);
 
   useEffect(() => {
     if (!isOpen) return;

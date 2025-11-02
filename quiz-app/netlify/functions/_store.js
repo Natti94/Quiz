@@ -12,7 +12,7 @@ async function getClient() {
   return client;
 }
 
-export function getDataStore(bucket) {
+export function getDataStore(collectionName) {
   if (process.env.NETLIFY_DEV === "true" || !process.env.MONGODB_URI) {
     console.warn("[_store] MONGODB_URI missing – using in-memory stub");
     const mem = new Map();
@@ -35,7 +35,7 @@ export function getDataStore(bucket) {
   async function ensureDb() {
     if (!db) {
       const c = await getClient();
-      db = c.db();
+      db = c.db("quiz-app"); 
     }
     return db;
   }
@@ -43,13 +43,13 @@ export function getDataStore(bucket) {
   return {
     async getJSON(key) {
       const database = await ensureDb();
-      const col = database.collection(bucket);
+      const col = database.collection(collectionName);
       const doc = await col.findOne({ _id: key });
       return doc?.data ?? null;
     },
     async setJSON(key, data, { ttl } = {}) {
       const database = await ensureDb();
-      const col = database.collection(bucket);
+      const col = database.collection(collectionName);
       const update = { $set: { data } };
       if (ttl) {
         update.$set.expireAt = new Date(Date.now() + ttl * 1000);
@@ -58,7 +58,7 @@ export function getDataStore(bucket) {
     },
     async delete(key) {
       const database = await ensureDb();
-      const col = database.collection(bucket);
+      const col = database.collection(collectionName);
       await col.deleteOne({ _id: key });
     },
   };

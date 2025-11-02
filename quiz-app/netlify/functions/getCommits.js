@@ -28,7 +28,9 @@ export const handler = async (event) => {
     ? Math.max(1, Math.min(parseInt(qs.limit, 10), 5000))
     : undefined;
 
-  const baseUrl = `https://api.github.com/repos/${owner}/${repo}/commits`;
+  const baseUrl =
+    process.env.GITHUB_QUIZ_UPDATES_URL ||
+    `https://api.github.com/repos/${ALLOWED_OWNER}/${ALLOWED_REPO}/commits`;
 
   try {
     const headers = {
