@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/Natti94/Quiz/compare/quiz-app-v1.1.3...quiz-app-v1.2.0) (2025-11-02)
+
+### Features
+
+* adjustments to .env var decleration for cloudinary assets, only handles images now - no purpose rendering links through netlify function, uses local .env now for that. ([7bad853](https://github.com/Natti94/Quiz/commit/7bad853efa40e4c379b72ae6f57f31fff4732769))
+
 ## [1.1.3](https://github.com/Natti94/Quiz/compare/quiz-app-v1.1.2...quiz-app-v1.1.3) (2025-11-02)
 
 ### Bug Fixes
