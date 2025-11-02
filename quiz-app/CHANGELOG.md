@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/Natti94/Quiz/compare/quiz-app-v1.2.0...quiz-app-v1.2.1) (2025-11-02)
+
+### Bug Fixes
+
+* some changes to env var ([2e19f67](https://github.com/Natti94/Quiz/commit/2e19f6709dbc841307d2986c3899f4be82539e81))
+
 ## [1.2.0](https://github.com/Natti94/Quiz/compare/quiz-app-v1.1.3...quiz-app-v1.2.0) (2025-11-02)
 
 ### Features
