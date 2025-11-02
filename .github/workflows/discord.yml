@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Send message to Discord
         uses: Ilshidur/action-discord@master
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
           args: |
             🚀 New push to **main**
@@ -19,4 +21,3 @@ jobs:
             👤 Author: ${{ github.actor }}
             📝 Commit: ${{ github.event.head_commit.message }}
             🔗 Link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
-               Release: ${{ github.event.release.tag_name }}
