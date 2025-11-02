@@ -2,7 +2,7 @@
 
 ### Bug Fixes
 
-* correct asset paths in semantic-release config ([5f9608b](https://github.com/Natti94/Quiz/commit/5f9608b8f1a7d22258f8624be0618bf88f892bd0))
+- correct asset paths in semantic-release config ([5f9608b](https://github.com/Natti94/Quiz/commit/5f9608b8f1a7d22258f8624be0618bf88f892bd0))
 
 ## 1.0.0 (2025-11-01)
 

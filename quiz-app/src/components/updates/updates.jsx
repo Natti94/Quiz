@@ -22,7 +22,7 @@ function formatRelativeTime(dateString) {
 
 export default function Updates() {
   const [updates, setUpdates] = useState([]);
-  // Start closed by default on mount
+
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -92,7 +92,6 @@ export default function Updates() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Close on Escape key when modal is open
   useEffect(() => {
     if (!isOpen) return;
     const onKeyDown = (e) => {
@@ -183,7 +182,7 @@ export default function Updates() {
                     className="updates__btn updates__btn--prev"
                     onClick={() =>
                       setCurrent(
-                        (i) => (i - 1 + updates.length) % updates.length
+                        (i) => (i - 1 + updates.length) % updates.length,
                       )
                     }
                     aria-label="Previous update"

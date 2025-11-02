@@ -1,5 +1,5 @@
 function Version() {
-  const version = __APP_VERSION__; // Injected by Vite
+  const version = __APP_VERSION__;
 
   return <div className="app-footer__version">v{version}</div>;
 }
