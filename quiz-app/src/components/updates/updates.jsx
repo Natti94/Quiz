@@ -103,7 +103,7 @@ export default function Updates() {
   }, [isOpen]);
 
   return (
-    <div className="updates-container">
+    <div className="updates__container">
       <button
         type="button"
         className="updates__btn updates__trigger"
@@ -117,20 +117,20 @@ export default function Updates() {
       {isOpen && (
         <div
           id="updates-dialog"
-          className="updates-overlay"
+          className="updates__overlay"
           role="dialog"
           aria-modal="true"
           aria-label="Latest updates"
           onClick={(e) => {
-            if (e.target.classList.contains("updates-overlay"))
+            if (e.target.classList.contains("updates__overlay"))
               setIsOpen(false);
           }}
         >
           <section
-            className="updates-modal"
+            className="updates__modal"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="updates-modal__header">
+            <div className="updates__modal-header">
               <div className="updates__title">
                 Latest Updates {updates.length}
               </div>

@@ -8,7 +8,7 @@
   border-radius: 10px;
 }
 
-.updates-container {
+.updates__container {
   display: flex;
   justify-content: center;
   margin: 16px 0;
@@ -99,7 +99,7 @@
   font-size: 0.85rem;
 }
 
-.updates-overlay {
+.updates__overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
@@ -112,7 +112,7 @@
   padding: 20px;
 }
 
-.updates-modal {
+.updates__modal {
   width: min(720px, 92vw);
   max-height: min(80vh, 900px);
   overflow: auto;
@@ -125,7 +125,7 @@
   padding: 16px;
 }
 
-.updates-modal__header {
+.updates__modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
