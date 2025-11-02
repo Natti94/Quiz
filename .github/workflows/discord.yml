@@ -1,8 +1,9 @@
 name: Notify Discord
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -15,9 +16,10 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
           args: |
-            🚀 **New Release Published!**
-            📦 **Repository:** ${{ github.repository }}
-            🏷️ **Tag:** ${{ github.event.release.tag_name }}
-            📝 **Release Name:** ${{ github.event.release.name }}
-            👤 **Author:** ${{ github.actor }}
-            🔗 **View Release:** ${{ github.event.release.html_url }}
+            🚀 New push to **main**
+            📦 Repo: ${{ github.repository }}
+            👤 Author: ${{ github.actor }}
+            📝 Commit: ${{ github.event.head_commit.message }}
+            � Link: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+
+            

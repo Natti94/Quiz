@@ -11,7 +11,13 @@
     ["@semantic-release/npm", { "npmPublish": false }],
     [
       "@semantic-release/git",
-      { "assets": ["CHANGELOG.md", "package.json", "package-lock.json"] }
+      {
+        "assets": [
+          "quiz-app/CHANGELOG.md",
+          "quiz-app/package.json",
+          "quiz-app/package-lock.json"
+        ]
+      }
     ],
     ["@semantic-release/github"]
   ]
