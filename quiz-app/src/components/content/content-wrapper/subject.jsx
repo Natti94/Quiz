@@ -109,7 +109,7 @@ function Subject({ subject }, ref) {
         subject,
       }),
     }),
-    [score, index, selected, shuffledQuestions.length, subject]
+    [score, index, selected, shuffledQuestions.length, subject],
   );
 
   if (!subject) return null;

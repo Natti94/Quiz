@@ -22,6 +22,8 @@ function formatRelativeTime(dateString) {
 
 export default function Updates() {
   const [updates, setUpdates] = useState([]);
+  // Start closed by default on mount
+  const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
@@ -90,65 +92,119 @@ export default function Updates() {
       .finally(() => setLoading(false));
   }, []);
 
+  // Close on Escape key when modal is open
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
   return (
-    <section className="updates" aria-live="polite" aria-label="Latest updates">
-      <div className="updates__title">Latest updates:</div>
-      {loading && <div className="updates__empty">Loading…</div>}
-      {!loading && error && (
-        <div className="updates__error" role="status">
-          {error}
-        </div>
-      )}
-      {!loading && !error && updates.length === 0 && (
-        <div className="updates__empty">No updates found.</div>
-      )}
-      {!loading && !error && updates.length > 0 && (
-        <div className="updates__viewer">
-          <div className="updates__row">
-            {updates[current]?.url ? (
-              <a
-                href={updates[current].url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="updates__message"
-                aria-label={`Open commit: ${updates[current].message}`}
+    <div className="updates-container">
+      <button
+        type="button"
+        className="updates__btn updates__trigger"
+        onClick={() => setIsOpen(true)}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+        aria-controls="updates-dialog"
+      >
+        Show Updates
+      </button>
+      {isOpen && (
+        <div
+          id="updates-dialog"
+          className="updates-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Latest updates"
+          onClick={(e) => {
+            if (e.target.classList.contains("updates-overlay"))
+              setIsOpen(false);
+          }}
+        >
+          <section
+            className="updates-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="updates-modal__header">
+              <div className="updates__title">Latest updates</div>
+              <button
+                type="button"
+                className="updates__btn updates__close"
+                aria-label="Close updates"
+                onClick={() => setIsOpen(false)}
               >
-                {updates[current].message}
-              </a>
-            ) : (
-              <span className="updates__message">
-                {updates[current].message}
-              </span>
-            )}
-            <time className="updates__date" dateTime={updates[current].date}>
-              {formatRelativeTime(updates[current].date)}
-            </time>
-          </div>
-          <div className="updates__controls">
-            <button
-              type="button"
-              className="updates__btn updates__btn--prev"
-              onClick={() =>
-                setCurrent((i) => (i - 1 + updates.length) % updates.length)
-              }
-              aria-label="Previous update"
-            >
-              Previous
-            </button>
-            <div className="updates__counter">
-              {current + 1} / {updates.length}
+                Close
+              </button>
             </div>
-            <button
-              type="button"
-              className="updates__btn updates__btn--next"
-              onClick={() => setCurrent((i) => (i + 1) % updates.length)}
-              aria-label="Next update"
-            >
-              Next
-            </button>
-          </div>
+            {loading && <div className="updates__empty">Loading…</div>}
+            {!loading && error && (
+              <div className="updates__error" role="status">
+                {error}
+              </div>
+            )}
+            {!loading && !error && updates.length === 0 && (
+              <div className="updates__empty">No updates found.</div>
+            )}
+            {!loading && !error && updates.length > 0 && (
+              <div className="updates__viewer">
+                <div className="updates__row">
+                  {updates[current]?.url ? (
+                    <a
+                      href={updates[current].url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="updates__message"
+                      aria-label={`Open commit: ${updates[current].message}`}
+                    >
+                      {updates[current].message}
+                    </a>
+                  ) : (
+                    <span className="updates__message">
+                      {updates[current].message}
+                    </span>
+                  )}
+                  <time
+                    className="updates__date"
+                    dateTime={updates[current].date}
+                  >
+                    {formatRelativeTime(updates[current].date)}
+                  </time>
+                </div>
+                <div className="updates__controls">
+                  <button
+                    type="button"
+                    className="updates__btn updates__btn--prev"
+                    onClick={() =>
+                      setCurrent(
+                        (i) => (i - 1 + updates.length) % updates.length
+                      )
+                    }
+                    aria-label="Previous update"
+                  >
+                    Previous
+                  </button>
+                  <div className="updates__counter">
+                    {current + 1} / {updates.length}
+                  </div>
+                  <button
+                    type="button"
+                    className="updates__btn updates__btn--next"
+                    onClick={() => setCurrent((i) => (i + 1) % updates.length)}
+                    aria-label="Next update"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+          </section>
         </div>
       )}
-    </section>
+    </div>
   );
 }

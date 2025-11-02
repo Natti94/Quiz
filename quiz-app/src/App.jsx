@@ -76,8 +76,8 @@ function App() {
               setSubject(s);
             }}
           />
-          <Updates />
         </div>
+        <Updates />
         <Footer />
       </div>
     </>

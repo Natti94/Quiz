@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 function Form({ onSelect }) {
   const [showUnlock, setShowUnlock] = useState(false);
   const [examUnlocked, setExamUnlocked] = useState(false);
+  const [preToken, setPreToken] = useState("");
+  const [hasPreAccess, setHasPreAccess] = useState(false);
+  const [unlockStep, setUnlockStep] = useState("request");
   const [formKey, setFormKey] = useState("");
   const [secretInput, setSecretInput] = useState("");
   const [recipient, setRecipient] = useState("");
-  const [error, setError] = useState("");
   const [info, setInfo] = useState("");
-  const [unlockStep, setUnlockStep] = useState("request");
-  const [preToken, setPreToken] = useState("");
-  const [hasPreAccess, setHasPreAccess] = useState(false);
+  const [error, setError] = useState("");
 
   const isProd = import.meta.env.PROD;
 
