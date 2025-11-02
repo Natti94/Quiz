@@ -22,11 +22,12 @@ function formatRelativeTime(dateString) {
 
 export default function Updates() {
   const [updates, setUpdates] = useState([]);
-
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [current, setCurrent] = useState(0);
+
+  const updatesUrl = import.meta.env.GITHUB_QUIZ_UPDATES_URL;
 
   useEffect(() => {
     const params = new URLSearchParams({
@@ -56,7 +57,7 @@ export default function Updates() {
       });
 
     const fetchFromGithub = () => {
-      const ghUrl = `https://api.github.com/repos/Natti94/Quiz/commits?per_page=5&page=1`;
+      const ghUrl = updatesUrl;
       return fetch(ghUrl).then((res) => {
         if (!res.ok) throw new Error(`GitHub HTTP ${res.status}`);
         return res.json();
@@ -90,7 +91,7 @@ export default function Updates() {
       })
       .catch((e) => setError(e.message || "Failed to load commits"))
       .finally(() => setLoading(false));
-  }, []);
+  }, [updatesUrl]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -111,7 +112,7 @@ export default function Updates() {
         aria-expanded={isOpen}
         aria-controls="updates-dialog"
       >
-        Show Updates
+        Uppdateringar
       </button>
       {isOpen && (
         <div
@@ -119,7 +120,7 @@ export default function Updates() {
           className="updates__overlay"
           role="dialog"
           aria-modal="true"
-          aria-label="Latest updates"
+          aria-label="Senaste uppdateringar"
           onClick={(e) => {
             if (e.target.classList.contains("updates__overlay"))
               setIsOpen(false);
@@ -130,16 +131,14 @@ export default function Updates() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="updates__modal-header">
-              <div className="updates__title">
-                Latest Updates {updates.length}
-              </div>
+              <div className="updates__title">Senaste Uppdateringar:</div>
               <button
                 type="button"
                 className="updates__btn updates__close"
                 aria-label="Close updates"
                 onClick={() => setIsOpen(false)}
               >
-                Close
+                Stäng
               </button>
             </div>
             {loading && <div className="updates__empty">Loading…</div>}
@@ -149,7 +148,7 @@ export default function Updates() {
               </div>
             )}
             {!loading && !error && updates.length === 0 && (
-              <div className="updates__empty">No updates found.</div>
+              <div className="updates__empty">Inga uppdateringar hittades.</div>
             )}
             {!loading && !error && updates.length > 0 && (
               <div className="updates__viewer">
@@ -182,12 +181,12 @@ export default function Updates() {
                     className="updates__btn updates__btn--prev"
                     onClick={() =>
                       setCurrent(
-                        (i) => (i - 1 + updates.length) % updates.length,
+                        (i) => (i - 1 + updates.length) % updates.length
                       )
                     }
                     aria-label="Previous update"
                   >
-                    Previous
+                    Föregående
                   </button>
                   <div className="updates__counter">
                     {current + 1} / {updates.length}
@@ -198,7 +197,7 @@ export default function Updates() {
                     onClick={() => setCurrent((i) => (i + 1) % updates.length)}
                     aria-label="Next update"
                   >
-                    Next
+                    Nästa
                   </button>
                 </div>
               </div>

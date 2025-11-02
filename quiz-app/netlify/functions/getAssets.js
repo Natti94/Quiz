@@ -1,6 +1,4 @@
 const assetPaths = {
-  projects_link: process.env.VITE_CLOUDINARY_PROJECTS_LINK,
-  discord_link: process.env.VITE_DISCORD_LINK,
   discord_icon: process.env.VITE_DISCORD_ICON,
 };
 

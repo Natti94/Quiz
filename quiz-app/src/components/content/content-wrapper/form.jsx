@@ -12,12 +12,10 @@ function Form({ onSelect }) {
   const [info, setInfo] = useState("");
   const [error, setError] = useState("");
 
+  const discordLink = import.meta.env.VITE_DISCORD_LINK;
   const isProd = import.meta.env.PROD;
 
   const assets = {
-    discord_link: isProd
-      ? "/api/assets?asset=discord_link"
-      : import.meta.env.VITE_DISCORD_LINK,
     discord_icon: isProd
       ? "/api/assets?asset=discord_icon"
       : import.meta.env.VITE_DISCORD_ICON,
@@ -41,7 +39,7 @@ function Form({ onSelect }) {
     const adminKey = formKey.trim();
     if (!adminKey) {
       setError(
-        "Du behöver en admin-nyckel. Kontakta Administratören via Discord.",
+        "Du behöver en admin-nyckel. Kontakta Administratören via Discord."
       );
       return;
     }
@@ -60,7 +58,7 @@ function Form({ onSelect }) {
       setPreToken(data.token);
       setHasPreAccess(true);
       setInfo(
-        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln.",
+        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln."
       );
       setFormKey("");
     } catch (err) {
@@ -108,7 +106,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -125,7 +123,7 @@ function Form({ onSelect }) {
       const parts = t.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       const now = Math.floor(Date.now() / 1000);
       if (payload && payload.exp && payload.exp > now) {
@@ -195,7 +193,7 @@ function Form({ onSelect }) {
         throw new Error(data?.error || `Fel ${res.status}`);
       }
       setInfo(
-        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp.",
+        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp."
       );
       setUnlockStep("unlock");
       setRecipient("");
@@ -311,7 +309,7 @@ function Form({ onSelect }) {
               >
                 {}
                 <a
-                  href={assets.discord_link}
+                  href={discordLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="subjects__discord-link"
