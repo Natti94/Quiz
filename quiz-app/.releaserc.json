@@ -13,9 +13,9 @@
       "@semantic-release/git",
       {
         "assets": [
-          "quiz-app/CHANGELOG.md",
-          "quiz-app/package.json",
-          "quiz-app/package-lock.json"
+          "CHANGELOG.md",
+          "package.json",
+          "package-lock.json"
         ]
       }
     ],
