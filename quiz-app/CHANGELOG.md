@@ -1,3 +1,9 @@
+## [1.1.3](https://github.com/Natti94/Quiz/compare/quiz-app-v1.1.2...quiz-app-v1.1.3) (2025-11-02)
+
+### Bug Fixes
+
+* minification ([74c1656](https://github.com/Natti94/Quiz/commit/74c1656fe72e926c46fa094741b10e4c539714b8))
+
 ## [1.1.2](https://github.com/Natti94/Quiz/compare/quiz-app-v1.1.1...quiz-app-v1.1.2) (2025-11-02)
 
 ### Bug Fixes
