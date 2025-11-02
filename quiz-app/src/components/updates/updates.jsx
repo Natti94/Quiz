@@ -131,7 +131,9 @@ export default function Updates() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="updates-modal__header">
-              <div className="updates__title">Latest Updates</div>
+              <div className="updates__title">
+                Latest Updates {updates.length}
+              </div>
               <button
                 type="button"
                 className="updates__btn updates__close"
