@@ -2,7 +2,7 @@ import Form from "./content-wrapper/form";
 import Subject from "./content-wrapper/subjects";
 import "./content.css";
 
-function Content({ subject, onSelect, lastSummary, subjectMeta, subjectRef }) {
+function Content({ subject, mode, onSelect, lastSummary, subjectMeta, subjectRef }) {
   return (
     <section className="content" aria-label="Innehåll">
       {!subject ? (
@@ -20,7 +20,7 @@ function Content({ subject, onSelect, lastSummary, subjectMeta, subjectRef }) {
           <Form onSelect={onSelect} />
         </>
       ) : (
-        <Subject ref={subjectRef} subject={subject} />
+        <Subject ref={subjectRef} subject={subject} mode={mode} />
       )}
     </section>
   );

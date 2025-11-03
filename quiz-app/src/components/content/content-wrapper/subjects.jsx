@@ -24,31 +24,35 @@ function shuffleQuestion(questions) {
   });
 }
 
-function Subject({ subject }, ref) {
+function Subject({ subject, mode: difficultyMode }, ref) {
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
+  const [mode] = useState(difficultyMode || "easy");
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState(null);
   const [score, setScore] = useState(0);
+  const [userAnswer, setUserAnswer] = useState("");
+  const [aiEvaluation, setAiEvaluation] = useState(null);
+  const [isEvaluating, setIsEvaluating] = useState(false);
 
   const question = shuffledQuestions[index];
 
   useEffect(() => {
-    if (subject === "plu") {
+    if (subject === "plu" && mode) {
       setShuffledQuestions(shuffleQuestion(questionsPlu));
       setIndex(0);
       setSelected(null);
       setScore(0);
-    } else if (subject === "plu-exam") {
+    } else if (subject === "plu-exam" && mode) {
       setShuffledQuestions(shuffleQuestion(questionsPluExam));
       setIndex(0);
       setSelected(null);
       setScore(0);
-    } else if (subject === "apt") {
+    } else if (subject === "apt" && mode) {
       setShuffledQuestions(shuffleQuestion(questionsApt));
       setIndex(0);
       setSelected(null);
       setScore(0);
-    } else if (subject === "wai") {
+    } else if (subject === "wai" && mode) {
       setShuffledQuestions(shuffleQuestion(questionsWai));
       setIndex(0);
       setSelected(null);
@@ -59,7 +63,73 @@ function Subject({ subject }, ref) {
       setSelected(null);
       setScore(0);
     }
-  }, [subject]);
+  }, [subject, mode]);
+
+  function nextQuestion() {
+    setIndex((idx) => idx + 1);
+    setSelected(null);
+    setUserAnswer("");
+    setAiEvaluation(null);
+  }
+
+  async function evaluateWithAI(userInput) {
+    setIsEvaluating(true);
+    try {
+      const prompt = [
+        {
+          role: "system",
+          content:
+            'Du är en lärare som bedömer studenters svar på VG-nivå (Väl Godkänt). Bedöm svaret baserat på djup förståelse, noggrannhet och om det visar VG-nivå kunskap. Svara med JSON: {"correct": true/false, "feedback": "din feedback här", "score": 0-100}',
+        },
+        {
+          role: "user",
+          content: `Fråga: ${question.question}\n\nKorrekt svar: ${question.explanation}\n\nStudentens svar: ${userInput}\n\nBedöm om studentens svar visar VG-nivå förståelse.`,
+        },
+      ];
+
+      const res = await fetch("/.netlify/functions/openAi", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: prompt,
+        }),
+      });
+
+      if (!res.ok) throw new Error("AI evaluation failed");
+
+      const data = await res.json();
+      const content = data.choices?.[0]?.message?.content;
+
+      let evaluation;
+      try {
+        evaluation = JSON.parse(content);
+      } catch {
+        evaluation = {
+          correct:
+            content.toLowerCase().includes("correct") ||
+            content.toLowerCase().includes("vg"),
+          feedback: content,
+          score: 50,
+        };
+      }
+
+      setAiEvaluation(evaluation);
+      setSelected(evaluation.correct ? question.correct : -1);
+
+      if (evaluation.correct) {
+        setScore((s) => s + 1);
+      }
+    } catch (err) {
+      setAiEvaluation({
+        correct: false,
+        feedback: "Kunde inte utvärdera svar. Försök igen.",
+        score: 0,
+      });
+    } finally {
+      setIsEvaluating(false);
+    }
+  }
 
   function handleAnswer(i) {
     if (selected !== null) return;
@@ -69,9 +139,10 @@ function Subject({ subject }, ref) {
     }
   }
 
-  function nextQuestion() {
-    setIndex((idx) => idx + 1);
-    setSelected(null);
+  async function handleHardModeSubmit(e) {
+    e.preventDefault();
+    if (!userAnswer.trim() || selected !== null) return;
+    await evaluateWithAI(userAnswer.trim());
   }
 
   const optionClass = (i) => {
@@ -109,7 +180,7 @@ function Subject({ subject }, ref) {
         subject,
       }),
     }),
-    [score, index, selected, shuffledQuestions.length, subject],
+    [score, index, selected, shuffledQuestions.length, subject]
   );
 
   if (!subject) return null;
@@ -124,20 +195,55 @@ function Subject({ subject }, ref) {
             <h2 className="quiz__title">
               Fråga: {index + 1} av {shuffledQuestions.length}
               <br />
-              Nivå: {levelClass(question)}
+              Nivå: {levelClass(question)}{" "}
+              {mode === "hard" && "(VG - AI-bedömd)"}
             </h2>
             <p className="quiz__question">{question?.question}</p>
-            <ul className="quiz__options">
-              {question?.options.map((opt, i) => (
-                <li
-                  key={i}
-                  className={optionClass(i)}
-                  onClick={() => handleAnswer(i)}
-                >
-                  {opt}
-                </li>
-              ))}
-            </ul>
+
+            {mode === "hard" ? (
+              <form onSubmit={handleHardModeSubmit}>
+                <textarea
+                  className="quiz__text-answer"
+                  value={userAnswer}
+                  onChange={(e) => setUserAnswer(e.target.value)}
+                  placeholder="Skriv ditt svar här... (VG-nivå förväntas)"
+                  disabled={selected !== null}
+                  rows={6}
+                  style={{
+                    width: "100%",
+                    padding: "12px",
+                    borderRadius: "8px",
+                    border: "1px solid #d1d5db",
+                    fontSize: "1rem",
+                    fontFamily: "inherit",
+                    marginBottom: "12px",
+                    resize: "vertical",
+                  }}
+                />
+                {selected === null && (
+                  <button
+                    type="submit"
+                    className="quiz__next-btn"
+                    disabled={!userAnswer.trim() || isEvaluating}
+                  >
+                    {isEvaluating ? "AI bedömer..." : "Skicka svar"}
+                  </button>
+                )}
+              </form>
+            ) : (
+              <ul className="quiz__options">
+                {question?.options.map((opt, i) => (
+                  <li
+                    key={i}
+                    className={optionClass(i)}
+                    onClick={() => handleAnswer(i)}
+                  >
+                    {opt}
+                  </li>
+                ))}
+              </ul>
+            )}
+
             {selected !== null && (
               <>
                 <button className="quiz__next-btn" onClick={nextQuestion}>
@@ -153,8 +259,27 @@ function Subject({ subject }, ref) {
           </div>
           {selected !== null && (
             <div className="quiz__explanation">
-              <strong>Förklaring:</strong>
-              <p className="quiz__explanation-text">{question?.explanation}</p>
+              <strong>
+                {mode === "hard" ? "AI-bedömning:" : "Förklaring:"}
+              </strong>
+              {mode === "hard" && aiEvaluation ? (
+                <>
+                  <p className="quiz__explanation-text">
+                    <strong>Resultat:</strong>{" "}
+                    {aiEvaluation.correct ? "✅ Godkänt (VG)" : "❌ Ej godkänt"}
+                  </p>
+                  <p className="quiz__explanation-text">
+                    <strong>Feedback:</strong> {aiEvaluation.feedback}
+                  </p>
+                  <p className="quiz__explanation-text">
+                    <strong>Korrekt svar:</strong> {question?.explanation}
+                  </p>
+                </>
+              ) : (
+                <p className="quiz__explanation-text">
+                  {question?.explanation}
+                </p>
+              )}
             </div>
           )}
         </div>

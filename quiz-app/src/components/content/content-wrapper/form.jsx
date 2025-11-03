@@ -9,6 +9,8 @@ function Form({ onSelect }) {
   const [formKey, setFormKey] = useState("");
   const [secretInput, setSecretInput] = useState("");
   const [recipient, setRecipient] = useState("");
+  const [mode, setMode] = useState("easy");
+  const [messages, setMessages] = useState("");
   const [info, setInfo] = useState("");
   const [error, setError] = useState("");
 
@@ -230,6 +232,32 @@ function Form({ onSelect }) {
     }
   }
 
+  async function aiPrompt() {
+    const prompt = messages.map((msg) => ({
+      role: msg.role,
+      content: msg.content,
+    }));
+    try {
+      const res = await callFunction("openAi", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini",
+          messages: prompt,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Okänt fel");
+
+      return data;
+    } catch (err) {
+      setError(`Kunde inte skicka meddelande: ${err.message}`);
+    }
+  }
+
   return (
     <div
       className="result"
@@ -239,7 +267,18 @@ function Form({ onSelect }) {
       <h1 id="choose-subject-heading" className="quiz-title">
         Ämnen
       </h1>
-
+      <div className="subjects__difficulty">
+        <label htmlFor="difficulty">Svårighetsgrad:</label>
+        <select
+          id="difficulty"
+          value={mode}
+          onChange={(e) => setMode(e.target.value)}
+        >
+          <option value="easy">Lätt</option>
+          <option value="medium">Medel</option>
+          <option value="hard">Svår</option>
+        </select>
+      </div>
       <div className="subjects__helper-text">
         <p className="subjects__warning-text">
           OBS! Avbryter du quizet innan det är klart visas ändå ditt aktuella
@@ -251,7 +290,7 @@ function Form({ onSelect }) {
         <button
           type="button"
           className="subject"
-          onClick={() => onSelect && onSelect("plu")}
+          onClick={() => onSelect && onSelect("plu", mode)}
           aria-label="Välj Paketering, Leverans och Uppföljning"
         >
           <div className="subject__icon subject__icon--plu" aria-hidden>
@@ -263,6 +302,7 @@ function Form({ onSelect }) {
             </div>
             <div className="subject__desc">
               Leveranser, Uppföljning och Kvalitetssäkring.
+              {mode === "hard" && " (VG-nivå med AI-bedömning)"}
             </div>
           </div>
         </button>
@@ -475,7 +515,7 @@ function Form({ onSelect }) {
         <button
           type="button"
           className="subject"
-          onClick={() => onSelect && onSelect("apt")}
+          onClick={() => onSelect && onSelect("apt", mode)}
           aria-label="Välj Agil Projektmetodik och Testning"
         >
           <div className="subject__icon subject__icon--apt" aria-hidden>
@@ -485,6 +525,7 @@ function Form({ onSelect }) {
             <div className="subject__title">Agil Projektmetodik & Testning</div>
             <div className="subject__desc">
               Scrum, Sprintar, Teststrategier och Verktyg.
+              {mode === "hard" && " (VG-nivå med AI-bedömning)"}
             </div>
           </div>
         </button>
@@ -493,7 +534,7 @@ function Form({ onSelect }) {
         <button
           type="button"
           className="subject"
-          onClick={() => onSelect && onSelect("wai")}
+          onClick={() => onSelect && onSelect("wai", mode)}
           aria-label="Välj Webbsäkerhet; Analys och Implementation"
         >
           <div className="subject__icon subject__icon--wai" aria-hidden>
@@ -505,6 +546,7 @@ function Form({ onSelect }) {
             </div>
             <div className="subject__desc">
               HTTP, Säkerhet, Kryptografi och Loggning.
+              {mode === "hard" && " (VG-nivå med AI-bedömning)"}
             </div>
           </div>
         </button>
