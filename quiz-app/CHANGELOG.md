@@ -1,3 +1,9 @@
+## [2.1.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.0.0...quiz-app-v2.1.0) (2025-11-03)
+
+### Features
+
+* small adjustments to .env variables, wasn't uploading cloudinary assets ([5168209](https://github.com/Natti94/Quiz/commit/5168209e34ac9495367823386ff51f572714e395))
+
 ## [2.0.0](https://github.com/Natti94/Quiz/compare/quiz-app-v1.2.1...quiz-app-v2.0.0) (2025-11-03)
 
 ### ⚠ BREAKING CHANGES
