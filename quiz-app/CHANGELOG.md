@@ -1,3 +1,15 @@
+## [2.0.0](https://github.com/Natti94/Quiz/compare/quiz-app-v1.2.1...quiz-app-v2.0.0) (2025-11-03)
+
+### ⚠ BREAKING CHANGES
+
+* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
+* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
+
+### Features
+
+* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([55dc217](https://github.com/Natti94/Quiz/commit/55dc217c0e9f64e986482ad28a96688c6b0198a8))
+* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([bb89777](https://github.com/Natti94/Quiz/commit/bb89777aad85ad8f93b5d9c6d02ffce8d1f08297))
+
 ## [1.2.1](https://github.com/Natti94/Quiz/compare/quiz-app-v1.2.0...quiz-app-v1.2.1) (2025-11-02)
 
 ### Bug Fixes
