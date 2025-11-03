@@ -4,7 +4,6 @@ import Content from "./components/content/content";
 import Nav from "./components/nav/nav";
 import Footer from "./components/footer/footer";
 import Updates from "./components/updates/updates";
-import Projects from "./pages/projects";
 
 function App() {
   const [subject, setSubject] = useState(null);
@@ -84,7 +83,6 @@ function App() {
                   </>
                 }
               />
-              <Route path="/projects" element={<Projects />} />
             </Routes>
           </div>
           <Updates />
