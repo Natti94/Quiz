@@ -1,5 +1,5 @@
 import Form from "./content-wrapper/form";
-import Subject from "./content-wrapper/subject";
+import Subject from "./content-wrapper/subjects";
 import "./content.css";
 
 function Content({ subject, onSelect, lastSummary, subjectMeta, subjectRef }) {
