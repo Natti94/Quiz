@@ -1,3 +1,9 @@
+## [2.3.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.2.0...quiz-app-v2.3.0) (2025-11-03)
+
+### Features
+
+* openAi implementation for quiz - with difficulty modes, not finished. Use Easy/Medium Mode. ([f2667f4](https://github.com/Natti94/Quiz/commit/f2667f48ab3e100eea8ee911dc125f14677e5462))
+
 ## [2.2.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.1.0...quiz-app-v2.2.0) (2025-11-03)
 
 ### Features
