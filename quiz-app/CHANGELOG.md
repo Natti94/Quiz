@@ -1,3 +1,9 @@
+## [2.2.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.1.0...quiz-app-v2.2.0) (2025-11-03)
+
+### Features
+
+* projects is now a link instead of page, serves its purpose better - since its external. ([d441c8b](https://github.com/Natti94/Quiz/commit/d441c8b22a7b92fe177f0bf35a794ca5b419bcaa))
+
 ## [2.1.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.0.0...quiz-app-v2.1.0) (2025-11-03)
 
 ### Features
