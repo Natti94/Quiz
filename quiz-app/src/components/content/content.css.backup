@@ -1,10 +1,3 @@
-/* Block */
-.content {
-  display: grid;
-  gap: 16px;
-}
-
-/* Block */
 .subjects {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -13,7 +6,6 @@
   justify-items: stretch;
 }
 
-/* Block */
 .subject {
   display: grid;
   grid-template-columns: 64px 1fr;
@@ -43,7 +35,6 @@
   outline-offset: 2px;
 }
 
-/* Block elements */
 .subject__title {
   margin: 0;
   font-size: clamp(1rem, 1.8vw, 1.1rem);
@@ -63,24 +54,6 @@
   border-radius: 12px;
 }
 
-.subject__desc {
-  color: #4b5563;
-  font-size: clamp(0.9rem, 1.6vw, 0.95rem);
-}
-
-/* Block modifiers */
-.subject--gated {
-  position: relative;
-}
-
-.subject--unlocked {
-  border-color: #16a34a;
-  box-shadow:
-    0 0 0 1px #16a34a40,
-    0 4px 14px -4px rgba(22, 163, 74, 0.35);
-}
-
-/* Block elements */
 .subjects__request-btn {
   font: inherit;
   display: inline-flex;

@@ -1,3 +1,4 @@
+/* Block */
 .updates {
   display: block;
   margin: 16px 0 12px;
@@ -8,12 +9,7 @@
   border-radius: 10px;
 }
 
-.updates__container {
-  display: flex;
-  justify-content: center;
-  margin: 16px 0;
-}
-
+/* Block element selectors */
 .updates a {
   color: #1f2937;
   text-decoration: none;
@@ -21,6 +17,13 @@
 
 .updates a:hover {
   text-decoration: underline;
+}
+
+/* Block elements */
+.updates__container {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
 }
 
 .updates__title {
