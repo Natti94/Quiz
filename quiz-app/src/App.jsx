@@ -46,7 +46,10 @@ function App() {
                         aria-label="Quizkontroller"
                       >
                         <div className="app-toolbar__subject">
-                          <span className="app-toolbar__subject-icon" aria-hidden>
+                          <span
+                            className="app-toolbar__subject-icon"
+                            aria-hidden
+                          >
                             {subjectMeta[subject]?.icon}
                           </span>
                           <span className="app-toolbar__subject-text">

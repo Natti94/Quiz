@@ -35,7 +35,7 @@ export function getDataStore(collectionName) {
   async function ensureDb() {
     if (!db) {
       const c = await getClient();
-      db = c.db("quiz-app"); 
+      db = c.db("quiz-app");
     }
     return db;
   }

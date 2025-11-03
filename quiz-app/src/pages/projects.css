@@ -1,4 +1,3 @@
-/* Block */
 .projects-page {
   text-align: center;
   padding: 2rem;
@@ -7,7 +6,6 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* Block element selectors */
 .projects-page h2 {
   margin-top: 0;
   color: #111827;
@@ -18,7 +16,6 @@
   margin-bottom: 1.5rem;
 }
 
-/* Block element */
 .projects-page__btn {
   font: inherit;
   border: 1px solid #0d9488;
