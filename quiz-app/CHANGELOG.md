@@ -2,37 +2,37 @@
 
 ### Features
 
-* ollamaAI integration, moved away from openAI - testing llama3.2:latest due to memory, moved away from qwen2.5:14b-instruct due to available memory. Not deployed, still in testing phase. ([1447e41](https://github.com/Natti94/Quiz/commit/1447e41964b269feec6f91c5bcef69220e3fb93f))
+- ollamaAI integration, moved away from openAI - testing llama3.2:latest due to memory, moved away from qwen2.5:14b-instruct due to available memory. Not deployed, still in testing phase. ([1447e41](https://github.com/Natti94/Quiz/commit/1447e41964b269feec6f91c5bcef69220e3fb93f))
 
 ## [2.3.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.2.0...quiz-app-v2.3.0) (2025-11-03)
 
 ### Features
 
-* openAi implementation for quiz - with difficulty modes, not finished. Use Easy/Medium Mode. ([f2667f4](https://github.com/Natti94/Quiz/commit/f2667f48ab3e100eea8ee911dc125f14677e5462))
+- openAi implementation for quiz - with difficulty modes, not finished. Use Easy/Medium Mode. ([f2667f4](https://github.com/Natti94/Quiz/commit/f2667f48ab3e100eea8ee911dc125f14677e5462))
 
 ## [2.2.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.1.0...quiz-app-v2.2.0) (2025-11-03)
 
 ### Features
 
-* projects is now a link instead of page, serves its purpose better - since its external. ([d441c8b](https://github.com/Natti94/Quiz/commit/d441c8b22a7b92fe177f0bf35a794ca5b419bcaa))
+- projects is now a link instead of page, serves its purpose better - since its external. ([d441c8b](https://github.com/Natti94/Quiz/commit/d441c8b22a7b92fe177f0bf35a794ca5b419bcaa))
 
 ## [2.1.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.0.0...quiz-app-v2.1.0) (2025-11-03)
 
 ### Features
 
-* small adjustments to .env variables, wasn't uploading cloudinary assets ([5168209](https://github.com/Natti94/Quiz/commit/5168209e34ac9495367823386ff51f572714e395))
+- small adjustments to .env variables, wasn't uploading cloudinary assets ([5168209](https://github.com/Natti94/Quiz/commit/5168209e34ac9495367823386ff51f572714e395))
 
 ## [2.0.0](https://github.com/Natti94/Quiz/compare/quiz-app-v1.2.1...quiz-app-v2.0.0) (2025-11-03)
 
 ### ⚠ BREAKING CHANGES
 
-* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
-* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
+- CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
+- CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
 
 ### Features
 
-* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([55dc217](https://github.com/Natti94/Quiz/commit/55dc217c0e9f64e986482ad28a96688c6b0198a8))
-* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([bb89777](https://github.com/Natti94/Quiz/commit/bb89777aad85ad8f93b5d9c6d02ffce8d1f08297))
+- CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([55dc217](https://github.com/Natti94/Quiz/commit/55dc217c0e9f64e986482ad28a96688c6b0198a8))
+- CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([bb89777](https://github.com/Natti94/Quiz/commit/bb89777aad85ad8f93b5d9c6d02ffce8d1f08297))
 
 ## [1.2.1](https://github.com/Natti94/Quiz/compare/quiz-app-v1.2.0...quiz-app-v1.2.1) (2025-11-02)
 

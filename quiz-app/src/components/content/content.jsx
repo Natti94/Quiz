@@ -2,7 +2,14 @@ import Form from "./content-wrapper/form";
 import Subject from "./content-wrapper/subjects";
 import "./content.css";
 
-function Content({ subject, mode, onSelect, lastSummary, subjectMeta, subjectRef }) {
+function Content({
+  subject,
+  mode,
+  onSelect,
+  lastSummary,
+  subjectMeta,
+  subjectRef,
+}) {
   return (
     <section className="content" aria-label="Innehåll">
       {!subject ? (

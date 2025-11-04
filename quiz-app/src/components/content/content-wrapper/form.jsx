@@ -9,7 +9,7 @@ function Form({ onSelect }) {
   const [formKey, setFormKey] = useState("");
   const [secretInput, setSecretInput] = useState("");
   const [recipient, setRecipient] = useState("");
-  const [mode, setMode] = useState("easy");
+  const [examMode, setExamMode] = useState("standard");
   const [info, setInfo] = useState("");
   const [error, setError] = useState("");
 
@@ -24,7 +24,7 @@ function Form({ onSelect }) {
 
   const handleExamClick = () => {
     if (examUnlocked) {
-      onSelect && onSelect("plu-exam");
+      onSelect && onSelect("plu-exam", examMode);
       return;
     }
     setShowUnlock((v) => {
@@ -40,7 +40,7 @@ function Form({ onSelect }) {
     const adminKey = formKey.trim();
     if (!adminKey) {
       setError(
-        "Du behöver en admin-nyckel. Kontakta Administratören via Discord."
+        "Du behöver en admin-nyckel. Kontakta Administratören via Discord.",
       );
       return;
     }
@@ -59,7 +59,7 @@ function Form({ onSelect }) {
       setPreToken(data.token);
       setHasPreAccess(true);
       setInfo(
-        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln."
+        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln.",
       );
       setFormKey("");
     } catch (err) {
@@ -107,7 +107,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -124,7 +124,7 @@ function Form({ onSelect }) {
       const parts = t.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
       );
       const now = Math.floor(Date.now() / 1000);
       if (payload && payload.exp && payload.exp > now) {
@@ -194,7 +194,7 @@ function Form({ onSelect }) {
         throw new Error(data?.error || `Fel ${res.status}`);
       }
       setInfo(
-        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp."
+        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp.",
       );
       setUnlockStep("unlock");
       setRecipient("");
@@ -240,30 +240,24 @@ function Form({ onSelect }) {
       <h1 id="choose-subject-heading" className="quiz-title">
         Ämnen
       </h1>
-      <div className="subjects__difficulty">
-        <label htmlFor="difficulty">Svårighetsgrad:</label>
-        <select
-          id="difficulty"
-          value={mode}
-          onChange={(e) => setMode(e.target.value)}
-        >
-          <option value="easy">Lätt</option>
-          <option value="medium">Medel</option>
-          <option value="hard">Svår</option>
-        </select>
-      </div>
       <div className="subjects__helper-text">
         <p className="subjects__warning-text">
           OBS! Avbryter du quizet innan det är klart visas ändå ditt aktuella
           resultat.
         </p>
       </div>
+
+      <h2
+        className="quiz-title"
+        style={{ fontSize: "1.5rem", marginTop: "2rem" }}
+      >
+        Träningsämnen
+      </h2>
       <div className="subjects">
-        {}
         <button
           type="button"
           className="subject"
-          onClick={() => onSelect && onSelect("plu", mode)}
+          onClick={() => onSelect && onSelect("plu", "standard")}
           aria-label="Välj Paketering, Leverans och Uppföljning"
         >
           <div className="subject__icon subject__icon--plu" aria-hidden>
@@ -275,12 +269,83 @@ function Form({ onSelect }) {
             </div>
             <div className="subject__desc">
               Leveranser, Uppföljning och Kvalitetssäkring.
-              {mode === "hard" && " (VG-nivå med AI-bedömning)"}
             </div>
           </div>
         </button>
 
-        {}
+        <button
+          type="button"
+          className="subject"
+          onClick={() => onSelect && onSelect("apt", "standard")}
+          aria-label="Välj Agil Projektmetodik och Testning"
+        >
+          <div className="subject__icon subject__icon--apt" aria-hidden>
+            🧪
+          </div>
+          <div className="subject__content">
+            <div className="subject__title">Agil Projektmetodik & Testning</div>
+            <div className="subject__desc">
+              Scrum, Sprintar, Teststrategier och Verktyg.
+            </div>
+          </div>
+        </button>
+
+        <button
+          type="button"
+          className="subject"
+          onClick={() => onSelect && onSelect("wai", "standard")}
+          aria-label="Välj Webbsäkerhet; Analys och Implementation"
+        >
+          <div className="subject__icon subject__icon--wai" aria-hidden>
+            🌐
+          </div>
+          <div className="subject__content">
+            <div className="subject__title">
+              Webbsäkerhet; Analys och Implementation
+            </div>
+            <div className="subject__desc">
+              HTTP, Säkerhet, Kryptografi och Loggning.
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <h2
+        className="quiz-title"
+        style={{ fontSize: "1.5rem", marginTop: "2rem", marginBottom: "1rem" }}
+      >
+        Tentamen (VG-nivå)
+      </h2>
+      <div className="subjects__difficulty" style={{ marginBottom: "1rem" }}>
+        <label htmlFor="exam-difficulty">Svårighetsgrad för Tenta:</label>
+        <select
+          id="exam-difficulty"
+          value={examMode}
+          onChange={(e) => setExamMode(e.target.value)}
+        >
+          <option value="standard">Standard (Flerval)</option>
+          <option value="AI">AI-bedömning (VG-nivå, Fritextsvar)</option>
+        </select>
+      </div>
+      {examMode === "AI" && (
+        <div
+          className="subjects__helper-text"
+          style={{
+            marginBottom: "1rem",
+            background: "#f0fdfa",
+            padding: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #0d9488",
+          }}
+        >
+          <p style={{ margin: 0, color: "#0d9488" }}>
+            <strong>AI-bedömning:</strong> Du kommer att svara med fritextsvar
+            som bedöms av AI baserat på VG-nivå (Väl Godkänt). Endast frågor med
+            VG-nivå visas.
+          </p>
+        </div>
+      )}
+      <div className="subjects">
         <div
           className="subjects__gated-wrapper"
           aria-label="Tenta: Paketering, Leverans och Uppföljning"
@@ -304,6 +369,9 @@ function Form({ onSelect }) {
               <div className="subject__desc">
                 Leveranser, Uppföljning och Kvalitetssäkring.{" "}
                 {examUnlocked ? "🔓" : "🔐"}
+                {examMode === "AI" &&
+                  examUnlocked &&
+                  " • AI-bedömning aktiverad"}
               </div>
             </div>
           </button>
@@ -483,46 +551,6 @@ function Form({ onSelect }) {
             </div>
           )}
         </div>
-
-        {}
-        <button
-          type="button"
-          className="subject"
-          onClick={() => onSelect && onSelect("apt", mode)}
-          aria-label="Välj Agil Projektmetodik och Testning"
-        >
-          <div className="subject__icon subject__icon--apt" aria-hidden>
-            🧪
-          </div>
-          <div className="subject__content">
-            <div className="subject__title">Agil Projektmetodik & Testning</div>
-            <div className="subject__desc">
-              Scrum, Sprintar, Teststrategier och Verktyg.
-              {mode === "hard" && " (VG-nivå med AI-bedömning)"}
-            </div>
-          </div>
-        </button>
-
-        {}
-        <button
-          type="button"
-          className="subject"
-          onClick={() => onSelect && onSelect("wai", mode)}
-          aria-label="Välj Webbsäkerhet; Analys och Implementation"
-        >
-          <div className="subject__icon subject__icon--wai" aria-hidden>
-            🌐
-          </div>
-          <div className="subject__content">
-            <div className="subject__title">
-              Webbsäkerhet; Analys och Implementation
-            </div>
-            <div className="subject__desc">
-              HTTP, Säkerhet, Kryptografi och Loggning.
-              {mode === "hard" && " (VG-nivå med AI-bedömning)"}
-            </div>
-          </div>
-        </button>
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ function shuffleQuestion(questions) {
 
 function Subject({ subject, mode: difficultyMode }, ref) {
   const [shuffledQuestions, setShuffledQuestions] = useState([]);
-  const [mode] = useState(difficultyMode || "easy");
+  const [mode] = useState(difficultyMode || "standard");
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState(null);
   const [score, setScore] = useState(0);
@@ -36,33 +36,37 @@ function Subject({ subject, mode: difficultyMode }, ref) {
 
   const question = shuffledQuestions[index];
 
-  useEffect(() => {
-    if (subject === "plu" && mode) {
-      setShuffledQuestions(shuffleQuestion(questionsPlu));
-      setIndex(0);
-      setSelected(null);
-      setScore(0);
-    } else if (subject === "plu-exam" && mode) {
-      setShuffledQuestions(shuffleQuestion(questionsPluExam));
-      setIndex(0);
-      setSelected(null);
-      setScore(0);
-    } else if (subject === "apt" && mode) {
-      setShuffledQuestions(shuffleQuestion(questionsApt));
-      setIndex(0);
-      setSelected(null);
-      setScore(0);
-    } else if (subject === "wai" && mode) {
-      setShuffledQuestions(shuffleQuestion(questionsWai));
-      setIndex(0);
-      setSelected(null);
-      setScore(0);
-    } else {
-      setShuffledQuestions([]);
-      setIndex(0);
-      setSelected(null);
-      setScore(0);
+  // Filter questions based on mode
+  function filterQuestionsByMode(questions, selectedMode) {
+    if (selectedMode === "AI") {
+      const vgQuestions = questions.filter(
+        (q) => q.level && String(q.level).toUpperCase() === "VG"
+      );
+
+      return vgQuestions.length > 0 ? vgQuestions : questions;
     }
+
+    return questions;
+  }
+
+  useEffect(() => {
+    let baseQuestions = [];
+
+    if (subject === "plu") {
+      baseQuestions = questionsPlu;
+    } else if (subject === "plu-exam") {
+      baseQuestions = questionsPluExam;
+    } else if (subject === "apt") {
+      baseQuestions = questionsApt;
+    } else if (subject === "wai") {
+      baseQuestions = questionsWai;
+    }
+
+    const filtered = filterQuestionsByMode(baseQuestions, mode);
+    setShuffledQuestions(shuffleQuestion(filtered));
+    setIndex(0);
+    setSelected(null);
+    setScore(0);
   }, [subject, mode]);
 
   function nextQuestion() {
@@ -75,7 +79,6 @@ function Subject({ subject, mode: difficultyMode }, ref) {
   async function evaluateWithAI(userInput) {
     setIsEvaluating(true);
     try {
-      // Build a single string prompt for Ollama
       const promptText = `Du är en lärare som bedömer studenters svar på VG-nivå (Väl Godkänt). Bedöm svaret baserat på djup förståelse, noggrannhet och om det visar VG-nivå kunskap.
 
 Fråga: ${question.question}
@@ -91,20 +94,27 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           prompt: promptText,
-          model: "llama3.2:latest", // Smaller model that fits in memory
+          model: "llama3.2:latest",
         }),
       });
 
-      if (!res.ok) throw new Error("AI evaluation failed");
+      if (!res.ok) {
+        if (res.status === 429) {
+          const errorData = await res.json();
+          throw new Error(
+            `Rate limit exceeded. ${errorData.message || "Please wait before trying again."}`
+          );
+        }
+        throw new Error("AI evaluation failed");
+      }
 
       const data = await res.json();
-      const content = data.response; // Ollama returns data.response, not data.choices
+      const content = data.response;
 
       let evaluation;
       try {
         evaluation = JSON.parse(content);
       } catch {
-        // Fallback if response isn't valid JSON
         evaluation = {
           correct:
             content.toLowerCase().includes("correct") ||
@@ -123,7 +133,7 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
     } catch (err) {
       setAiEvaluation({
         correct: false,
-        feedback: "Kunde inte utvärdera svar. Försök igen.",
+        feedback: err.message || "Kunde inte utvärdera svar. Försök igen.",
         score: 0,
       });
     } finally {
@@ -195,12 +205,11 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
             <h2 className="quiz__title">
               Fråga: {index + 1} av {shuffledQuestions.length}
               <br />
-              Nivå: {levelClass(question)}{" "}
-              {mode === "hard" && "(VG - AI-bedömd)"}
+              Nivå: {levelClass(question)} {mode === "AI" && "(VG - AI-bedömd)"}
             </h2>
             <p className="quiz__question">{question?.question}</p>
 
-            {mode === "hard" ? (
+            {mode === "AI" ? (
               <form onSubmit={handleHardModeSubmit}>
                 <textarea
                   className="quiz__text-answer"
@@ -259,14 +268,12 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
           </div>
           {selected !== null && (
             <div className="quiz__explanation">
-              <strong>
-                {mode === "hard" ? "AI-bedömning:" : "Förklaring:"}
-              </strong>
-              {mode === "hard" && aiEvaluation ? (
+              <strong>{mode === "AI" ? "AI-bedömning:" : "Förklaring:"}</strong>
+              {mode === "AI" && aiEvaluation ? (
                 <>
                   <p className="quiz__explanation-text">
                     <strong>Resultat:</strong>{" "}
-                    {aiEvaluation.correct ? "✅ Godkänt (VG)" : "❌ Ej godkänt"}
+                    {aiEvaluation.correct ? "Godkänt (VG)" : "Ej godkänt"}
                   </p>
                   <p className="quiz__explanation-text">
                     <strong>Feedback:</strong> {aiEvaluation.feedback}
