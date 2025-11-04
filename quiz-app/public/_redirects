@@ -1,7 +1,8 @@
 # API → Netlify Functions
 /api/verifyPreAccess   /.netlify/functions/verifyPreAccess   200
 /api/verifyUnlock      /.netlify/functions/verifyUnlock      200
-/api/requestUnlock    /.netlify/functions/requestUnlock    200
+/api/ollamaAI          /.netlify/functions/ollamaAI          200
+/api/requestUnlock     /.netlify/functions/requestUnlock     200
 /api/getDevUnlockKey  /.netlify/functions/getDevUnlockKey  200
 /api/generateUnlockKey      /.netlify/functions/generateUnlockKey      200
 /api/discordInteractions    /.netlify/functions/discordInteractions    200

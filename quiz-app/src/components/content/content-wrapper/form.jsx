@@ -10,7 +10,6 @@ function Form({ onSelect }) {
   const [secretInput, setSecretInput] = useState("");
   const [recipient, setRecipient] = useState("");
   const [mode, setMode] = useState("easy");
-  const [messages, setMessages] = useState("");
   const [info, setInfo] = useState("");
   const [error, setError] = useState("");
 
@@ -229,32 +228,6 @@ function Form({ onSelect }) {
       await verifyKeyAndUnlock(data.key);
     } catch (err) {
       setError("Kunde inte hämta lokal nyckel.");
-    }
-  }
-
-  async function aiPrompt() {
-    const prompt = messages.map((msg) => ({
-      role: msg.role,
-      content: msg.content,
-    }));
-    try {
-      const res = await callFunction("openAi", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: prompt,
-        }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Okänt fel");
-
-      return data;
-    } catch (err) {
-      setError(`Kunde inte skicka meddelande: ${err.message}`);
     }
   }
 

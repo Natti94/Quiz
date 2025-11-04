@@ -75,36 +75,36 @@ function Subject({ subject, mode: difficultyMode }, ref) {
   async function evaluateWithAI(userInput) {
     setIsEvaluating(true);
     try {
-      const prompt = [
-        {
-          role: "system",
-          content:
-            'Du är en lärare som bedömer studenters svar på VG-nivå (Väl Godkänt). Bedöm svaret baserat på djup förståelse, noggrannhet och om det visar VG-nivå kunskap. Svara med JSON: {"correct": true/false, "feedback": "din feedback här", "score": 0-100}',
-        },
-        {
-          role: "user",
-          content: `Fråga: ${question.question}\n\nKorrekt svar: ${question.explanation}\n\nStudentens svar: ${userInput}\n\nBedöm om studentens svar visar VG-nivå förståelse.`,
-        },
-      ];
+      // Build a single string prompt for Ollama
+      const promptText = `Du är en lärare som bedömer studenters svar på VG-nivå (Väl Godkänt). Bedöm svaret baserat på djup förståelse, noggrannhet och om det visar VG-nivå kunskap.
 
-      const res = await fetch("/.netlify/functions/openAi", {
+Fråga: ${question.question}
+
+Korrekt svar: ${question.explanation}
+
+Studentens svar: ${userInput}
+
+Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följande format: {"correct": true/false, "feedback": "din feedback här", "score": 0-100}`;
+
+      const res = await fetch("/.netlify/functions/ollamaAI", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "gpt-4o-mini",
-          messages: prompt,
+          prompt: promptText,
+          model: "llama3.2:latest", // Smaller model that fits in memory
         }),
       });
 
       if (!res.ok) throw new Error("AI evaluation failed");
 
       const data = await res.json();
-      const content = data.choices?.[0]?.message?.content;
+      const content = data.response; // Ollama returns data.response, not data.choices
 
       let evaluation;
       try {
         evaluation = JSON.parse(content);
       } catch {
+        // Fallback if response isn't valid JSON
         evaluation = {
           correct:
             content.toLowerCase().includes("correct") ||
