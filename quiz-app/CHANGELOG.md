@@ -1,3 +1,9 @@
+## [2.4.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.3.0...quiz-app-v2.4.0) (2025-11-04)
+
+### Features
+
+* ollamaAI integration, moved away from openAI - testing llama3.2:latest due to memory, moved away from qwen2.5:14b-instruct due to available memory. Not deployed, still in testing phase. ([1447e41](https://github.com/Natti94/Quiz/commit/1447e41964b269feec6f91c5bcef69220e3fb93f))
+
 ## [2.3.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.2.0...quiz-app-v2.3.0) (2025-11-03)
 
 ### Features
