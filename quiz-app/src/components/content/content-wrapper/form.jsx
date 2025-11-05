@@ -41,7 +41,7 @@ function Form({ onSelect }) {
     const adminKey = formKey.trim();
     if (!adminKey) {
       setError(
-        "Du behöver en admin-nyckel. Kontakta Administratören via Discord.",
+        "Du behöver en admin-nyckel. Kontakta Administratören via Discord."
       );
       return;
     }
@@ -60,7 +60,7 @@ function Form({ onSelect }) {
       setPreToken(data.token);
       setHasPreAccess(true);
       setInfo(
-        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln.",
+        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln."
       );
       setFormKey("");
     } catch (err) {
@@ -109,7 +109,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -126,7 +126,7 @@ function Form({ onSelect }) {
       const parts = t.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       const now = Math.floor(Date.now() / 1000);
       if (payload && payload.exp && payload.exp > now) {
@@ -219,7 +219,7 @@ function Form({ onSelect }) {
         throw new Error(data?.error || `Fel ${res.status}`);
       }
       setInfo(
-        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp.",
+        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp."
       );
       setUnlockStep("unlock");
       setRecipient("");
@@ -276,7 +276,7 @@ function Form({ onSelect }) {
         className="quiz-title"
         style={{ fontSize: "1.5rem", marginTop: "2rem" }}
       >
-        Träningsämnen
+        Övning
       </h2>
       <div className="subjects">
         <button
@@ -338,7 +338,7 @@ function Form({ onSelect }) {
         className="quiz-title"
         style={{ fontSize: "1.5rem", marginTop: "2rem", marginBottom: "1rem" }}
       >
-        Tentamen (VG-nivå)
+        Tentamen
       </h2>
       <div className="subjects__difficulty" style={{ marginBottom: "1rem" }}>
         <label htmlFor="exam-difficulty">Svårighetsgrad för Tenta:</label>
