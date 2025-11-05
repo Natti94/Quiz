@@ -57,6 +57,7 @@
   justify-content: space-between;
   gap: 10px;
   align-items: baseline;
+  flex-wrap: wrap;
 }
 
 .updates__controls {
@@ -64,6 +65,7 @@
   justify-content: center;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .updates__btn {
@@ -73,7 +75,7 @@
   color: #111827;
   padding: 6px 10px;
   border-radius: 8px;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2vw, 0.9rem);
   cursor: pointer;
   transition:
     background 0.15s ease,
@@ -96,7 +98,19 @@
 
 .updates__counter {
   color: #6b7280;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 2vw, 0.85rem);
+}
+
+@media (max-width: 480px) {
+  .updates__row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .updates__controls {
+    width: 100%;
+  }
 }
 
 .updates__overlay {
@@ -130,4 +144,26 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .updates__overlay {
+    padding: 12px;
+    align-items: flex-start;
+  }
+
+  .updates__modal {
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100vh - 24px);
+    padding: 12px;
+    margin-top: 12px;
+  }
+
+  .updates__modal-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
