@@ -401,7 +401,7 @@ function Form({ onSelect }) {
           </p>
           <p style={{ margin: 0, color: "red" }}>
             <strong>Observera:</strong> AI-bedömning kan ha sina begränsningar
-            med antalet förfrågningar, just nu är det satt på 30 svar/60 min för
+            med antalet förfrågningar, just nu är det satt på 10 svar/min för
             varje användare och kan justeras på begäran, anslut till discord
             servern:{" "}
             <img

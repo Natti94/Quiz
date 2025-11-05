@@ -164,26 +164,32 @@ DISCORD_ALLOWED_CHANNEL_ID=channel-id-to-restrict-commands
 DISCORD_BYPASS_VERIFY=true  # local dev only, skip signature verification
 ```
 
-Optional (AI evaluation with Ollama):
+Optional (AI evaluation):
 
 **Local Development:**
 
 - Ollama must be running locally on `localhost:11434` with `llama3.2:latest` model installed
 - Install: `ollama pull llama3.2:latest` (2GB model)
-- The AI evaluation endpoint includes rate limiting (30 req/min per IP) and prompt length limits (2000 chars)
+- The AI evaluation endpoint includes rate limiting (10 req/min per IP) and prompt length limits (2000 chars)
 
 **Production Deployment - FREE OPTIONS (Recommended):** ⭐
 
-- **Groq (Best):** Fast, free, no credit card - See `FREE_AI_SETUP.md` (2-minute setup!)
+- **Groq (Best):** Fast, free, no credit card
   ```
   AI_PROVIDER=groq
   GROQ_API_KEY=your-free-api-key
   ```
-- **Hugging Face:** Completely free, slower - See `FREE_AI_SETUP.md`
+  - Model: `llama-3.3-70b-versatile` (powerful, fast inference)
+  - Free tier: 30 requests/min, 14,400 requests/day
+  - Get API key: https://console.groq.com/keys
+  
+- **Hugging Face:** Completely free, slower
   ```
   AI_PROVIDER=huggingface
   HUGGINGFACE_API_KEY=your-free-token
   ```
+  - Model: `meta-llama/Llama-3.2-3B-Instruct`
+  - Unlimited requests (may have cold starts)
 
 **Production Deployment - Self-Hosted Ollama:**
 
@@ -194,7 +200,6 @@ Optional (AI evaluation with Ollama):
   OLLAMA_API_URL=http://your-server-ip:11434
   OLLAMA_API_KEY=your-optional-api-key
   ```
-- **See `OLLAMA_DEPLOYMENT.md` for step-by-step deployment guide** (5-minute setup!)
 - See "Deploying Ollama to Production" section below for detailed setup
 
 ### Local dev behavior
@@ -277,23 +282,40 @@ Question object shape:
 
 **🆓 Use Groq or Hugging Face - completely free cloud AI!**
 
-| Provider                 | Speed       | Free Tier      | Setup Time | Best For       |
-| ------------------------ | ----------- | -------------- | ---------- | -------------- |
-| **Groq** ⭐              | ⚡⚡⚡ Fast | 30/min forever | 2 min      | **Production** |
-| **Hugging Face**         | 🐌 Slow     | Unlimited      | 2 min      | Testing        |
-| **Ollama (Self-hosted)** | ⚡⚡ Fast   | Self-host      | 5 min      | Privacy        |
+| Provider                 | Speed       | Free Tier          | Rate Limit      | Best For       |
+| ------------------------ | ----------- | ------------------ | --------------- | -------------- |
+| **Groq** ⭐              | ⚡⚡⚡ Fast | 30/min, 14.4k/day | App: 10/min/IP  | **Production** |
+| **Hugging Face**         | 🐌 Slow     | Unlimited          | App: 10/min/IP  | Testing        |
+| **Ollama (Self-hosted)** | ⚡⚡ Fast   | Self-host          | App: 10/min/IP  | Privacy        |
 
 **Quick Setup (2 minutes):**
 
-1. Get free API key from https://console.groq.com/
-2. Add to Netlify:
+1. Get free API key from https://console.groq.com/keys
+2. Add to Netlify environment variables:
    ```
    AI_PROVIDER=groq
    GROQ_API_KEY=your-free-key-here
    ```
 3. Done! 🎉
 
-**See `FREE_AI_SETUP.md` for complete guide with all providers.**
+**Model Details:**
+- **Groq:** Uses `llama-3.3-70b-versatile` (powerful 70B parameter model, fast inference)
+- **Hugging Face:** Uses `meta-llama/Llama-3.2-3B-Instruct` (smaller 3B model, slower)
+- **Ollama:** Uses `llama3.2:latest` (local/remote 3B model)
+
+**Usage Estimation (20 students/day):**
+- Light usage (10 AI questions/student): **200 requests/day** = 1.4% of Groq daily limit
+- Heavy usage (30 AI questions/student): **600 requests/day** = 4.2% of Groq daily limit
+- Netlify Functions: 6,000-18,000 req/month = **4.8%-14.4%** of free tier (125k/month)
+
+**Rate Limiting:**
+- Your app enforces **10 requests per minute per IP** to prevent abuse
+- Groq API allows 30 req/min, so multiple users can use simultaneously
+- Returns 429 status with `Retry-After` header when limit exceeded
+
+**Get Started:**
+- Groq API: https://console.groq.com/keys (instant, no credit card)
+- Hugging Face: https://huggingface.co/settings/tokens (instant, no credit card)
 
 ---
 
