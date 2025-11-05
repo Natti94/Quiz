@@ -86,7 +86,7 @@ Studentens svar: ${userInput}
 
 Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följande format: {"correct": true/false, "feedback": "din feedback här", "score": 0-100}`;
 
-      const res = await fetch("/.netlify/functions/ollamaAI", {
+      const res = await fetch("/.netlify/functions/LLM", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -96,13 +96,21 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
       });
 
       if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+
         if (res.status === 429) {
-          const errorData = await res.json();
           throw new Error(
-            `Rate limit exceeded. ${errorData.message || "Please wait before trying again."}`
+            `Rate limit exceeded. ${errorData.message || "Please wait before trying again."}`,
           );
         }
-        throw new Error("AI evaluation failed");
+
+        if (res.status === 503 || errorData.code === "OLLAMA_UNAVAILABLE") {
+          throw new Error(
+            "AI evaluation service is not available. Please use Standard mode instead.",
+          );
+        }
+
+        throw new Error(errorData.message || "AI evaluation failed");
       }
 
       const data = await res.json();
@@ -187,7 +195,7 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
         subject,
       }),
     }),
-    [score, index, selected, shuffledQuestions.length, subject]
+    [score, index, selected, shuffledQuestions.length, subject],
   );
 
   if (!subject) return null;

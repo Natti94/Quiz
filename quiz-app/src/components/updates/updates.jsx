@@ -107,7 +107,6 @@ export default function Updates() {
 
   return (
     <div className="updates__container">
-
       <button
         type="button"
         className="updates__btn updates__trigger"
@@ -185,7 +184,7 @@ export default function Updates() {
                     className="updates__btn updates__btn--prev"
                     onClick={() =>
                       setCurrent(
-                        (i) => (i - 1 + updates.length) % updates.length
+                        (i) => (i - 1 + updates.length) % updates.length,
                       )
                     }
                     aria-label="Previous update"

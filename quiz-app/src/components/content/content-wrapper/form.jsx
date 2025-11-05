@@ -12,6 +12,7 @@ function Form({ onSelect }) {
   const [examMode, setExamMode] = useState("AI");
   const [info, setInfo] = useState("");
   const [error, setError] = useState("");
+  const [aiAvailable, setAiAvailable] = useState(true);
 
   const discordLink = import.meta.env.VITE_DISCORD_LINK;
   const isProd = import.meta.env.PROD;
@@ -40,7 +41,7 @@ function Form({ onSelect }) {
     const adminKey = formKey.trim();
     if (!adminKey) {
       setError(
-        "Du behöver en admin-nyckel. Kontakta Administratören via Discord."
+        "Du behöver en admin-nyckel. Kontakta Administratören via Discord.",
       );
       return;
     }
@@ -59,7 +60,7 @@ function Form({ onSelect }) {
       setPreToken(data.token);
       setHasPreAccess(true);
       setInfo(
-        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln."
+        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln.",
       );
       setFormKey("");
     } catch (err) {
@@ -108,7 +109,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -125,7 +126,7 @@ function Form({ onSelect }) {
       const parts = t.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
       );
       const now = Math.floor(Date.now() / 1000);
       if (payload && payload.exp && payload.exp > now) {
@@ -135,6 +136,29 @@ function Form({ onSelect }) {
         localStorage.removeItem("preToken");
       }
     } catch {}
+  }, []);
+
+  useEffect(() => {
+    const checkAI = async () => {
+      try {
+        const res = await fetch("/.netlify/functions/LLM", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: "test", model: "llama3.2:latest" }),
+        });
+        const data = await res.json();
+
+        if (res.status === 503 || data.code === "OLLAMA_UNAVAILABLE") {
+          setAiAvailable(false);
+          setExamMode("standard");
+        }
+      } catch (error) {
+        setAiAvailable(false);
+        setExamMode("standard");
+      }
+    };
+
+    checkAI();
   }, []);
 
   function getFunctionBases() {
@@ -195,7 +219,7 @@ function Form({ onSelect }) {
         throw new Error(data?.error || `Fel ${res.status}`);
       }
       setInfo(
-        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp."
+        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp.",
       );
       setUnlockStep("unlock");
       setRecipient("");
@@ -322,14 +346,44 @@ function Form({ onSelect }) {
           id="exam-difficulty"
           value={examMode}
           onChange={(e) => setExamMode(e.target.value)}
+          disabled={!aiAvailable && examMode !== "standard"}
         >
           <option value="standard">Standard (Flerval)</option>
-          <option value="AI">
+          <option value="AI" disabled={!aiAvailable}>
             AI-bedömning (Fritextsvar - VG frågor enbart)
+            {!aiAvailable ? " - Ej tillgänglig" : ""}
           </option>
         </select>
       </div>
-      {examMode === "AI" && (
+      {!aiAvailable && (
+        <div
+          className="subjects__helper-text"
+          style={{
+            marginBottom: "1rem",
+            background: "#fff3cd",
+            padding: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #ffc107",
+          }}
+        >
+          <p style={{ margin: 0, color: "#856404" }}>
+            <strong>⚠️ AI-bedömning är inte tillgänglig:</strong> AI-tjänsten är
+            inte konfigurerad för denna server.
+          </p>
+          <p
+            style={{
+              margin: "0.5rem 0 0 0",
+              fontSize: "0.9rem",
+              color: "#856404",
+            }}
+          >
+            <strong>Tips för utvecklare:</strong> Du kan aktivera AI-bedömning
+            gratis med Groq eller Hugging Face. Se <code>FREE_AI_SETUP.md</code>{" "}
+            för instruktioner (2 minuter setup).
+          </p>
+        </div>
+      )}
+      {examMode === "AI" && aiAvailable && (
         <div
           className="subjects__helper-text"
           style={{
@@ -344,6 +398,23 @@ function Form({ onSelect }) {
             <strong>AI-bedömning:</strong> Endast frågor med <strong>VG</strong>
             -nivå visas med fritext och är bedömt av AI, <strong>G</strong>{" "}
             frågor besvaras som flerval.
+          </p>
+          <p style={{ margin: 0, color: "red" }}>
+            <strong>Observera:</strong> AI-bedömning kan ha sina begränsningar
+            med antalet förfrågningar, just nu är det satt på 30 svar/60 min för
+            varje användare och kan justeras på begäran, anslut till discord
+            servern:{" "}
+            <img
+              src={assets.discord_icon}
+              onClick={() => window.open(discordLink, "_blank")}
+              alt="Discord"
+              style={{
+                width: "24px",
+                height: "24px",
+                verticalAlign: "middle",
+                cursor: "pointer",
+              }}
+            />{" "}
           </p>
         </div>
       )}
