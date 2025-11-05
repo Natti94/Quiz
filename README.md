@@ -21,6 +21,8 @@ Automated releases: the project uses Conventional Commits + semantic-release to 
 - Netlify Function for external links/assets via environment variables
 - Updates section that shows latest repo commits (via `/api/commits` → Netlify Function), with single-commit viewer and Prev/Next controls
 - WAI subject: Web Architecture & Internet (HTTP, HTTPS, CA, Proxy, AuthN/Z, Helmet, OWASP, crypto, logging)
+- **Dual exam system:** PLU Exam and WAI Exam with shared unlock mechanism
+- **Intelligent AI mode:** VG questions use AI evaluation (textarea), G questions use multiple choice
 
 ## Project structure
 
@@ -45,7 +47,7 @@ quiz-app/
       requestUnlock.js     # Step 2: email a one-time key (Resend)
       verifyUnlock.js      # Step 3: verify key → issue unlock JWT
       getDevUnlockKey.js   # Dev-only helper to fetch local key
-      ollamaAI.js          # AI evaluation endpoint (Ollama llama3.2)
+      LLM.js               # AI evaluation endpoint (Groq/HuggingFace/Ollama)
       _store.js, jwtUtils.js, generateUnlockKey.js, mongoStore.js
 
   src/
@@ -79,6 +81,7 @@ quiz-app/
           wai.js         # WAI questions
         exam/
           pluExam.js     # PLU exam (G/VG) with { level: "G" | "VG", ... }
+          waiExam.js     # WAI exam (G/VG) - 9 G + 6 VG questions on security/GDPR
 ```
 
 ## Getting Started
@@ -163,9 +166,36 @@ DISCORD_BYPASS_VERIFY=true  # local dev only, skip signature verification
 
 Optional (AI evaluation with Ollama):
 
+**Local Development:**
+
 - Ollama must be running locally on `localhost:11434` with `llama3.2:latest` model installed
 - Install: `ollama pull llama3.2:latest` (2GB model)
-- The AI evaluation endpoint includes rate limiting (10 req/min per IP) and prompt length limits (2000 chars)
+- The AI evaluation endpoint includes rate limiting (30 req/min per IP) and prompt length limits (2000 chars)
+
+**Production Deployment - FREE OPTIONS (Recommended):** ⭐
+
+- **Groq (Best):** Fast, free, no credit card - See `FREE_AI_SETUP.md` (2-minute setup!)
+  ```
+  AI_PROVIDER=groq
+  GROQ_API_KEY=your-free-api-key
+  ```
+- **Hugging Face:** Completely free, slower - See `FREE_AI_SETUP.md`
+  ```
+  AI_PROVIDER=huggingface
+  HUGGINGFACE_API_KEY=your-free-token
+  ```
+
+**Production Deployment - Self-Hosted Ollama:**
+
+- Deploy Ollama on a separate server (VPS, EC2, etc.) with 4GB+ RAM
+- Set environment variables in Netlify:
+  ```
+  AI_PROVIDER=ollama
+  OLLAMA_API_URL=http://your-server-ip:11434
+  OLLAMA_API_KEY=your-optional-api-key
+  ```
+- **See `OLLAMA_DEPLOYMENT.md` for step-by-step deployment guide** (5-minute setup!)
+- See "Deploying Ollama to Production" section below for detailed setup
 
 ### Local dev behavior
 
@@ -197,7 +227,7 @@ Optional (AI evaluation with Ollama):
   /api/requestUnlock   /.netlify/functions/requestUnlock        200
   /api/verifyUnlock    /.netlify/functions/verifyUnlock         200
   /api/verifyPreAccess /.netlify/functions/verifyPreAccess      200
-  /api/ollamaAI        /.netlify/functions/ollamaAI             200
+  /api/LLM             /.netlify/functions/LLM                  200
   /*                   /index.html                              200
   ```
 
@@ -206,7 +236,6 @@ Optional (AI evaluation with Ollama):
   ```
   https://your-site.netlify.app/.netlify/functions/discordInteractions
   ```
-- See `DISCORD_PREKEY_GUIDE.md` for complete Discord bot setup instructions.
 
 ## Editing questions / adding subjects
 
@@ -223,21 +252,246 @@ Question object shape:
 }
 ```
 
-- Edit arrays in `src/data/quiz/default/apt.js` and `src/data/quiz/default/plu.js` (named exports).
-- Exam questions live in `src/data/quiz/exam/pluExam.js` and include a `level` (G/VG). The UI shows the level on each question.
-- Existing subjects: APT, PLU, PLU Exam, and WAI (Web Architecture & Internet).
+- Edit arrays in `src/data/quiz/default/apt.js`, `src/data/quiz/default/plu.js`, and `src/data/quiz/default/wai.js` (named exports).
+- Exam questions live in `src/data/quiz/exam/pluExam.js` and `src/data/quiz/exam/waiExam.js` and include a `level` (G/VG). The UI shows the level on each question.
+- Existing subjects: APT, PLU, WAI (training mode), PLU Exam, and WAI Exam.
 - Add a new subject by creating `src/data/quiz/<name>.js` (export a named array), wiring it in `subjects.jsx` (based on the `subject` prop), adding a card in `form.jsx`, and extending any subject metadata registry (label/icon) used in `App.jsx`.
 
 ### AI Evaluation Mode
 
-- **Standard Mode:** Multiple choice questions (both G and VG levels shown)
-- **AI Mode:** Free text answers for VG-level questions only
-  - Questions with `level: "VG"` are shown
-  - Student types their answer in a textarea
-  - Answer is sent to Ollama AI for evaluation (2-10 seconds)
-  - AI provides feedback and determines correctness
+- **Standard Mode:** Multiple choice questions (both G and VG levels shown as standard multiple choice)
+- **AI Mode:** Intelligent mixed evaluation based on question level
+  - **VG-level questions:** Free text answers evaluated by Ollama AI (textarea input, AI feedback with pass/fail, detailed explanation)
+  - **G-level questions:** Standard multiple choice (instant feedback, no AI evaluation)
+  - All questions (both G and VG) are available in AI mode, providing a complete exam experience
+  - VG questions are clearly labeled with "(AI-bedömd)" indicator
+  - G questions use standard multiple choice for faster answers and partial credit
 - Training subjects (PLU, APT, WAI) always use standard mode
-- Only exam subjects (TENTA) have the AI mode option
+- Only exam subjects (TENTA: PLU Exam, WAI Exam) have the AI mode option
+- **Dual Exam System:** Both PLU and WAI exams available with shared unlock mechanism
+  - PLU Exam: Focus on packaging, delivery, and follow-up processes
+  - WAI Exam: Web security, protocols (HTTPS/TLS/TCP/UDP), GDPR, OWASP Top 10
+  - Unlock once, access both exams
+
+## Free AI for Production (No Server Needed!)
+
+**🆓 Use Groq or Hugging Face - completely free cloud AI!**
+
+| Provider                 | Speed       | Free Tier      | Setup Time | Best For       |
+| ------------------------ | ----------- | -------------- | ---------- | -------------- |
+| **Groq** ⭐              | ⚡⚡⚡ Fast | 30/min forever | 2 min      | **Production** |
+| **Hugging Face**         | 🐌 Slow     | Unlimited      | 2 min      | Testing        |
+| **Ollama (Self-hosted)** | ⚡⚡ Fast   | Self-host      | 5 min      | Privacy        |
+
+**Quick Setup (2 minutes):**
+
+1. Get free API key from https://console.groq.com/
+2. Add to Netlify:
+   ```
+   AI_PROVIDER=groq
+   GROQ_API_KEY=your-free-key-here
+   ```
+3. Done! 🎉
+
+**See `FREE_AI_SETUP.md` for complete guide with all providers.**
+
+---
+
+## Deploying Ollama to Production
+
+To enable AI evaluation in production, deploy Ollama on a separate server:
+
+### Option 1: Deploy on a VPS (DigitalOcean, Hetzner, etc.)
+
+**1. Create a server:**
+
+- Minimum: 2 vCPU, 4GB RAM
+- Recommended: 4 vCPU, 8GB RAM for better performance
+- Ubuntu 22.04 LTS recommended
+
+**2. Install Ollama:**
+
+```bash
+# SSH into your server
+ssh root@your-server-ip
+
+# Install Ollama
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Pull the model
+ollama pull llama3.2:latest
+```
+
+**3. Configure Ollama to accept external connections:**
+
+```bash
+# Create systemd override
+sudo mkdir -p /etc/systemd/system/ollama.service.d
+sudo nano /etc/systemd/system/ollama.service.d/override.conf
+```
+
+Add this content:
+
+```ini
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0:11434"
+```
+
+Restart Ollama:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+```
+
+**4. Set up firewall:**
+
+```bash
+# Allow Ollama port
+sudo ufw allow 11434/tcp
+
+# Enable firewall
+sudo ufw enable
+```
+
+**5. (Recommended) Set up Nginx reverse proxy with HTTPS:**
+
+```bash
+# Install Nginx and Certbot
+sudo apt update
+sudo apt install nginx certbot python3-certbot-nginx -y
+
+# Create Nginx config
+sudo nano /etc/nginx/sites-available/ollama
+```
+
+Add this config:
+
+```nginx
+server {
+    listen 80;
+    server_name your-domain.com;  # Replace with your domain
+
+    location / {
+        proxy_pass http://localhost:11434;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+        # Increase timeout for AI processing
+        proxy_read_timeout 300s;
+        proxy_connect_timeout 300s;
+    }
+}
+```
+
+Enable and get SSL:
+
+```bash
+sudo ln -s /etc/nginx/sites-available/ollama /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+sudo certbot --nginx -d your-domain.com
+```
+
+**6. Add environment variables to Netlify:**
+
+Go to: https://app.netlify.com/sites/your-site/configuration/env
+
+Add:
+
+```
+OLLAMA_API_URL=https://your-domain.com
+```
+
+Or if using IP without SSL:
+
+```
+OLLAMA_API_URL=http://your-server-ip:11434
+```
+
+### Option 2: Deploy on AWS EC2
+
+**1. Launch EC2 instance:**
+
+- AMI: Ubuntu Server 22.04 LTS
+- Instance type: t3.medium (2 vCPU, 4GB RAM) or larger
+- Security group: Allow inbound TCP 11434 (or 443 if using SSL)
+
+**2. Follow the same installation steps as VPS above**
+
+### Option 3: Use Docker
+
+```bash
+# On your server
+docker run -d \
+  -v ollama:/root/.ollama \
+  -p 11434:11434 \
+  --name ollama \
+  ollama/ollama
+
+# Pull model
+docker exec -it ollama ollama pull llama3.2:latest
+```
+
+### Security Best Practices
+
+**Option A: IP Whitelist (Simple)**
+
+Only allow Netlify's IPs:
+
+```bash
+# Get Netlify IPs from: https://docs.netlify.com/cloud/ip-addresses/
+sudo ufw allow from 52.0.0.0/8 to any port 11434
+```
+
+**Option B: API Key Authentication (Recommended)**
+
+Add a reverse proxy with authentication:
+
+```nginx
+# In your Nginx config, add:
+location / {
+    # Check for API key
+    if ($http_authorization != "Bearer your-secret-key-here") {
+        return 401;
+    }
+
+    proxy_pass http://localhost:11434;
+    # ... rest of proxy config
+}
+```
+
+Then add to Netlify:
+
+```
+OLLAMA_API_KEY=your-secret-key-here
+```
+
+### Testing Your Setup
+
+Test from your local machine:
+
+```bash
+curl -X POST https://your-domain.com/api/generate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "llama3.2:latest",
+    "prompt": "Why is the sky blue?",
+    "stream": false
+  }'
+```
+
+### Cost Estimation
+
+- **DigitalOcean Droplet:** $12-24/month (4GB-8GB RAM)
+- **Hetzner Cloud:** €5-10/month (very affordable, EU only)
+- **AWS EC2 t3.medium:** ~$30/month
+- **Modal.com (Serverless):** Pay per use, ~$0.10-0.50 per 1000 evaluations
 
 ## Notes & troubleshooting
 
@@ -246,7 +500,7 @@ Question object shape:
 - Styles are intentionally scoped (e.g., `.app-shell .quiz-wrapper ...`) to avoid leaking into other pages.
 - Exam not unlocking:
   - Ensure `.env` has `EXAM_SECRET` and `JWT_SECRET` (restart dev server after changes).
-  - For Discord prekey flow, ensure `DISCORD_PUBLIC_KEY` is set and bot is configured (see `DISCORD_PREKEY_GUIDE.md`).
+  - For Discord prekey flow, ensure `DISCORD_PUBLIC_KEY` is set and bot is configured.
   - For local testing, use the developer button ("Öppna (Utvecklare)") or paste `EXAM_SECRET` directly; no email/DB required.
   - Clear `localStorage` keys `preToken` and `examToken` (DevTools → Application → Local Storage) to re-lock for testing.
   - In production, confirm env vars are set on Netlify and a fresh deploy is live.
@@ -255,14 +509,27 @@ Question object shape:
   - Set `GITHUB_TOKEN` in Netlify to avoid GitHub API rate limits.
   - In local dev without Netlify functions, the Updates component tries `/api/commits`, then falls back to `/.netlify/functions/getCommits`, and finally to the public GitHub API.
 - AI evaluation not working:
-  - Ensure Ollama is running: check `http://localhost:11434` in browser
-  - Verify model installed: `ollama list` should show `llama3.2:latest`
-  - Check console for rate limit errors (10 req/min per IP)
-  - AI mode only works for exam questions with `level: "VG"`
+  - **Recommended:** Use Groq (free, fast) - See `FREE_AI_SETUP.md`
+  - **Local Development:**
+    - Ensure Ollama is running: check `http://localhost:11434` in browser
+    - Verify model installed: `ollama list` should show `llama3.2:latest`
+  - **Production (Groq/Hugging Face):**
+    - Check `AI_PROVIDER` and API key are set in Netlify environment variables
+    - Test API key: `curl https://api.groq.com/openai/v1/models -H "Authorization: Bearer YOUR_KEY"`
+    - Check Netlify function logs for errors
+  - **Production (Self-hosted Ollama):**
+    - Check `OLLAMA_API_URL` environment variable is set in Netlify
+    - Test your Ollama server: `curl http://your-server:11434/api/tags`
+    - Check server firewall allows port 11434
+    - Verify Ollama service is running: `sudo systemctl status ollama`
+  - Check console for rate limit errors (30 req/min per IP)
+  - AI mode evaluates VG-level questions only; G questions use standard multiple choice
+  - In AI mode, only questions marked "(AI-bedömd)" use AI evaluation
+  - If no AI provider is configured, AI mode will be automatically disabled with a warning message
 - Discord bot issues:
-  - See `DISCORD_PREKEY_GUIDE.md` for complete troubleshooting guide
   - Common issues: signature verification failures, channel restrictions, expired tokens
   - Verify Interactions Endpoint URL is set correctly in Discord Developer Portal
+  - Ensure `DISCORD_PUBLIC_KEY` matches the key in Discord Developer Portal
 
 ## Security and env hygiene
 
