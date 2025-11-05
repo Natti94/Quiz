@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 const rateLimits = new Map();
-const MAX_REQUESTS_PER_MINUTE = 10;
+const MAX_REQUESTS_PER_MINUTE = 30;
 const WINDOW_MS = 60 * 1000;
 
 function checkRateLimit(ip) {

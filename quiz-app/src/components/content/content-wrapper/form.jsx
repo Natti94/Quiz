@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 
 function Form({ onSelect }) {
   const [showUnlock, setShowUnlock] = useState(false);
-  const [examUnlocked, setExamUnlocked] = useState(false);
+  const [examUnlocked, setExamUnlocked] = useState(true);
   const [preToken, setPreToken] = useState("");
   const [hasPreAccess, setHasPreAccess] = useState(false);
   const [unlockStep, setUnlockStep] = useState("request");
   const [formKey, setFormKey] = useState("");
   const [secretInput, setSecretInput] = useState("");
   const [recipient, setRecipient] = useState("");
-  const [examMode, setExamMode] = useState("standard");
+  const [examMode, setExamMode] = useState("AI");
   const [info, setInfo] = useState("");
   const [error, setError] = useState("");
 
@@ -22,9 +22,9 @@ function Form({ onSelect }) {
       : import.meta.env.VITE_CLOUDINARY_DISCORD_ICON,
   };
 
-  const handleExamClick = () => {
+  const handleExamClick = (examSubject) => {
     if (examUnlocked) {
-      onSelect && onSelect("plu-exam", examMode);
+      onSelect && onSelect(examSubject, examMode);
       return;
     }
     setShowUnlock((v) => {
@@ -40,7 +40,7 @@ function Form({ onSelect }) {
     const adminKey = formKey.trim();
     if (!adminKey) {
       setError(
-        "Du behöver en admin-nyckel. Kontakta Administratören via Discord.",
+        "Du behöver en admin-nyckel. Kontakta Administratören via Discord."
       );
       return;
     }
@@ -59,7 +59,7 @@ function Form({ onSelect }) {
       setPreToken(data.token);
       setHasPreAccess(true);
       setInfo(
-        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln.",
+        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln."
       );
       setFormKey("");
     } catch (err) {
@@ -92,7 +92,8 @@ function Form({ onSelect }) {
       }
       localStorage.setItem("examToken", data.token);
       setExamUnlocked(true);
-      onSelect && onSelect("plu-exam");
+      setShowUnlock(false);
+      setInfo("Tentamen upplåst! Välj en tenta nedan.");
       return true;
     } catch (err) {
       setError("Tekniskt fel. Försök igen.");
@@ -107,7 +108,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -124,7 +125,7 @@ function Form({ onSelect }) {
       const parts = t.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       const now = Math.floor(Date.now() / 1000);
       if (payload && payload.exp && payload.exp > now) {
@@ -194,7 +195,7 @@ function Form({ onSelect }) {
         throw new Error(data?.error || `Fel ${res.status}`);
       }
       setInfo(
-        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp.",
+        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp."
       );
       setUnlockStep("unlock");
       setRecipient("");
@@ -309,7 +310,6 @@ function Form({ onSelect }) {
           </div>
         </button>
       </div>
-
       <h2
         className="quiz-title"
         style={{ fontSize: "1.5rem", marginTop: "2rem", marginBottom: "1rem" }}
@@ -324,7 +324,9 @@ function Form({ onSelect }) {
           onChange={(e) => setExamMode(e.target.value)}
         >
           <option value="standard">Standard (Flerval)</option>
-          <option value="AI">AI-bedömning (VG-nivå, Fritextsvar)</option>
+          <option value="AI">
+            AI-bedömning (Fritextsvar - VG frågor enbart)
+          </option>
         </select>
       </div>
       {examMode === "AI" && (
@@ -339,25 +341,43 @@ function Form({ onSelect }) {
           }}
         >
           <p style={{ margin: 0, color: "#0d9488" }}>
-            <strong>AI-bedömning:</strong> Du kommer att svara med fritextsvar
-            som bedöms av AI baserat på VG-nivå (Väl Godkänt). Endast frågor med
-            VG-nivå visas.
+            <strong>AI-bedömning:</strong> Endast frågor med <strong>VG</strong>
+            -nivå visas med fritext och är bedömt av AI, <strong>G</strong>{" "}
+            frågor besvaras som flerval.
           </p>
         </div>
       )}
+
+      {examMode === "AI" && !examUnlocked && (
+        <div style={{ marginBottom: "1rem", textAlign: "center" }}>
+          <button
+            type="button"
+            className="ui-btn ui-btn--primary"
+            style={{ padding: "12px 24px", fontSize: "1rem" }}
+            onClick={() => setShowUnlock(true)}
+          >
+            🔐 Lås upp Tentamen
+          </button>
+        </div>
+      )}
+
       <div className="subjects">
         <div
           className="subjects__gated-wrapper"
-          aria-label="Tenta: Paketering, Leverans och Uppföljning"
+          aria-label="Tentamen"
           role="group"
         >
           <button
             type="button"
-            className={`subject subject--gated ${examUnlocked ? "subject--unlocked" : ""}`}
-            onClick={handleExamClick}
-            aria-expanded={showUnlock}
-            aria-controls="exam-unlock-panel"
-            aria-label={examUnlocked ? "Öppna tenta" : "Lås upp tenta"}
+            className={`subject ${examUnlocked ? "subject--unlocked" : ""} ${examMode === "AI" && !examUnlocked ? "subject--disabled" : ""}`}
+            onClick={() => examUnlocked && handleExamClick("plu-exam")}
+            disabled={examMode === "AI" && !examUnlocked}
+            aria-label={examUnlocked ? "Öppna PLU tenta" : "PLU Tenta - Låst"}
+            style={
+              examMode === "AI" && !examUnlocked
+                ? { opacity: 0.6, cursor: "not-allowed" }
+                : {}
+            }
           >
             <div className="subject__icon subject__icon--plu" aria-hidden>
               📦
@@ -375,6 +395,35 @@ function Form({ onSelect }) {
               </div>
             </div>
           </button>
+          <button
+            type="button"
+            className={`subject ${examUnlocked ? "subject--unlocked" : ""} ${examMode === "AI" && !examUnlocked ? "subject--disabled" : ""}`}
+            onClick={() => examUnlocked && handleExamClick("wai-exam")}
+            disabled={examMode === "AI" && !examUnlocked}
+            aria-label={examUnlocked ? "Öppna WAI tenta" : "WAI Tenta - Låst"}
+            style={
+              examMode === "AI" && !examUnlocked
+                ? { opacity: 0.6, cursor: "not-allowed" }
+                : {}
+            }
+          >
+            <div className="subject__icon subject__icon--wai" aria-hidden>
+              🌐
+            </div>
+            <div className="subject__content">
+              <div className="subject__title">
+                <strong>Tenta: </strong>Webbsäkerhet; Analys och Implementation
+              </div>
+              <div className="subject__desc">
+                HTTP, Säkerhet, Kryptografi och Loggning.{" "}
+                {examUnlocked ? "🔓" : "🔐"}
+                {examMode === "AI" &&
+                  examUnlocked &&
+                  " • AI-bedömning aktiverad"}
+              </div>
+            </div>
+          </button>
+
           {showUnlock && !examUnlocked && (
             <div
               className="subjects__overlay"

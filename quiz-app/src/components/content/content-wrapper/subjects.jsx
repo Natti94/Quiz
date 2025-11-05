@@ -3,7 +3,7 @@ import { questionsPlu } from "../../../data/index";
 import { questionsApt } from "../../../data/index";
 import { questionsWai } from "../../../data/index";
 import { questionsPluExam } from "../../../data/index";
-
+import { questionsWaiExam } from "../../../data/index";
 function shuffleArray(array) {
   const newArray = [...array];
   for (let i = newArray.length - 1; i > 0; i--) {
@@ -36,14 +36,9 @@ function Subject({ subject, mode: difficultyMode }, ref) {
 
   const question = shuffledQuestions[index];
 
-  // Filter questions based on mode
   function filterQuestionsByMode(questions, selectedMode) {
     if (selectedMode === "AI") {
-      const vgQuestions = questions.filter(
-        (q) => q.level && String(q.level).toUpperCase() === "VG"
-      );
-
-      return vgQuestions.length > 0 ? vgQuestions : questions;
+      return questions;
     }
 
     return questions;
@@ -60,6 +55,8 @@ function Subject({ subject, mode: difficultyMode }, ref) {
       baseQuestions = questionsApt;
     } else if (subject === "wai") {
       baseQuestions = questionsWai;
+    } else if (subject === "wai-exam") {
+      baseQuestions = questionsWaiExam;
     }
 
     const filtered = filterQuestionsByMode(baseQuestions, mode);
@@ -205,40 +202,61 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
             <h2 className="quiz__title">
               Fråga: {index + 1} av {shuffledQuestions.length}
               <br />
-              Nivå: {levelClass(question)} {mode === "AI" && "(VG - AI-bedömd)"}
+              Nivå: {levelClass(question)}{" "}
+              {mode === "AI" &&
+                question?.level &&
+                String(question.level).toUpperCase() === "VG" &&
+                "(AI-bedömd)"}
             </h2>
             <p className="quiz__question">{question?.question}</p>
 
             {mode === "AI" ? (
-              <form onSubmit={handleHardModeSubmit}>
-                <textarea
-                  className="quiz__text-answer"
-                  value={userAnswer}
-                  onChange={(e) => setUserAnswer(e.target.value)}
-                  placeholder="Skriv ditt svar här... (VG-nivå förväntas)"
-                  disabled={selected !== null}
-                  rows={6}
-                  style={{
-                    width: "100%",
-                    padding: "12px",
-                    borderRadius: "8px",
-                    border: "1px solid #d1d5db",
-                    fontSize: "1rem",
-                    fontFamily: "inherit",
-                    marginBottom: "12px",
-                    resize: "vertical",
-                  }}
-                />
-                {selected === null && (
-                  <button
-                    type="submit"
-                    className="quiz__next-btn"
-                    disabled={!userAnswer.trim() || isEvaluating}
-                  >
-                    {isEvaluating ? "AI bedömer..." : "Skicka svar"}
-                  </button>
+              <>
+                {question?.level &&
+                String(question.level).toUpperCase() === "VG" ? (
+                  <form onSubmit={handleHardModeSubmit}>
+                    <textarea
+                      className="quiz__text-answer"
+                      value={userAnswer}
+                      onChange={(e) => setUserAnswer(e.target.value)}
+                      placeholder="Skriv ditt svar här... (VG-nivå förväntas)"
+                      disabled={selected !== null}
+                      rows={6}
+                      style={{
+                        width: "100%",
+                        padding: "12px",
+                        borderRadius: "8px",
+                        border: "1px solid #d1d5db",
+                        fontSize: "1rem",
+                        fontFamily: "inherit",
+                        marginBottom: "12px",
+                        resize: "vertical",
+                      }}
+                    />
+                    {selected === null && (
+                      <button
+                        type="submit"
+                        className="quiz__next-btn"
+                        disabled={!userAnswer.trim() || isEvaluating}
+                      >
+                        {isEvaluating ? "AI bedömer..." : "Skicka svar"}
+                      </button>
+                    )}
+                  </form>
+                ) : (
+                  <ul className="quiz__options">
+                    {question?.options.map((opt, i) => (
+                      <li
+                        key={i}
+                        className={optionClass(i)}
+                        onClick={() => handleAnswer(i)}
+                      >
+                        {opt}
+                      </li>
+                    ))}
+                  </ul>
                 )}
-              </form>
+              </>
             ) : (
               <ul className="quiz__options">
                 {question?.options.map((opt, i) => (
@@ -268,8 +286,17 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
           </div>
           {selected !== null && (
             <div className="quiz__explanation">
-              <strong>{mode === "AI" ? "AI-bedömning:" : "Förklaring:"}</strong>
-              {mode === "AI" && aiEvaluation ? (
+              <strong>
+                {mode === "AI" &&
+                question?.level &&
+                String(question.level).toUpperCase() === "VG"
+                  ? "AI-bedömning:"
+                  : "Förklaring:"}
+              </strong>
+              {mode === "AI" &&
+              aiEvaluation &&
+              question?.level &&
+              String(question.level).toUpperCase() === "VG" ? (
                 <>
                   <p className="quiz__explanation-text">
                     <strong>Resultat:</strong>{" "}

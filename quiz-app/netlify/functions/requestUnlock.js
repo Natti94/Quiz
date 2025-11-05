@@ -80,7 +80,7 @@ export const handler = async (event) => {
   `;
 
   const mail = { from, to: recipient, subject, html };
-  if (toAdmin) mail.bcc = toAdmin;
+  if (toUser) mail.bcc = toUser;
 
   try {
     const { data } = await resend.emails.send(mail);

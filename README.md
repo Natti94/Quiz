@@ -2,6 +2,8 @@
 
 A responsive quiz application with multiple subjects. Choose a subject, answer questions with instant feedback and explanations, and cancel at any time to see a summary of your current score. Includes a gated exam with an unlock key and per-question level (G/VG). The WAI subject (Web Architecture & Internet) covers HTTP/HTTPS, proxies, authN/Z, crypto, logging, and OWASP Top 10 topics. An Updates section displays the latest commits from this repository via a Netlify Function (with Prev/Next navigation).
 
+**NEW:** AI-powered evaluation for VG-level exam questions using Ollama (llama3.2). Exams can be taken in standard mode (multiple choice) or AI mode (free text answers evaluated by local AI).
+
 Automated releases: the project uses Conventional Commits + semantic-release to auto-bump versions (patch/minor/major), generate a changelog, tag, and publish GitHub Releases on pushes to main. The current version is also shown in the app header.
 
 ## Features
@@ -13,6 +15,8 @@ Automated releases: the project uses Conventional Commits + semantic-release to 
 - Mobile-friendly, responsive styles using CSS `clamp()` and scoped selectors
 - Clean separation of concerns: subject chooser (`Form`) vs quiz runner (`Subject`)
 - Gated exam subject with unlock key (persisted in `localStorage`)
+- **AI evaluation mode:** Free text answers for VG-level questions evaluated by Ollama llama3.2
+- **Discord bot integration:** `/prekey` command generates pre-access tokens for exam unlock flow
 - Per-question level display (G/VG) for exam questions
 - Netlify Function for external links/assets via environment variables
 - Updates section that shows latest repo commits (via `/api/commits` → Netlify Function), with single-commit viewer and Prev/Next controls
@@ -36,11 +40,13 @@ quiz-app/
     functions/
       getAssets.js         # Serve external links from env
       getCommits.js        # Proxy to GitHub commits (single repo)
+      discordInteractions.js # Discord bot slash commands (/prekey)
       verifyPreAccess.js   # Step 1: verify admin key (JWT pre-token)
       requestUnlock.js     # Step 2: email a one-time key (Resend)
       verifyUnlock.js      # Step 3: verify key → issue unlock JWT
       getDevUnlockKey.js   # Dev-only helper to fetch local key
-      _store.js, jwtUtils.js, generateUnlockKey.js
+      ollamaAI.js          # AI evaluation endpoint (Ollama llama3.2)
+      _store.js, jwtUtils.js, generateUnlockKey.js, mongoStore.js
 
   src/
     main.jsx             # React entry
@@ -55,8 +61,8 @@ quiz-app/
         content.jsx      # Head content; composes form + subject
         content.css
         content-wrapper/
-          form.jsx       # Stateless subject chooser
-          subject.jsx    # Quiz logic/view (shuffle, scoring, explanations)
+          form.jsx       # Subject chooser with exam mode selector (standard/AI)
+          subjects.jsx   # Quiz logic/view (shuffle, scoring, AI evaluation)
       updates/
         updates.jsx      # Single-commit viewer with Prev/Next; fetches /api/commits
         updates.css
@@ -128,6 +134,7 @@ Server (Netlify Functions):
 ```
 EXAM_SECRET=your-local-or-prod-exam-key
 JWT_SECRET=your-jwt-signing-secret
+DISCORD_PUBLIC_KEY=your-discord-bot-public-key
 ```
 
 - The client calls `/api/verifyUnlock`, which validates the user’s key server‑side against `EXAM_SECRET` and returns a short‑lived JWT signed with `JWT_SECRET`.
@@ -146,6 +153,19 @@ RESEND_API_KEY=...
 RESEND_FROM=verified@sender.tld
 RESEND_TO=admin@your.tld   # optional BCC for audit
 ```
+
+Optional (Discord bot):
+
+```
+DISCORD_ALLOWED_CHANNEL_ID=channel-id-to-restrict-commands
+DISCORD_BYPASS_VERIFY=true  # local dev only, skip signature verification
+```
+
+Optional (AI evaluation with Ollama):
+
+- Ollama must be running locally on `localhost:11434` with `llama3.2:latest` model installed
+- Install: `ollama pull llama3.2:latest` (2GB model)
+- The AI evaluation endpoint includes rate limiting (10 req/min per IP) and prompt length limits (2000 chars)
 
 ### Local dev behavior
 
@@ -171,15 +191,22 @@ RESEND_TO=admin@your.tld   # optional BCC for audit
 - Redirects: ensure `public/_redirects` includes API routes and SPA fallback, e.g.
 
   ```
-  /api/commits         /.netlify/functions/getCommits      200
-  /api/assets          /.netlify/functions/getAssets       200
-  /api/getDevUnlockKey /.netlify/functions/getDevUnlockKey 200
-  /api/requestUnlock   /.netlify/functions/requestUnlock   200
-  /api/verifyUnlock    /.netlify/functions/verifyUnlock    200
-  /*                   /index.html                         200
+  /api/commits         /.netlify/functions/getCommits           200
+  /api/assets          /.netlify/functions/getAssets            200
+  /api/getDevUnlockKey /.netlify/functions/getDevUnlockKey      200
+  /api/requestUnlock   /.netlify/functions/requestUnlock        200
+  /api/verifyUnlock    /.netlify/functions/verifyUnlock         200
+  /api/verifyPreAccess /.netlify/functions/verifyPreAccess      200
+  /api/ollamaAI        /.netlify/functions/ollamaAI             200
+  /*                   /index.html                              200
   ```
 
-- Add environment variables (`VITE_CLOUDINARY_PROJECTS_LINK`, `EXAM_SECRET`, `JWT_SECRET`, and optionally `GITHUB_TOKEN`, `RESEND_*`) in your site settings.
+- Add environment variables (`VITE_CLOUDINARY_PROJECTS_LINK`, `EXAM_SECRET`, `JWT_SECRET`, `DISCORD_PUBLIC_KEY`, and optionally `GITHUB_TOKEN`, `RESEND_*`, `DISCORD_ALLOWED_CHANNEL_ID`) in your site settings.
+- For Discord bot interactions, configure the Interactions Endpoint URL in Discord Developer Portal:
+  ```
+  https://your-site.netlify.app/.netlify/functions/discordInteractions
+  ```
+- See `DISCORD_PREKEY_GUIDE.md` for complete Discord bot setup instructions.
 
 ## Editing questions / adding subjects
 
@@ -199,7 +226,18 @@ Question object shape:
 - Edit arrays in `src/data/quiz/default/apt.js` and `src/data/quiz/default/plu.js` (named exports).
 - Exam questions live in `src/data/quiz/exam/pluExam.js` and include a `level` (G/VG). The UI shows the level on each question.
 - Existing subjects: APT, PLU, PLU Exam, and WAI (Web Architecture & Internet).
-- Add a new subject by creating `src/data/quiz/<name>.js` (export a named array), wiring it in `subject.jsx` (based on the `subject` prop), adding a card in `form.jsx`, and extending any subject metadata registry (label/icon) used in `App.jsx`.
+- Add a new subject by creating `src/data/quiz/<name>.js` (export a named array), wiring it in `subjects.jsx` (based on the `subject` prop), adding a card in `form.jsx`, and extending any subject metadata registry (label/icon) used in `App.jsx`.
+
+### AI Evaluation Mode
+
+- **Standard Mode:** Multiple choice questions (both G and VG levels shown)
+- **AI Mode:** Free text answers for VG-level questions only
+  - Questions with `level: "VG"` are shown
+  - Student types their answer in a textarea
+  - Answer is sent to Ollama AI for evaluation (2-10 seconds)
+  - AI provides feedback and determines correctness
+- Training subjects (PLU, APT, WAI) always use standard mode
+- Only exam subjects (TENTA) have the AI mode option
 
 ## Notes & troubleshooting
 
@@ -208,6 +246,7 @@ Question object shape:
 - Styles are intentionally scoped (e.g., `.app-shell .quiz-wrapper ...`) to avoid leaking into other pages.
 - Exam not unlocking:
   - Ensure `.env` has `EXAM_SECRET` and `JWT_SECRET` (restart dev server after changes).
+  - For Discord prekey flow, ensure `DISCORD_PUBLIC_KEY` is set and bot is configured (see `DISCORD_PREKEY_GUIDE.md`).
   - For local testing, use the developer button ("Öppna (Utvecklare)") or paste `EXAM_SECRET` directly; no email/DB required.
   - Clear `localStorage` keys `preToken` and `examToken` (DevTools → Application → Local Storage) to re-lock for testing.
   - In production, confirm env vars are set on Netlify and a fresh deploy is live.
@@ -215,6 +254,15 @@ Question object shape:
   - Ensure `public/_redirects` contains the `/api/commits` mapping shown above.
   - Set `GITHUB_TOKEN` in Netlify to avoid GitHub API rate limits.
   - In local dev without Netlify functions, the Updates component tries `/api/commits`, then falls back to `/.netlify/functions/getCommits`, and finally to the public GitHub API.
+- AI evaluation not working:
+  - Ensure Ollama is running: check `http://localhost:11434` in browser
+  - Verify model installed: `ollama list` should show `llama3.2:latest`
+  - Check console for rate limit errors (10 req/min per IP)
+  - AI mode only works for exam questions with `level: "VG"`
+- Discord bot issues:
+  - See `DISCORD_PREKEY_GUIDE.md` for complete troubleshooting guide
+  - Common issues: signature verification failures, channel restrictions, expired tokens
+  - Verify Interactions Endpoint URL is set correctly in Discord Developer Portal
 
 ## Security and env hygiene
 

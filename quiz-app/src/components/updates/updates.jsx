@@ -107,6 +107,7 @@ export default function Updates() {
 
   return (
     <div className="updates__container">
+
       <button
         type="button"
         className="updates__btn updates__trigger"
@@ -115,7 +116,7 @@ export default function Updates() {
         aria-expanded={isOpen}
         aria-controls="updates-dialog"
       >
-        Uppdateringar
+        Ändringar
       </button>
       {isOpen && (
         <div
@@ -123,7 +124,7 @@ export default function Updates() {
           className="updates__overlay"
           role="dialog"
           aria-modal="true"
-          aria-label="Senaste uppdateringar"
+          aria-label="Senaste ändringar"
           onClick={(e) => {
             if (e.target.classList.contains("updates__overlay"))
               setIsOpen(false);
@@ -184,7 +185,7 @@ export default function Updates() {
                     className="updates__btn updates__btn--prev"
                     onClick={() =>
                       setCurrent(
-                        (i) => (i - 1 + updates.length) % updates.length,
+                        (i) => (i - 1 + updates.length) % updates.length
                       )
                     }
                     aria-label="Previous update"
