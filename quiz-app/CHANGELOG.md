@@ -8,6 +8,22 @@
 
 * change on LLM from ollama to groq on production because didn't serve its function with netlify functions, for more see changelogs or repo. ([a08bb98](https://github.com/Natti94/Quiz/commit/a08bb980f701eebb047327ef8e5b01dc08c67a14))
 * next stage on quiz app, AI implementation for quiz questions with text field input from user, user can choose difficulty between standard which has alternative questions only and AI graded. Also temporary unlock on locked quizzes. See README or changeLogs for latest updates on gitHub or Discord server. ([32b3343](https://github.com/Natti94/Quiz/commit/32b33433a7075a9ad939a9cc55804da8ec2ea9aa))
+* small changes to labels/css. ([b242acb](https://github.com/Natti94/Quiz/commit/b242acbeedf7d1d6eedfc35f22d908d269e2710a))
+
+### Bug Fixes
+
+* docs and change log ([0a96bb7](https://github.com/Natti94/Quiz/commit/0a96bb764ba068d7ce935b9ea3bc9498f51f3129))
+
+## [3.0.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.4.0...quiz-app-v3.0.0) (2025-11-05)
+
+### ⚠ BREAKING CHANGES
+
+* next stage on quiz app, AI implementation for quiz questions with text field input from user, user can choose difficulty between standard which has alternative questions only and AI graded. Also temporary unlock on locked quizzes. See README or changeLogs for latest updates on gitHub or Discord server.
+
+### Features
+
+* change on LLM from ollama to groq on production because didn't serve its function with netlify functions, for more see changelogs or repo. ([a08bb98](https://github.com/Natti94/Quiz/commit/a08bb980f701eebb047327ef8e5b01dc08c67a14))
+* next stage on quiz app, AI implementation for quiz questions with text field input from user, user can choose difficulty between standard which has alternative questions only and AI graded. Also temporary unlock on locked quizzes. See README or changeLogs for latest updates on gitHub or Discord server. ([32b3343](https://github.com/Natti94/Quiz/commit/32b33433a7075a9ad939a9cc55804da8ec2ea9aa))
 
 ## [2.4.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.3.0...quiz-app-v2.4.0) (2025-11-04)
 
