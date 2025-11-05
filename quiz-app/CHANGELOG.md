@@ -1,3 +1,9 @@
+## [3.1.1](https://github.com/Natti94/Quiz/compare/quiz-app-v3.1.0...quiz-app-v3.1.1) (2025-11-05)
+
+### Bug Fixes
+
+* docs updated ([34de60b](https://github.com/Natti94/Quiz/commit/34de60bfb8ec8392d0c0c9582a5d1d22b1276a35))
+
 ## [3.1.0](https://github.com/Natti94/Quiz/compare/quiz-app-v3.0.0...quiz-app-v3.1.0) (2025-11-05)
 
 ### Features
