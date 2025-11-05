@@ -1,3 +1,9 @@
+## [3.1.0](https://github.com/Natti94/Quiz/compare/quiz-app-v3.0.0...quiz-app-v3.1.0) (2025-11-05)
+
+### Features
+
+* made app responsive again for phone uerss ([4d030b2](https://github.com/Natti94/Quiz/commit/4d030b27533e7129bad801abefdc269ab474b29c))
+
 ## [3.0.0](https://github.com/Natti94/Quiz/compare/quiz-app-v2.4.0...quiz-app-v3.0.0) (2025-11-05)
 
 ### ⚠ BREAKING CHANGES
