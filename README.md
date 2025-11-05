@@ -179,15 +179,16 @@ Optional (AI evaluation):
   AI_PROVIDER=groq
   GROQ_API_KEY=your-free-api-key
   ```
+
   - Model: `llama-3.3-70b-versatile` (powerful, fast inference)
   - Free tier: 30 requests/min, 14,400 requests/day
   - Get API key: https://console.groq.com/keys
-  
 - **Hugging Face:** Completely free, slower
   ```
   AI_PROVIDER=huggingface
   HUGGINGFACE_API_KEY=your-free-token
   ```
+
   - Model: `meta-llama/Llama-3.2-3B-Instruct`
   - Unlimited requests (may have cold starts)
 
@@ -282,11 +283,11 @@ Question object shape:
 
 **🆓 Use Groq or Hugging Face - completely free cloud AI!**
 
-| Provider                 | Speed       | Free Tier          | Rate Limit      | Best For       |
-| ------------------------ | ----------- | ------------------ | --------------- | -------------- |
-| **Groq** ⭐              | ⚡⚡⚡ Fast | 30/min, 14.4k/day | App: 10/min/IP  | **Production** |
-| **Hugging Face**         | 🐌 Slow     | Unlimited          | App: 10/min/IP  | Testing        |
-| **Ollama (Self-hosted)** | ⚡⚡ Fast   | Self-host          | App: 10/min/IP  | Privacy        |
+| Provider                 | Speed       | Free Tier         | Rate Limit     | Best For       |
+| ------------------------ | ----------- | ----------------- | -------------- | -------------- |
+| **Groq** ⭐              | ⚡⚡⚡ Fast | 30/min, 14.4k/day | App: 10/min/IP | **Production** |
+| **Hugging Face**         | 🐌 Slow     | Unlimited         | App: 10/min/IP | Testing        |
+| **Ollama (Self-hosted)** | ⚡⚡ Fast   | Self-host         | App: 10/min/IP | Privacy        |
 
 **Quick Setup (2 minutes):**
 
@@ -299,21 +300,25 @@ Question object shape:
 3. Done! 🎉
 
 **Model Details:**
+
 - **Groq:** Uses `llama-3.3-70b-versatile` (powerful 70B parameter model, fast inference)
 - **Hugging Face:** Uses `meta-llama/Llama-3.2-3B-Instruct` (smaller 3B model, slower)
 - **Ollama:** Uses `llama3.2:latest` (local/remote 3B model)
 
 **Usage Estimation (20 students/day):**
+
 - Light usage (10 AI questions/student): **200 requests/day** = 1.4% of Groq daily limit
 - Heavy usage (30 AI questions/student): **600 requests/day** = 4.2% of Groq daily limit
 - Netlify Functions: 6,000-18,000 req/month = **4.8%-14.4%** of free tier (125k/month)
 
 **Rate Limiting:**
+
 - Your app enforces **10 requests per minute per IP** to prevent abuse
 - Groq API allows 30 req/min, so multiple users can use simultaneously
 - Returns 429 status with `Retry-After` header when limit exceeded
 
 **Get Started:**
+
 - Groq API: https://console.groq.com/keys (instant, no credit card)
 - Hugging Face: https://huggingface.co/settings/tokens (instant, no credit card)
 
