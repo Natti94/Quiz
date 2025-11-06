@@ -1,3 +1,9 @@
+## [3.2.0](https://github.com/Natti94/Quiz/compare/quiz-app-v3.1.1...quiz-app-v3.2.0) (2025-11-06)
+
+### Features
+
+* changes to UI/UX on quiz-form and other minimal changes. ([3684777](https://github.com/Natti94/Quiz/commit/3684777324b69c4940e06d5b74b77a93c4e6aa68))
+
 ## [3.1.1](https://github.com/Natti94/Quiz/compare/quiz-app-v3.1.0...quiz-app-v3.1.1) (2025-11-05)
 
 ### Bug Fixes
