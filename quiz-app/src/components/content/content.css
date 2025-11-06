@@ -243,6 +243,13 @@
   font-size: clamp(0.9rem, 1.6vw, 0.95rem);
 }
 
+.subject__divider {
+  height: 1px;
+  border: 0;
+  background: #b7caf0;
+  margin: 24px 0;
+}
+
 .subjects__gated-wrapper {
   position: relative;
   display: grid;

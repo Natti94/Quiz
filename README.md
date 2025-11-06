@@ -175,6 +175,7 @@ Optional (AI evaluation):
 **Production Deployment - FREE OPTIONS (Recommended):** ⭐
 
 - **Groq (Best):** Fast, free, no credit card
+
   ```
   AI_PROVIDER=groq
   GROQ_API_KEY=your-free-api-key
@@ -183,7 +184,9 @@ Optional (AI evaluation):
   - Model: `llama-3.3-70b-versatile` (powerful, fast inference)
   - Free tier: 30 requests/min, 14,400 requests/day
   - Get API key: https://console.groq.com/keys
+
 - **Hugging Face:** Completely free, slower
+
   ```
   AI_PROVIDER=huggingface
   HUGGINGFACE_API_KEY=your-free-token

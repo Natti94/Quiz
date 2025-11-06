@@ -7,7 +7,7 @@ import Updates from "./components/updates/updates";
 
 function App() {
   const [subject, setSubject] = useState(null);
-  const [mode, setMode] = useState("easy");
+  const [mode, setMode] = useState("AI");
   const [lastSummary, setLastSummary] = useState(null);
   const subjectRef = useRef(null);
 
@@ -84,7 +84,7 @@ function App() {
                       onSelect={(s, m) => {
                         setLastSummary(null);
                         setSubject(s);
-                        setMode(m || "easy");
+                        setMode(m || "AI");
                       }}
                     />
                   </>

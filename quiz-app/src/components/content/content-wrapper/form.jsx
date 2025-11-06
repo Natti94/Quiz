@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 
 function Form({ onSelect }) {
-  const [showUnlock, setShowUnlock] = useState(false);
   const [examUnlocked, setExamUnlocked] = useState(true);
-  const [preToken, setPreToken] = useState("");
+  const [aiAvailable, setAiAvailable] = useState(true);
+  const [showUnlock, setShowUnlock] = useState(false);
   const [hasPreAccess, setHasPreAccess] = useState(false);
+  const [examMode, setExamMode] = useState("AI");
   const [unlockStep, setUnlockStep] = useState("request");
+  const [preToken, setPreToken] = useState("");
   const [formKey, setFormKey] = useState("");
   const [secretInput, setSecretInput] = useState("");
   const [recipient, setRecipient] = useState("");
-  const [examMode, setExamMode] = useState("AI");
   const [info, setInfo] = useState("");
   const [error, setError] = useState("");
-  const [aiAvailable, setAiAvailable] = useState(true);
 
   const discordLink = import.meta.env.VITE_DISCORD_LINK;
   const isProd = import.meta.env.PROD;
@@ -41,7 +41,7 @@ function Form({ onSelect }) {
     const adminKey = formKey.trim();
     if (!adminKey) {
       setError(
-        "Du behöver en admin-nyckel. Kontakta Administratören via Discord.",
+        "Du behöver en admin-nyckel. Kontakta Administratören via Discord."
       );
       return;
     }
@@ -60,7 +60,7 @@ function Form({ onSelect }) {
       setPreToken(data.token);
       setHasPreAccess(true);
       setInfo(
-        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln.",
+        "Admin-nyckel verifierad. Ange din e-post för att få tentanyckeln."
       );
       setFormKey("");
     } catch (err) {
@@ -109,7 +109,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -126,7 +126,7 @@ function Form({ onSelect }) {
       const parts = t.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       const now = Math.floor(Date.now() / 1000);
       if (payload && payload.exp && payload.exp > now) {
@@ -219,7 +219,7 @@ function Form({ onSelect }) {
         throw new Error(data?.error || `Fel ${res.status}`);
       }
       setInfo(
-        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp.",
+        "Nyckel skickad till din e-post (kolla även skräppost). Fortsätt till steg 2 för att låsa upp."
       );
       setUnlockStep("unlock");
       setRecipient("");
@@ -267,16 +267,16 @@ function Form({ onSelect }) {
       </h1>
       <div className="subjects__helper-text">
         <p className="subjects__warning-text">
-          OBS! Avbryter du quizet innan det är klart visas ändå ditt aktuella
-          resultat.
+          <strong>Observera:</strong> Avbryter du quiz-sessionen innan det är
+          klart visas ändå ditt aktuella resultat.
         </p>
       </div>
-
+      <hr className="subject__divider" />
       <h2
         className="quiz-title"
         style={{ fontSize: "1.5rem", marginTop: "2rem" }}
       >
-        Övning
+        ÖVNINGAR
       </h2>
       <div className="subjects">
         <button
@@ -334,27 +334,46 @@ function Form({ onSelect }) {
           </div>
         </button>
       </div>
+      <hr className="subject__divider" />
       <h2
         className="quiz-title"
         style={{ fontSize: "1.5rem", marginTop: "2rem", marginBottom: "1rem" }}
       >
-        Tentamen
+        TENTAMEN
       </h2>
       <div className="subjects__difficulty" style={{ marginBottom: "1rem" }}>
-        <label htmlFor="exam-difficulty">Svårighetsgrad för Tenta:</label>
+        <label htmlFor="exam-difficulty">Svårighet:</label>
         <select
           id="exam-difficulty"
           value={examMode}
           onChange={(e) => setExamMode(e.target.value)}
           disabled={!aiAvailable && examMode !== "standard"}
         >
-          <option value="standard">Standard (Flerval)</option>
+          <option value="standard">Standard</option>
           <option value="AI" disabled={!aiAvailable}>
-            AI-bedömning (Fritextsvar - VG frågor enbart)
+            AI-bedömning
             {!aiAvailable ? " - Ej tillgänglig" : ""}
           </option>
         </select>
       </div>
+      {examMode === "standard" && (
+        <div
+          className="subjects__helper-text"
+          style={{
+            marginBottom: "1rem",
+            background: "#f0fdfa",
+            padding: "1rem",
+            borderRadius: "8px",
+            border: "1px solid #0d9488",
+          }}
+        >
+          <div className="subjects__helper-text">
+            <p style={{ margin: 0, color: "#0d9488" }}>
+              <strong>Standard Tentamen:</strong> Alla frågor är flerval.
+            </p>
+          </div>
+        </div>
+      )}
       {!aiAvailable && (
         <div
           className="subjects__helper-text"
@@ -367,7 +386,7 @@ function Form({ onSelect }) {
           }}
         >
           <p style={{ margin: 0, color: "#856404" }}>
-            <strong>⚠️ AI-bedömning är inte tillgänglig:</strong> AI-tjänsten är
+            <strong>AI-bedömning är inte tillgänglig:</strong> AI-tjänsten är
             inte konfigurerad för denna server.
           </p>
           <p
@@ -399,26 +418,13 @@ function Form({ onSelect }) {
             -nivå visas med fritext och är bedömt av AI, <strong>G</strong>{" "}
             frågor besvaras som flerval.
           </p>
-          <p style={{ margin: 0, color: "red" }}>
-            <strong>Observera:</strong> AI-bedömning kan ha sina begränsningar
-            med antalet förfrågningar, just nu är det satt på 10 svar/min för
-            varje användare och kan justeras på begäran, anslut till discord
-            servern:{" "}
-            <img
-              src={assets.discord_icon}
-              onClick={() => window.open(discordLink, "_blank")}
-              alt="Discord"
-              style={{
-                width: "24px",
-                height: "24px",
-                verticalAlign: "middle",
-                cursor: "pointer",
-              }}
-            />{" "}
-          </p>
-        </div>
+          <p className="subjects__warning-text">
+          <strong>Observera:</strong> Avbryter du quiz-sessionen innan det är
+          klart visas ändå ditt aktuella resultat.
+        </p>
+      
+          </div>
       )}
-
       {examMode === "AI" && !examUnlocked && (
         <div style={{ marginBottom: "1rem", textAlign: "center" }}>
           <button
