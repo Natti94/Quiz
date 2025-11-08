@@ -26,10 +26,17 @@ Automated releases: the project uses Conventional Commits + semantic-release to 
 
 ## Project structure
 
-Note: The app lives in the `quiz-app/` subfolder.
+This is a **monorepo** with frontend and backend:
 
 ```
-quiz-app/
+quiz/                    # Root monorepo
+  .env                   # Shared environment variables
+  package.json           # Root package for scripts
+  scripts/               # Shared formatting & comment removal
+    formatRepo.mjs       # Format both frontend & backend
+    removeComments.mjs   # Strip comments from both projects
+
+quiz-frontend/           # React frontend (Vite)
   index.html
   package.json
   vite.config.js
@@ -82,19 +89,74 @@ quiz-app/
         exam/
           pluExam.js     # PLU exam (G/VG) with { level: "G" | "VG", ... }
           waiExam.js     # WAI exam (G/VG) - 9 G + 6 VG questions on security/GDPR
+
+quiz-backend/            # Node.js/Express backend
+  server.js              # Express app entry point
+  package.json
+  config/
+    db.js                # MongoDB connection
+  models/
+    User.js              # User schema (syncs with teacher's API)
+    Leaderboard.js       # Quiz score tracking
+  controllers/
+    authController.js    # Auth proxy (register/login/logout)
+    leaderboardController.js  # Score CRUD operations
+  middleware/
+    auth.js              # JWT verification
+    errorHandler.js      # Global error handling
+  routes/
+    auth.js              # Auth endpoints
+    leaderboard.js       # Leaderboard endpoints
+  README.md              # Backend-specific documentation
 ```
 
 ## Getting Started
 
+### Quick Start (Root Level)
+
+From the root folder, you can run both frontend and backend:
+
+```powershell
+# Install all dependencies (root, frontend, backend)
+npm run install:all
+
+# Run both frontend and backend concurrently
+npm run dev
+
+# Or run individually
+npm run dev:frontend  # Starts Vite on localhost:5173
+npm run dev:backend   # Starts Express on localhost:5000
+
+# Format entire codebase (frontend + backend)
+npm run format:repo
+
+# Strip comments from entire codebase
+npm run strip:comments
+```
+
+### Frontend Only
+
 From the app folder:
 
 ```powershell
-cd quiz-app
+cd quiz-frontend
 npm install
 npm run dev
 ```
 
 Then open http://localhost:5173.
+
+### Backend Only
+
+From the backend folder:
+
+```powershell
+cd quiz-backend
+npm install
+npm run dev
+```
+
+Backend runs on http://localhost:5000 (see `quiz-backend/README.md` for full API documentation).
 
 ### Local dev with API (/api/\*)
 
@@ -122,7 +184,17 @@ npm run preview
 
 ## Environment variables
 
-Create a local `.env` inside `quiz-app/` (do not commit it; the repo ignores `.env`). Configure the same keys in your Netlify site settings for production.
+Create a local `.env` at the **root level** (`quiz/.env`). Both frontend and backend share this file (do not commit it; the repo ignores `.env`). Configure the same keys in your Netlify site settings for production.
+
+The `.env` file is structured with clear sections:
+
+- **Client-exposed (VITE\_\*)**: Variables prefixed with `VITE_` are available in the frontend
+- **Backend Server Settings**: `NODE_ENV`, `PORT`, `CORS_ORIGIN`
+- **MongoDB Configuration**: `MONGODB_URI`
+- **JWT & Auth Settings**: `JWT_SECRET`, `TEACHER_API_*` endpoints
+- **Exam & Unlock System**: `EXAM_SECRET`, `DEV_ACCESS_TOKEN`
+- **Email (Resend)**: `RESEND_API_KEY`, `RESEND_FROM`
+- **AI Provider Settings**: `AI_PROVIDER`, `GROQ_API_KEY`, etc.
 
 Required
 
@@ -214,7 +286,7 @@ Optional (AI evaluation):
 ### Automated releases (semantic-release)
 
 - Workflow: `.github/workflows/release.yml` (runs on push to `main`).
-- Config: `quiz-app/.releaserc.json`.
+- Config: `quiz-frontend/.releaserc.json`.
 - Versions are inferred from commit messages (Conventional Commits):
   - `fix: …` → patch (e.g., 2.0.1 → 2.0.2)
   - `feat: …` → minor (e.g., 2.0.2 → 2.1.0)
