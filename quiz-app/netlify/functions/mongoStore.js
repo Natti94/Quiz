@@ -31,7 +31,7 @@ export function makeMongoStore(name) {
       await coll.updateOne(
         { _id: key },
         { $set: { json: value, text: null, expiresAt } },
-        { upsert: true },
+        { upsert: true }
       );
     },
     async getJSON(key) {
@@ -75,7 +75,7 @@ export function makeMongoStore(name) {
       await coll.updateOne(
         { _id: key },
         { $set: { text: String(value), json: null, expiresAt } },
-        { upsert: true },
+        { upsert: true }
       );
     },
     async get(key, { type } = {}) {
