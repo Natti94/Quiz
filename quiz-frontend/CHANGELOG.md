@@ -1,3 +1,9 @@
+## [1.0.2](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.1...quiz-frontend-v1.0.2) (2025-11-09)
+
+### Bug Fixes
+
+* adjustment to camelcasing for components, was not able to deploy. ([acd726a](https://github.com/Natti94/Quiz/commit/acd726ab1d7de05e3e446dd504974e2fc30b84d4))
+
 ## [1.0.1](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.0...quiz-frontend-v1.0.1) (2025-11-09)
 
 ### Bug Fixes
