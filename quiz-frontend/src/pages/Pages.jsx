@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Auth from "./pages-wrapper/Auth";
 import Leaderboard from "./pages-wrapper/statistics-wrapper/LeaderboardPage";
 import Projects from "./pages-wrapper/Projects";
-import "./Pages.css";
+import "./pages.css";
 
 function Pages() {
   return (
