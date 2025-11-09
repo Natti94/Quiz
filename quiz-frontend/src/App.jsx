@@ -5,7 +5,7 @@ import Content from "./components/content/Content";
 import SideNav from "./components/nav/SideNav";
 import Footer from "./components/footer/Footer";
 import Updates from "./components/updates/Updates";
-import Header from "./components/header/header";
+import Header from "./components/header/Header";
 import CookieConsent from "./components/footer/footer-wrapper/cookies/CookieConsent";
 import Pages from "./pages/Pages";
 
