@@ -1,5 +1,5 @@
 import Leaderboard from "../../../components/statistics/statistics-wrapper/leaderboard/Leaderboard";
-import "./Pages.css";
+import "../../pages.css";
 
 function LeaderboardPage() {
   const pointsData = [
