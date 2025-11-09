@@ -3,35 +3,31 @@ import { useTranslation } from "../../../i18n/useTranslation";
 const General = ({ pointsData, speedData, excellenceData }) => {
   const { t } = useTranslation();
 
-  // Combine all data and calculate overall rankings
   const calculateOverallRanking = () => {
     const userScores = {};
 
-    // Add points (normalized to 0-100 scale)
     pointsData.forEach((entry) => {
       if (!userScores[entry.name]) {
         userScores[entry.name] = { name: entry.name, scores: [], total: 0 };
       }
-      const pointsScore = (entry.points / 2500) * 100; // Normalize to 100
+      const pointsScore = (entry.points / 2500) * 100;
       userScores[entry.name].scores.push({
         category: "Points",
         value: Math.round(pointsScore),
       });
     });
 
-    // Add speed (inverted - lower time is better, normalized to 0-100)
     speedData.forEach((entry) => {
       if (!userScores[entry.name]) {
         userScores[entry.name] = { name: entry.name, scores: [], total: 0 };
       }
-      const speedScore = Math.max(0, 100 - entry.avgTime); // Lower time = higher score
+      const speedScore = Math.max(0, 100 - entry.avgTime);
       userScores[entry.name].scores.push({
         category: "Speed",
         value: Math.round(speedScore),
       });
     });
 
-    // Add excellence (already 0-100)
     excellenceData.forEach((entry) => {
       if (!userScores[entry.name]) {
         userScores[entry.name] = { name: entry.name, scores: [], total: 0 };
@@ -42,14 +38,12 @@ const General = ({ pointsData, speedData, excellenceData }) => {
       });
     });
 
-    // Calculate average for each user
     Object.values(userScores).forEach((user) => {
       user.total =
         user.scores.reduce((sum, score) => sum + score.value, 0) /
         user.scores.length;
     });
 
-    // Sort by total score and add rank
     return Object.values(userScores)
       .sort((a, b) => b.total - a.total)
       .map((user, index) => ({

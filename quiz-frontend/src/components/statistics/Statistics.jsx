@@ -10,7 +10,6 @@ const Statistics = () => {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("general");
 
-  // Mock data for points leaderboard
   const pointsData = [
     { rank: 1, name: "Alice Johnson", points: 2450, subject: "PLU" },
     { rank: 2, name: "Bob Smith", points: 2380, subject: "WAI" },
@@ -19,7 +18,6 @@ const Statistics = () => {
     { rank: 5, name: "Eve Martinez", points: 1850, subject: "WAI" },
   ];
 
-  // Mock data for speed leaderboard
   const speedData = [
     {
       rank: 1,
@@ -58,7 +56,6 @@ const Statistics = () => {
     },
   ];
 
-  // Mock data for excellence leaderboard
   const excellenceData = [
     {
       rank: 1,

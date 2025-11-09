@@ -2,88 +2,88 @@
 
 ### Bug Fixes
 
-* adjustment to camelcasing for components, was not able to deploy. ([c533ff0](https://github.com/Natti94/Quiz/commit/c533ff0148c8d479e53f09c784f73f2af3b17952))
+- adjustment to camelcasing for components, was not able to deploy. ([c533ff0](https://github.com/Natti94/Quiz/commit/c533ff0148c8d479e53f09c784f73f2af3b17952))
 
 ## [1.0.3](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.2...quiz-frontend-v1.0.3) (2025-11-09)
 
 ### Bug Fixes
 
-* adjustment to camelcasing for components, was not able to deploy. ([4db2341](https://github.com/Natti94/Quiz/commit/4db23419bb6bc2e52578d249feac62132de9c1be))
+- adjustment to camelcasing for components, was not able to deploy. ([4db2341](https://github.com/Natti94/Quiz/commit/4db23419bb6bc2e52578d249feac62132de9c1be))
 
 ## [1.0.2](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.1...quiz-frontend-v1.0.2) (2025-11-09)
 
 ### Bug Fixes
 
-* adjustment to camelcasing for components, was not able to deploy. ([acd726a](https://github.com/Natti94/Quiz/commit/acd726ab1d7de05e3e446dd504974e2fc30b84d4))
+- adjustment to camelcasing for components, was not able to deploy. ([acd726a](https://github.com/Natti94/Quiz/commit/acd726ab1d7de05e3e446dd504974e2fc30b84d4))
 
 ## [1.0.1](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.0...quiz-frontend-v1.0.1) (2025-11-09)
 
 ### Bug Fixes
 
-* adjustment to camelcasing for components, was not able to deploy. ([5b663a1](https://github.com/Natti94/Quiz/commit/5b663a189b3d426be4b8ccf0088ba46a139d3cce))
+- adjustment to camelcasing for components, was not able to deploy. ([5b663a1](https://github.com/Natti94/Quiz/commit/5b663a189b3d426be4b8ccf0088ba46a139d3cce))
 
 ## 1.0.0 (2025-11-08)
 
 ### ⚠ BREAKING CHANGES
 
-* next stage on quiz app, AI implementation for quiz questions with text field input from user, user can choose difficulty between standard which has alternative questions only and AI graded. Also temporary unlock on locked quizzes. See README or changeLogs for latest updates on gitHub or Discord server.
-* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
-* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
-* big release
-* big release
+- next stage on quiz app, AI implementation for quiz questions with text field input from user, user can choose difficulty between standard which has alternative questions only and AI graded. Also temporary unlock on locked quizzes. See README or changeLogs for latest updates on gitHub or Discord server.
+- CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
+- CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now.
+- big release
+- big release
 
 ### Features
 
-* adjustment for description on limiation of AI and other adjustments on label for app ([e11487e](https://github.com/Natti94/Quiz/commit/e11487e2a8c56efeea38166647d6845d4dff5d97))
-* adjustments to .env var decleration for cloudinary assets, only handles images now - no purpose rendering links through netlify function, uses local .env now for that. ([7bad853](https://github.com/Natti94/Quiz/commit/7bad853efa40e4c379b72ae6f57f31fff4732769))
-* big release ([5c5c6e9](https://github.com/Natti94/Quiz/commit/5c5c6e94446a33babe26518ab1a440c5913c758b))
-* big release ([38ea47a](https://github.com/Natti94/Quiz/commit/38ea47ad7bb21511024387434244ac0f580dc321))
-* change on LLM from ollama to groq on production because didn't serve its function with netlify functions, for more see changelogs or repo. ([a08bb98](https://github.com/Natti94/Quiz/commit/a08bb980f701eebb047327ef8e5b01dc08c67a14))
-* changes to UI/UX on quiz-form and other minimal changes. ([3684777](https://github.com/Natti94/Quiz/commit/3684777324b69c4940e06d5b74b77a93c4e6aa68))
-* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([55dc217](https://github.com/Natti94/Quiz/commit/55dc217c0e9f64e986482ad28a96688c6b0198a8))
-* CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([bb89777](https://github.com/Natti94/Quiz/commit/bb89777aad85ad8f93b5d9c6d02ffce8d1f08297))
-* **exam:** server-side verifyUnlock with JWT; switch client to /api/verifyUnlock; add /api/requestUnlock endpoint; remove client email code ([dba9a4a](https://github.com/Natti94/Quiz/commit/dba9a4ac5501074ba9d4da249804d5c8f4bf11b6))
-* made app responsive again for phone uerss ([4d030b2](https://github.com/Natti94/Quiz/commit/4d030b27533e7129bad801abefdc269ab474b29c))
-* next stage on quiz app, AI implementation for quiz questions with text field input from user, user can choose difficulty between standard which has alternative questions only and AI graded. Also temporary unlock on locked quizzes. See README or changeLogs for latest updates on gitHub or Discord server. ([32b3343](https://github.com/Natti94/Quiz/commit/32b33433a7075a9ad939a9cc55804da8ec2ea9aa))
-* ollamaAI integration, moved away from openAI - testing llama3.2:latest due to memory, moved away from qwen2.5:14b-instruct due to available memory. Not deployed, still in testing phase. ([1447e41](https://github.com/Natti94/Quiz/commit/1447e41964b269feec6f91c5bcef69220e3fb93f))
-* openAi implementation for quiz - with difficulty modes, not finished. Use Easy/Medium Mode. ([f2667f4](https://github.com/Natti94/Quiz/commit/f2667f48ab3e100eea8ee911dc125f14677e5462))
-* projects is now a link instead of page, serves its purpose better - since its external. ([d441c8b](https://github.com/Natti94/Quiz/commit/d441c8b22a7b92fe177f0bf35a794ca5b419bcaa))
-* small adjustments to .env variables, wasn't uploading cloudinary assets ([5168209](https://github.com/Natti94/Quiz/commit/5168209e34ac9495367823386ff51f572714e395))
-* small changes to labels/css. ([b242acb](https://github.com/Natti94/Quiz/commit/b242acbeedf7d1d6eedfc35f22d908d269e2710a))
-* test new release automation ([565efa1](https://github.com/Natti94/Quiz/commit/565efa1bd441d4d00b97156b41dc51410f4145ec))
-* test new release automation, attempt 2 ([c9109e0](https://github.com/Natti94/Quiz/commit/c9109e0289efcf2e28c17de5688f109efa4c8af0))
-* updates is now hidden onMount and its own interface ([fed0aa2](https://github.com/Natti94/Quiz/commit/fed0aa2d536aacf31ff71a03e3bfb992baa67c79))
-* updates is now hidden onMount and its own interface ([b113b72](https://github.com/Natti94/Quiz/commit/b113b72f12f63bd9eb0b0e2de7e0aa0ae12fe890))
-* updates is now hidden onMount and its own interface ([6198171](https://github.com/Natti94/Quiz/commit/619817197f35466adbc721b2968a3a8718e69a68))
-* updates is now hidden onMount and its own interface ([d78241d](https://github.com/Natti94/Quiz/commit/d78241d043a59707a6a04dfa2d97bce36248cd8f))
-* updates is now hidden onMount and its own interface ([997601d](https://github.com/Natti94/Quiz/commit/997601d4afd84e28342a6cc70b1f749ec452201f))
-* updates is now hidden onMount and its own interface ([3f23fe8](https://github.com/Natti94/Quiz/commit/3f23fe863626f7df1ab4340da4cc0efe059e5520))
-* **updates:** standalone updates section with single-commit viewer and reliable fetch ([030af33](https://github.com/Natti94/Quiz/commit/030af333c36065777963ad89753cfcf8f74526b3))
+- adjustment for description on limiation of AI and other adjustments on label for app ([e11487e](https://github.com/Natti94/Quiz/commit/e11487e2a8c56efeea38166647d6845d4dff5d97))
+- adjustments to .env var decleration for cloudinary assets, only handles images now - no purpose rendering links through netlify function, uses local .env now for that. ([7bad853](https://github.com/Natti94/Quiz/commit/7bad853efa40e4c379b72ae6f57f31fff4732769))
+- big release ([5c5c6e9](https://github.com/Natti94/Quiz/commit/5c5c6e94446a33babe26518ab1a440c5913c758b))
+- big release ([38ea47a](https://github.com/Natti94/Quiz/commit/38ea47ad7bb21511024387434244ac0f580dc321))
+- change on LLM from ollama to groq on production because didn't serve its function with netlify functions, for more see changelogs or repo. ([a08bb98](https://github.com/Natti94/Quiz/commit/a08bb980f701eebb047327ef8e5b01dc08c67a14))
+- changes to UI/UX on quiz-form and other minimal changes. ([3684777](https://github.com/Natti94/Quiz/commit/3684777324b69c4940e06d5b74b77a93c4e6aa68))
+- CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([55dc217](https://github.com/Natti94/Quiz/commit/55dc217c0e9f64e986482ad28a96688c6b0198a8))
+- CSS - BEM Style ruleset, Class Name Hierarchy adjustments | Implemented SideNav - reWorked mapStructure, using react-router-dom now. ([bb89777](https://github.com/Natti94/Quiz/commit/bb89777aad85ad8f93b5d9c6d02ffce8d1f08297))
+- **exam:** server-side verifyUnlock with JWT; switch client to /api/verifyUnlock; add /api/requestUnlock endpoint; remove client email code ([dba9a4a](https://github.com/Natti94/Quiz/commit/dba9a4ac5501074ba9d4da249804d5c8f4bf11b6))
+- made app responsive again for phone uerss ([4d030b2](https://github.com/Natti94/Quiz/commit/4d030b27533e7129bad801abefdc269ab474b29c))
+- next stage on quiz app, AI implementation for quiz questions with text field input from user, user can choose difficulty between standard which has alternative questions only and AI graded. Also temporary unlock on locked quizzes. See README or changeLogs for latest updates on gitHub or Discord server. ([32b3343](https://github.com/Natti94/Quiz/commit/32b33433a7075a9ad939a9cc55804da8ec2ea9aa))
+- ollamaAI integration, moved away from openAI - testing llama3.2:latest due to memory, moved away from qwen2.5:14b-instruct due to available memory. Not deployed, still in testing phase. ([1447e41](https://github.com/Natti94/Quiz/commit/1447e41964b269feec6f91c5bcef69220e3fb93f))
+- openAi implementation for quiz - with difficulty modes, not finished. Use Easy/Medium Mode. ([f2667f4](https://github.com/Natti94/Quiz/commit/f2667f48ab3e100eea8ee911dc125f14677e5462))
+- projects is now a link instead of page, serves its purpose better - since its external. ([d441c8b](https://github.com/Natti94/Quiz/commit/d441c8b22a7b92fe177f0bf35a794ca5b419bcaa))
+- small adjustments to .env variables, wasn't uploading cloudinary assets ([5168209](https://github.com/Natti94/Quiz/commit/5168209e34ac9495367823386ff51f572714e395))
+- small changes to labels/css. ([b242acb](https://github.com/Natti94/Quiz/commit/b242acbeedf7d1d6eedfc35f22d908d269e2710a))
+- test new release automation ([565efa1](https://github.com/Natti94/Quiz/commit/565efa1bd441d4d00b97156b41dc51410f4145ec))
+- test new release automation, attempt 2 ([c9109e0](https://github.com/Natti94/Quiz/commit/c9109e0289efcf2e28c17de5688f109efa4c8af0))
+- updates is now hidden onMount and its own interface ([fed0aa2](https://github.com/Natti94/Quiz/commit/fed0aa2d536aacf31ff71a03e3bfb992baa67c79))
+- updates is now hidden onMount and its own interface ([b113b72](https://github.com/Natti94/Quiz/commit/b113b72f12f63bd9eb0b0e2de7e0aa0ae12fe890))
+- updates is now hidden onMount and its own interface ([6198171](https://github.com/Natti94/Quiz/commit/619817197f35466adbc721b2968a3a8718e69a68))
+- updates is now hidden onMount and its own interface ([d78241d](https://github.com/Natti94/Quiz/commit/d78241d043a59707a6a04dfa2d97bce36248cd8f))
+- updates is now hidden onMount and its own interface ([997601d](https://github.com/Natti94/Quiz/commit/997601d4afd84e28342a6cc70b1f749ec452201f))
+- updates is now hidden onMount and its own interface ([3f23fe8](https://github.com/Natti94/Quiz/commit/3f23fe863626f7df1ab4340da4cc0efe059e5520))
+- **updates:** standalone updates section with single-commit viewer and reliable fetch ([030af33](https://github.com/Natti94/Quiz/commit/030af333c36065777963ad89753cfcf8f74526b3))
 
 ### Bug Fixes
 
-* changed name of function for shuffleQuestions to be singular, small fix - fits its purpose ([7821bb0](https://github.com/Natti94/Quiz/commit/7821bb02c7521036e4c08054540f7b570263ba7e))
-* correct asset paths in semantic-release config ([5f9608b](https://github.com/Natti94/Quiz/commit/5f9608b8f1a7d22258f8624be0618bf88f892bd0))
-* docs and change log ([0a96bb7](https://github.com/Natti94/Quiz/commit/0a96bb764ba068d7ce935b9ea3bc9498f51f3129))
-* docs updated ([34de60b](https://github.com/Natti94/Quiz/commit/34de60bfb8ec8392d0c0c9582a5d1d22b1276a35))
-* hide email once unlocked ([203cc9b](https://github.com/Natti94/Quiz/commit/203cc9bc753dc8013aa1838d8c733e0a83de65b7))
-* hide email once unlocked ([1c58354](https://github.com/Natti94/Quiz/commit/1c583544dfd2197c9d55e726d15b5fd3f4705816))
-* minification ([74c1656](https://github.com/Natti94/Quiz/commit/74c1656fe72e926c46fa094741b10e4c539714b8))
-* reorder workflow steps and add token to tag deletion ([8b0100e](https://github.com/Natti94/Quiz/commit/8b0100e62afa8ec75c80e986acb550a9acd08971))
-* small update for pipeline ([790c862](https://github.com/Natti94/Quiz/commit/790c8625d3118afa907c491d0944d762048f111b))
-* small update for pipeline ([5cc7085](https://github.com/Natti94/Quiz/commit/5cc7085105afc4a470720496be440a785b07cfb4))
-* small update for pipeline ([5c8d3ea](https://github.com/Natti94/Quiz/commit/5c8d3eaceab86b6f477952b876840375d029be6d))
-* small update for pipeline ([eec98c0](https://github.com/Natti94/Quiz/commit/eec98c0324e6c14e32d05c73bbba06e9b9ca58a6))
-* small update for pipeline ([9c9a1ae](https://github.com/Natti94/Quiz/commit/9c9a1aefde7094ffaa76a76e729221f9c0a0425d))
-* small update for pipeline ([93607ee](https://github.com/Natti94/Quiz/commit/93607ee5ed5823ce6abb9eb72d976d128350b870))
-* small update for pipeline ([e5ca185](https://github.com/Natti94/Quiz/commit/e5ca18585f4d5d87de01ab67882438684f17f22a))
-* small update for pipeline ([5f3b7ca](https://github.com/Natti94/Quiz/commit/5f3b7cab429085434053247f3a9f14f21f0cc3d4))
-* some changes to env var ([2e19f67](https://github.com/Natti94/Quiz/commit/2e19f6709dbc841307d2986c3899f4be82539e81))
-* testing new tag for version when committing and pushing work and changes to README ([816027e](https://github.com/Natti94/Quiz/commit/816027ecd0076ec367d0c9d7d90b88dc99faadeb))
-* testing new tag for version when committing and pushing work and changes to README ([a0c5445](https://github.com/Natti94/Quiz/commit/a0c544543b156dda3434ab619036e950896fdff4))
-* testing pipeline again ([2877196](https://github.com/Natti94/Quiz/commit/287719633c334c4ea2b7c3a56877fae970b808a7))
-* testing pipeline again ([db5c171](https://github.com/Natti94/Quiz/commit/db5c171d8d221c73c2b3053333d1f60eeda0bc75))
-* updated BEM naming conventions in updates and footer components ([dcf0d45](https://github.com/Natti94/Quiz/commit/dcf0d4599b735d71dc076278c33c5479f9ad6721))
+- changed name of function for shuffleQuestions to be singular, small fix - fits its purpose ([7821bb0](https://github.com/Natti94/Quiz/commit/7821bb02c7521036e4c08054540f7b570263ba7e))
+- correct asset paths in semantic-release config ([5f9608b](https://github.com/Natti94/Quiz/commit/5f9608b8f1a7d22258f8624be0618bf88f892bd0))
+- docs and change log ([0a96bb7](https://github.com/Natti94/Quiz/commit/0a96bb764ba068d7ce935b9ea3bc9498f51f3129))
+- docs updated ([34de60b](https://github.com/Natti94/Quiz/commit/34de60bfb8ec8392d0c0c9582a5d1d22b1276a35))
+- hide email once unlocked ([203cc9b](https://github.com/Natti94/Quiz/commit/203cc9bc753dc8013aa1838d8c733e0a83de65b7))
+- hide email once unlocked ([1c58354](https://github.com/Natti94/Quiz/commit/1c583544dfd2197c9d55e726d15b5fd3f4705816))
+- minification ([74c1656](https://github.com/Natti94/Quiz/commit/74c1656fe72e926c46fa094741b10e4c539714b8))
+- reorder workflow steps and add token to tag deletion ([8b0100e](https://github.com/Natti94/Quiz/commit/8b0100e62afa8ec75c80e986acb550a9acd08971))
+- small update for pipeline ([790c862](https://github.com/Natti94/Quiz/commit/790c8625d3118afa907c491d0944d762048f111b))
+- small update for pipeline ([5cc7085](https://github.com/Natti94/Quiz/commit/5cc7085105afc4a470720496be440a785b07cfb4))
+- small update for pipeline ([5c8d3ea](https://github.com/Natti94/Quiz/commit/5c8d3eaceab86b6f477952b876840375d029be6d))
+- small update for pipeline ([eec98c0](https://github.com/Natti94/Quiz/commit/eec98c0324e6c14e32d05c73bbba06e9b9ca58a6))
+- small update for pipeline ([9c9a1ae](https://github.com/Natti94/Quiz/commit/9c9a1aefde7094ffaa76a76e729221f9c0a0425d))
+- small update for pipeline ([93607ee](https://github.com/Natti94/Quiz/commit/93607ee5ed5823ce6abb9eb72d976d128350b870))
+- small update for pipeline ([e5ca185](https://github.com/Natti94/Quiz/commit/e5ca18585f4d5d87de01ab67882438684f17f22a))
+- small update for pipeline ([5f3b7ca](https://github.com/Natti94/Quiz/commit/5f3b7cab429085434053247f3a9f14f21f0cc3d4))
+- some changes to env var ([2e19f67](https://github.com/Natti94/Quiz/commit/2e19f6709dbc841307d2986c3899f4be82539e81))
+- testing new tag for version when committing and pushing work and changes to README ([816027e](https://github.com/Natti94/Quiz/commit/816027ecd0076ec367d0c9d7d90b88dc99faadeb))
+- testing new tag for version when committing and pushing work and changes to README ([a0c5445](https://github.com/Natti94/Quiz/commit/a0c544543b156dda3434ab619036e950896fdff4))
+- testing pipeline again ([2877196](https://github.com/Natti94/Quiz/commit/287719633c334c4ea2b7c3a56877fae970b808a7))
+- testing pipeline again ([db5c171](https://github.com/Natti94/Quiz/commit/db5c171d8d221c73c2b3053333d1f60eeda0bc75))
+- updated BEM naming conventions in updates and footer components ([dcf0d45](https://github.com/Natti94/Quiz/commit/dcf0d4599b735d71dc076278c33c5479f9ad6721))
 
 ## [3.2.0](https://github.com/Natti94/Quiz/compare/quiz-app-v3.1.1...quiz-app-v3.2.0) (2025-11-06)
 

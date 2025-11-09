@@ -103,13 +103,13 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
 
         if (res.status === 429) {
           throw new Error(
-            `Rate limit exceeded. ${errorData.message || "Please wait before trying again."}`
+            `Rate limit exceeded. ${errorData.message || "Please wait before trying again."}`,
           );
         }
 
         if (res.status === 503 || errorData.code === "OLLAMA_UNAVAILABLE") {
           throw new Error(
-            "AI evaluation service is not available. Please use Standard mode instead."
+            "AI evaluation service is not available. Please use Standard mode instead.",
           );
         }
 
@@ -198,7 +198,7 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
         subject,
       }),
     }),
-    [score, index, selected, shuffledQuestions.length, subject]
+    [score, index, selected, shuffledQuestions.length, subject],
   );
 
   if (!subject) return null;

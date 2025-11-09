@@ -17,7 +17,6 @@ export const translations = {
       register: "Registrera",
     },
 
-    // Auth Pages
     auth: {
       loginTitle: "Logga in",
       loginSubtitle: "Välkommen tillbaka! Logga in på ditt konto.",
@@ -257,8 +256,7 @@ export const translations = {
       },
       points: {
         title: "Poäng",
-        description:
-          "Topplista baserad på totala poäng från genomförda quiz",
+        description: "Topplista baserad på totala poäng från genomförda quiz",
         totalPoints: "Totala poäng",
       },
       speed: {
@@ -288,13 +286,13 @@ export const translations = {
       "wai-exam": "Tenta: Webbsäkerhet; Analys och Implementation",
     },
 
-    // Cookie Consent
     cookies: {
       title: "🍪 Vi använder cookies",
       description:
         "Vi använder cookies för att förbättra din upplevelse. Nödvändiga cookies krävs för att appen ska fungera.",
       necessary: "Nödvändiga",
-      necessaryDesc: "Krävs för att appen ska fungera (inloggning, inställningar)",
+      necessaryDesc:
+        "Krävs för att appen ska fungera (inloggning, inställningar)",
       functional: "Funktionella",
       functionalDesc: "Sparar dina preferenser och quizframsteg",
       analytics: "Analys",
@@ -333,7 +331,6 @@ export const translations = {
       register: "Register",
     },
 
-    // Auth Pages
     auth: {
       loginTitle: "Log in",
       loginSubtitle: "Welcome back! Log in to your account.",
@@ -578,7 +575,8 @@ export const translations = {
       },
       speed: {
         title: "Speed",
-        description: "Fastest users based on average response time per question",
+        description:
+          "Fastest users based on average response time per question",
         avgTime: "Avg Time",
         quizzesCompleted: "Completed",
       },
@@ -603,7 +601,6 @@ export const translations = {
       "wai-exam": "Exam: Web Security; Analysis and Implementation",
     },
 
-    // Cookie Consent
     cookies: {
       title: "🍪 We use cookies",
       description:

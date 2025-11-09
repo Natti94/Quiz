@@ -9,8 +9,8 @@ const scriptDir = path.dirname(__filename);
 const repoRoot = path.resolve(scriptDir, "..");
 
 const globs = [
-  "quiz-app/**/*.{js,jsx,ts,tsx,css,html,json,md,mdx}",
-  "quiz-backend/**/*.{js,jsx,ts,tsx,json,md}",
+  "quiz-frontend/**/*.{js,jsx,ts,tsx,css,html,json,md,mdx}",
+  "quiz-backend-local/**/*.{js,jsx,ts,tsx,json,md}",
   "*.{md,json}",
 ];
 

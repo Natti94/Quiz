@@ -71,7 +71,6 @@
   }
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .statistics {
     padding: 1rem;

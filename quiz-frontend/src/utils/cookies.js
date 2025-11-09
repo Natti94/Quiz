@@ -1,4 +1,3 @@
-// Cookie consent utilities
 const CONSENT_KEY = "cookie_consent";
 const CONSENT_TIMESTAMP_KEY = "cookie_consent_timestamp";
 const CONSENT_VERSION = "1.0";
