@@ -1,4 +1,4 @@
-import Statistics from "../../components/statistics/statistics";
+import Statistics from "../../components/statistics/Statistics";
 import "./../pages.css";
 
 function LeaderboardPage() {
