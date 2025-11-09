@@ -1,5 +1,5 @@
 import Leaderboard from "./statistics-wrapper/LeaderboardPage";
-import "./../Pages.css";
+import "./Pages.css";
 
 function Statistics() {
   return (

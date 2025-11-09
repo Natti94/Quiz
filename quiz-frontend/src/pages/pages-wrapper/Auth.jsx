@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "../../i18n/useTranslation";
 import Login from "../../components/header/header-wrapper/auth/auth-wrapper/Login";
 import Register from "../../components/header/header-wrapper/auth/auth-wrapper/Register";
-import "./../Pages.css";
+import "./Pages.css";
 
 function AuthPage() {
   const { t } = useTranslation();
