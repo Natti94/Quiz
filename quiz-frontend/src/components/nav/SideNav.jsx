@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "../../i18n/useTranslation";
-import "./side-nav.css";
+import "./SideNav.css";
 
 function SideNav({ onNavigate, hasActiveQuiz }) {
   const { t } = useTranslation();

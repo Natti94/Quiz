@@ -1,6 +1,6 @@
 import { useTranslation } from "../../../../i18n/useTranslation";
 import { supportedLanguages } from "../../../../i18n/translations";
-import "./language-selector.css";
+import "./LanguageSelector.css";
 
 function LanguageSelector() {
   const { language, changeLanguage } = useTranslation();

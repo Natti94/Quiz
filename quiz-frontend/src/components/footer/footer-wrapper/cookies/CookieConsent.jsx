@@ -6,7 +6,7 @@ import {
   hasConsented,
   CookieCategories,
 } from "../../../../utils/cookies";
-import "./cookie-consent.css";
+import "./CookieConsent.css";
 
 function CookieConsent() {
   const { t } = useTranslation();

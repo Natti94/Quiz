@@ -4,7 +4,7 @@ import General from "./statistics-wrapper/General";
 import Points from "./statistics-wrapper/statistics-categories-wrapper/Points";
 import Speed from "./statistics-wrapper/statistics-categories-wrapper/Speed";
 import Excellence from "./statistics-wrapper/statistics-categories-wrapper/Excellence";
-import "./statistics.css";
+import "./Statistics.css";
 
 const Statistics = () => {
   const { t } = useTranslation();

@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import AuthPage from "./pages-wrapper/AuthPage";
 import LeaderboarsdPage from "./pages-wrapper/LeaderboardsPage";
 import ProjectsPage from "./pages-wrapper/ProjectsPage";
+import "./Pages.css";
 
 const Pages = () => {
   return (
