@@ -2,11 +2,10 @@ import { useRef, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "./i18n/useTranslation";
 import Content from "./components/content/Content";
-import SideNav from "./components/nav/SideNav";
+import Nav from "./components/nav/Nav";
 import Footer from "./components/footer/Footer";
 import Updates from "./components/updates/Updates";
 import Header from "./components/header/Header";
-import CookieConsent from "./components/footer/footer-wrapper/cookies/CookieConsent";
 import Pages from "./pages/Pages";
 
 function App() {
@@ -31,6 +30,11 @@ function App() {
     "wai-exam": {
       label: t("subjects.wai-exam"),
       icon: "🌐",
+    },
+    aefi: { label: t("subjects.aefi"), icon: "💼" },
+    "aefi-exam": {
+      label: t("subjects.aefi-exam"),
+      icon: "💼",
     },
   };
 
@@ -71,12 +75,8 @@ function App() {
     <>
       <div className="app">
         <aside className="app__sidebar">
-          <SideNav
-            onNavigate={handleNavigationAttempt}
-            hasActiveQuiz={!!subject}
-          />
+          <Nav onNavigate={handleNavigationAttempt} hasActiveQuiz={!!subject} />
         </aside>
-
         <div className="app__main">
           <Header />
           <div className="app__content">
@@ -174,7 +174,6 @@ function App() {
           <Footer />
         </div>
       </div>
-      <CookieConsent />
     </>
   );
 }

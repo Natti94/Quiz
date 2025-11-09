@@ -1,17 +1,17 @@
 import { Routes, Route } from "react-router-dom";
-import AuthPage from "./pages-wrapper/AuthPage";
-import LeaderboarsdPage from "./pages-wrapper/LeaderboardsPage";
-import ProjectsPage from "./pages-wrapper/ProjectsPage";
+import Auth from "./pages-wrapper/Auth";
+import Leaderboard from "./pages-wrapper/statistics-wrapper/LeaderboardPage";
+import Projects from "./pages-wrapper/Projects";
 import "./Pages.css";
 
-const Pages = () => {
+function Pages() {
   return (
     <Routes>
-      <Route path="/auth" element={<AuthPage />} />
-      <Route path="/leaderboard" element={<LeaderboarsdPage />} />
-      <Route path="/projects" element={<ProjectsPage />} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="/leaderboard" element={<Leaderboard />} />
+      <Route path="/projects" element={<Projects />} />
     </Routes>
   );
-};
+}
 
 export default Pages;

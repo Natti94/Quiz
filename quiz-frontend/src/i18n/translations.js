@@ -80,11 +80,12 @@ export const translations = {
 
       warningText:
         "Avbryter du quiz-sessionen innan det är klart visas ändå ditt aktuella resultat.",
-      observeLabel: "Observera:",
+      observeLabel: "OBSERVERA:",
 
       pluDesc: "Leveranser, Uppföljning och Kvalitetssäkring.",
       aptDesc: "Scrum, Sprintar, Teststrategier och Verktyg.",
       waiDesc: "HTTP, Säkerhet, Kryptografi och Loggning.",
+      aefiDesc: "Affärs och Ekonomi inom Fastighetsbranschen.",
       examPrefix: "Tenta: ",
 
       difficultyLabel: "Svårighet:",
@@ -95,12 +96,7 @@ export const translations = {
       standardExamInfo: "Alla frågor är flerval.",
       standardExamTitle: "Standard Tentamen:",
       aiUnavailableTitle: "AI-bedömning är inte tillgänglig:",
-      aiUnavailableText: "AI-tjänsten är inte konfigurerad för denna server.",
-      aiTipTitle: "Tips för utvecklare:",
-      aiTipText:
-        "Du kan aktivera AI-bedömning gratis med Groq eller Hugging Face. Se",
-      aiTipFile: "FREE_AI_SETUP.md",
-      aiTipSuffix: "för instruktioner (2 minuter setup).",
+      aiUnavailableText: "AI-tjänsten är inte konfigurerad.",
       aiModeTitle: "AI-bedömning:",
       aiModeText1: "Endast frågor med",
       aiModeVG: "VG",
@@ -154,10 +150,13 @@ export const translations = {
       ariaSelectPLU: "Välj Paketering, Leverans och Uppföljning",
       ariaSelectAPT: "Välj Agil Projektmetodik och Testning",
       ariaSelectWAI: "Välj Webbsäkerhet; Analys och Implementation",
+      ariaSelectAEFI: "Välj Affärs och Ekonomi inom Fastighetsbranschen",
       ariaOpenPLUExam: "Öppna PLU tenta",
       ariaPLULocked: "PLU Tenta - Låst",
       ariaOpenWAIExam: "Öppna WAI tenta",
       ariaWAILocked: "WAI Tenta - Låst",
+      ariaOpenAEFIExam: "Öppna AEFI tenta",
+      ariaAEFILocked: "AEFI Tenta - Låst",
       ariaUnlockDialog: "Lås upp tenta",
       ariaDiscordLink: "Öppna Discord för att få admin-nyckeln",
       titleDiscord: "Discord",
@@ -197,7 +196,7 @@ export const translations = {
       newQuiz: "Välj nytt quiz",
       summary: "Sammanfattning",
       summaryNote:
-        "Observera: Avbryter du quiz-sessionen innan det är klart visas ändå ditt aktuella resultat.",
+        "OBSERVERA: Avbryter du quiz-sessionen innan det är klart visas ändå ditt aktuella resultat.",
       attempted: "Besvarade",
       questions: "frågor",
     },
@@ -245,7 +244,7 @@ export const translations = {
       subtitle: "Prestationsöversikt och rankningar",
       noData: "Ingen data tillgänglig ännu",
       loading: "Laddar statistik...",
-      general: {
+      leaderboard: {
         title: "Översikt",
         description:
           "Övergripande ranking baserad på alla kategorier - poäng, hastighet och excellens",
@@ -284,6 +283,8 @@ export const translations = {
       apt: "Agil Projektmetodik & Testning",
       wai: "Webbsäkerhet; Analys och Implementation",
       "wai-exam": "Tenta: Webbsäkerhet; Analys och Implementation",
+      aefi: "Affärs och Ekonomi inom Fastighetsbranschen",
+      "aefi-exam": "Tenta: Affärs och Ekonomi inom Fastighetsbranschen",
     },
 
     cookies: {
@@ -399,6 +400,7 @@ export const translations = {
       pluDesc: "Deliveries, Follow-up and Quality Assurance.",
       aptDesc: "Scrum, Sprints, Test Strategies and Tools.",
       waiDesc: "HTTP, Security, Cryptography and Logging.",
+      aefiDesc: "Business and Economics in the Real Estate Industry.",
       examPrefix: "Exam: ",
 
       difficultyLabel: "Difficulty:",
@@ -409,12 +411,7 @@ export const translations = {
       standardExamInfo: "All questions are multiple choice.",
       standardExamTitle: "Standard Exam:",
       aiUnavailableTitle: "AI-evaluation is not available:",
-      aiUnavailableText: "The AI service is not configured for this server.",
-      aiTipTitle: "Tip for developers:",
-      aiTipText:
-        "You can activate AI-evaluation for free with Groq or Hugging Face. See",
-      aiTipFile: "FREE_AI_SETUP.md",
-      aiTipSuffix: "for instructions (2 minute setup).",
+      aiUnavailableText: "The AI service is not configured.",
       aiModeTitle: "AI-evaluation:",
       aiModeText1: "Only questions with",
       aiModeVG: "VG",
@@ -468,10 +465,14 @@ export const translations = {
       ariaSelectPLU: "Select Packaging, Delivery and Follow-up",
       ariaSelectAPT: "Select Agile Project Methodology and Testing",
       ariaSelectWAI: "Select Web Security; Analysis and Implementation",
+      ariaSelectAEFI:
+        "Select Business and Economics in the Real Estate Industry",
       ariaOpenPLUExam: "Open PLU exam",
       ariaPLULocked: "PLU Exam - Locked",
       ariaOpenWAIExam: "Open WAI exam",
       ariaWAILocked: "WAI Exam - Locked",
+      ariaOpenAEFIExam: "Open AEFI exam",
+      ariaAEFILocked: "AEFI Exam - Locked",
       ariaUnlockDialog: "Unlock exam",
       ariaDiscordLink: "Open Discord to get admin key",
       titleDiscord: "Discord",
@@ -559,7 +560,7 @@ export const translations = {
       subtitle: "Performance overview and rankings",
       noData: "No data available yet",
       loading: "Loading statistics...",
-      general: {
+      leaderboard: {
         title: "Overview",
         description:
           "Overall ranking based on all categories - points, speed, and excellence",
@@ -599,6 +600,8 @@ export const translations = {
       apt: "Agile Project Methodology & Testing",
       wai: "Web Security; Analysis and Implementation",
       "wai-exam": "Exam: Web Security; Analysis and Implementation",
+      aefi: "Business and Economics in the Real Estate Industry",
+      "aefi-exam": "Exam: Business and Economics in the Real Estate Industry",
     },
 
     cookies: {

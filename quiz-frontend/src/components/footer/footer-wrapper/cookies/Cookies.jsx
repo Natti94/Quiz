@@ -6,9 +6,9 @@ import {
   hasConsented,
   CookieCategories,
 } from "../../../../utils/cookies";
-import "./CookieConsent.css";
+import "./Cookies.css";
 
-function CookieConsent() {
+function Cookies() {
   const { t } = useTranslation();
   const [showBanner, setShowBanner] = useState(false);
   const [showCustomize, setShowCustomize] = useState(false);
@@ -181,4 +181,4 @@ function CookieConsent() {
   );
 }
 
-export default CookieConsent;
+export default Cookies;

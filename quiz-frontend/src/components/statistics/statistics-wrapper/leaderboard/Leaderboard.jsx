@@ -1,6 +1,6 @@
-import { useTranslation } from "../../../i18n/useTranslation";
+import { useTranslation } from "../../../../i18n/useTranslation";
 
-const General = ({ pointsData, speedData, excellenceData }) => {
+const Leaderboard = ({ pointsData, speedData, excellenceData }) => {
   const { t } = useTranslation();
 
   const calculateOverallRanking = () => {
@@ -126,4 +126,4 @@ const General = ({ pointsData, speedData, excellenceData }) => {
   );
 };
 
-export default General;
+export default Leaderboard;

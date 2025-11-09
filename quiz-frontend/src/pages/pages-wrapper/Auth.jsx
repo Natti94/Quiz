@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "../../i18n/useTranslation";
 import Login from "../../components/header/header-wrapper/auth/auth-wrapper/Login";
 import Register from "../../components/header/header-wrapper/auth/auth-wrapper/Register";
-import "./../pages.css";
+import "./../Pages.css";
 
 function AuthPage() {
   const { t } = useTranslation();
@@ -35,13 +35,13 @@ function AuthPage() {
         )}
 
         <div className="auth__footer">
-          <p className="auth__footer-text">
+          <p className="auth__text">
             {isLogin ? t("auth.noAccount") : t("auth.hasAccount")}
           </p>
           <button
             type="button"
             onClick={() => setIsLogin(!isLogin)}
-            className="auth__link"
+            className="auth__toggle-btn"
           >
             {isLogin ? t("auth.createAccount") : t("auth.loginLink")}
           </button>

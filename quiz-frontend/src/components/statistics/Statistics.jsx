@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { useTranslation } from "../../i18n/useTranslation";
-import General from "./statistics-wrapper/General";
-import Points from "./statistics-wrapper/statistics-categories-wrapper/Points";
-import Speed from "./statistics-wrapper/statistics-categories-wrapper/Speed";
-import Excellence from "./statistics-wrapper/statistics-categories-wrapper/Excellence";
+import Leaderboard from "./statistics-wrapper/leaderboard/Leaderboard";
+import Points from "./statistics-wrapper/leaderboard/leaderboard-wrapper/Points";
+import Speed from "./statistics-wrapper/leaderboard/leaderboard-wrapper/Speed";
+import Excellence from "./statistics-wrapper/leaderboard/leaderboard-wrapper/Excellence";
 import "./Statistics.css";
 
 const Statistics = () => {
   const { t } = useTranslation();
-  const [activeCategory, setActiveCategory] = useState("general");
+  const [activeCategory, setActiveCategory] = useState("Leaderboard");
 
   const pointsData = [
     { rank: 1, name: "Alice Johnson", points: 2450, subject: "PLU" },
@@ -100,9 +100,9 @@ const Statistics = () => {
 
   const renderActiveCategory = () => {
     switch (activeCategory) {
-      case "general":
+      case "leaderboard":
         return (
-          <General
+          <Leaderboard
             pointsData={pointsData}
             speedData={speedData}
             excellenceData={excellenceData}
@@ -116,7 +116,7 @@ const Statistics = () => {
         return <Excellence data={excellenceData} />;
       default:
         return (
-          <General
+          <Leaderboard
             pointsData={pointsData}
             speedData={speedData}
             excellenceData={excellenceData}
@@ -135,11 +135,11 @@ const Statistics = () => {
       <div className="statistics__tabs">
         <button
           className={`statistics__tab ${
-            activeCategory === "general" ? "statistics__tab--active" : ""
+            activeCategory === "leaderboard" ? "statistics__tab--active" : ""
           }`}
-          onClick={() => setActiveCategory("general")}
+          onClick={() => setActiveCategory("leaderboard")}
         >
-          {t("statistics.general.title")}
+          {t("statistics.leaderboard.title")}
         </button>
         <button
           className={`statistics__tab ${

@@ -1,5 +1,5 @@
 import { useTranslation } from "../../i18n/useTranslation";
-import "./../pages.css";
+import "./../Pages.css";
 
 function Projects() {
   const { t } = useTranslation();

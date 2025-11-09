@@ -2,32 +2,32 @@
 
 ### Bug Fixes
 
-* attempting to solve issue with deployment due to casing, attempting to solve (2). ([d48b918](https://github.com/Natti94/Quiz/commit/d48b9186b7c8e584dcc815881acb98a7cdc433a9))
-* attempting to solve issue with deployment due to casing, attempting to solve (2). ([a31d2ba](https://github.com/Natti94/Quiz/commit/a31d2baa7800b9358d050c265372766c599a3d53))
-* attempting to solve issue with deployment due to casing, attempting to solve (2). ([5338f1c](https://github.com/Natti94/Quiz/commit/5338f1c8a4d8e29af2f11c6054a4b427259dfd56))
-* attempting to solve issue with deployment due to casing, attempting to solve (3). ([fef38ae](https://github.com/Natti94/Quiz/commit/fef38aea58d18290306a528b4991485fa686ca9e))
-* issues with deployment due to casing, attempting to solve issue. ([0632d1a](https://github.com/Natti94/Quiz/commit/0632d1a0ec571321e264c70364941e3b2351dffb))
+- attempting to solve issue with deployment due to casing, attempting to solve (2). ([d48b918](https://github.com/Natti94/Quiz/commit/d48b9186b7c8e584dcc815881acb98a7cdc433a9))
+- attempting to solve issue with deployment due to casing, attempting to solve (2). ([a31d2ba](https://github.com/Natti94/Quiz/commit/a31d2baa7800b9358d050c265372766c599a3d53))
+- attempting to solve issue with deployment due to casing, attempting to solve (2). ([5338f1c](https://github.com/Natti94/Quiz/commit/5338f1c8a4d8e29af2f11c6054a4b427259dfd56))
+- attempting to solve issue with deployment due to casing, attempting to solve (3). ([fef38ae](https://github.com/Natti94/Quiz/commit/fef38aea58d18290306a528b4991485fa686ca9e))
+- issues with deployment due to casing, attempting to solve issue. ([0632d1a](https://github.com/Natti94/Quiz/commit/0632d1a0ec571321e264c70364941e3b2351dffb))
 
 ## [1.0.6](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.5...quiz-frontend-v1.0.6) (2025-11-09)
 
 ### Bug Fixes
 
-* attempting to solve issue with deployment due to casing, attempting to solve (2). ([a31d2ba](https://github.com/Natti94/Quiz/commit/a31d2baa7800b9358d050c265372766c599a3d53))
-* attempting to solve issue with deployment due to casing, attempting to solve (2). ([5338f1c](https://github.com/Natti94/Quiz/commit/5338f1c8a4d8e29af2f11c6054a4b427259dfd56))
-* issues with deployment due to casing, attempting to solve issue. ([0632d1a](https://github.com/Natti94/Quiz/commit/0632d1a0ec571321e264c70364941e3b2351dffb))
+- attempting to solve issue with deployment due to casing, attempting to solve (2). ([a31d2ba](https://github.com/Natti94/Quiz/commit/a31d2baa7800b9358d050c265372766c599a3d53))
+- attempting to solve issue with deployment due to casing, attempting to solve (2). ([5338f1c](https://github.com/Natti94/Quiz/commit/5338f1c8a4d8e29af2f11c6054a4b427259dfd56))
+- issues with deployment due to casing, attempting to solve issue. ([0632d1a](https://github.com/Natti94/Quiz/commit/0632d1a0ec571321e264c70364941e3b2351dffb))
 
 ## [1.0.6](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.5...quiz-frontend-v1.0.6) (2025-11-09)
 
 ### Bug Fixes
 
-* attempting to solve issue with deployment due to casing, attempting to solve (2). ([5338f1c](https://github.com/Natti94/Quiz/commit/5338f1c8a4d8e29af2f11c6054a4b427259dfd56))
-* issues with deployment due to casing, attempting to solve issue. ([0632d1a](https://github.com/Natti94/Quiz/commit/0632d1a0ec571321e264c70364941e3b2351dffb))
+- attempting to solve issue with deployment due to casing, attempting to solve (2). ([5338f1c](https://github.com/Natti94/Quiz/commit/5338f1c8a4d8e29af2f11c6054a4b427259dfd56))
+- issues with deployment due to casing, attempting to solve issue. ([0632d1a](https://github.com/Natti94/Quiz/commit/0632d1a0ec571321e264c70364941e3b2351dffb))
 
 ## [1.0.5](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.4...quiz-frontend-v1.0.5) (2025-11-09)
 
 ### Bug Fixes
 
-* issues with deployment due to sensitive casing & minification ([8c6506d](https://github.com/Natti94/Quiz/commit/8c6506dd3be364137de44df54eda88f5cbdd3ebd))
+- issues with deployment due to sensitive casing & minification ([8c6506d](https://github.com/Natti94/Quiz/commit/8c6506dd3be364137de44df54eda88f5cbdd3ebd))
 
 ## [1.0.4](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.3...quiz-frontend-v1.0.4) (2025-11-09)
 

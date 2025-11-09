@@ -107,7 +107,7 @@ function Form({ onSelect }) {
       const parts = token.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       if (payload && typeof payload.exp === "number") {
         const now = Math.floor(Date.now() / 1000);
@@ -124,7 +124,7 @@ function Form({ onSelect }) {
       const parts = t.split(".");
       if (parts.length !== 3) return;
       const payload = JSON.parse(
-        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")),
+        atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"))
       );
       const now = Math.floor(Date.now() / 1000);
       if (payload && payload.exp && payload.exp > now) {
@@ -303,7 +303,6 @@ function Form({ onSelect }) {
             <div className="subject__desc">{t("form.aptDesc")}</div>
           </div>
         </button>
-
         <button
           type="button"
           className="subject"
@@ -374,16 +373,6 @@ function Form({ onSelect }) {
           <p style={{ margin: 0, color: "#856404" }}>
             <strong>{t("form.aiUnavailableTitle")}</strong>{" "}
             {t("form.aiUnavailableText")}
-          </p>
-          <p
-            style={{
-              margin: "0.5rem 0 0 0",
-              fontSize: "0.9rem",
-              color: "#856404",
-            }}
-          >
-            <strong>{t("form.aiTipTitle")}</strong> {t("form.aiTipText")}{" "}
-            <code>{t("form.aiTipFile")}</code> {t("form.aiTipSuffix")}
           </p>
         </div>
       )}
@@ -486,7 +475,37 @@ function Form({ onSelect }) {
               </div>
             </div>
           </button>
-
+          <button
+            type="button"
+            className={`subject ${examUnlocked ? "subject--unlocked" : ""} ${examMode === "AI" && !examUnlocked ? "subject--disabled" : ""}`}
+            onClick={() => examUnlocked && handleExamClick("aefi-exam")}
+            disabled={examMode === "AI" && !examUnlocked}
+            aria-label={
+              examUnlocked
+                ? t("form.ariaOpenAEFIExam")
+                : t("form.ariaAEFILocked")
+            }
+            style={
+              examMode === "AI" && !examUnlocked
+                ? { opacity: 0.6, cursor: "not-allowed" }
+                : {}
+            }
+          >
+            <div className="subject__icon subject__icon--aefi" aria-hidden>
+              💼
+            </div>
+            <div className="subject__content">
+              <div className="subject__title">
+                <strong>{t("form.examPrefix")}</strong>
+                {t("subjects.aefi")}
+              </div>
+              <div className="subject__desc">
+                {t("form.aefiDesc")}{" "}
+                {examUnlocked ? t("form.unlocked") : t("form.locked")}
+                {examMode === "AI" && examUnlocked && t("form.aiActivated")}
+              </div>
+            </div>
+          </button>
           {showUnlock && !examUnlocked && (
             <div
               className="subjects__overlay"

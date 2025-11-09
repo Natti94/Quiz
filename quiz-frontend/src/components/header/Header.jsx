@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../../i18n/useTranslation.js";
-import LanguageSelector from "./header-wrapper/language/LanguageSelector.jsx";
+import Language from "./header-wrapper/language/Language.jsx";
 import "./header.css";
 
 function Header() {
@@ -34,8 +34,7 @@ function Header() {
             </Link>
           </div>
         )}
-
-        <LanguageSelector />
+        <Language />
       </div>
     </header>
   );

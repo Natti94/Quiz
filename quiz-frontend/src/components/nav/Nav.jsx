@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "../../i18n/useTranslation";
-import "./SideNav.css";
+import Pages from "../../pages/Pages";
+import "./Nav.css";
 
-function SideNav({ onNavigate, hasActiveQuiz }) {
+function Nav({ onNavigate, hasActiveQuiz }) {
   const { t } = useTranslation();
   const projectsLink = import.meta.env.VITE_PROJECT_LINK;
 
@@ -57,8 +58,9 @@ function SideNav({ onNavigate, hasActiveQuiz }) {
       >
         📁 {t("nav.projects")}
       </a>
+      <Pages />
     </nav>
   );
 }
 
-export default SideNav;
+export default Nav;
