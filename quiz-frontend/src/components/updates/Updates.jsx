@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "../../i18n/useTranslation";
-import "./Updates.css";
+import "./updates.css";
 
 function formatRelativeTime(dateString) {
   if (!dateString || /ago$/.test(dateString)) return dateString;
