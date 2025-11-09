@@ -1,3 +1,9 @@
+## [1.0.6](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.5...quiz-frontend-v1.0.6) (2025-11-09)
+
+### Bug Fixes
+
+* issues with deployment due to casing, attempting to solve issue. ([0632d1a](https://github.com/Natti94/Quiz/commit/0632d1a0ec571321e264c70364941e3b2351dffb))
+
 ## [1.0.5](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.4...quiz-frontend-v1.0.5) (2025-11-09)
 
 ### Bug Fixes
