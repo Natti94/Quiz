@@ -3,7 +3,7 @@ import { useTranslation } from "../../i18n/useTranslation";
 import Version from "./footer-wrapper/Version";
 import Copyright from "./footer-wrapper/Copyright";
 import { clearCookieConsent } from "../../utils/cookies";
-import "./footer.css";
+import "./Footer.css";
 
 function Footer() {
   const { t } = useTranslation();
