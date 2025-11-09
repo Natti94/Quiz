@@ -120,18 +120,22 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
       }
 
       const data = await res.json();
-      const content = data.response;
+      let content = data.response;
+
+      // Remove common prefixes that AI might add
+      content = content.replace(/^```json\s*/i, "").replace(/```\s*$/, "");
+      content = content.replace(/^json\s*/i, "");
+      content = content.trim();
 
       let evaluation;
       try {
         evaluation = JSON.parse(content);
       } catch {
+        // Only use fallback if we truly can't parse JSON
         evaluation = {
-          correct:
-            content.toLowerCase().includes("correct") ||
-            content.toLowerCase().includes("vg"),
+          correct: false,
           feedback: content,
-          score: 50,
+          score: 0,
         };
       }
 
