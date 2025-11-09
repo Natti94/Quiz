@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "./i18n/useTranslation";
-import Content from "./components/content/content";
+import Content from "./components/content/Content";
 import SideNav from "./components/nav/SideNav";
 import Footer from "./components/footer/footer";
 import Updates from "./components/updates/Updates";
