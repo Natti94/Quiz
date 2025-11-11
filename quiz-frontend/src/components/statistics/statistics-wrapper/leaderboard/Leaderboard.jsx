@@ -91,7 +91,6 @@ const Leaderboard = () => {
     },
   ];
 
-  // Calculate overall ranking for general leaderboard
   const calculateOverallRanking = () => {
     const userScores = {};
 
