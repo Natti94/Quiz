@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "../../i18n/useTranslation";
-import Login from "../../components/header/header-wrapper/auth/auth-wrapper/Login";
-import Register from "../../components/header/header-wrapper/auth/auth-wrapper/Register";
+import Login from "../../components/header/header-wrapper/auth/Login";
+import Register from "../../components/header/header-wrapper/auth/Register";
 import "../pages.css";
 
 function AuthPage() {

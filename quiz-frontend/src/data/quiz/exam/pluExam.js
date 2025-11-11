@@ -1,6 +1,5 @@
 export const questionsPluExam = [
   {
-    level: "G",
     question: "Vad är en webbapplikation?",
     options: [
       "En applikation byggd med HTML, CSS och JavaScript (ofta som separata filer) som körs i webbläsaren",
@@ -11,9 +10,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "En webbapp använder HTML (struktur), CSS (utseende) och JavaScript (logik) och körs i webbläsaren. Ex: Gmail, Spotify Web.",
+    level: "G",
   },
   {
-    level: "G",
     question: "Vad är en bundler?",
     options: [
       "Ett verktyg som analyserar moduler och skapar produktionsklara bundles",
@@ -24,9 +23,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "Samlar många filer (JS, CSS, assets) till få optimerade filer för webben. Ex: Webpack, Vite/Rollup, Parcel, esbuild.",
+    level: "G",
   },
   {
-    level: "G",
     question: "Vad menas med packaging i frontend-sammanhang?",
     options: [
       "Att paketera kod och alla beroenden för att kunna distribueras/installeras/köras någon annanstans",
@@ -37,9 +36,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "Packaging = färdigt paket (inkl. beroenden, manifest/metadata, bundles) som kan distribueras och användas.",
+    level: "G",
   },
   {
-    level: "G",
     question: "Vad är Webpack?",
     options: [
       "Ett populärt bundlingsverktyg för JavaScript-appar",
@@ -50,9 +49,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "En bundler som bygger beroendegraf från import/export och producerar bundles (loaders, plugins).",
+    level: "G",
   },
   {
-    level: "G",
     question: "Skillnad mellan modul och paket (module vs package)?",
     options: [
       "Modul = enskild fil/enhet med export/import; Paket = distribuerbar enhet (npm) med version och package.json",
@@ -63,9 +62,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "Modul är oftast en fil/delmodul. Paket är en publicerad artefakt (ofta många moduler) med metadata i package.json.",
+    level: "G",
   },
   {
-    level: "G",
     question: "Vad har npm för roll?",
     options: [
       "Paket- och beroendehanterare samt registry för JavaScript/Node",
@@ -76,9 +75,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "Installerar/uppdaterar paket, kör scripts och kopplar mot npm Registry.",
+    level: "G",
   },
   {
-    level: "G",
     question: "Vad är minifiering?",
     options: [
       "Att reducera filstorlek genom att ta bort blanksteg/kommentarer och korta identifierare",
@@ -88,9 +87,9 @@ export const questionsPluExam = [
     ],
     correct: 0,
     explanation: "Mindre filer ⇒ snabbare laddning utan att ändra beteendet.",
+    level: "G",
   },
   {
-    level: "G",
     question: "Vad är Babel?",
     options: [
       "En transpiler/översättare som gör modern JS/JSX/TS kompatibel med äldre miljöer",
@@ -101,9 +100,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "Översätter modern JS/JSX/TS till äldre JS så det fungerar i fler webbläsare.",
+    level: "G",
   },
   {
-    level: "G",
     question: "Vad uppfyller package.json för syfte?",
     options: [
       "Lista beroenden, definiera scripts och beskriva projektets version/metadata",
@@ -113,9 +112,9 @@ export const questionsPluExam = [
     ],
     correct: 0,
     explanation: "Projektets metadata, beroenden och scripts (kommandoalias).",
+    level: "G",
   },
   {
-    level: "VG",
     question: "Vad är tree-shaking?",
     options: [
       "Att ta bort oanvänd kod (döda exporter) under bundling baserat på statisk analys",
@@ -126,9 +125,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "Eliminerar oanvända exporter för mindre och snabbare bundles.",
+    level: "VG",
   },
   {
-    level: "VG",
     question: "Vad är en source map?",
     options: [
       "En karta mellan genererad kod och originalkällor för debugging",
@@ -139,9 +138,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "Gör det möjligt att felsöka bundlad/minifierad/transpilerad kod som om du kör originalkällorna.",
+    level: "VG",
   },
   {
-    level: "VG",
     question:
       "Vilka 'typer' förekommer i praktiken när vi pratar om JavaScript?",
     options: [
@@ -153,9 +152,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "CJS och ESM som modulsystem; TypeScript som typat superset av JS.",
+    level: "VG",
   },
   {
-    level: "VG",
     question: "Vad innebär Separation of Concerns (SoC)?",
     options: [
       "Att dela upp systemet i tydliga ansvarsområden för enklare underhåll",
@@ -166,9 +165,9 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "Separera ansvar (UI, state, nätverk, stil) för läsbarhet och återanvändning.",
+    level: "VG",
   },
   {
-    level: "VG",
     question: "Vad är CI/CD?",
     options: [
       "Continuous Integration och Continuous Delivery/Deployment",
@@ -179,5 +178,6 @@ export const questionsPluExam = [
     correct: 0,
     explanation:
       "CI = ofta integrera och testa. CD = leverera till staging/produktion snabbt och säkert.",
+    level: "VG",
   },
 ];

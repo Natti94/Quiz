@@ -82,7 +82,10 @@ function Subject({ subject, mode: difficultyMode }, ref) {
   async function evaluateWithAI(userInput) {
     setIsEvaluating(true);
     try {
-      const promptText = `Du är en lärare som bedömer studenters svar på VG-nivå (Väl Godkänt). Bedöm svaret baserat på djup förståelse, noggrannhet och om det visar VG-nivå kunskap.
+  const lang = t("lang.code") || (navigator.language?.startsWith("sv") ? "sv" : "en");
+  let promptText;
+  if (lang === "sv") {
+    promptText = `Du är en lärare som bedömer studenters svar på VG-nivå (Väl Godkänt). Bedöm svaret baserat på djup förståelse, noggrannhet och om det visar VG-nivå kunskap. Om svaret inte når VG-nivå, bedöm som IG-nivå (icke godkänt).
 
 Fråga: ${question.question}
 
@@ -90,7 +93,24 @@ Korrekt svar: ${question.explanation}
 
 Studentens svar: ${userInput}
 
-Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följande format: "correct": true/false, "feedback": din feedback här, score: 0-100`;
+Returnera exakt detta JSON-format:
+{"correct": "korrekt"/"IG", "feedback": "din feedback här", "poäng": 0-100}
+Om svaret är fel, sätt "correct": "IG" och "poäng": 0.
+Returnera endast JSON-objektet, utan extra text eller formatering.`;
+  } else {
+    promptText = `You are a teacher grading student answers at VG-level (pass with distinction). Grade based on deep understanding, accuracy, and if it shows VG-level knowledge. Otherwise, grade as IG (fail).
+
+Question: ${question.question}
+
+Correct answer: ${question.explanation}
+
+Student answer: ${userInput}
+
+Return exactly this JSON format:
+{"correct": true/false, "feedback": "your feedback here", "score": 0-100}
+If the answer is wrong, set "correct": false and "score": 0.
+Return only the JSON object, no extra text or formatting.`;
+  }
 
       const res = await fetch("/.netlify/functions/LLM", {
         method: "POST",
@@ -131,18 +151,27 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
       try {
         evaluation = JSON.parse(content);
       } catch {
-        // Only use fallback if we truly can't parse JSON
-        evaluation = {
-          correct: false,
-          feedback: content,
-          score: 0,
-        };
+        // Fallback for non-JSON response
+        if (lang === "sv") {
+          evaluation = {
+            correct: "IG",
+            feedback: content,
+            poäng: 0,
+          };
+        } else {
+          evaluation = {
+            correct: false,
+            feedback: content,
+            score: 0,
+          };
+        }
       }
 
       setAiEvaluation(evaluation);
-      setSelected(evaluation.correct ? question.correct : -1);
-
-      if (evaluation.correct) {
+      // For Swedish, treat "korrekt" as correct
+      const isCorrect = lang === "sv" ? evaluation.correct === "korrekt" : !!evaluation.correct;
+      setSelected(isCorrect ? question.correct : -1);
+      if (isCorrect) {
         setScore((s) => s + 1);
       }
     } catch (err) {
@@ -211,6 +240,7 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
   if (!subject) return null;
 
   const isQuizDone = index >= shuffledQuestions.length;
+  const lang = t("lang.code") || (typeof navigator !== "undefined" && navigator.language?.startsWith("sv") ? "sv" : "en");
 
   return (
     <>
@@ -317,13 +347,21 @@ Bedöm om studentens svar visar VG-nivå förståelse. Svara med JSON i följand
                 <>
                   <p className="quiz__explanation-text">
                     <strong>{t("quiz.result")}:</strong>{" "}
-                    {aiEvaluation.correct
-                      ? t("quiz.approved")
-                      : t("quiz.notApproved")}
+                    {lang === "sv"
+                      ? aiEvaluation.correct === "korrekt"
+                        ? t("quiz.approved")
+                        : t("quiz.notApproved")
+                      : aiEvaluation.correct
+                        ? t("quiz.approved")
+                        : t("quiz.notApproved")}
                   </p>
                   <p className="quiz__explanation-text">
                     <strong>{t("quiz.feedback")}:</strong>{" "}
                     {aiEvaluation.feedback}
+                  </p>
+                  <p className="quiz__explanation-text">
+                    <strong>{t("quiz.scoreLabel")}:</strong>{" "}
+                    {lang === "sv" ? aiEvaluation.poäng : aiEvaluation.score}
                   </p>
                   <p className="quiz__explanation-text">
                     <strong>{t("quiz.correctAnswer")}:</strong>{" "}

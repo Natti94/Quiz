@@ -97,14 +97,14 @@ export const translations = {
       standardExamTitle: "Standard Tentamen:",
       aiUnavailableTitle: "AI-bedömning är inte tillgänglig:",
       aiUnavailableText: "AI-tjänsten är inte konfigurerad.",
-      aiModeTitle: "AI-bedömning:",
+      aiModeTitle: "AI-bedömning",
       aiModeText1: "Endast frågor med",
       aiModeVG: "VG",
       aiModeText2: "-nivå visas med fritext och är bedömt av AI,",
       aiModeG: "G",
       aiModeText3: "frågor besvaras som flerval.",
       aiWarning:
-        "AI-bedömning har sina begränsningar, stöter ni på problem besök Discord.",
+        "AI-bedömning har sina begränsningar, stöter ni på problem kontakta mig!",
 
       unlockButton: "🔐 Lås upp Tentamen",
       unlocked: "🔓",
@@ -164,7 +164,8 @@ export const translations = {
     },
 
     quiz: {
-      question: "Fråga",
+  question: "Fråga",
+  scoreLabel: "Poäng",
       of: "av",
       level: "Nivå",
       aiEvaluated: "(AI-bedömd)",
@@ -362,7 +363,7 @@ export const translations = {
       examMode: "Exam Mode",
       difficulty: "Difficulty",
       standard: "Standard",
-      aiEvaluation: "AI Evaluation",
+      aiEvaluation: "AI-evaluation",
       aiUnavailable: "AI service is currently unavailable",
       unlockExam: "Unlock Exam",
       requestKey: "Request Key",
@@ -419,7 +420,7 @@ export const translations = {
       aiModeG: "G",
       aiModeText3: "questions are answered as multiple choice.",
       aiWarning:
-        "AI-evaluation has its limitations, if you encounter problems visit Discord.",
+        "AI-evaluation has its limitations, if you encounter problems contact me!",
 
       unlockButton: "🔐 Unlock Exam",
       unlocked: "🔓",
@@ -480,7 +481,8 @@ export const translations = {
     },
 
     quiz: {
-      question: "Question",
+  question: "Question",
+  scoreLabel: "Score",
       of: "of",
       level: "Level",
       aiEvaluated: "(AI-evaluated)",
@@ -494,7 +496,7 @@ export const translations = {
       feedback: "Feedback",
       correctAnswer: "Correct answer",
       explanation: "Explanation",
-      aiEvaluation: "AI Evaluation",
+      aiEvaluation: "AI-evaluation",
       approved: "Approved (VG)",
       notApproved: "Not approved",
       evaluating: "Evaluating answer...",
