@@ -18,6 +18,28 @@
 * attempting to solve issue with deployment due to casing, attempting to solve (3). ([fef38ae](https://github.com/Natti94/Quiz/commit/fef38aea58d18290306a528b4991485fa686ca9e))
 * fixed issue with subject for AEFI indicating wrong grade on AI evaluation when user failed answering question. ([f9e0fc9](https://github.com/Natti94/Quiz/commit/f9e0fc9863015386523bee5e671acadf456308a4))
 * issues with deployment due to casing, attempting to solve issue. ([0632d1a](https://github.com/Natti94/Quiz/commit/0632d1a0ec571321e264c70364941e3b2351dffb))
+* issues with grade being displayed wrong due to property types when answering wrong, fixed. ([f66e23c](https://github.com/Natti94/Quiz/commit/f66e23cee327552a69de3e68dc4ac49b68abcb3c))
+
+## [1.1.0](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.5...quiz-frontend-v1.1.0) (2025-11-11)
+
+### Features
+
+* changes to UI/UX, added analytics and leaderboard (not finished) due to issues with backend/mongoDB, added another subject. ([ef59689](https://github.com/Natti94/Quiz/commit/ef59689b805b46216d7a320e7d373929dac36622))
+* changes to UI/UX, added analytics and leaderboard (not finished) due to issues with backend/mongoDB, added another subject. ([e3af10c](https://github.com/Natti94/Quiz/commit/e3af10c0afe77ea1b9f7542457d8c2cfdb361558))
+* changes to UI/UX, added analytics and leaderboard (not finished) due to issues with backend/mongoDB, added another subject. ([b3fd729](https://github.com/Natti94/Quiz/commit/b3fd7297043d30739230036f9d1bdb4687f378fd))
+* changes to UI/UX, added analytics and leaderboard (not finished) due to issues with backend/mongoDB, added another subject. ([db2353c](https://github.com/Natti94/Quiz/commit/db2353c99807295719790223c51bc63ee87dbb0e))
+* changes to UI/UX, added analytics and leaderboard (not finished) due to issues with backend/mongoDB, added another subject. ([42e80e3](https://github.com/Natti94/Quiz/commit/42e80e391d51ad8a6682c35e7bbde561c6ee96fc))
+* changes to UI/UX, added analytics and leaderboard (not finished) due to issues with backend/mongoDB, added another subject. ([fbcd605](https://github.com/Natti94/Quiz/commit/fbcd605bf935a626590d433d16017f57bc71f86b))
+* changes to UI/UX, added analytics and leaderboard (not finished) due to issues with backend/mongoDB, added another subject. ([9279920](https://github.com/Natti94/Quiz/commit/9279920495fb8fec23fc80c31f8664f05d508194))
+
+### Bug Fixes
+
+* attempting to solve issue with deployment due to casing, attempting to solve (2). ([d48b918](https://github.com/Natti94/Quiz/commit/d48b9186b7c8e584dcc815881acb98a7cdc433a9))
+* attempting to solve issue with deployment due to casing, attempting to solve (2). ([a31d2ba](https://github.com/Natti94/Quiz/commit/a31d2baa7800b9358d050c265372766c599a3d53))
+* attempting to solve issue with deployment due to casing, attempting to solve (2). ([5338f1c](https://github.com/Natti94/Quiz/commit/5338f1c8a4d8e29af2f11c6054a4b427259dfd56))
+* attempting to solve issue with deployment due to casing, attempting to solve (3). ([fef38ae](https://github.com/Natti94/Quiz/commit/fef38aea58d18290306a528b4991485fa686ca9e))
+* fixed issue with subject for AEFI indicating wrong grade on AI evaluation when user failed answering question. ([f9e0fc9](https://github.com/Natti94/Quiz/commit/f9e0fc9863015386523bee5e671acadf456308a4))
+* issues with deployment due to casing, attempting to solve issue. ([0632d1a](https://github.com/Natti94/Quiz/commit/0632d1a0ec571321e264c70364941e3b2351dffb))
 
 ## [1.0.6](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.5...quiz-frontend-v1.0.6) (2025-11-09)
 
