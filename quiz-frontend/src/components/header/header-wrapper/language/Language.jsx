@@ -1,6 +1,6 @@
 import { useTranslation } from "../../../../i18n/useTranslation";
 import { supportedLanguages } from "../../../../i18n/translations";
-import "./Language.css";
+import "./language.css";
 
 function Language() {
   const { language, changeLanguage } = useTranslation();
