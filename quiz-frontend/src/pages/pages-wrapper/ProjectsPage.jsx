@@ -1,7 +1,7 @@
 import { useTranslation } from "../../i18n/useTranslation";
 import "../pages.css";
 
-function Projects() {
+function ProjectsPage() {
   const { t } = useTranslation();
 
   return (
@@ -17,4 +17,4 @@ function Projects() {
   );
 }
 
-export default Projects;
+export default ProjectsPage;

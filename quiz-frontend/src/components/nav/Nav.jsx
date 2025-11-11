@@ -18,36 +18,6 @@ function Nav({ onNavigate, hasActiveQuiz }) {
 
   return (
     <nav className="nav" aria-label={t("aria.navigation")}>
-      <NavLink
-        className={({ isActive }) =>
-          isActive ? "nav__btn nav__btn--active" : "nav__btn"
-        }
-        to="/"
-        end
-      >
-        🏠 {t("nav.quiz")}
-      </NavLink>
-
-      <NavLink
-        className={({ isActive }) =>
-          isActive ? "nav__btn nav__btn--active" : "nav__btn"
-        }
-        to="/statistics"
-        onClick={(e) => handleNavClick(e, "/statistics")}
-      >
-        📈 {t("nav.statistics")}
-      </NavLink>
-
-      <NavLink
-        className={({ isActive }) =>
-          isActive ? "nav__btn nav__btn--active" : "nav__btn"
-        }
-        to="/leaderboard"
-        onClick={(e) => handleNavClick(e, "/leaderboard")}
-      >
-        📊 {t("nav.leaderboard")}
-      </NavLink>
-
       <a
         className="nav__btn"
         href={projectsLink}
@@ -58,6 +28,25 @@ function Nav({ onNavigate, hasActiveQuiz }) {
       >
         📁 {t("nav.projects")}
       </a>
+      <hr />
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "nav__btn nav__btn--active" : "nav__btn"
+        }
+        to="/"
+        end
+      >
+        🏠 {t("nav.quiz")}
+      </NavLink>
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "nav__btn nav__btn--active" : "nav__btn"
+        }
+        to="/statistics"
+        onClick={(e) => handleNavClick(e, "/statistics")}
+      >
+        📊 {t("nav.statistics")}
+      </NavLink>
       <Pages />
     </nav>
   );

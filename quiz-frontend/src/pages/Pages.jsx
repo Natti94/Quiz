@@ -1,15 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import Auth from "./pages-wrapper/Auth";
-import Leaderboard from "./pages-wrapper/statistics-wrapper/LeaderboardPage";
-import Projects from "./pages-wrapper/Projects";
+import AuthPage from "./pages-wrapper/AuthPage";
+import StatisticsPage from "./pages-wrapper/StatisticsPage";
+import ProjectsPage from "./pages-wrapper/ProjectsPage";
 import "./pages.css";
 
 function Pages() {
   return (
     <Routes>
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/leaderboard" element={<Leaderboard />} />
-      <Route path="/projects" element={<Projects />} />
+      <Route path="/auth" element={<AuthPage />} />
+      <Route path="/statistics" element={<StatisticsPage />} />
+      <Route path="/projects" element={<ProjectsPage />} />
     </Routes>
   );
 }
