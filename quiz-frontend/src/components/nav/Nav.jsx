@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useTranslation } from "../../i18n/useTranslation";
 import Pages from "../../pages/Pages";
-import "./nav.css";
+import "./Nav.css";
 
 function Nav({ onNavigate, hasActiveQuiz }) {
   const { t } = useTranslation();
