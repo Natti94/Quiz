@@ -2,7 +2,7 @@ import Leaderboard from "./statistics-wrapper/leaderboard/Leaderboard";
 import Points from "./statistics-wrapper/leaderboard/leaderboard-wrapper/Points";
 import Speed from "./statistics-wrapper/leaderboard/leaderboard-wrapper/Speed";
 import Excellence from "./statistics-wrapper/leaderboard/leaderboard-wrapper/Excellence";
-import "./statistics.css";
+import "./Statistics.css";
 
 const Statistics = ({ activeCategory }) => {
   switch (activeCategory) {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../../i18n/useTranslation.js";
 import Language from "./header-wrapper/language/Language.jsx";
-import "./Header.css";
+import "./header.css";
 
 function Header() {
   const { t } = useTranslation();
