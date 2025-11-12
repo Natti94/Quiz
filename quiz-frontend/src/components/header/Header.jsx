@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "../../i18n/useTranslation.js";
 import Language from "./header-wrapper/language/Language.jsx";
-import "./header.css";
+import "./Header.css";
 
 function Header() {
   const { t } = useTranslation();
@@ -12,7 +12,7 @@ function Header() {
   return (
     <header className="header">
       <h1 className="header__title">{t("header.title")}</h1>
-
+    <p>AUTH IS NOT IN FUNCTION, U DON'T NEED TO LOG IN</p>
       <div className="header__right">
         {user ? (
           <div className="header__user">

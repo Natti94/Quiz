@@ -31,8 +31,10 @@ export const translations = {
       createAccount: "Skapa konto",
       loginLink: "Logga in",
     },
-    subject_aefi_exam_one: "Business Acumen and Economics in Real Estate 1",
-    subject_aefi_exam_two: "Business Acumen and Economics in Real Estate 2",
+    subject_aefi_exam_one:
+      "Affärsmannaskap och ekonomi inom fastighetsbranschen 1",
+    subject_aefi_exam_two:
+      "Affärsmannaskap och ekonomi inom fastighetsbranschen 2",
 
     toolbar: {
       cancel: "Avbryt",
@@ -291,12 +293,12 @@ export const translations = {
       apt: "Agil Projektmetodik & Testning",
       wai: "Webbsäkerhet; Analys och Implementation",
       "wai-exam": "Tenta: Webbsäkerhet; Analys och Implementation",
-       aefiOne: "Business and Economics in the Real Estate Industry Part 1",
-        "aefi-exam-one":
-          "Exam: Business and Economics in the Real Estate Industry Part 1",
-        aefiTwo: "Business and Economics in the Real Estate Industry Part 2",
-        "aefi-exam-two":
-          "Exam: Business and Economics in the Real Estate Industry Part 2",
+      aefiOne: "Affärs och Ekonomi inom Fastighetsbranschen Del 1",
+      "aefi-exam-one":
+        "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 1",
+      aefiTwo: "Affärs och Ekonomi inom Fastighetsbranschen Del 2",
+      "aefi-exam-two":
+        "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 2",
     },
 
     cookies: {
@@ -614,13 +616,12 @@ export const translations = {
       apt: "Agile Project Methodology & Testing",
       wai: "Web Security; Analysis and Implementation",
       "wai-exam": "Exam: Web Security; Analysis and Implementation",
-     aefiOne: "Affärs och Ekonomi inom Fastighetsbranschen Del 1",
+      aefiOne: "Business and Economics in the Real Estate Industry Part 1",
       "aefi-exam-one":
-        "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 1",
-      aefiTwo: "Affärs och Ekonomi inom Fastighetsbranschen Del 2",
+        "Exam: Business and Economics in the Real Estate Industry Part 1",
+      aefiTwo: "Business and Economics in the Real Estate Industry Part 2",
       "aefi-exam-two":
-        "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 2",
-   
+        "Exam: Business and Economics in the Real Estate Industry Part 2",
     },
 
     cookies: {
