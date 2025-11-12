@@ -1,4 +1,4 @@
-export const questionsAefiExam = [
+export const questionsAefiExamTwo = [
   {
     question:
       "Förklara syftet med en kassaflödesanalys vid fastighetsvärdering och hur den används för att bedöma en fastighets avkastningsförmåga.",
@@ -6,6 +6,51 @@ export const questionsAefiExam = [
     correct: -1,
     explanation:
       "Ett väl godkänt svar bör innehålla: 1) Förklaring av hur kassaflödesanalys används för att bedöma avkastningsförmåga, 2) Analys av in- och utbetalningar över tid, 3) Koppling till fastighetens lönsamhet och framtida värde, 4) Praktiska exempel på användningsområden.",
+    level: "VG",
+  },
+  {
+    question:
+      "Beskriv hur historiska data används vid värdering av fastigheter och vilka risker som kan uppstå om data är bristfällig.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Metoder för insamling och analys av historiska data, 2) Tillämpning vid värdering, 3) Risker och begränsningar med bristfällig data.",
+    level: "VG",
+  },
+  {
+    question:
+      "Resonera kring hur demografiska förändringar och samhällsutveckling påverkar marknadshyror på olika orter.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Analys av demografiska faktorer, 2) Koppling till samhällsutveckling, 3) Exempel på påverkan på marknadshyra.",
+    level: "VG",
+  },
+  {
+    question:
+      "Utveckla en ekonomisk plan för en bostadsrättsförening och förklara hur den bidrar till föreningens långsiktiga ekonomiska stabilitet.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Struktur och innehåll i ekonomisk plan, 2) Betydelse för stabilitet och planering, 3) Exempel på nyckeltal och uppföljning.",
+    level: "VG",
+  },
+  {
+    question:
+      "Beskriv processen för upphandling inom fastighetsförvaltning och förklara hur uppföljningssystem kan användas för att säkerställa kvalitet och ekonomi.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Steg för upphandling, 2) Nyckelkomponenter i uppföljningssystem, 3) Exempel på kvalitetssäkring och ekonomisk kontroll.",
+    level: "VG",
+  },
+  {
+    question:
+      "Analysera hur hållbara investeringar kan påverka fastighetsvärdet och ge exempel på konkreta åtgärder som kan implementeras.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Definition och exempel på hållbara investeringar, 2) Påverkan på fastighetsvärde, 3) Konkreta åtgärder och strategier.",
     level: "VG",
   },
   {
@@ -35,6 +80,51 @@ export const questionsAefiExam = [
       "Ett väl godkänt svar bör innehålla: 1) Komponenter i en förvaltningsplan, 2) Planerade underhållsåtgärder och investeringar, 3) Tidsplanering och budgetering, 4) Koppling till yrkesrollen och fastighetens värdeskapande, 5) Uppföljning och utvärdering.",
     level: "VG",
   },
+    {
+      question:
+        "Diskutera etiska dilemman som kan uppstå vid fastighetsvärdering och investeringar. Hur kan dessa hanteras i praktiken?",
+      options: [],
+      correct: -1,
+      explanation:
+        "Ett väl godkänt svar bör innehålla: 1) Identifiering av etiska dilemman (t.ex. intressekonflikter, transparens), 2) Exempel på hantering, 3) Reflektion kring konsekvenser för fastighetsbolaget och samhället.",
+      level: "VG",
+    },
+    {
+      question:
+        "Analysera hur digitalisering och ny teknik påverkar värderingsprocesser och ekonomisk planering inom fastighetsbranschen.",
+      options: [],
+      correct: -1,
+      explanation:
+        "Ett väl godkänt svar bör innehålla: 1) Exempel på digitala verktyg och system, 2) Påverkan på effektivitet och kvalitet, 3) Utmaningar och möjligheter.",
+      level: "VG",
+    },
+    {
+      question:
+        "Redogör för riskhantering och försäkringsfrågor vid fastighetsinvesteringar. Hur kan ekonomiska risker identifieras och minimeras?",
+      options: [],
+      correct: -1,
+      explanation:
+        "Ett väl godkänt svar bör innehålla: 1) Identifiering av investeringsrisker, 2) Metoder för riskhantering, 3) Roll och betydelse av försäkringar.",
+      level: "VG",
+    },
+    {
+      question:
+        "Beskriv hur kommunikationen med olika intressenter (investerare, myndigheter, boende) kan påverka ekonomiska beslut och fastighetsvärdering.",
+      options: [],
+      correct: -1,
+      explanation:
+        "Ett väl godkänt svar bör innehålla: 1) Identifiering av intressenter, 2) Kommunikationsstrategier, 3) Exempel på påverkan på ekonomiska beslut och värdering.",
+      level: "VG",
+    },
+    {
+      question:
+        "Lös ett praktiskt case där du ska fatta ett investeringsbeslut för ett fastighetsbolag. Beskriv tillvägagångssätt, analys och motivering av ditt beslut.",
+      options: [],
+      correct: -1,
+      explanation:
+        "Ett väl godkänt svar bör innehålla: 1) Tydlig beskrivning av case, 2) Stegvis analys, 3) Motivering av beslut utifrån ekonomiska och etiska aspekter.",
+      level: "VG",
+    },
   {
     question:
       "Förklara avkastningskrav som koncept inom fastighetsekonomin och hur det används vid värdering och investeringsbeslut.",

@@ -3,7 +3,8 @@ import { useTranslation } from "../../../i18n/useTranslation";
 import { questionsPlu } from "../../../data/index";
 import { questionsApt } from "../../../data/index";
 import { questionsWai } from "../../../data/index";
-import { questionsAefiExam } from "../../../data/index";
+import { questionsAefiExamOne } from "../../../data/index";
+import { questionsAefiExamTwo } from "../../../data/index";
 import { questionsPluExam } from "../../../data/index";
 import { questionsWaiExam } from "../../../data/index";
 
@@ -61,8 +62,10 @@ function Subject({ subject, mode: difficultyMode }, ref) {
       baseQuestions = questionsWai;
     } else if (subject === "wai-exam") {
       baseQuestions = questionsWaiExam;
-    } else if (subject === "aefi-exam") {
-      baseQuestions = questionsAefiExam;
+    } else if (subject === "aefi-exam-one") {
+      baseQuestions = questionsAefiExamOne;
+    } else if (subject === "aefi-exam-two") {
+      baseQuestions = questionsAefiExamTwo;
     }
 
     const filtered = filterQuestionsByMode(baseQuestions, mode);
@@ -82,10 +85,11 @@ function Subject({ subject, mode: difficultyMode }, ref) {
   async function evaluateWithAI(userInput) {
     setIsEvaluating(true);
     try {
-  const lang = t("lang.code") || (navigator.language?.startsWith("sv") ? "sv" : "en");
-  let promptText;
-  if (lang === "sv") {
-    promptText = `Du är en lärare som bedömer studenters svar på VG-nivå (Väl Godkänt). Bedöm svaret baserat på djup förståelse, noggrannhet och om det visar VG-nivå kunskap. Om svaret inte når VG-nivå, bedöm som IG-nivå (icke godkänt).
+      const lang =
+        t("lang.code") || (navigator.language?.startsWith("sv") ? "sv" : "en");
+      let promptText;
+      if (lang === "sv") {
+        promptText = `Du är en lärare som bedömer studenters svar på VG-nivå (Väl Godkänt). Bedöm svaret baserat på djup förståelse, noggrannhet och om det visar VG-nivå kunskap. Om svaret inte når VG-nivå, bedöm som IG-nivå (icke godkänt).
 
 Fråga: ${question.question}
 
@@ -97,8 +101,8 @@ Returnera exakt detta JSON-format:
 {"correct": "korrekt"/"IG", "feedback": "din feedback här", "poäng": 0-100}
 Om svaret är fel, sätt "correct": "IG" och "poäng": 0.
 Returnera endast JSON-objektet, utan extra text eller formatering.`;
-  } else {
-    promptText = `You are a teacher grading student answers at VG-level (pass with distinction). Grade based on deep understanding, accuracy, and if it shows VG-level knowledge. Otherwise, grade as IG (fail).
+      } else {
+        promptText = `You are a teacher grading student answers at VG-level (pass with distinction). Grade based on deep understanding, accuracy, and if it shows VG-level knowledge. Otherwise, grade as IG (fail).
 
 Question: ${question.question}
 
@@ -110,7 +114,7 @@ Return exactly this JSON format:
 {"correct": true/false, "feedback": "your feedback here", "score": 0-100}
 If the answer is wrong, set "correct": false and "score": 0.
 Return only the JSON object, no extra text or formatting.`;
-  }
+      }
 
       const res = await fetch("/.netlify/functions/LLM", {
         method: "POST",
@@ -142,7 +146,6 @@ Return only the JSON object, no extra text or formatting.`;
       const data = await res.json();
       let content = data.response;
 
-      // Remove common prefixes that AI might add
       content = content.replace(/^```json\s*/i, "").replace(/```\s*$/, "");
       content = content.replace(/^json\s*/i, "");
       content = content.trim();
@@ -168,8 +171,9 @@ Return only the JSON object, no extra text or formatting.`;
       }
 
       setAiEvaluation(evaluation);
-      // For Swedish, treat "korrekt" as correct
-      const isCorrect = lang === "sv" ? evaluation.correct === "korrekt" : !!evaluation.correct;
+
+      const isCorrect =
+        lang === "sv" ? evaluation.correct === "korrekt" : !!evaluation.correct;
       setSelected(isCorrect ? question.correct : -1);
       if (isCorrect) {
         setScore((s) => s + 1);
@@ -240,7 +244,11 @@ Return only the JSON object, no extra text or formatting.`;
   if (!subject) return null;
 
   const isQuizDone = index >= shuffledQuestions.length;
-  const lang = t("lang.code") || (typeof navigator !== "undefined" && navigator.language?.startsWith("sv") ? "sv" : "en");
+  const lang =
+    t("lang.code") ||
+    (typeof navigator !== "undefined" && navigator.language?.startsWith("sv")
+      ? "sv"
+      : "en");
 
   return (
     <>

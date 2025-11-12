@@ -32,8 +32,12 @@ function App() {
       icon: "🌐",
     },
     aefi: { label: t("subjects.aefi"), icon: "💼" },
-    "aefi-exam": {
-      label: t("subjects.aefi-exam"),
+    "aefi-exam-one": {
+      label: t("subjects.aefi-exam-one"),
+      icon: "💼",
+    },
+    "aefi-exam-two": {
+      label: t("subjects.aefi-exam-two"),
       icon: "💼",
     },
   };

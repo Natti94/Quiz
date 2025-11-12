@@ -21,12 +21,18 @@ export const translations = {
       loginTitle: "Logga in",
       loginSubtitle: "Välkommen tillbaka! Logga in på ditt konto.",
       registerTitle: "Registrera",
+      subject_aefi_exam_one:
+        "Affärsmannaskap och ekonomi inom fastighetsbranschen 1",
+      subject_aefi_exam_two:
+        "Affärsmannaskap och ekonomi inom fastighetsbranschen 2",
       registerSubtitle: "Skapa ett nytt konto för att komma igång.",
       noAccount: "Har du inget konto?",
       hasAccount: "Har du redan ett konto?",
       createAccount: "Skapa konto",
       loginLink: "Logga in",
     },
+    subject_aefi_exam_one: "Business Acumen and Economics in Real Estate 1",
+    subject_aefi_exam_two: "Business Acumen and Economics in Real Estate 2",
 
     toolbar: {
       cancel: "Avbryt",
@@ -85,7 +91,8 @@ export const translations = {
       pluDesc: "Leveranser, Uppföljning och Kvalitetssäkring.",
       aptDesc: "Scrum, Sprintar, Teststrategier och Verktyg.",
       waiDesc: "HTTP, Säkerhet, Kryptografi och Loggning.",
-      aefiDesc: "Affärs och Ekonomi inom Fastighetsbranschen.",
+      aefiDescOne: "Affärs och Ekonomi inom Fastighetsbranschen Del 1.",
+      aefiDescTwo: "Affärs och Ekonomi inom Fastighetsbranschen Del 2.",
       examPrefix: "Tenta: ",
 
       difficultyLabel: "Svårighet:",
@@ -164,8 +171,8 @@ export const translations = {
     },
 
     quiz: {
-  question: "Fråga",
-  scoreLabel: "Poäng",
+      question: "Fråga",
+      scoreLabel: "Poäng",
       of: "av",
       level: "Nivå",
       aiEvaluated: "(AI-bedömd)",
@@ -284,8 +291,12 @@ export const translations = {
       apt: "Agil Projektmetodik & Testning",
       wai: "Webbsäkerhet; Analys och Implementation",
       "wai-exam": "Tenta: Webbsäkerhet; Analys och Implementation",
-      aefi: "Affärs och Ekonomi inom Fastighetsbranschen",
-      "aefi-exam": "Tenta: Affärs och Ekonomi inom Fastighetsbranschen",
+       aefiOne: "Business and Economics in the Real Estate Industry Part 1",
+        "aefi-exam-one":
+          "Exam: Business and Economics in the Real Estate Industry Part 1",
+        aefiTwo: "Business and Economics in the Real Estate Industry Part 2",
+        "aefi-exam-two":
+          "Exam: Business and Economics in the Real Estate Industry Part 2",
     },
 
     cookies: {
@@ -401,7 +412,8 @@ export const translations = {
       pluDesc: "Deliveries, Follow-up and Quality Assurance.",
       aptDesc: "Scrum, Sprints, Test Strategies and Tools.",
       waiDesc: "HTTP, Security, Cryptography and Logging.",
-      aefiDesc: "Business and Economics in the Real Estate Industry.",
+      aefiDescOne: "Business and Economics in the Real Estate Industry Part 1.",
+      aefiDescTwo: "Business and Economics in the Real Estate Industry Part 2.",
       examPrefix: "Exam: ",
 
       difficultyLabel: "Difficulty:",
@@ -481,8 +493,8 @@ export const translations = {
     },
 
     quiz: {
-  question: "Question",
-  scoreLabel: "Score",
+      question: "Question",
+      scoreLabel: "Score",
       of: "of",
       level: "Level",
       aiEvaluated: "(AI-evaluated)",
@@ -602,8 +614,13 @@ export const translations = {
       apt: "Agile Project Methodology & Testing",
       wai: "Web Security; Analysis and Implementation",
       "wai-exam": "Exam: Web Security; Analysis and Implementation",
-      aefi: "Business and Economics in the Real Estate Industry",
-      "aefi-exam": "Exam: Business and Economics in the Real Estate Industry",
+     aefiOne: "Affärs och Ekonomi inom Fastighetsbranschen Del 1",
+      "aefi-exam-one":
+        "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 1",
+      aefiTwo: "Affärs och Ekonomi inom Fastighetsbranschen Del 2",
+      "aefi-exam-two":
+        "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 2",
+   
     },
 
     cookies: {
