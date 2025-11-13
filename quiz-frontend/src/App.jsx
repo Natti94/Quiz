@@ -6,7 +6,10 @@ import Nav from "./components/nav/Nav";
 import Footer from "./components/footer/Footer";
 import Updates from "./components/updates/Updates";
 import Header from "./components/header/Header";
-import Pages from "./pages/Pages";
+import AuthPage from "./pages/pages-wrapper/AuthPage";
+import StatisticsPage from "./pages/pages-wrapper/StatisticsPage";
+import ProjectsPage from "./pages/pages-wrapper/ProjectsPage";
+import { useEffect } from "react";
 
 function App() {
   const { t } = useTranslation();
@@ -16,8 +19,10 @@ function App() {
   const [showNavigationWarning, setShowNavigationWarning] = useState(false);
   const [pendingNavigation, setPendingNavigation] = useState(null);
   const subjectRef = useRef(null);
-  const navigate = useNavigate();
   const location = useLocation();
+  const navigate = useNavigate();
+  const subpagePaths = ["/statistics", "/auth", "/projects"];
+  const isSubpage = subpagePaths.includes(location.pathname);
 
   const subjectMeta = {
     plu: { label: t("subjects.plu"), icon: "📦" },
@@ -42,9 +47,25 @@ function App() {
     },
   };
 
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem("quiz_session");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.subject) {
+          setSubject(parsed.subject);
+          if (parsed.mode) setMode(parsed.mode);
+        }
+      }
+    } catch (err) {}
+  }, []);
+
   const handleCancelQuiz = () => {
     const stats = subjectRef.current?.getStats?.();
     if (stats) setLastSummary(stats);
+    try {
+      localStorage.removeItem("quiz_session");
+    } catch (err) {}
     setSubject(null);
     setShowNavigationWarning(false);
     if (pendingNavigation) {
@@ -84,95 +105,101 @@ function App() {
         <div className="app__main">
           <Header />
           <div className="app__content">
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <>
-                    {subject && (
-                      <div
-                        className="app-toolbar"
-                        role="toolbar"
-                        aria-label={t("aria.toolbar")}
-                      >
-                        <div className="app-toolbar__subject">
-                          <span
-                            className="app-toolbar__subject-icon"
-                            aria-hidden
-                          >
-                            {subjectMeta[subject]?.icon}
-                          </span>
-                          <span className="app-toolbar__subject-text">
-                            {t(`subjects.${subject}`)}
-                          </span>
-                        </div>
-                        <button
-                          type="button"
-                          className="app-toolbar__cancel"
-                          onClick={handleCancelQuiz}
-                          title={t("toolbar.cancelTitle")}
-                        >
-                          {t("toolbar.cancel")}
-                        </button>
-                      </div>
-                    )}
+            {}
+            <div
+              className={
+                isSubpage ? "app-content--hidden" : "app-content--visible"
+              }
+              aria-hidden={isSubpage}
+              style={{ display: isSubpage ? "none" : undefined }}
+            >
+              {subject && (
+                <div
+                  className="app-toolbar"
+                  role="toolbar"
+                  aria-label={t("aria.toolbar")}
+                >
+                  <div className="app-toolbar__subject">
+                    <span className="app-toolbar__subject-icon" aria-hidden>
+                      {subjectMeta[subject]?.icon}
+                    </span>
+                    <span className="app-toolbar__subject-text">
+                      {t(`subjects.${subject}`)}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    className="app-toolbar__cancel"
+                    onClick={handleCancelQuiz}
+                    title={t("toolbar.cancelTitle")}
+                  >
+                    {t("toolbar.cancel")}
+                  </button>
+                </div>
+              )}
 
-                    {showNavigationWarning && (
-                      <div className="app-nav-warning">
-                        <div
-                          className="app-nav-warning__overlay"
-                          onClick={handleStayOnPage}
-                        />
-                        <div className="app-nav-warning__panel">
-                          <h3 className="app-nav-warning__title">
-                            {t("navWarning.title")}
-                          </h3>
-                          <p className="app-nav-warning__text">
-                            {t("navWarning.message")}
-                          </p>
-                          <div className="app-nav-warning__actions">
-                            <button
-                              type="button"
-                              className="app-nav-warning__btn app-nav-warning__btn--stay"
-                              onClick={handleStayOnPage}
-                            >
-                              {t("navWarning.stay")}
-                            </button>
-                            <button
-                              type="button"
-                              className="app-nav-warning__btn app-nav-warning__btn--continue"
-                              onClick={handleContinueSession}
-                            >
-                              {t("navWarning.continue")}
-                            </button>
-                            <button
-                              type="button"
-                              className="app-nav-warning__btn app-nav-warning__btn--cancel"
-                              onClick={handleCancelQuiz}
-                            >
-                              {t("navWarning.endQuiz")}
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    <Content
-                      subject={subject}
-                      mode={mode}
-                      lastSummary={lastSummary}
-                      subjectMeta={subjectMeta}
-                      subjectRef={subjectRef}
-                      onSelect={(s, m) => {
-                        setLastSummary(null);
-                        setSubject(s);
-                        setMode(m || "AI");
-                      }}
-                    />
-                  </>
-                }
+              {showNavigationWarning && (
+                <div className="app-nav-warning">
+                  <div
+                    className="app-nav-warning__overlay"
+                    onClick={handleStayOnPage}
+                  />
+                  <div className="app-nav-warning__panel">
+                    <h3 className="app-nav-warning__title">
+                      {t("navWarning.title")}
+                    </h3>
+                    <p className="app-nav-warning__text">
+                      {t("navWarning.message")}
+                    </p>
+                    <div className="app-nav-warning__actions">
+                      <button
+                        type="button"
+                        className="app-nav-warning__btn app-nav-warning__btn--stay"
+                        onClick={handleStayOnPage}
+                      >
+                        {t("navWarning.stay")}
+                      </button>
+                      <button
+                        type="button"
+                        className="app-nav-warning__btn app-nav-warning__btn--continue"
+                        onClick={handleContinueSession}
+                      >
+                        {t("navWarning.continue")}
+                      </button>
+                      <button
+                        type="button"
+                        className="app-nav-warning__btn app-nav-warning__btn--cancel"
+                        onClick={handleCancelQuiz}
+                      >
+                        {t("navWarning.endQuiz")}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <Content
+                subject={subject}
+                mode={mode}
+                lastSummary={lastSummary}
+                subjectMeta={subjectMeta}
+                subjectRef={subjectRef}
+                onSelect={(s, m) => {
+                  setLastSummary(null);
+                  setSubject(s);
+                  setMode(m || "AI");
+                }}
               />
-              <Route path="/*" element={<Pages />} />
-            </Routes>
+            </div>
+
+            {}
+            <div className="app__subpage">
+              <Routes>
+                <Route path="/statistics" element={<StatisticsPage />} />
+                <Route path="/auth" element={<AuthPage />} />
+                <Route path="/projects" element={<ProjectsPage />} />
+              </Routes>
+            </div>
           </div>
           <Updates />
           <Footer />

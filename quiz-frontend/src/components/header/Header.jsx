@@ -12,7 +12,7 @@ function Header() {
   return (
     <header className="header">
       <h1 className="header__title">{t("header.title")}</h1>
-    <p>AUTH IS NOT IN FUNCTION, U DON'T NEED TO LOG IN</p>
+      <p>AUTH IS NOT IN FUNCTION, U DON'T NEED TO LOG IN</p>
       <div className="header__right">
         {user ? (
           <div className="header__user">

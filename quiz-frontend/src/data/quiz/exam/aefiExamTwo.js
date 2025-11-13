@@ -80,51 +80,51 @@ export const questionsAefiExamTwo = [
       "Ett väl godkänt svar bör innehålla: 1) Komponenter i en förvaltningsplan, 2) Planerade underhållsåtgärder och investeringar, 3) Tidsplanering och budgetering, 4) Koppling till yrkesrollen och fastighetens värdeskapande, 5) Uppföljning och utvärdering.",
     level: "VG",
   },
-    {
-      question:
-        "Diskutera etiska dilemman som kan uppstå vid fastighetsvärdering och investeringar. Hur kan dessa hanteras i praktiken?",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Identifiering av etiska dilemman (t.ex. intressekonflikter, transparens), 2) Exempel på hantering, 3) Reflektion kring konsekvenser för fastighetsbolaget och samhället.",
-      level: "VG",
-    },
-    {
-      question:
-        "Analysera hur digitalisering och ny teknik påverkar värderingsprocesser och ekonomisk planering inom fastighetsbranschen.",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Exempel på digitala verktyg och system, 2) Påverkan på effektivitet och kvalitet, 3) Utmaningar och möjligheter.",
-      level: "VG",
-    },
-    {
-      question:
-        "Redogör för riskhantering och försäkringsfrågor vid fastighetsinvesteringar. Hur kan ekonomiska risker identifieras och minimeras?",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Identifiering av investeringsrisker, 2) Metoder för riskhantering, 3) Roll och betydelse av försäkringar.",
-      level: "VG",
-    },
-    {
-      question:
-        "Beskriv hur kommunikationen med olika intressenter (investerare, myndigheter, boende) kan påverka ekonomiska beslut och fastighetsvärdering.",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Identifiering av intressenter, 2) Kommunikationsstrategier, 3) Exempel på påverkan på ekonomiska beslut och värdering.",
-      level: "VG",
-    },
-    {
-      question:
-        "Lös ett praktiskt case där du ska fatta ett investeringsbeslut för ett fastighetsbolag. Beskriv tillvägagångssätt, analys och motivering av ditt beslut.",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Tydlig beskrivning av case, 2) Stegvis analys, 3) Motivering av beslut utifrån ekonomiska och etiska aspekter.",
-      level: "VG",
-    },
+  {
+    question:
+      "Diskutera etiska dilemman som kan uppstå vid fastighetsvärdering och investeringar. Hur kan dessa hanteras i praktiken?",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Identifiering av etiska dilemman (t.ex. intressekonflikter, transparens), 2) Exempel på hantering, 3) Reflektion kring konsekvenser för fastighetsbolaget och samhället.",
+    level: "VG",
+  },
+  {
+    question:
+      "Analysera hur digitalisering och ny teknik påverkar värderingsprocesser och ekonomisk planering inom fastighetsbranschen.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Exempel på digitala verktyg och system, 2) Påverkan på effektivitet och kvalitet, 3) Utmaningar och möjligheter.",
+    level: "VG",
+  },
+  {
+    question:
+      "Redogör för riskhantering och försäkringsfrågor vid fastighetsinvesteringar. Hur kan ekonomiska risker identifieras och minimeras?",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Identifiering av investeringsrisker, 2) Metoder för riskhantering, 3) Roll och betydelse av försäkringar.",
+    level: "VG",
+  },
+  {
+    question:
+      "Beskriv hur kommunikationen med olika intressenter (investerare, myndigheter, boende) kan påverka ekonomiska beslut och fastighetsvärdering.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Identifiering av intressenter, 2) Kommunikationsstrategier, 3) Exempel på påverkan på ekonomiska beslut och värdering.",
+    level: "VG",
+  },
+  {
+    question:
+      "Lös ett praktiskt case där du ska fatta ett investeringsbeslut för ett fastighetsbolag. Beskriv tillvägagångssätt, analys och motivering av ditt beslut.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Tydlig beskrivning av case, 2) Stegvis analys, 3) Motivering av beslut utifrån ekonomiska och etiska aspekter.",
+    level: "VG",
+  },
   {
     question:
       "Förklara avkastningskrav som koncept inom fastighetsekonomin och hur det används vid värdering och investeringsbeslut.",

@@ -72,59 +72,58 @@ export const questionsAefiExamOne = [
     level: "VG",
   },
   {
-    question:
-      "Utveckla entreprenad-, drift- och underhållskalkyler.",
+    question: "Utveckla entreprenad-, drift- och underhållskalkyler.",
     options: [],
     correct: -1,
     explanation:
       "Ett väl godkänt svar bör innehålla: 1) Steg för att skapa kalkyler, 2) Viktiga parametrar och nyckeltal, 3) Exempel på kalkyler för olika typer av fastigheter, 4) Analys av resultat.",
     level: "VG",
   },
-    {
-      question:
-        "Diskutera etiska dilemman som kan uppstå inom fastighetsekonomi och ge exempel på hur dessa kan hanteras i praktiken.",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Identifiering av etiska dilemman (t.ex. intressekonflikter, transparens), 2) Exempel på hantering, 3) Reflektion kring konsekvenser för verksamheten.",
-      level: "VG",
-    },
-    {
-      question:
-        "Analysera hur digitalisering och ny teknik påverkar ekonomiska processer och affärsmannaskap inom fastighetsbranschen.",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Exempel på digitala verktyg och system, 2) Påverkan på effektivitet och beslutsfattande, 3) Utmaningar och möjligheter.",
-      level: "VG",
-    },
-    {
-      question:
-        "Redogör för riskhantering och försäkringsfrågor inom fastighetsförvaltning. Hur kan ekonomiska risker identifieras och minimeras?",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Identifiering av ekonomiska risker, 2) Metoder för riskhantering, 3) Roll och betydelse av försäkringar.",
-      level: "VG",
-    },
-    {
-      question:
-        "Beskriv hur kommunikationen med olika intressenter (hyresgäster, leverantörer, myndigheter) kan påverka ekonomiska beslut och affärsmannaskap.",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Identifiering av intressenter, 2) Kommunikationsstrategier, 3) Exempel på påverkan på ekonomiska beslut.",
-      level: "VG",
-    },
-    {
-      question:
-        "Lös ett praktiskt case där du ska fatta ett ekonomiskt beslut för ett fastighetsbolag. Beskriv tillvägagångssätt, analys och motivering av ditt beslut.",
-      options: [],
-      correct: -1,
-      explanation:
-        "Ett väl godkänt svar bör innehålla: 1) Tydlig beskrivning av case, 2) Stegvis analys, 3) Motivering av beslut utifrån ekonomiska och affärsmässiga aspekter.",
-      level: "VG",
-    },
+  {
+    question:
+      "Diskutera etiska dilemman som kan uppstå inom fastighetsekonomi och ge exempel på hur dessa kan hanteras i praktiken.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Identifiering av etiska dilemman (t.ex. intressekonflikter, transparens), 2) Exempel på hantering, 3) Reflektion kring konsekvenser för verksamheten.",
+    level: "VG",
+  },
+  {
+    question:
+      "Analysera hur digitalisering och ny teknik påverkar ekonomiska processer och affärsmannaskap inom fastighetsbranschen.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Exempel på digitala verktyg och system, 2) Påverkan på effektivitet och beslutsfattande, 3) Utmaningar och möjligheter.",
+    level: "VG",
+  },
+  {
+    question:
+      "Redogör för riskhantering och försäkringsfrågor inom fastighetsförvaltning. Hur kan ekonomiska risker identifieras och minimeras?",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Identifiering av ekonomiska risker, 2) Metoder för riskhantering, 3) Roll och betydelse av försäkringar.",
+    level: "VG",
+  },
+  {
+    question:
+      "Beskriv hur kommunikationen med olika intressenter (hyresgäster, leverantörer, myndigheter) kan påverka ekonomiska beslut och affärsmannaskap.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Identifiering av intressenter, 2) Kommunikationsstrategier, 3) Exempel på påverkan på ekonomiska beslut.",
+    level: "VG",
+  },
+  {
+    question:
+      "Lös ett praktiskt case där du ska fatta ett ekonomiskt beslut för ett fastighetsbolag. Beskriv tillvägagångssätt, analys och motivering av ditt beslut.",
+    options: [],
+    correct: -1,
+    explanation:
+      "Ett väl godkänt svar bör innehålla: 1) Tydlig beskrivning av case, 2) Stegvis analys, 3) Motivering av beslut utifrån ekonomiska och affärsmässiga aspekter.",
+    level: "VG",
+  },
   {
     question:
       "Redogör för olika ekonomirutiner och dagliga ekonomiska uppgifter på ett fastighetsföretag.",
@@ -135,8 +134,7 @@ export const questionsAefiExamOne = [
     level: "VG",
   },
   {
-    question:
-      "Upprätta analys och lös problem med hjälp av matematik.",
+    question: "Upprätta analys och lös problem med hjälp av matematik.",
     options: [],
     correct: -1,
     explanation:
@@ -153,8 +151,7 @@ export const questionsAefiExamOne = [
     level: "VG",
   },
   {
-    question:
-      "Ta fram intäkts- och kostnadskalkyler.",
+    question: "Ta fram intäkts- och kostnadskalkyler.",
     options: [],
     correct: -1,
     explanation:
@@ -162,8 +159,7 @@ export const questionsAefiExamOne = [
     level: "VG",
   },
   {
-    question:
-      "Tolka och använda nyckeltal för ekonomistyrning.",
+    question: "Tolka och använda nyckeltal för ekonomistyrning.",
     options: [],
     correct: -1,
     explanation:
@@ -171,8 +167,7 @@ export const questionsAefiExamOne = [
     level: "VG",
   },
   {
-    question:
-      "Ta fram marknadsplaner och utarbeta budget.",
+    question: "Ta fram marknadsplaner och utarbeta budget.",
     options: [],
     correct: -1,
     explanation:

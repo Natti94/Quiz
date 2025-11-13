@@ -118,7 +118,7 @@ export const questionsWaiExam = [
   },
   {
     question:
-      "Vad är OWASP (Open Web Application Security Project) och beskriv ett av de tio största säkerhetshoten, t.ex. XSS (Cross-Site Scripting)?",
+      "OBS! Denna fråga ger mest poäng. Vad är OWASP (Open Web Application Security Project) och beskriv ett av de tio största säkerhetshoten, t.ex. XSS (Cross-Site Scripting)?",
     options: [
       "En ideell organisation som dokumenterar webbsäkerhetsrisker. XSS = injektion av skadlig JavaScript-kod i webbsidor",
       "Ett företag som säljer säkerhetsprodukter",
