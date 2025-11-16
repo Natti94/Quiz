@@ -55,8 +55,4 @@ jobs:
       - name: Semantic Release
         run: npx semantic-release
         env:
-          # DO NOT store personal access tokens in the repo files.
-          # Create a repository secret named `RELEASE_GH_TOKEN` and set it to a
-          # GitHub personal access token (classic or fine-grained) with the
-          # necessary repo permissions. Then reference it below.
-          GITHUB_TOKEN: ${{ secrets.RELEASE_GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
