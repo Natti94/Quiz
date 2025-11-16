@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.0...quiz-frontend-v1.1.0) (2025-11-16)
+
+### Features
+
+* changes to shuffle logic for quiz-subjects, moved some logic into lib. ([0062763](https://github.com/Natti94/Quiz/commit/0062763d4da3b4df16dbdd269837780b94a289c1))
+
 ## 1.0.0 (2025-11-16)
 
 ### ⚠ BREAKING CHANGES
