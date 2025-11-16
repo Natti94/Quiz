@@ -98,12 +98,12 @@ export const translations = {
       examPrefix: "Tenta: ",
 
       difficultyLabel: "Svårighet:",
-      standard: "Standard",
-      aiEvaluation: "AI-bedömning",
+      standard: "Standard - Flerval",
+      aiEvaluation: "AI-bedömning - Flerval & Fritext",
       aiUnavailableSuffix: " - Ej tillgänglig",
 
       standardExamInfo: "Alla frågor är flerval.",
-      standardExamTitle: "Standard Tentamen:",
+      standardExamTitle: "Flerval:",
       aiUnavailableTitle: "AI-bedömning är inte tillgänglig:",
       aiUnavailableText: "AI-tjänsten är inte konfigurerad.",
       aiModeTitle: "AI-bedömning",
@@ -419,12 +419,12 @@ export const translations = {
       examPrefix: "Exam: ",
 
       difficultyLabel: "Difficulty:",
-      standard: "Standard",
-      aiEvaluation: "AI-evaluation",
+      standard: "Standard - Multiple Choice",
+      aiEvaluation: "AI-evaluation - Multiple Choice & Free Text",
       aiUnavailableSuffix: " - Not available",
 
       standardExamInfo: "All questions are multiple choice.",
-      standardExamTitle: "Standard Exam:",
+      standardExamTitle: "Multiple Choice:",
       aiUnavailableTitle: "AI-evaluation is not available:",
       aiUnavailableText: "The AI service is not configured.",
       aiModeTitle: "AI-evaluation:",

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useTranslation } from "../../../i18n/useTranslation";
+import { useTranslation } from "../../../lib/i18n/useTranslation";
 
 function Form({ onSelect }) {
   const { t } = useTranslation();

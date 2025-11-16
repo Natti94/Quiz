@@ -1,28 +1,29 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import { useTranslation } from "./i18n/useTranslation";
+import { useTranslation } from "./lib/i18n/useTranslation";
 import Content from "./components/content/Content";
 import Nav from "./components/nav/Nav";
 import Footer from "./components/footer/Footer";
-import Updates from "./components/updates/Updates";
 import Header from "./components/header/Header";
-import AuthPage from "./pages/pages-wrapper/AuthPage";
-import StatisticsPage from "./pages/pages-wrapper/StatisticsPage";
-import ProjectsPage from "./pages/pages-wrapper/ProjectsPage";
-import { useEffect } from "react";
+import StatisticsPage from "./pages/StatisticsPage";
 
 function App() {
   const { t } = useTranslation();
-  const [subject, setSubject] = useState(null);
   const [mode, setMode] = useState("AI");
+  const [subject, setSubject] = useState(null);
   const [lastSummary, setLastSummary] = useState(null);
   const [showNavigationWarning, setShowNavigationWarning] = useState(false);
   const [pendingNavigation, setPendingNavigation] = useState(null);
+
   const subjectRef = useRef(null);
-  const location = useLocation();
+
   const navigate = useNavigate();
-  const subpagePaths = ["/statistics", "/auth", "/projects"];
-  const isSubpage = subpagePaths.includes(location.pathname);
+  const location = useLocation();
+
+  const subpagePaths = ["/statistics", "/analytics"];
+  const isSubpage = subpagePaths.some(
+    (p) => location.pathname === p || location.pathname.startsWith(p + "/")
+  );
 
   const subjectMeta = {
     plu: { label: t("subjects.plu"), icon: "📦" },
@@ -196,12 +197,9 @@ function App() {
             <div className="app__subpage">
               <Routes>
                 <Route path="/statistics" element={<StatisticsPage />} />
-                <Route path="/auth" element={<AuthPage />} />
-                <Route path="/projects" element={<ProjectsPage />} />
               </Routes>
             </div>
           </div>
-          <Updates />
           <Footer />
         </div>
       </div>

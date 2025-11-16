@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useTranslation } from "../../i18n/useTranslation";
+import { useTranslation } from "../../lib/i18n/useTranslation";
+import { clearCookieConsent } from "../../utils/cookies";
 import Version from "./footer-wrapper/Version";
 import Copyright from "./footer-wrapper/Copyright";
-import Cookies from "./footer-wrapper/cookies/Cookies";
-import { clearCookieConsent } from "../../utils/cookies";
-import "./Footer.css";
+import Cookies from "./footer-wrapper/Cookies";
+import Updates from "./footer-wrapper/Updates";
+import "./footer.css";
 
 function Footer() {
   const { t } = useTranslation();
@@ -30,6 +31,7 @@ function Footer() {
           🍪 {t("cookies.manageConsent")}
         </button>
         <Cookies />
+        <Updates />
         <Version />
       </div>
     </footer>

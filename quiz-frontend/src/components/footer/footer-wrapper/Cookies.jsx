@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { useTranslation } from "../../../../i18n/useTranslation";
+import { useTranslation } from "../../../lib/i18n/useTranslation";
 import {
   getCookieConsent,
   setCookieConsent,
   hasConsented,
   CookieCategories,
-} from "../../../../utils/cookies";
-import "./Cookies.css";
+} from "../../../utils/cookies";
 
 function Cookies() {
   const { t } = useTranslation();
@@ -68,33 +67,39 @@ function Cookies() {
   if (!showBanner) return null;
 
   return (
-    <div className="cookie-consent-overlay" role="dialog" aria-modal="true">
-      <div className="cookie-consent">
+    <div
+      className="app-footer__cookie-consent-overlay"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div className="app-footer__cookie-consent">
         {!showCustomize ? (
           <>
-            <h2 className="cookie-consent__title">{t("cookies.title")}</h2>
-            <p className="cookie-consent__description">
+            <h2 className="app-footer__cookie-consent-title">
+              {t("cookies.title")}
+            </h2>
+            <p className="app-footer__cookie-consent-description">
               {t("cookies.description")}
             </p>
 
-            <div className="cookie-consent__actions">
+            <div className="app-footer__cookie-consent-actions">
               <button
                 type="button"
-                className="cookie-btn cookie-btn--primary"
+                className="app-footer__cookie-btn app-footer__cookie-btn--primary"
                 onClick={handleAcceptAll}
               >
                 {t("cookies.acceptAll")}
               </button>
               <button
                 type="button"
-                className="cookie-btn cookie-btn--secondary"
+                className="app-footer__cookie-btn app-footer__cookie-btn--secondary"
                 onClick={handleAcceptNecessary}
               >
                 {t("cookies.acceptNecessary")}
               </button>
               <button
                 type="button"
-                className="cookie-btn cookie-btn--tertiary"
+                className="app-footer__cookie-btn app-footer__cookie-btn--tertiary"
                 onClick={() => setShowCustomize(true)}
               >
                 {t("cookies.customize")}
@@ -103,54 +108,56 @@ function Cookies() {
           </>
         ) : (
           <>
-            <h2 className="cookie-consent__title">{t("cookies.customize")}</h2>
+            <h2 className="app-footer__cookie-consent-title">
+              {t("cookies.customize")}
+            </h2>
 
-            <div className="cookie-consent__categories">
-              <div className="cookie-category">
-                <label className="cookie-category__label">
+            <div className="app-footer__cookie-consent-categories">
+              <div className="app-footer__cookie-category">
+                <label className="app-footer__cookie-category-label">
                   <input
                     type="checkbox"
                     checked={preferences[CookieCategories.NECESSARY]}
                     disabled
-                    className="cookie-category__checkbox"
+                    className="app-footer__cookie-category-checkbox"
                   />
-                  <div className="cookie-category__content">
+                  <div className="app-footer__cookie-category-content">
                     <strong>{t("cookies.necessary")}</strong>
-                    <p className="cookie-category__desc">
+                    <p className="app-footer__cookie-category-desc">
                       {t("cookies.necessaryDesc")}
                     </p>
                   </div>
                 </label>
               </div>
 
-              <div className="cookie-category">
-                <label className="cookie-category__label">
+              <div className="app-footer__cookie-category">
+                <label className="app-footer__cookie-category-label">
                   <input
                     type="checkbox"
                     checked={preferences[CookieCategories.FUNCTIONAL]}
                     onChange={() => toggleCategory(CookieCategories.FUNCTIONAL)}
-                    className="cookie-category__checkbox"
+                    className="app-footer__cookie-category-checkbox"
                   />
-                  <div className="cookie-category__content">
+                  <div className="app-footer__cookie-category-content">
                     <strong>{t("cookies.functional")}</strong>
-                    <p className="cookie-category__desc">
+                    <p className="app-footer__cookie-category-desc">
                       {t("cookies.functionalDesc")}
                     </p>
                   </div>
                 </label>
               </div>
 
-              <div className="cookie-category">
-                <label className="cookie-category__label">
+              <div className="app-footer__cookie-category">
+                <label className="app-footer__cookie-category-label">
                   <input
                     type="checkbox"
                     checked={preferences[CookieCategories.ANALYTICS]}
                     onChange={() => toggleCategory(CookieCategories.ANALYTICS)}
-                    className="cookie-category__checkbox"
+                    className="app-footer__cookie-category-checkbox"
                   />
-                  <div className="cookie-category__content">
+                  <div className="app-footer__cookie-category-content">
                     <strong>{t("cookies.analytics")}</strong>
-                    <p className="cookie-category__desc">
+                    <p className="app-footer__cookie-category-desc">
                       {t("cookies.analyticsDesc")}
                     </p>
                   </div>
@@ -158,17 +165,17 @@ function Cookies() {
               </div>
             </div>
 
-            <div className="cookie-consent__actions">
+            <div className="app-footer__cookie-consent-actions">
               <button
                 type="button"
-                className="cookie-btn cookie-btn--primary"
+                className="app-footer__cookie-btn app-footer__cookie-btn--primary"
                 onClick={handleSavePreferences}
               >
                 {t("cookies.savePreferences")}
               </button>
               <button
                 type="button"
-                className="cookie-btn cookie-btn--tertiary"
+                className="app-footer__cookie-btn app-footer__cookie-btn--tertiary"
                 onClick={() => setShowCustomize(false)}
               >
                 {t("quizSelector.cancel")}

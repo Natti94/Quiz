@@ -5,13 +5,21 @@ export function parseJwt(token) {
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
 
+    const _atob =
+      typeof atob === "function"
+        ? atob
+        : (str) =>
+            typeof globalThis !== "undefined" && globalThis.Buffer
+              ? globalThis.Buffer.from(str, "base64").toString("binary")
+              : atob(str);
+
     const jsonPayload = decodeURIComponent(
-      atob(base64)
+      _atob(base64)
         .split("")
         .map(function (c) {
           return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
         })
-        .join(""),
+        .join("")
     );
 
     return JSON.parse(jsonPayload);
@@ -19,12 +27,4 @@ export function parseJwt(token) {
     console.error("Failed to parse JWT:", error);
     return null;
   }
-}
-
-export function isTokenExpired(token) {
-  const payload = parseJwt(token);
-  if (!payload || !payload.exp) return true;
-
-  const now = Date.now() / 1000;
-  return payload.exp < now;
 }

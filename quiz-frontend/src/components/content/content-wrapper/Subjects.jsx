@@ -1,5 +1,5 @@
 import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
-import { useTranslation } from "../../../i18n/useTranslation";
+import { useTranslation } from "../../../lib/i18n/useTranslation";
 import { questionsPlu } from "../../../data/index";
 import { questionsApt } from "../../../data/index";
 import { questionsWai } from "../../../data/index";

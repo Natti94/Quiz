@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { useTranslation } from "../../i18n/useTranslation";
-import Pages from "../../pages/Pages";
-import "./Nav.css";
+import { useTranslation } from "../../lib/i18n/useTranslation";
+import "./nav.css";
 
 function Nav({ onNavigate, hasActiveQuiz }) {
   const { t } = useTranslation();
+
   const projectsLink = import.meta.env.VITE_PROJECT_LINK;
 
   const handleNavClick = (e, path) => {
@@ -47,7 +47,16 @@ function Nav({ onNavigate, hasActiveQuiz }) {
       >
         📊 {t("nav.statistics")}
       </NavLink>
-      <Pages />
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "nav__btn nav__btn--active" : "nav__btn"
+        }
+        to="/analytics"
+        onClick={(e) => handleNavClick(e, "/analytics")}
+      >
+        📈 {t("nav.analytics")}
+      </NavLink>
+      {}
     </nav>
   );
 }

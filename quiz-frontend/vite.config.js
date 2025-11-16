@@ -15,4 +15,9 @@ export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(packageJson.version),
   },
+  proxy: {
+    target: "https://chatify-api.up.railway.app",
+    changeOrigin: true,
+    secure: false,
+  },
 });

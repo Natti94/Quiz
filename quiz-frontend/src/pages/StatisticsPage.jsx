@@ -1,9 +1,9 @@
-import { useTranslation } from "../../i18n/useTranslation";
-import Statistics from "../../components/statistics/Statistics";
-import "../pages.css";
+import { useTranslation } from "../lib/i18n/useTranslation";
+import Statistics from "../components/statistics/Statistics";
 
 function StatisticsPage() {
   const { t } = useTranslation();
+
   return (
     <div className="statistics">
       <div className="statistics__header">

@@ -1,11 +1,11 @@
 import { createContext, useState, useEffect } from "react";
 import {
-  login as loginService,
-  register as registerService,
-  logout as logoutService,
+  loginUser as loginService,
+  registerUser as registerService,
+  logoutUser as logoutService,
   isAuthenticated as checkAuth,
   getCurrentUser as getUser,
-} from "../services/auth";
+} from "../../services";
 
 const AuthContext = createContext(null);
 
