@@ -8,3 +8,5 @@ export function useTranslation() {
   }
   return context;
 }
+
+export default useTranslation;

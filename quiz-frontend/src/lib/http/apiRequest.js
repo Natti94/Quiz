@@ -1,4 +1,4 @@
-import { handleSuccess } from "./handleSuccess";
+import { handleSuccess } from "./handleSuccess.js";
 import { handleError } from "./handleError.js";
 
 export async function apiRequest(

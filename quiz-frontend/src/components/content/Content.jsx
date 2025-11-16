@@ -1,6 +1,6 @@
 import { useTranslation } from "../../lib/i18n/useTranslation";
 import Form from "./content-wrapper/Form";
-import Subject from "./content-wrapper/Subjects";
+import Subject from "./content-wrapper/Subject";
 import "./content.css";
 
 function Content({

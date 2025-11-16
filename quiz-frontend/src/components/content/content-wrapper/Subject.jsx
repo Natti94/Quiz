@@ -7,26 +7,7 @@ import { questionsAefiExamOne } from "../../../data/index";
 import { questionsAefiExamTwo } from "../../../data/index";
 import { questionsPluExam } from "../../../data/index";
 import { questionsWaiExam } from "../../../data/index";
-
-function shuffleArray(array) {
-  const newArray = [...array];
-  for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-  }
-  return newArray;
-}
-
-function shuffleQuestion(questions) {
-  return shuffleArray(questions).map((q) => {
-    if (!q.options || typeof q.correct !== "number") return q;
-    const optionPairs = q.options.map((opt, idx) => ({ opt, idx }));
-    const shuffled = shuffleArray(optionPairs);
-    const newOptions = shuffled.map((p) => p.opt);
-    const newCorrect = shuffled.findIndex((p) => p.idx === q.correct);
-    return { ...q, options: newOptions, correct: newCorrect };
-  });
-}
+import shuffleQuestion from "../../../lib/quiz/shuffleQuestion.js";
 
 function Subject({ subject, mode: difficultyMode }, ref) {
   const { t } = useTranslation();
@@ -130,13 +111,13 @@ Return only the JSON object, no extra text or formatting.`;
 
         if (res.status === 429) {
           throw new Error(
-            `Rate limit exceeded. ${errorData.message || "Please wait before trying again."}`,
+            `Rate limit exceeded. ${errorData.message || "Please wait before trying again."}`
           );
         }
 
         if (res.status === 503 || errorData.code === "OLLAMA_UNAVAILABLE") {
           throw new Error(
-            "AI evaluation service is not available. Please use Standard mode instead.",
+            "AI evaluation service is not available. Please use Standard mode instead."
           );
         }
 
@@ -154,7 +135,6 @@ Return only the JSON object, no extra text or formatting.`;
       try {
         evaluation = JSON.parse(content);
       } catch {
-        // Fallback for non-JSON response
         if (lang === "sv") {
           evaluation = {
             correct: "IG",
@@ -238,7 +218,7 @@ Return only the JSON object, no extra text or formatting.`;
         subject,
       }),
     }),
-    [score, index, selected, shuffledQuestions.length, subject],
+    [score, index, selected, shuffledQuestions.length, subject]
   );
 
   if (!subject) return null;

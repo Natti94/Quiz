@@ -1,5 +1,5 @@
 import { generateCsrf } from "./generateCsrf.js";
-import { apiRequest } from "../../lib/http-request/index.js";
+import { apiRequest } from "../../lib/http/index.js";
 
 const AUTH_API_BASE = import.meta.env.VITE_AUTH_API_BASE_URL;
 
