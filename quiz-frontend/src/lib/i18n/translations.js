@@ -3,8 +3,9 @@ export const translations = {
     nav: {
       quiz: "Quiz",
       statistics: "Statistik",
+      analytics: "Analys",
       leaderboard: "Leaderboard",
-      projects: "Besök Projekt",
+      projects: "Andra Projekt",
     },
 
     header: {
@@ -283,6 +284,12 @@ export const translations = {
       },
     },
 
+    analytics: {
+      title: "📊 Analys",
+      description: "Detaljerad analys av dina quiz-prestationer över tid",
+      noData: "Ingen analysdata tillgänglig ännu",
+    },
+
     footer: {
       version: "Version",
     },
@@ -330,10 +337,11 @@ export const translations = {
 
   en: {
     nav: {
+      projects: "Other Projects",
       quiz: "Quiz",
       statistics: "Statistics",
+      analytics: "Analytics",
       leaderboard: "Leaderboard",
-      projects: "Visit Projects",
     },
 
     header: {
@@ -604,6 +612,12 @@ export const translations = {
         aiScore: "AI Score",
         bestAnswer: "Best Answer (excerpt)",
       },
+    },
+
+    analytics: {
+      title: "📊 Analys",
+      description: "Detaljerad analys av dina quiz-prestationer över tid",
+      noData: "Ingen analysdata tillgänglig ännu",
     },
 
     footer: {

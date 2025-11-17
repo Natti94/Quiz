@@ -14,12 +14,12 @@ export default function Updates() {
     const params = new URLSearchParams({
       owner: import.meta.env.VITE_REPO_OWNER,
       repo: import.meta.env.VITE_REPO_NAME,
-      per_page: "5",
-      page: "1",
-      all_repos: "false",
+      page: import.meta.env.VITE_REPO_PAGE,
+      per_page: import.meta.env.VITE_REPO_PER_PAGE,
+      all_repos: import.meta.env.VITE_REPO_BOOLEAN
     });
     setLoading(true);
-    setError("");
+    setError(null);
     const funcBase =
       import.meta.env.VITE_FUNCTIONS_BASE || "/.netlify/functions";
     const apiUrl = `/api/commits?${params.toString()}`;
@@ -65,7 +65,7 @@ export default function Updates() {
               date: c.commit?.author?.date || c.date,
               message: c.commit?.message || c.message,
               url: c.html_url || c.url,
-              repository: c.repository || "Natti94/Quiz",
+              repository: c.repository,
             }))
           : [];
         const sorted = normalized
