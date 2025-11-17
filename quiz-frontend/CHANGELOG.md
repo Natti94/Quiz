@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.3.0...quiz-frontend-v1.4.0) (2025-11-17)
+
+### Features
+
+* updated services for auth, adjusted api url end point for login. ([61cae1e](https://github.com/Natti94/Quiz/commit/61cae1ec193683c522aa46e1343030a8cbe9b0cc))
+
 ## [1.3.0](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.2.0...quiz-frontend-v1.3.0) (2025-11-17)
 
 ### Features
