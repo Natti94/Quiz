@@ -10,8 +10,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "strip:comments": "node ../scripts/removeComments.mjs",
-    "format:repo": "node ../scripts/formatRepo.mjs"
+    "strip:comments": "node ../scripts/remove-comments.mjs",
+    "format:repo": "node ../scripts/format-repository.mjs"
   },
   "dependencies": {
     "dotenv": "^17.2.2",

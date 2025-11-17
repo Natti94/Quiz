@@ -286,7 +286,7 @@ Optional (AI evaluation):
 ### Automated releases (semantic-release)
 
 - Workflow: `.github/workflows/release.yml` (runs on push to `main`).
-- Config: `quiz-frontend/.releaserc.json`.
+- Config: `./.releaserc.json` (monorepo release from repository root). If you previously used `quiz-frontend/.releaserc.json`, you can remove or archive it when switching to root-level releases.
 - Versions are inferred from commit messages (Conventional Commits):
   - `fix: …` → patch (e.g., 2.0.1 → 2.0.2)
   - `feat: …` → minor (e.g., 2.0.2 → 2.1.0)

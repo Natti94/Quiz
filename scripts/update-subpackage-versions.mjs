@@ -7,7 +7,6 @@ if (process.argv.length < 3) {
 }
 
 const version = process.argv[2];
-// Use the current working directory as the repo root - semantic-release runs from the repo root
 const repoRoot = process.cwd();
 const winRepoRoot = repoRoot;
 
@@ -33,7 +32,6 @@ for (const pkg of packages) {
   updatePackageJson(pkg);
 }
 
-// Optionally update package-lock.json version fields if present
 for (const pkg of packages) {
   const lockPath = path.join(winRepoRoot, pkg, 'package-lock.json');
   if (fs.existsSync(lockPath)) {

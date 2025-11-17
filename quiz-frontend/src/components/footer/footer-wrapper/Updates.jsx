@@ -16,7 +16,7 @@ export default function Updates() {
       repo: import.meta.env.VITE_REPO_NAME,
       page: import.meta.env.VITE_REPO_PAGE,
       per_page: import.meta.env.VITE_REPO_PER_PAGE,
-      all_repos: import.meta.env.VITE_REPO_BOOLEAN
+      all_repos: import.meta.env.VITE_REPO_BOOLEAN,
     });
     setLoading(true);
     setError(null);
@@ -172,7 +172,7 @@ export default function Updates() {
                     className="updates__btn updates__btn--prev"
                     onClick={() =>
                       setCurrent(
-                        (i) => (i - 1 + updates.length) % updates.length
+                        (i) => (i - 1 + updates.length) % updates.length,
                       )
                     }
                     aria-label={t("updates.ariaPrevious")}

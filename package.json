@@ -10,8 +10,8 @@
     "dev:backend": "cd quiz-backend && npm run dev",
     "install:all": "npm install && cd quiz-frontend && npm install && cd ../quiz-backend && npm install",
     "build": "cd quiz-frontend && npm run build",
-    "format:repo": "node ./scripts/formatRepo.mjs",
-    "strip:comments": "node ./scripts/removeComments.mjs",
+    "format:repo": "node ./scripts/format-repository.mjs",
+    "strip:comments": "node ./scripts/remove-comments.mjs",
     "lint": "cd quiz-frontend && npm run lint"
   },
   "devDependencies": {
@@ -21,7 +21,7 @@
     "strip-comments": "^2.0.1",
     "strip-css-comments": "^5.0.0",
     "@semantic-release/changelog": "^6.0.3",
-  "@semantic-release/exec": "^6.1.1",
+    "@semantic-release/exec": "^6.1.1",
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^10.3.5",
