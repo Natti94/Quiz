@@ -13,9 +13,11 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # Run everything in the repository root so semantic-release reads the
+    # root package.json for the monorepo release.
     defaults:
       run:
-        working-directory: quiz-monorepo
+        working-directory: .
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -31,8 +33,9 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Ensure tags are fetched
+        # make sure we have all remote tags and show the last 10 (debug helper)
         run: |
-          git fetch --tags --force --prune
+          git fetch --tags --force --prune origin
           echo "Last 10 tags:" && git tag -l | tail -n 10
 
       - name: Install dependencies
