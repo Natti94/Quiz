@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.2.0...quiz-frontend-v1.3.0) (2025-11-17)
+
+### Features
+
+* some updates/adjustments to translations i18n. ([b68546d](https://github.com/Natti94/Quiz/commit/b68546daa5425333abbe592fff40a7ac47263506))
+
 ## [1.2.0](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.1.0...quiz-frontend-v1.2.0) (2025-11-17)
 
 ### Features
