@@ -10,7 +10,7 @@ export async function loginUser(username, password) {
     csrfToken = await generateCsrf();
   }
 
-  const data = await apiRequest(`${AUTH_API_BASE}/token`, {
+  const data = await apiRequest(`${AUTH_API_BASE}/auth/token`, {
     method: "POST",
     body: { username, password, csrfToken },
     successMessage: "Login successful",
