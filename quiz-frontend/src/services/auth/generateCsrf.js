@@ -1,4 +1,4 @@
-import { apiRequest } from "../../lib/http/index.js";
+import { apiRequest } from "../../lib";
 
 const AUTH_API_BASE = import.meta.env.VITE_AUTH_API_BASE_URL;
 

@@ -111,13 +111,13 @@ Return only the JSON object, no extra text or formatting.`;
 
         if (res.status === 429) {
           throw new Error(
-            `Rate limit exceeded. ${errorData.message || "Please wait before trying again."}`
+            `Rate limit exceeded. ${errorData.message || "Please wait before trying again."}`,
           );
         }
 
         if (res.status === 503 || errorData.code === "OLLAMA_UNAVAILABLE") {
           throw new Error(
-            "AI evaluation service is not available. Please use Standard mode instead."
+            "AI evaluation service is not available. Please use Standard mode instead.",
           );
         }
 
@@ -218,7 +218,7 @@ Return only the JSON object, no extra text or formatting.`;
         subject,
       }),
     }),
-    [score, index, selected, shuffledQuestions.length, subject]
+    [score, index, selected, shuffledQuestions.length, subject],
   );
 
   if (!subject) return null;

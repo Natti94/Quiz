@@ -1,13 +1,155 @@
 .app-footer {
   margin-top: 20px;
   color: #374151;
-  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  background: transparent;
+  text-align: left;
 }
 .app-footer__inner {
+  display: grid;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-flow: row;
+  gap: 0.75rem;
+  align-items: start;
+}
+
+.app-footer__col {
   display: flex;
   flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.app-footer__col--left {
+  align-items: flex-start;
+}
+
+.app-footer__brand-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+:root {
+  --footer-action-icon-size: 20px;
+}
+
+.app-footer__brand-cookies {
+  display: flex;
   gap: 0.5rem;
   align-items: center;
+}
+
+.app-footer__brand-row .updates__container {
+  margin: 0;
+}
+
+.app-footer__brand-row .updates__btn {
+  margin: 0;
+}
+
+.app-footer__brand-row .app-footer__cookie-btn {
+  margin: 0;
+
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  box-sizing: border-box;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+}
+
+.app-footer__brand-row .app-footer__cookie-btn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.app-footer__cookie-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  margin-right: 8px;
+  background: #fff7ed;
+  color: #9a3412;
+  border-radius: 6px;
+}
+
+.app-footer__brand-row .updates__btn {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+}
+.app-footer__brand-row .updates__btn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.app-footer__col--right {
+  align-items: flex-start;
+}
+
+.app-footer__cookie-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.app-footer__updates-trigger {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+}
+
+.app-footer__manage-btn {
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+  border-radius: 8px;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.app-footer__manage-btn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.app-footer__updates-icon {
+  margin-right: 8px;
+  font-size: calc(var(--footer-action-icon-size) * 0.55);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--footer-action-icon-size);
+  width: var(--footer-action-icon-size);
+  background: #eff6ff;
+  color: #2563eb;
+  border-radius: 6px;
 }
 .app-footer__copyright {
   font-size: 0.9rem;
@@ -18,16 +160,17 @@
   margin-top: 0.25rem;
   opacity: 0.7;
 }
-.app-footer__cookie-btn {
-  background: transparent;
-  border: 1px solid #e2e8f0;
-  color: #64748b;
-  padding: 0.375rem 0.75rem;
+.app-footer__cookie-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--footer-action-icon-size);
+  width: var(--footer-action-icon-size);
+  margin-right: 8px;
+  background: #fff7ed;
+  color: #9a3412;
   border-radius: 6px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: inherit;
+  font-size: calc(var(--footer-action-icon-size) * 0.55);
 }
 .app-footer__cookie-btn:hover {
   background: #f8fafc;
@@ -132,6 +275,48 @@
     border-color 0.15s ease;
 }
 
+.updates__btn.app-footer__cookie-btn,
+.updates__btn.app-footer__updates-trigger {
+  appearance: none;
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #111827;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+  font-family: inherit;
+}
+.updates__btn.app-footer__cookie-btn:hover,
+.updates__btn.app-footer__updates-trigger:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+  color: #111827;
+}
+
+.app-footer__brand-row .app-footer__cookie-btn,
+.app-footer__brand-row .updates__btn {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+}
+.app-footer__brand-row .app-footer__cookie-btn:hover,
+.app-footer__brand-row .updates__btn:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
 .updates__btn:hover,
 .app-footer__updates-btn:hover {
   background: #f3f4f6;
@@ -166,6 +351,47 @@
   .updates__controls,
   .app-footer__updates-controls {
     width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-footer__inner {
+    grid-template-columns: 1fr;
+    grid-auto-flow: row;
+    align-items: center;
+  }
+
+  .app-footer__col {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .app-footer__cookie-controls {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-footer__inner {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .app-footer__col--left,
+  .app-footer__col--right {
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+
+  .app-footer__inner > * {
+    flex: 0 0 auto;
+  }
+
+  .app-footer__cookie-controls {
+    justify-content: center;
   }
 }
 

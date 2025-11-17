@@ -1,24 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "../../../lib/i18n/useTranslation";
-
-function formatRelativeTime(dateString) {
-  if (!dateString || /ago$/.test(dateString)) return dateString;
-  const date = new Date(dateString);
-  const now = new Date();
-  const diff = Math.floor((now - date) / 1000);
-  if (isNaN(diff)) return dateString;
-  if (diff < 60) return `${diff} second${diff !== 1 ? "s" : ""} ago`;
-  const min = Math.floor(diff / 60);
-  if (min < 60) return `${min} minute${min !== 1 ? "s" : ""} ago`;
-  const hr = Math.floor(min / 60);
-  if (hr < 24) return `${hr} hour${hr !== 1 ? "s" : ""} ago`;
-  const day = Math.floor(hr / 24);
-  if (day < 30) return `${day} day${day !== 1 ? "s" : ""} ago`;
-  const mo = Math.floor(day / 30);
-  if (mo < 12) return `${mo} month${mo !== 1 ? "s" : ""} ago`;
-  const yr = Math.floor(mo / 12);
-  return `${yr} year${yr !== 1 ? "s" : ""} ago`;
-}
+import { formatRelativeTime } from "../../../lib/updates/relativeTime";
 
 export default function Updates() {
   const { t } = useTranslation();
@@ -30,8 +12,8 @@ export default function Updates() {
 
   useEffect(() => {
     const params = new URLSearchParams({
-      owner: "Natti94",
-      repo: "Quiz",
+      owner: import.meta.env.VITE_REPO_OWNER,
+      repo: import.meta.env.VITE_REPO_NAME,
       per_page: "5",
       page: "1",
       all_repos: "false",
@@ -110,12 +92,15 @@ export default function Updates() {
     <div className="updates__container">
       <button
         type="button"
-        className="updates__btn updates__trigger"
+        className="updates__btn updates__trigger app-footer__cookie-btn app-footer__updates-trigger"
         onClick={() => setIsOpen(true)}
         aria-haspopup="dialog"
         aria-expanded={isOpen}
         aria-controls="updates-dialog"
       >
+        <span className="app-footer__updates-icon" aria-hidden>
+          🔄
+        </span>
         {t("updates.trigger")}
       </button>
       {isOpen && (
@@ -187,7 +172,7 @@ export default function Updates() {
                     className="updates__btn updates__btn--prev"
                     onClick={() =>
                       setCurrent(
-                        (i) => (i - 1 + updates.length) % updates.length,
+                        (i) => (i - 1 + updates.length) % updates.length
                       )
                     }
                     aria-label={t("updates.ariaPrevious")}

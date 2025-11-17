@@ -1,5 +1,5 @@
-import { logoutUser } from "../auth/logoutUser.js";
-import { parseJwt } from "../../lib/jwt/index.js";
+import { logoutUser } from "./logoutUser";
+import { parseJwt } from "../../lib/index.js";
 
 export function isAuthenticated() {
   const token = sessionStorage.getItem("jwtToken");

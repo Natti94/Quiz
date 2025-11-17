@@ -5,9 +5,9 @@ function Language() {
   const { language, changeLanguage } = useTranslation();
 
   return (
-    <div className="language-selector">
+    <div className="language-selector header__language">
       <select
-        className="language-selector__select"
+        className="language-selector__select header__language-select"
         value={language}
         onChange={(e) => changeLanguage(e.target.value)}
         aria-label="Välj språk / Select language"

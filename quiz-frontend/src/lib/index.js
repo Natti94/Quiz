@@ -7,4 +7,5 @@ export { useTranslation } from "./i18n/useTranslation.js";
 export { LanguageProvider } from "./i18n/LanguageContext.jsx";
 export { default as LanguageContext } from "./i18n/LanguageContext.jsx";
 export { translations } from "./i18n/translations.js";
-export { default as shuffleQuestion } from "./quiz/shuffleQuestion.js";
+export { shuffleQuestion } from "./quiz/shuffleQuestion.js";
+export { formatRelativeTime } from "./updates/relativeTime.js";

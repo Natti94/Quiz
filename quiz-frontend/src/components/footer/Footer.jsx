@@ -21,18 +21,31 @@ function Footer() {
   return (
     <footer className="app-footer" role="contentinfo" aria-label="Sidfot">
       <div className="app-footer__inner">
-        <Copyright owner="Natnael Berhane" since={year} />
-        <button
-          type="button"
-          className="app-footer__cookie-btn"
-          onClick={handleManageCookies}
-          title={t("cookies.manageConsent")}
-        >
-          🍪 {t("cookies.manageConsent")}
-        </button>
-        <Cookies />
-        <Updates />
-        <Version />
+        <div className="app-footer__col app-footer__col--left">
+          <div className="app-footer__brand-row">
+            <Copyright owner="Natnael Berhane" since={year} />
+            <Version />
+            {}
+            <Updates />
+            {}
+            <div className="app-footer__brand-cookies">
+              <button
+                type="button"
+                className="app-footer__cookie-btn app-footer__manage-btn"
+                onClick={handleManageCookies}
+                title={t("cookies.manageConsent")}
+              >
+                <span className="app-footer__cookie-icon" aria-hidden>
+                  🍪
+                </span>
+                {t("cookies.manageConsent")}
+              </button>
+              <Cookies />
+            </div>
+          </div>
+        </div>
+
+        <div className="app-footer__col app-footer__col--right" />
       </div>
     </footer>
   );

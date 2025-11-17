@@ -3,7 +3,7 @@ import { handleError } from "./handleError.js";
 
 export async function apiRequest(
   url,
-  { method = "GET", body, headers = {}, successMessage, errorMessage }
+  { method = "GET", body, headers = {}, successMessage, errorMessage },
 ) {
   const requestOptions = {
     method,

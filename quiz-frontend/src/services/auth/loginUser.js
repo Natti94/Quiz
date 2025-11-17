@@ -1,6 +1,6 @@
 import { generateCsrf } from "./generateCsrf.js";
-import { parseJwt } from "../../lib/jwt/index.js";
-import { apiRequest } from "../../lib/http/index.js";
+import { parseJwt } from "../../lib/index.js";
+import { apiRequest } from "../../lib/index.js";
 
 const AUTH_API_BASE = import.meta.env.VITE_AUTH_API_BASE_URL;
 
