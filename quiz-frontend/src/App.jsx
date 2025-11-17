@@ -5,7 +5,6 @@ import Content from "./components/content/Content";
 import Nav from "./components/nav/Nav";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
-
 import StatisticsPage from "./pages/StatisticsPage";
 
 function App() {
