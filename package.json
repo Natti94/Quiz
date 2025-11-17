@@ -21,7 +21,6 @@
     "strip-comments": "^2.0.1",
     "strip-css-comments": "^5.0.0",
     "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/exec": "^6.1.1",
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^10.3.5",
@@ -32,7 +31,7 @@
   },
   "workspaces": [
     "quiz-frontend",
-    "quiz-backend"
+    "quiz-backend-local"
   ],
   "engines": {
     "node": ">=18.0.0",
