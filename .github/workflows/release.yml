@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: quiz-frontend
+        working-directory: quiz-monorepo
     steps:
       - name: Checkout
         uses: actions/checkout@v4
