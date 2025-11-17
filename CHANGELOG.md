@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.0.0...quiz-monorepo-v1.1.0) (2025-11-17)
+
+### Features
+
+* triyng ci/cd. ([127a855](https://github.com/Natti94/Quiz/commit/127a855c44954c1443e59fb0e083408947e8bbf9))
+
 ## 1.0.0 (2025-11-17)
 
 ### ⚠ BREAKING CHANGES
