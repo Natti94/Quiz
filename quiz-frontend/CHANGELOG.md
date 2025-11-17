@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.1.0...quiz-frontend-v1.2.0) (2025-11-17)
+
+### Features
+
+* moved some logical operations for components into lib. ([0cd271f](https://github.com/Natti94/Quiz/commit/0cd271f568b25eadb4427d117d7dee959b974996))
+
 ## [1.1.0](https://github.com/Natti94/Quiz/compare/quiz-frontend-v1.0.0...quiz-frontend-v1.1.0) (2025-11-16)
 
 ### Features
