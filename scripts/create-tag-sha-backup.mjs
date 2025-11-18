@@ -2,25 +2,39 @@ import fs from "fs";
 import { execSync } from "child_process";
 import path from "path";
 
-const backupGlob = "scripts/tag-backup-*.txt";
 const dir = process.cwd();
 
-const files = fs
-  .readdirSync(path.join(dir, "scripts"))
-  .filter((f) => f.startsWith("tag-backup-") && f.endsWith(".txt"));
+// The tag backups live under archives/tag-backups/ (preferred) but we accept
+// legacy files in scripts/ for compatibility. We read both and pick the latest file.
+const searchDirs = [path.join(dir, "archives", "tag-backups"), path.join(dir, "scripts")];
+
+let files = [];
+for (const d of searchDirs) {
+  try {
+    const fsFiles = fs
+      .readdirSync(d)
+      .filter((f) => f.startsWith("tag-backup-") && f.endsWith(".txt"));
+    files = files.concat(fsFiles.map((f) => path.join(d, f)));
+  } catch (e) {
+    // missing dir is fine
+  }
+}
 if (files.length === 0) {
-  console.error("No tag backup file found under scripts/");
+  console.error("No tag backup file found under archives/tag-backups/ or scripts/");
   process.exit(1);
 }
 files.sort();
 const latest = files[files.length - 1];
 const tags = fs
-  .readFileSync(path.join(dir, "scripts", latest), "utf8")
+  .readFileSync(latest, "utf8")
   .split("\n")
   .map((s) => s.trim())
   .filter(Boolean);
 
-const outFile = `scripts/${latest.replace(".txt", "")}-sha.txt`;
+// Write the mapping next to the chosen backup in archives if found there,
+// otherwise write into the scripts/ folder for compatibility.
+const chosenDir = path.dirname(latest);
+const outFile = path.join(chosenDir, `${path.basename(latest, '.txt')}-sha.txt`);
 console.log(`Reading tags from ${latest} -> writing mapping to ${outFile}`);
 
 const lines = [];
@@ -54,6 +68,6 @@ for (const tag of tags) {
   }
 }
 
-fs.writeFileSync(path.join(dir, outFile), lines.join("\n") + "\n");
+fs.writeFileSync(outFile, lines.join("\n") + "\n");
 console.log(`Wrote ${lines.length} entries to ${outFile}`);
 process.exit(0);

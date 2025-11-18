@@ -287,6 +287,11 @@ Optional (AI evaluation):
 
 - Workflow: `.github/workflows/release.yml` (runs on push to `main`).
 - Config: `./.releaserc.json` (monorepo release from repository root). If you previously used `quiz-frontend/.releaserc.json`, you can remove or archive it when switching to root-level releases.
+ - Tag and log backups: tag cleanup creates a `archives/tag-backups/tag-backup-*.txt` file and a matching `archives/tag-backups/tag-backup-*-sha.txt` mapping. These are committed to `archives/tag-backups/` by default. You can also store backups in a central infra repository or cloud storage (see next section).
+Storing logs & backups elsewhere
+ - Use an "infra" repo: run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/move-logs-to-infra.mjs` to push `archives/tag-backups/tag-backup-*.txt` and `*-sha.txt` into an external infra repo under `logs/`.
+- Use CI artifacts: add a workflow that uploads the backup files as artifacts on each release/cleanup.
+- Use cloud storage: a small action or script can upload the files to S3 or GCS. Keep secrets outside the repo and add a short archiving job in your release pipeline.
 - Versions are inferred from commit messages (Conventional Commits):
   - `fix: …` → patch (e.g., 2.0.1 → 2.0.2)
   - `feat: …` → minor (e.g., 2.0.2 → 2.1.0)

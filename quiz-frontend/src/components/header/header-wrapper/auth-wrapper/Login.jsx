@@ -19,8 +19,8 @@ function Login({ onSuccess }) {
       await loginUser(username, password);
       setSuccess(t("header.loginSuccess"));
       if (onSuccess) onSuccess();
-    } catch (err) {
-      setError(err?.message || t("header.loginError"));
+    } catch {
+      setError(t("header.loginError"));
     } finally {
       setLoading(false);
     }
