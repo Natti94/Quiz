@@ -6,6 +6,10 @@
   "scripts": {
     "dev": "vite",
     "dev:netlify": "npx --yes netlify-cli@latest dev",
+  "diagnose:llm": "powershell -NoProfile -ExecutionPolicy Bypass -File ../scripts/diagnose-llm.ps1",
+  "self-audit": "powershell -NoProfile -ExecutionPolicy Bypass -File ../scripts/self-audit.ps1",
+  "check:ollama": "powershell -NoProfile -ExecutionPolicy Bypass -File ../scripts/check-ollama.ps1",
+    "fix:npm-lock": "powershell -NoProfile -ExecutionPolicy Bypass -File ../scripts/fix-npm-lock.ps1",
     "dev:netlify:open": "powershell -NoProfile -Command \"Start-Process http://localhost:8888; npx --yes netlify-cli@latest dev\"",
     "build": "vite build",
     "lint": "eslint .",

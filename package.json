@@ -12,7 +12,13 @@
     "build": "cd quiz-frontend && npm run build",
     "format:repo": "node ./scripts/format-repository.mjs",
     "strip:comments": "node ./scripts/remove-comments.mjs",
-    "lint": "cd quiz-frontend && npm run lint"
+    "lint": "cd quiz-frontend && npm run lint",
+    "fix:npm-lock": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/fix-npm-lock.ps1"
+  ,
+  "diagnose:llm": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/diagnose-llm.ps1",
+  "self-audit": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/self-audit.ps1"
+  ,
+  "check:ollama": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/check-ollama.ps1"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",

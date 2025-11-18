@@ -1,0 +1,224 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20251118164623
+Username: NATTI\natna
+RunAs User: NATTI\natna
+Configuration Name: 
+Machine: NATTI (Microsoft Windows NT 10.0.26100.0)
+Host Application: powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/self-audit.ps1
+Process ID: 12116
+PSVersion: 5.1.26100.6899
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.6899
+BuildVersion: 10.0.26100.6899
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+
+=== Date / CWD ===
+
+den 18 november 2025 16:46:23
+
+Drive        : C
+Provider     : Microsoft.PowerShell.Core\FileSystem
+ProviderPath : C:\Dev_Natti\Quiz
+Path         : C:\Dev_Natti\Quiz
+
+
+=== Node / NPM / Netlify ===
+
+
+
+
+
+=== Netlify.toml & Function files listing (frontend workspace) ===
+[build]
+  functions = "netlify/functions"
+  publish   = "dist"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["mongodb"]
+ - discordInteractions.js
+ - generateUnlockKey.js
+ - getAnalyticsUsers.js
+ - getAssets.js
+ - getCommits.js
+ - getDevUnlockKey.js
+ - jwtUtils.js
+ - LLM.js
+ - mongoStore.js
+ - requestUnlock.js
+ - verifyPreAccess.js
+ - verifyUnlock.js
+ - _store.js
+
+=== Netlify Dev process listening on default ports (8888) and Ollama (11434) ===
+
+
+
+
+LocalAddress   : 127.0.0.1
+LocalPort      : 11434
+RemoteAddress  : 0.0.0.0
+RemotePort     : 0
+State          : Listen
+AppliedSetting :
+OwningProcess  : 17108
+CreationTime   : 2025-11-14 08:56:33
+OffloadState   : InHost
+
+
+
+
+=== Node processes command lines (to see netlify/ollama if started as node) ===
+
+ProcessId CommandLine
+--------- -----------
+    16064 "C:\Program Files\nodejs\node.exe" C:\Users\natna\AppData\Roaming\npm/node_modules/npm/bin/npm-cli.js run self-audit
+
+
+
+=== Selected env variables ===
+
+=== OLLAMA: list models + health checks (if ollama CLI exists) ===
+NAME                    ID              SIZE      MODIFIED       
+llama3.2:latest         a80c4f17acd5    2.0 GB    44 minutes ago    
+qwen2.5:14b-instruct    7cdf5a0187d5    9.0 GB    2 weeks ago
+
+StatusCode StatusDescription
+---------- -----------------
+       200 OK
+
+=== Test LLM function endpoint (netlify dev should be running) ===
+PS>TerminatingError(Invoke-RestMethod): "Det går inte att ansluta till fjärrservern"
+Error invoking LLM function. Netlify Dev may not be running, or endpoint refused.
+
+=== Recent npm logs (tail 200 lines) ===
+0 verbose cli C:\Program Files\nodejs\node.exe C:\dev_natti\quiz\node_modules\npm\bin\npm-cli.js
+1 info using npm@9.9.4
+2 info using node@v22.15.0
+3 timing npm:load:whichnode Completed in 2ms
+4 timing config:load:defaults Completed in 2ms
+5 timing config:load:file:C:\dev_natti\quiz\node_modules\npm\npmrc Completed in 4ms
+6 timing config:load:builtin Completed in 4ms
+7 timing config:load:cli Completed in 3ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:file:C:\Dev_Natti\Quiz\.npmrc Completed in 0ms
+10 timing config:load:project Completed in 1ms
+11 timing config:load:file:C:\Users\natna\.npmrc Completed in 0ms
+12 timing config:load:user Completed in 0ms
+13 timing config:load:file:C:\Users\natna\AppData\Roaming\npm\etc\npmrc Completed in 1ms
+14 timing config:load:global Completed in 1ms
+15 timing config:load:setEnvs Completed in 1ms
+16 timing config:load Completed in 13ms
+17 timing npm:load:configload Completed in 13ms
+18 timing config:load:flatten Completed in 1ms
+19 timing npm:load:mkdirpcache Completed in 0ms
+20 timing npm:load:mkdirplogs Completed in 1ms
+21 verbose title npm exec netlify-cli@latest --version
+22 verbose argv "exec" "--yes" "--" "netlify-cli@latest" "--version"
+23 timing npm:load:setTitle Completed in 0ms
+24 timing npm:load:display Completed in 1ms
+25 verbose logfile logs-max:10 dir:C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T15_46_25_161Z-
+26 verbose logfile C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T15_46_25_161Z-debug-0.log
+27 timing npm:load:logFile Completed in 10ms
+28 timing npm:load:timers Completed in 0ms
+29 timing npm:load:configScope Completed in 0ms
+30 timing npm:load Completed in 44ms
+31 silly logfile start cleaning logs, removing 2 files
+32 timing arborist:ctor Completed in 0ms
+33 silly logfile done cleaning log files
+34 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: quiz-frontend
+35 timing command:exec Completed in 712ms
+36 verbose stack TypeError: Cannot set properties of null (setting 'peer')
+36 verbose stack     at visit (C:\dev_natti\quiz\node_modules\npm\node_modules\@npmcli\arborist\lib\calc-dep-flags.js:101:54)
+36 verbose stack     at visitNode (C:\dev_natti\quiz\node_modules\npm\node_modules\treeverse\lib\depth-descent.js:58:25)
+36 verbose stack     at next (C:\dev_natti\quiz\node_modules\npm\node_modules\treeverse\lib\depth-descent.js:44:19)
+36 verbose stack     at depth (C:\dev_natti\quiz\node_modules\npm\node_modules\treeverse\lib\depth-descent.js:83:10)
+36 verbose stack     at depth (C:\dev_natti\quiz\node_modules\npm\node_modules\treeverse\lib\depth.js:27:12)
+36 verbose stack     at unsetFlag (C:\dev_natti\quiz\node_modules\npm\node_modules\@npmcli\arborist\lib\calc-dep-flags.js:96:5)
+36 verbose stack     at C:\dev_natti\quiz\node_modules\npm\node_modules\@npmcli\arborist\lib\calc-dep-flags.js:63:7
+36 verbose stack     at Map.forEach (<anonymous>)
+36 verbose stack     at calcDepFlagsStep (C:\dev_natti\quiz\node_modules\npm\node_modules\@npmcli\arborist\lib\calc-dep-flags.js:41:17)
+36 verbose stack     at visit (C:\dev_natti\quiz\node_modules\npm\node_modules\@npmcli\arborist\lib\calc-dep-flags.js:12:20)
+37 verbose cwd C:\Dev_Natti\Quiz
+38 verbose Windows_NT 10.0.26100
+39 verbose node v22.15.0
+40 verbose npm  v9.9.4
+41 error Cannot set properties of null (setting 'peer')
+42 verbose exit 1
+43 timing npm Completed in 1449ms
+44 verbose code 1
+45 error A complete log of this run can be found in: C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T15_46_25_161Z-debug-0.log
+
+=== ECOMPROMISED scan ===
+Found 'ECOMPROMISED' in: C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T15_41_19_295Z-debug-0.log
+
+LineNumber Line
+---------- ----
+        32 27 verbose stack Error: Lock compromised
+        40 28 error code ECOMPROMISED
+        41 29 error Lock compromised
+
+
+Found 'ECOMPROMISED' in: C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T15_30_58_181Z-debug-0.log
+
+LineNumber Line
+---------- ----
+        33 28 verbose stack Error: Lock compromised
+        41 29 error code ECOMPROMISED
+        42 30 error Lock compromised
+
+
+Found 'ECOMPROMISED' in: C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T15_30_29_026Z-debug-0.log
+
+LineNumber Line
+---------- ----
+        33 28 verbose stack Error: Lock compromised
+        41 29 error code ECOMPROMISED
+        42 30 error Lock compromised
+
+
+Found 'ECOMPROMISED' in: C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T15_30_12_188Z-debug-0.log
+
+LineNumber Line
+---------- ----
+        33 28 verbose stack Error: Lock compromised
+        41 29 error code ECOMPROMISED
+        42 30 error Lock compromised
+
+
+Found 'ECOMPROMISED' in: C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T15_29_58_090Z-debug-0.log
+
+LineNumber Line
+---------- ----
+        33 28 verbose stack Error: Lock compromised
+        41 29 error code ECOMPROMISED
+        42 30 error Lock compromised
+
+
+
+=== Quick disk space + CPU info ===
+
+Name Free(GB) Total(GB)
+---- -------- ---------
+C      116,07    120,18
+
+
+
+
+Name                      : NATTI
+NumberOfLogicalProcessors : 12
+
+
+
+
+=== Summary ===
+Self-audit completed. Log saved to: C:\Dev_Natti\Quiz\scripts\..\logs\self-audit-20251118-164623.log
+**********************
+Windows PowerShell transcript end
+End time: 20251118164638
+**********************

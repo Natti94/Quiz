@@ -1,0 +1,160 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20251118174628
+Username: NATTI\natna
+RunAs User: NATTI\natna
+Configuration Name: 
+Machine: NATTI (Microsoft Windows NT 10.0.26100.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\dev_natti\quiz\scripts\self-audit.ps1
+Process ID: 22380
+PSVersion: 5.1.26100.6899
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.6899
+BuildVersion: 10.0.26100.6899
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+
+=== Date / CWD ===
+
+den 18 november 2025 17:46:28
+
+Drive        : C
+Provider     : Microsoft.PowerShell.Core\FileSystem
+ProviderPath : C:\dev_natti\quiz
+Path         : C:\dev_natti\quiz
+
+
+=== Node / NPM / Netlify ===
+
+
+
+
+
+=== Netlify.toml & Function files listing (frontend workspace) ===
+[build]
+  functions = "netlify/functions"
+  publish   = "dist"
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["mongodb"]
+ - discordInteractions.js
+ - generateUnlockKey.js
+ - getAnalyticsUsers.js
+ - getAssets.js
+ - getCommits.js
+ - getDevUnlockKey.js
+ - jwtUtils.js
+ - LLM.js
+ - mongoStore.js
+ - requestUnlock.js
+ - verifyPreAccess.js
+ - verifyUnlock.js
+ - _store.js
+
+=== Netlify Dev process listening on default ports (8888) and Ollama (11434) ===
+
+
+
+
+LocalAddress   : 127.0.0.1
+LocalPort      : 11434
+RemoteAddress  : 0.0.0.0
+RemotePort     : 0
+State          : Listen
+AppliedSetting :
+OwningProcess  : 17108
+CreationTime   : 2025-11-14 08:56:33
+OffloadState   : InHost
+
+LocalAddress   : 127.0.0.1
+LocalPort      : 11434
+RemoteAddress  : 127.0.0.1
+RemotePort     : 56167
+State          : Established
+AppliedSetting : Internet
+OwningProcess  : 17108
+CreationTime   : 2025-11-18 17:21:01
+OffloadState   : InHost
+
+
+
+
+=== Node processes command lines (to see netlify/ollama if started as node) ===
+
+ProcessId CommandLine
+--------- -----------
+     3460 "C:\Program Files\nodejs\node.exe" C:\Users\natna\AppData\Roaming\npm/node_modules/npm/bin/npx-cli.js --yes netlify-cli@latest dev
+    22108 "node"   "C:\Users\natna\AppData\Local\npm-cache\_npx\b3ca12a867cd0704\node_modules\.bin\\..\netlify-cli\bin\run.js" dev
+    21508 "node"   "C:\Dev_Natti\Quiz\node_modules\.bin\\..\npm\bin\npm-cli.js" "--workspace" "quiz-frontend" "run" "dev"
+     8184 "node"   "C:\Dev_Natti\Quiz\node_modules\.bin\\..\vite\bin\vite.js"
+
+
+
+=== Selected env variables ===
+
+=== OLLAMA: list models + health checks (if ollama CLI exists) ===
+NAME                    ID              SIZE      MODIFIED    
+llama3.2:latest         a80c4f17acd5    2.0 GB    2 hours ago    
+qwen2.5:14b-instruct    7cdf5a0187d5    9.0 GB    2 weeks ago
+
+StatusCode StatusDescription
+---------- -----------------
+       200 OK
+
+=== Test LLM function endpoint (netlify dev should be running) ===
+PS>TerminatingError(Invoke-RestMethod): "Det går inte att ansluta till fjärrservern"
+Error invoking LLM function. Netlify Dev may not be running, or endpoint refused.
+
+=== Recent npm logs (tail 200 lines) ===
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Users\natna\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.6.2
+2 info using node@v22.15.0
+3 silly config load:file:C:\Users\natna\AppData\Roaming\npm\node_modules\npm\npmrc
+4 silly config load:file:C:\dev_natti\quiz\.npmrc
+5 silly config load:file:C:\Users\natna\.npmrc
+6 silly config load:file:C:\Users\natna\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm exec netlify-cli@latest --version
+8 verbose argv "exec" "--yes" "--" "netlify-cli@latest" "--version"
+9 verbose logfile logs-max:10 dir:C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T16_46_29_938Z-
+10 verbose logfile C:\Users\natna\AppData\Local\npm-cache\_logs\2025-11-18T16_46_29_938Z-debug-0.log
+11 silly logfile start cleaning logs, removing 1 files
+12 silly logfile done cleaning log files
+13 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+14 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: quiz-frontend
+15 http fetch GET 200 https://registry.npmjs.org/netlify-cli 267ms (cache revalidated)
+16 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+17 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+18 verbose cwd C:\dev_natti\quiz
+19 verbose os Windows_NT 10.0.26100
+20 verbose node v22.15.0
+21 verbose npm  v11.6.2
+22 verbose exit 0
+23 info ok
+
+=== ECOMPROMISED scan ===
+
+=== Quick disk space + CPU info ===
+
+Name Free(GB) Total(GB)
+---- -------- ---------
+C       115,6    120,65
+
+
+
+
+Name                      : NATTI
+NumberOfLogicalProcessors : 12
+
+
+
+
+=== Summary ===
+Self-audit completed. Log saved to: C:\dev_natti\quiz\logs\self-audit-20251118-174628.log
+**********************
+Windows PowerShell transcript end
+End time: 20251118174655
+**********************
