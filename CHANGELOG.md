@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.1.0...quiz-monorepo-v1.2.0) (2025-11-18)
+
+### Features
+
+* add restore-tags-from-sha helper + docs ([e245fb6](https://github.com/Natti94/Quiz/commit/e245fb6672d31cde3924e2b870c799c2bf7cc4ee))
+
 ## [1.1.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.0.0...quiz-monorepo-v1.1.0) (2025-11-17)
 
 ### Features
