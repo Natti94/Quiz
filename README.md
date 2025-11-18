@@ -290,6 +290,7 @@ Optional (AI evaluation):
  - Tag and log backups: tag cleanup creates a `archives/tag-backups/tag-backup-*.txt` file and a matching `archives/tag-backups/tag-backup-*-sha.txt` mapping. These are committed to `archives/tag-backups/` by default. You can also store backups in a central infra repository or cloud storage (see next section).
 Storing logs & backups elsewhere
  - Use an "infra" repo: run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/move-logs-to-infra.mjs` to push `archives/tag-backups/tag-backup-*.txt` and `*-sha.txt` into an external infra repo under `logs/`.
+ - Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
 - Use CI artifacts: add a workflow that uploads the backup files as artifacts on each release/cleanup.
 - Use cloud storage: a small action or script can upload the files to S3 or GCS. Keep secrets outside the repo and add a short archiving job in your release pipeline.
 - Versions are inferred from commit messages (Conventional Commits):
