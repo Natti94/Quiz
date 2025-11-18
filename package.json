@@ -7,8 +7,8 @@
   "scripts": {
     "dev": "npm-run-all --parallel dev:frontend dev:backend",
     "dev:frontend": "cd quiz-frontend && npm run dev",
-    "dev:backend": "cd quiz-backend && npm run dev",
-    "install:all": "npm install && cd quiz-frontend && npm install && cd ../quiz-backend && npm install",
+    "dev:backend": "cd quiz-backend-local && npm run dev",
+    "install:all": "npm install && cd quiz-frontend && npm install && cd ../quiz-backend-local && npm install",
     "build": "cd quiz-frontend && npm run build",
     "format:repo": "node ./scripts/format-repository.mjs",
     "strip:comments": "node ./scripts/remove-comments.mjs",
