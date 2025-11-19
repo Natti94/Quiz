@@ -22,6 +22,9 @@
     "preview": "vite preview",
     "strip:comments": "node ../scripts/formatting/remove-comments.mjs",
     "format:repo": "node ../scripts/formatting/format-repository.mjs"
+    ,
+  "test": "vitest --run",
+  "test:watch": "vitest"
   },
   "dependencies": {
     "@semantic-release/npm": "10.0.6",
@@ -50,6 +53,8 @@
     "globals": "^16.3.0",
     "semantic-release": "^21.1.2",
     "vite": "^7.1.2"
+  ,
+    "vitest": "^1.3.0"
   },
   "overrides": {}
 }
