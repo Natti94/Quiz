@@ -97,10 +97,6 @@ export async function handler(event) {
       };
     }
 
-    // DEV_STUB: when working locally, you may want fast responses without contacting
-    // Ollama or hitting the lambda-local timeout. Set DEV_STUB=1 in your environment
-    // and the function will return a small canned response immediately.
-    // Accept multiple truthy values for DEV_STUB: '1', 'true', 'yes'
     const devStubVal = String(process.env.DEV_STUB || "")
       .toLowerCase()
       .trim();

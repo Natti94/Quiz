@@ -1,4 +1,9 @@
-<# fix-npm-lock helper moved to dev folder #>
+#<
+# fix-npm-lock helper moved to dev folder
+#
+# This script performs a safe cleanup and re-install to resolve npm ECOMPROMISED lock issues.
+# See HELP/NPM-LOCK-FIX.md for detailed manual steps and prevention tips.
+#>
 param(
   [switch]$Quick,
   [switch]$GlobalNetlify

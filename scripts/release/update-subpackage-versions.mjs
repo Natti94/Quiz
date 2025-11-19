@@ -1,6 +1,10 @@
 import fs from "fs";
 import path from "path";
 
+// Update local monorepo subpackage versions for release automation.
+// Usage: node scripts/release/update-subpackage-versions.mjs <version>
+// This writes the given version into subpackage package.json and package-lock.json.
+
 if (process.argv.length < 3) {
   console.error("Usage: node update-subpackage-versions.mjs <version>");
   process.exit(1);

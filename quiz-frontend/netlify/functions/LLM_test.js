@@ -1,4 +1,3 @@
-// Temporary test function to verify Netlify Dev registers functions correctly
 exports.handler = async function (event, context) {
   return {
     statusCode: 200,

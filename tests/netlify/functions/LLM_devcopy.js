@@ -1,3 +1,10 @@
+// Dev-only Netlify function used for local testing. This file is under
+// `tests/netlify/functions` and will be copied to the project's Win/Netlify
+// functions folder by the helper scripts when running Netlify Dev tests.
+//
+// IMPORTANT: This is a debugging helper only and should not be deployed.
+// Keep it small and avoid production secrets.
+
 import fetch from "node-fetch";
 
 const rateLimits = new Map();
@@ -97,16 +104,15 @@ export async function handler(event) {
       };
     }
 
-    // DEV_STUB: when working locally, you may want fast responses without contacting
-    // Ollama or hitting the lambda-local timeout. Set DEV_STUB=1 in your environment
-    // and the function will return a small canned response immediately.
-  // Accept multiple truthy values for DEV_STUB: '1', 'true', 'yes'
-  const devStubVal = String(process.env.DEV_STUB || "").toLowerCase().trim();
+    const devStubVal = String(process.env.DEV_STUB || "")
+      .toLowerCase()
+      .trim();
     if (devStubVal === "1" || devStubVal === "true" || devStubVal === "yes") {
-  console.log("DEV_STUB active — returning canned response");
+      console.log("DEV_STUB active — returning canned response");
       const canned = {
         correct: true,
-        feedback: "This is a local dev stub response. Swap DEV_STUB=0 to call the real model.",
+        feedback:
+          "This is a local dev stub response. Swap DEV_STUB=0 to call the real model.",
         score: 100,
       };
       return {

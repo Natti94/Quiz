@@ -1,3 +1,14 @@
+// Restore Git tags from a `*-sha.txt` mapping file produced by
+// `create-tag-sha-backup.mjs`. This script re-creates tags locally using the SHA
+// associated with each tag in the mapping. Common usage is helpful if tags were
+// accidentally deleted or not present on a new clone.
+//
+// CLI flags:
+//   --dry-run  -> print the commands instead of executing them
+//   --force    -> forcefully re-create tags (equivalent to git tag -f)
+//   --push     -> push created tags to origin
+//   --file <path> -> use a specific mapping file instead of the latest
+
 import { execSync } from 'child_process';
 import { promises as fs } from 'fs';
 import path from 'path';

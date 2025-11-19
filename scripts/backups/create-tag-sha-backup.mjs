@@ -1,3 +1,12 @@
+// Create a mapping file for the latest tag-backup file listing and their commit SHA's.
+// Useful for restoring tags later if they have been removed locally. The output
+// is a `*-sha.txt` mapping: `tag -> sha`.
+//
+// Usage:
+//   node scripts/backups/create-tag-sha-backup.mjs
+// It looks for `archives/tag-backups/tag-backup-*.txt` (or a fallback in scripts/).
+// See also `scripts/backups/restore-tags-from-sha.mjs` to re-create tags locally.
+
 import fs from "fs";
 import { execSync } from "child_process";
 import path from "path";

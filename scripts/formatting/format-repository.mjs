@@ -1,3 +1,9 @@
+// Format a set of files across the monorepo using Prettier. This ensures a
+// consistent code style for frontend, backend, and root-level files.
+//
+// Call with root: `node scripts/formatting/format-repository.mjs`
+// The script uses fast-glob to find files and applies Prettier where possible.
+
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";

@@ -293,10 +293,11 @@ Optional (AI evaluation):
   - To copy local backups into an infra repo (push): run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/move-logs-to-infra.mjs` (if you previously added this helper). That will push `archives/tag-backups/*` into the infra repo under `logs/`.
   - To restore or import backups from infra into the monorepo archives: run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/infra/move-logs-to-archives.mjs [srcFolderInInfra] --commit`.
     - By default the script copies files into `archives/tag-backups/` but doesn't commit them unless you pass `--commit`.
- - Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/backups/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
- - Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/backups/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
+- Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/backups/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
+- Tests for Netlify functions now live under `tests/netlify/functions` — use `npm run test:netlify-dev:with-tests` to copy them into the Netlify functions folder for local debugging and automated checks.
+- Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/backups/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
 - Use CI artifacts: add a workflow that uploads the backup files as artifacts on each release/cleanup.
- - Dev tools: all developer helper scripts are now grouped under `scripts/dev/` - e.g. `scripts/dev/check-ollama.ps1`, `scripts/dev/diagnose-llm.ps1`, `scripts/dev/test-netlify-dev.ps1`. Old paths still work via compatibility wrappers.
+- Dev tools: all developer helper scripts are now grouped under `scripts/dev/` - e.g. `scripts/dev/check-ollama.ps1`, `scripts/dev/diagnose-llm.ps1`, `scripts/dev/test-netlify-dev.ps1`. Old paths still work via compatibility wrappers.
 - Use cloud storage: a small action or script can upload the files to S3 or GCS. Keep secrets outside the repo and add a short archiving job in your release pipeline.
 - Versions are inferred from commit messages (Conventional Commits):
   - `fix: …` → patch (e.g., 2.0.1 → 2.0.2)
@@ -638,6 +639,8 @@ curl -X POST https://your-domain.com/api/generate \
   - Check console for rate limit errors (30 req/min per IP)
   - AI mode evaluates VG-level questions only; G questions use standard multiple choice
   - In AI mode, only questions marked "(AI-bedömd)" use AI evaluation
+- NPM lock errors (ECOMPROMISED):
+  - If you encounter `npm ERR! code ECOMPROMISED` or a "Lock compromised" error, see `HELP/NPM-LOCK-FIX.md` for a step-by-step fix and recommended script (`scripts/dev/fix-npm-lock.ps1`).
   - If no AI provider is configured, AI mode will be automatically disabled with a warning message
 - Discord bot issues:
   - Common issues: signature verification failures, channel restrictions, expired tokens

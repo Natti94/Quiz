@@ -38,30 +38,34 @@ function Auth({
 
   return (
     <div className="auth-wrapper">
-      <div className="auth-toggle">
-        <button
-          type="button"
-          onClick={() => setIsLogin(true)}
-          className={
-            isLogin
-              ? "auth-toggle__btn auth-toggle__btn--active"
-              : "auth-toggle__btn"
-          }
-        >
-          {t("auth.loginTitle")}
-        </button>
-        <button
-          type="button"
-          onClick={() => setIsLogin(false)}
-          className={
-            !isLogin
-              ? "auth-toggle__btn auth-toggle__btn--active"
-              : "auth-toggle__btn"
-          }
-        >
-          {t("auth.registerTitle")}
-        </button>
-      </div>
+      {}
+      {mode !== "modal" && (
+        <div className="auth-toggle">
+          <button
+            type="button"
+            onClick={() => setIsLogin(true)}
+            className={
+              isLogin
+                ? "auth-toggle__btn auth-toggle__btn--active"
+                : "auth-toggle__btn"
+            }
+          >
+            {t("auth.loginTitle")}
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsLogin(false)}
+            className={
+              !isLogin
+                ? "auth-toggle__btn auth-toggle__btn--active"
+                : "auth-toggle__btn"
+            }
+          >
+            {t("auth.registerTitle")}
+          </button>
+        </div>
+      )}
+
       <div className="auth-forms">
         {isLogin ? (
           <Login onSuccess={onSuccess} mode={mode} />

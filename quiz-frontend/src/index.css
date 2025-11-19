@@ -28,7 +28,14 @@ body {
   text-size-adjust: 100%;
 }
 
+html,
+body,
+#root {
+  overflow-x: hidden;
+}
+
 @media (max-width: 768px) {
+
   button,
   a,
   input,
@@ -50,8 +57,7 @@ body {
   flex-shrink: 0;
   width: 240px;
   background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
-  padding: calc(24px + env(safe-area-inset-top)) 0
-    calc(20px + env(safe-area-inset-bottom)) 0;
+  padding: calc(24px + env(safe-area-inset-top)) 0 calc(20px + env(safe-area-inset-bottom)) 0;
 }
 
 .app__main {
@@ -79,18 +85,13 @@ body {
   width: 100%;
   box-sizing: border-box;
   max-width: 1100px;
-  padding: calc(24px + env(safe-area-inset-top))
-    calc(20px + env(safe-area-inset-right))
-    calc(20px + env(safe-area-inset-bottom))
-    calc(20px + env(safe-area-inset-left));
+  padding: calc(24px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right)) calc(20px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left));
   margin: 0 auto;
 }
 
 @media (max-width: 768px) {
   .app__content {
-    padding: 16px calc(12px + env(safe-area-inset-right))
-      calc(16px + env(safe-area-inset-bottom))
-      calc(12px + env(safe-area-inset-left));
+    padding: 16px calc(12px + env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) calc(12px + env(safe-area-inset-left));
   }
 }
 

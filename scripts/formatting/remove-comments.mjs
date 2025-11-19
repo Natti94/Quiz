@@ -1,3 +1,9 @@
+// Remove comments from code and CSS across the monorepo. This is intended
+// for generating reduced test or deployment artifacts; it is not reversible.
+// Use this carefully and keep a git checkpoint prior to running on a large set.
+//
+// Call with root: `node scripts/formatting/remove-comments.mjs`
+
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";

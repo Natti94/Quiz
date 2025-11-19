@@ -1,3 +1,18 @@
+// This helper script imports logs/backups from an "infra" repository into
+// the local archives/tag-backups folder. It's used to centralize large logs and
+// keep the monorepo lean, while allowing manual restore of tag backups.
+//
+// Usage:
+//   INFRA_GIT_URL=git@github.com:org/infra.git node scripts/archiving/move-logs-to-archives.mjs [srcFolder] [--commit] [--force] [--dry-run]
+// Arguments and flags:
+//   srcFolder (default: logs) — path inside the infra repo to copy files from
+//   --commit  -> after copying, run `git add`/commit/push from this repo
+//   --force   -> copy even when locals are identical; useful to overwrite
+//   --dry-run -> don't copy; just show what would be done
+// Environment variables:
+//   INFRA_GIT_URL    — required; repository to clone
+//   INFRA_GIT_BRANCH — optional (defaults to main)
+
 import { execSync } from "child_process";
 import { promises as fs } from "fs";
 import path from "path";

@@ -1,5 +1,3 @@
-// Move-logs (import) - fetch logs from infra into monorepo archives.
-// This file moved from scripts/move-logs-to-archives.mjs/ archiving folder -> scripts/infra
 import { execSync } from "child_process";
 import { promises as fs } from "fs";
 import path from "path";

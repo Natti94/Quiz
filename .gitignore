@@ -16,6 +16,9 @@ dist/
 # Netlify local artifacts
 .netlify/
 
+# Ignore copied netlify function tests used only for local dev
+quiz-frontend/netlify/functions/test_*
+
 # OS junk
 .DS_Store
 Thumbs.db

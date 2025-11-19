@@ -23,6 +23,7 @@ param(
   [int]$TimeoutSeconds = 120,
   [switch]$NoKill = $false,
   [switch]$DevStub = $false
+  , [switch]$CopyTests = $false
 )
 
 function Write-Section($s) { Write-Host "`n=== $s ===`n" -ForegroundColor Cyan }
@@ -43,6 +44,17 @@ try {
       powershell -NoProfile -ExecutionPolicy Bypass -Command "& { & '$root\\dev\\kill-local-host-sessions.ps1' -Force }" 2>$null
     } catch { Write-Host "Failed to run kill script: $_" -ForegroundColor Yellow }
   } else { Write-Host "Skipping local session kill (NoKill set)" }
+
+  if ($CopyTests) {
+    Write-Section "Copying netlify functions tests into the functions folder (for Netlify Dev)"
+    try {
+      cd $root
+      Write-Host "Running: node ./scripts/test/copy-netlify-tests.mjs --dry-run"
+      node ./scripts/test/copy-netlify-tests.mjs --dry-run
+      Write-Host "Running: node ./scripts/test/copy-netlify-tests.mjs"
+      node ./scripts/test/copy-netlify-tests.mjs
+    } catch { Write-Host "Failed to copy tests: $_" -ForegroundColor Yellow }
+  }
 
   Write-Section "Starting Netlify Dev in $frontend"
   $functionsPath = Join-Path $frontend 'netlify\functions'
@@ -112,6 +124,14 @@ try {
   Write-Section "Stopping Netlify Dev job"
   Stop-Job -Job $job -ErrorAction SilentlyContinue
   Remove-Job -Job $job -ErrorAction SilentlyContinue
+
+  if ($CopyTests) {
+    try {
+      Write-Section "Cleaning copied test functions from functions folder"
+      cd $root
+      node ./scripts/test/copy-netlify-tests.mjs --clean
+    } catch { Write-Host "Failed to clean copied tests: $_" -ForegroundColor Yellow }
+  }
 
   Write-Section "Test result: exit code $result (0=ok,1=start/registration fail,2=LLM runtime fail)"
   return $result

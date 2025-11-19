@@ -131,6 +131,7 @@
     background 0.15s ease,
     transform 0.05s ease;
 }
+
 .language-selector__select:hover,
 .header__language-select:hover {
   border-color: #0d9488;
@@ -242,9 +243,13 @@
 }
 
 .header__modal {
-  width: min(540px, 92vw);
+  width: min(600px, 92vw);
   max-height: min(80vh, 900px);
-  overflow: auto;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
   background: #fff;
   border-radius: 12px;
   box-shadow:
@@ -252,6 +257,32 @@
     0 4px 6px -4px rgba(0, 0, 0, 0.1);
   border: 1px solid #e5e7eb;
   padding: 16px;
+  box-sizing: border-box;
+}
+
+.auth-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  flex: 1 1 auto;
+  min-height: 0;
+
+  overflow: auto;
+}
+
+.auth-toggle {
+  display: flex;
+  gap: 8px;
+}
+
+.auth-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
 }
 
 .header__modal-header {
@@ -297,6 +328,19 @@
   justify-content: space-between;
   gap: 12px;
   margin-top: 12px;
+}
+
+.header__modal .header__auth-form {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.header__modal .header__input {
+  width: 100%;
+}
+
+.header__modal .header__btn {
+  width: auto;
 }
 
 .header__modal-text {
