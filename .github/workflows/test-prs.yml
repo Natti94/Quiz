@@ -1,0 +1,30 @@
+name: PR CI — tests
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited, ready_for_review]
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Run tests (Vitest + Jest)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Vitest (frontend workspace)
+        run: npm run test
+
+      - name: Run Jest for ESM tests (frontend workspace)
+        run: npm run test:jest

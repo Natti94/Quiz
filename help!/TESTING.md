@@ -26,3 +26,8 @@ npm run test:netlify-dev:with-tests
 ```
 
 This will spin up Netlify Dev and (optionally) copy test files from the `tests/netlify` folder into the runtime functions directory.
+
+Continuous integration on PRs
+---------------------------
+
+We run a GitHub Action on pull requests to verify your changes: it installs dependencies and runs both `npm run test` (Vitest) and `npm run test:jest` (Jest). The workflow file is available at `.github/workflows/test-prs.yml`. If tests fail, the PR check fails; fix issues locally and push an update.
