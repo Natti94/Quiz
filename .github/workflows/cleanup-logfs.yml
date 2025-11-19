@@ -1,0 +1,31 @@
+name: "Cleanup logfs"
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # weekly at 00:00 UTC on Sunday
+  workflow_dispatch:
+    inputs:
+      run:
+        description: 'Set true to run cleanup (otherwise dry run)'
+        required: false
+        default: 'false'
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Clean logfs
+        run: |
+          if [ "${{ github.event.inputs.run }}" = "true" ]; then
+            echo "Running cleanup (deleting files older than ${CLEAN_DAYS} days)";
+            node ./scripts/infra/clean-logfs.mjs --days ${CLEAN_DAYS};
+          else
+            echo "Dry run: listing files that would be removed (use workflow_dispatch with input 'run=true' to actually delete)";
+            node ./scripts/infra/clean-logfs.mjs --days ${CLEAN_DAYS} --dry-run;
+          fi
+        env:
+          CLEAN_DAYS: 30

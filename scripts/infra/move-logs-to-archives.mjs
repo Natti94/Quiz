@@ -103,4 +103,7 @@ try {
   try {
     execSync(`rm -rf ${tmp}`, { stdio: "inherit" });
   } catch (e) {}
+  try {
+    await fs.rm(tmp, { recursive: true, force: true });
+  } catch (e) {}
 }

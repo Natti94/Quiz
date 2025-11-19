@@ -19,6 +19,12 @@ dist/
 # Ignore copied netlify function tests used only for local dev
 quiz-frontend/netlify/functions/test_*
 
+# Local runtime logs directory (ephemeral)
+logfs/
+
+# Local transient netlify dev log
+netlify-dev.log
+
 # OS junk
 .DS_Store
 Thumbs.db

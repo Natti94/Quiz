@@ -53,7 +53,9 @@ try {
   const files = await fs.readdir(infraLogsDir);
   const copies = [];
   const localArchiveDir = path.join(process.cwd(), "archives", "tag-backups");
+  const localLogfsDir = path.join(process.cwd(), "logfs");
   await fs.mkdir(localArchiveDir, { recursive: true });
+  await fs.mkdir(localLogfsDir, { recursive: true });
   for (const f of files) {
     if (f.startsWith("tag-backup-") || f.endsWith("-sha.txt")) {
       const src = path.join(infraLogsDir, f);
@@ -81,6 +83,32 @@ try {
       await fs.copyFile(src, dest);
       console.log("Copied:", src, "->", dest);
       copies.push(dest);
+    } else {
+      // not a tag backup; copy ephemeral logs into logfs instead
+      const src = path.join(infraLogsDir, f);
+      const dest = path.join(localLogfsDir, f);
+
+      if (dryRun) {
+        console.log("[DRY RUN] Would copy (logfs):", src, "->", dest);
+        continue;
+      }
+
+      let shouldCopy = true;
+      try {
+        const [srcBuf, destBuf] = await Promise.all([
+          fs.readFile(src),
+          fs.readFile(dest).catch(() => null),
+        ]);
+        if (destBuf && Buffer.compare(srcBuf, destBuf) === 0) {
+          shouldCopy = false;
+        }
+      } catch (e) {}
+      if (!shouldCopy && !force) {
+        console.log("Skipping (already exists):", dest);
+        continue;
+      }
+      await fs.copyFile(src, dest);
+      console.log("Copied (logfs):", src, "->", dest);
     }
   }
 
@@ -116,6 +144,6 @@ try {
   process.exit(1);
 } finally {
   try {
-    execSync(`rm -rf ${tmp}`, { stdio: "inherit" });
+    await fs.rm(tmp, { recursive: true, force: true });
   } catch (e) {}
 }

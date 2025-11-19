@@ -31,12 +31,13 @@ function Write-Section($s) { Write-Host "`n=== $s ===`n" -ForegroundColor Cyan }
 try {
   $root = Split-Path -Parent $MyInvocation.MyCommand.Path | Resolve-Path | Select-Object -ExpandProperty Path
   $frontend = Join-Path $root '..\quiz-frontend' | Resolve-Path
-  $logDir = Join-Path $root '..\logs' | Resolve-Path -ErrorAction SilentlyContinue
-  if (-not $logDir) { New-Item -Path (Join-Path $root '..\logs') -ItemType Directory -Force | Out-Null; $logDir = Join-Path $root '..\logs' }
+  # Use `logfs/` for ephemeral runtime logs; archives/tag-backups is used for long-term tag backups
+  $logDir = Join-Path $root '..\logfs' | Resolve-Path -ErrorAction SilentlyContinue
+  if (-not $logDir) { New-Item -Path (Join-Path $root '..\logfs') -ItemType Directory -Force | Out-Null; $logDir = Join-Path $root '..\logfs' }
   $ts = Get-Date -Format 'yyyyMMdd-HHmmss'
   $logFile = Join-Path $logDir "test-netlify-dev-$ts.log"
 
-  Write-Section "Test Netlify Dev: starting (log: $logFile)"
+  Write-Section "Test Netlify Dev: starting (log: $logFile) -- (storing ephemeral logs in logfs/)"
 
   if (-not $NoKill) {
     Write-Section "Killing local sessions (quick)"

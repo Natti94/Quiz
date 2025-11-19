@@ -3,7 +3,7 @@ This directory organizes runnable helper scripts used across the repository.
 Categories
 - dev/  — developer-only helpers (PowerShell). Examples: check-ollama.ps1, self-audit.ps1, test-netlify-dev.ps1. These scripts may be interactive and are not intended for CI.
  - dev/  — developer-only helpers (PowerShell). Examples: check-ollama.ps1, self-audit.ps1, test-netlify-dev.ps1. These scripts may be interactive and are not intended for CI.
- - NPM lock troubleshooting — see `HELP/NPM-LOCK-FIX.md` for curated guidance and quick PowerShell fixes.
+ - NPM lock troubleshooting — see `help!/NPM-LOCK-FIX.md` for curated guidance and quick PowerShell fixes.
  - Netlify function tests — the `tests/netlify/functions` folder contains small function helpers used during Netlify Dev testing. Use `npm run test:netlify-dev:with-tests` (root or frontend) to copy these tests into the running functions directory, run the test suite, then clean them up.
 - formatting/ — formatters and cleanup scripts used for repository maintenance.
 - backups/ — tag backup and restore helpers. These scripts interact with tags and the `archives/` folder.

@@ -288,10 +288,16 @@ Optional (AI evaluation):
 - Workflow: `.github/workflows/release.yml` (runs on push to `main`).
 - Config: `./.releaserc.json` (monorepo release from repository root). If you previously used `quiz-frontend/.releaserc.json`, you can remove or archive it when switching to root-level releases.
 - Tag and log backups: tag cleanup creates a `archives/tag-backups/tag-backup-*.txt` file and a matching `archives/tag-backups/tag-backup-*-sha.txt` mapping. These are committed to `archives/tag-backups/` by default. You can also store backups in a central infra repository or cloud storage (see next section).
+ - Tag and log backups: tag cleanup creates a `archives/tag-backups/tag-backup-*.txt` file and a matching `archives/tag-backups/tag-backup-*-sha.txt` mapping. These are committed to `archives/tag-backups/` by default. You can also store backups in a central infra repository or cloud storage (see next section).
+ - Ephemeral runtime logs (Netlify dev output, local diagnostic logs) are stored in the `logfs/` folder. `logfs/` is ignored by git and intended for transient developer logs. Use `scripts/infra/move-logs-to-infra.mjs` to push `logfs/` + `archives/tag-backups/` to a shared infra repo (under `logs/`) when you want to centralize or persist them.
   Storing logs & backups elsewhere
 - Use an "infra" repo:
   - To copy local backups into an infra repo (push): run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/move-logs-to-infra.mjs` (if you previously added this helper). That will push `archives/tag-backups/*` into the infra repo under `logs/`.
-  - To restore or import backups from infra into the monorepo archives: run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/infra/move-logs-to-archives.mjs [srcFolderInInfra] --commit`.
+  - To copy local backups and runtime logs into an infra repo (push): run
+    `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/infra/move-logs-to-infra.mjs --commit`.
+    That will push both `archives/tag-backups/*` and `logfs/*` into the infra repo under `logs/`.
+  - To restore or import backups from infra into the monorepo archives: run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/archiving/move-logs-to-archives.mjs [srcFolderInInfra] --commit`.
+    By default tag backups are copied into `archives/tag-backups/` and other logs are copied into `logfs/`.
     - By default the script copies files into `archives/tag-backups/` but doesn't commit them unless you pass `--commit`.
 - Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/backups/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
 - Tests for Netlify functions now live under `tests/netlify/functions` — use `npm run test:netlify-dev:with-tests` to copy them into the Netlify functions folder for local debugging and automated checks.
@@ -640,7 +646,7 @@ curl -X POST https://your-domain.com/api/generate \
   - AI mode evaluates VG-level questions only; G questions use standard multiple choice
   - In AI mode, only questions marked "(AI-bedömd)" use AI evaluation
 - NPM lock errors (ECOMPROMISED):
-  - If you encounter `npm ERR! code ECOMPROMISED` or a "Lock compromised" error, see `HELP/NPM-LOCK-FIX.md` for a step-by-step fix and recommended script (`scripts/dev/fix-npm-lock.ps1`).
+  - If you encounter `npm ERR! code ECOMPROMISED` or a "Lock compromised" error, see `help!/NPM-LOCK-FIX.md` for a step-by-step fix and recommended script (`scripts/dev/fix-npm-lock.ps1`).
   - If no AI provider is configured, AI mode will be automatically disabled with a warning message
 - Discord bot issues:
   - Common issues: signature verification failures, channel restrictions, expired tokens
