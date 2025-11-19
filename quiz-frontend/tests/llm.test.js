@@ -1,7 +1,6 @@
 /* eslint-env node */
-/* global process */
-import { describe, it, expect, beforeEach } from 'vitest';
-import { handler } from '../netlify/functions/LLM.js';
+/* global process, describe, it, expect, beforeEach */
+// Note: we use dynamic import inside tests to support running with both Vitest and Jest
 
 describe('LLM handler (unit)', () => {
   beforeEach(() => {
@@ -10,6 +9,7 @@ describe('LLM handler (unit)', () => {
   });
 
   it('returns a canned response when DEV_STUB=1', async () => {
+    const { handler } = await import('../netlify/functions/LLM.js');
     const ev = { headers: {}, body: JSON.stringify({ prompt: 'Test prompt' }) };
     const res = await handler(ev);
     expect(res.statusCode).toBe(200);
@@ -20,6 +20,7 @@ describe('LLM handler (unit)', () => {
   });
 
   it('returns 400 when prompt missing', async () => {
+    const { handler } = await import('../netlify/functions/LLM.js');
     const ev = { headers: {}, body: JSON.stringify({}) };
     const res = await handler(ev);
     expect(res.statusCode).toBe(400);

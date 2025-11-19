@@ -25,8 +25,9 @@
     "check:ollama": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/dev/check-ollama.ps1",
     "scan-committed-logs": "node ./scripts/dev/scan-committed-logs.mjs",
     "clean-logfs": "node ./scripts/infra/clean-logfs.mjs",
-    "move-generated-root": "node ./scripts/infra/move-root-generated.mjs"
-    ,"test": "npm --workspace quiz-frontend run test"
+    "move-generated-root": "node ./scripts/infra/move-root-generated.mjs",
+    "test": "npm --workspace quiz-frontend run test",
+    "test:jest": "npm --workspace quiz-frontend run test:jest"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
@@ -64,5 +65,6 @@
     "education"
   ],
   "author": "Natti94",
-  "license": "MIT"
+  "license": "MIT",
+  "overrides": {}
 }
