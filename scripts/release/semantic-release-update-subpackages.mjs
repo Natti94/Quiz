@@ -5,7 +5,7 @@ export default {
     const { nextRelease, logger } = context;
     logger.log(`Running local plugin: updating subpackage versions to ${nextRelease.version}`);
     try {
-      execFileSync(process.execPath, ['scripts/update-subpackage-versions.mjs', nextRelease.version], {
+      execFileSync(process.execPath, ['scripts/release/update-subpackage-versions.mjs', nextRelease.version], {
         stdio: 'inherit',
       });
     } catch (err) {

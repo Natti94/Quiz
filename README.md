@@ -287,13 +287,13 @@ Optional (AI evaluation):
 
 - Workflow: `.github/workflows/release.yml` (runs on push to `main`).
 - Config: `./.releaserc.json` (monorepo release from repository root). If you previously used `quiz-frontend/.releaserc.json`, you can remove or archive it when switching to root-level releases.
- - Tag and log backups: tag cleanup creates a `archives/tag-backups/tag-backup-*.txt` file and a matching `archives/tag-backups/tag-backup-*-sha.txt` mapping. These are committed to `archives/tag-backups/` by default. You can also store backups in a central infra repository or cloud storage (see next section).
-Storing logs & backups elsewhere
+- Tag and log backups: tag cleanup creates a `archives/tag-backups/tag-backup-*.txt` file and a matching `archives/tag-backups/tag-backup-*-sha.txt` mapping. These are committed to `archives/tag-backups/` by default. You can also store backups in a central infra repository or cloud storage (see next section).
+  Storing logs & backups elsewhere
 - Use an "infra" repo:
   - To copy local backups into an infra repo (push): run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/move-logs-to-infra.mjs` (if you previously added this helper). That will push `archives/tag-backups/*` into the infra repo under `logs/`.
-  - To restore or import backups from infra into the monorepo archives: run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/move-logs-to-archives.mjs [srcFolderInInfra] --commit`.
+  - To restore or import backups from infra into the monorepo archives: run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/infra/move-logs-to-archives.mjs [srcFolderInInfra] --commit`.
     - By default the script copies files into `archives/tag-backups/` but doesn't commit them unless you pass `--commit`.
- - Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
+ - Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/backups/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
 - Use CI artifacts: add a workflow that uploads the backup files as artifacts on each release/cleanup.
 - Use cloud storage: a small action or script can upload the files to S3 or GCS. Keep secrets outside the repo and add a short archiving job in your release pipeline.
 - Versions are inferred from commit messages (Conventional Commits):

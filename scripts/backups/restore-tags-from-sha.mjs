@@ -1,12 +1,9 @@
 #!/usr/bin/env node
+// moved from scripts/restore-tags-from-sha.mjs -> scripts/backups/
 import { execSync } from 'child_process';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-// Compatibility wrapper for older path. The real script was moved to 'scripts/backups'.
-// Usage: same as before.
-
-import { execFileSync } from 'node:child_process';
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const force = args.includes('--force');
@@ -19,12 +16,6 @@ if (fileArgIndex >= 0) {
 
 const dir = process.cwd();
 const candidates = [path.join(dir, 'archives', 'tag-backups'), path.join(dir, 'scripts')];
-
-// Delegate to the new script in backups/
-execFileSync(process.execPath, ['scripts/backups/restore-tags-from-sha.mjs', ...args], {
-  stdio: 'inherit',
-});
-process.exit(0);
 
 async function findLatestShaFile() {
   if (filePath) return path.resolve(filePath);
@@ -72,7 +63,6 @@ async function main() {
       continue;
     }
 
-    // Do not run without dry-run unless the user specifically requested it.
     const cmd = `git tag ${force ? '-f ' : ''}${tag} ${sha}`;
     if (dryRun) {
       console.log('[DRY RUN] Would run:', cmd);

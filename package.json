@@ -10,14 +10,14 @@
     "dev:backend": "cd quiz-backend-local && npm run dev",
     "install:all": "npm install && cd quiz-frontend && npm install && cd ../quiz-backend-local && npm install",
     "build": "cd quiz-frontend && npm run build",
-    "format:repo": "node ./scripts/format-repository.mjs",
-    "strip:comments": "node ./scripts/remove-comments.mjs",
+    "format:repo": "node ./scripts/formatting/format-repository.mjs",
+    "strip:comments": "node ./scripts/formatting/remove-comments.mjs",
     "lint": "cd quiz-frontend && npm run lint",
     "fix:npm-lock": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/fix-npm-lock.ps1",
     "diagnose:llm": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/diagnose-llm.ps1",
     "self-audit": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/self-audit.ps1",
     "kill-local-sessions": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/kill-local-host-sessions.ps1",
-  "test:netlify-dev": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/test-netlify-dev.ps1",
+    "test:netlify-dev": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/test-netlify-dev.ps1",
     "check:ollama": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/check-ollama.ps1"
   },
   "devDependencies": {
