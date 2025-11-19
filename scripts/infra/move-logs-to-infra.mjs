@@ -38,10 +38,12 @@ try {
   try {
     const tagFiles = await fs.readdir(localArchiveDir);
     for (const f of tagFiles) {
-      if (f.startsWith("tag-backup-") || f.endsWith("-sha.txt")) {
+      if (f.startsWith("tag-backup-") || f.endsWith("-sha.txt") || f.endsWith('.json.backup') || f.startsWith('quiz-package-lock-') || f.startsWith('package-lock')) {
+        // tag backups, lock backups etc.
         filesToCopy.push({ src: path.join(localArchiveDir, f), dest: path.join(infraLogsDir, f) });
       }
     }
+    
   } catch (e) {
     // no archives present
   }

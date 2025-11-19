@@ -21,9 +21,11 @@
     "test:netlify-dev:with-tests": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/dev/test-netlify-dev.ps1 -CopyTests",
   "move-logs-to-infra": "INFRA_GIT_URL=git@github.com:org/infra.git node ./scripts/infra/move-logs-to-infra.mjs",
   "move-logs-to-archives": "INFRA_GIT_URL=git@github.com:org/infra.git node ./scripts/archiving/move-logs-to-archives.mjs",
+  "backup:package-locks": "node ./scripts/backups/backup-package-locks.mjs",
     "check:ollama": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/dev/check-ollama.ps1"
   ,"scan-committed-logs": "node ./scripts/dev/scan-committed-logs.mjs"
   ,"clean-logfs": "node ./scripts/infra/clean-logfs.mjs"
+    ,"move-generated-root": "node ./scripts/infra/move-root-generated.mjs"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
