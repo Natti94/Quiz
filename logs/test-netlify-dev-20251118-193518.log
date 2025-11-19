@@ -1,0 +1,53 @@
+﻿[project.ts]: detectFrameworks
+[project.ts]: detectBuildSystem
+[project.ts]: detectWorkspaces
+[project.ts]: detectPackageManager
+[project.ts]: detectFrameworksInPath - C:\Dev_Natti\Quiz\quiz-frontend
+[project.ts]: detectFrameworksInPath - C:\Dev_Natti\Quiz\quiz-backend-local
+node.exe : ÔÇï
+At C:\dev_natti\quiz\node_modules\.bin\npx.ps1:24 char:5
++     & "node$exe"  "$basedir/../npm/bin/npx-cli.js" $args
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ÔÇï:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ÔØ» Initial build environment
+config: C:\Dev_Natti\Quiz\quiz-frontend\netlify.toml
+context: dev
+cwd: C:\Dev_Natti\Quiz
+featureFlags: []
+mode: cli
+repositoryRoot: C:\Dev_Natti\Quiz
+ÔÇï
+ÔØ» UI build settings
+baseRelDir: true
+ÔÇï
+ÔØ» Resolved build environment
+branch: main
+buildDir: C:\Dev_Natti\Quiz
+configPath: C:\Dev_Natti\Quiz\quiz-frontend\netlify.toml
+context: dev
+env:
+  - DEPLOY_ID
+  - BUILD_ID
+  - NETLIFY_LOCAL
+  - HEAD
+  - COMMIT_REF
+  - CACHED_COMMIT_REF
+  - PULL_REQUEST
+  - LANG
+  - LANGUAGE
+  - LC_ALL
+  - GATSBY_TELEMETRY_DISABLED
+  - NEXT_TELEMETRY_DISABLED
+ÔÇï
+ÔØ» Resolved config
+build:
+  publish: C:\Dev_Natti\Quiz\dist
+  publishOrigin: config
+functions:
+  "*":
+    external_node_modules:
+      - mongodb
+    node_bundler: esbuild
+functionsDirectory: C:\Dev_Natti\Quiz\netlify\functions

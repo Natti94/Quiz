@@ -60,7 +60,7 @@ export async function handler(event) {
     const body = JSON.parse(event.body || "{}");
     console.log("Request body:", body);
     console.log(
-      `Rate limit - Remaining: ${rateCheck.remaining}/${MAX_REQUESTS_PER_MINUTE}`,
+      `Rate limit - Remaining: ${rateCheck.remaining}/${MAX_REQUESTS_PER_MINUTE}`
     );
 
     const { prompt, model = "llama3.2:latest" } = body;
@@ -97,6 +97,33 @@ export async function handler(event) {
       };
     }
 
+    // DEV_STUB: when working locally, you may want fast responses without contacting
+    // Ollama or hitting the lambda-local timeout. Set DEV_STUB=1 in your environment
+    // and the function will return a small canned response immediately.
+  // Accept multiple truthy values for DEV_STUB: '1', 'true', 'yes'
+  const devStubVal = String(process.env.DEV_STUB || "").toLowerCase().trim();
+    if (devStubVal === "1" || devStubVal === "true" || devStubVal === "yes") {
+  console.log("DEV_STUB active — returning canned response");
+      const canned = {
+        correct: true,
+        feedback: "This is a local dev stub response. Swap DEV_STUB=0 to call the real model.",
+        score: 100,
+      };
+      return {
+        statusCode: 200,
+        headers: {
+          "X-RateLimit-Limit": MAX_REQUESTS_PER_MINUTE.toString(),
+          "X-RateLimit-Remaining": rateCheck.remaining.toString(),
+        },
+        body: JSON.stringify({
+          response: JSON.stringify(canned),
+          model: "dev-stub",
+          done: true,
+          provider: "dev",
+        }),
+      };
+    }
+
     const AI_PROVIDER = process.env.AI_PROVIDER || "ollama";
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
     const HUGGINGFACE_API_KEY = process.env.HUGGINGFACE_API_KEY;
@@ -120,7 +147,7 @@ export async function handler(event) {
             temperature: 0.5,
             max_tokens: 1024,
           }),
-        },
+        }
       );
 
       if (!groqRes.ok) {
@@ -168,7 +195,7 @@ export async function handler(event) {
               temperature: 0.5,
             },
           }),
-        },
+        }
       );
 
       if (!hfRes.ok) {
@@ -229,7 +256,7 @@ export async function handler(event) {
       const data = await res.json();
       console.log(
         "Ollama response data:",
-        JSON.stringify(data).substring(0, 200),
+        JSON.stringify(data).substring(0, 200)
       );
 
       if (!res.ok) {
