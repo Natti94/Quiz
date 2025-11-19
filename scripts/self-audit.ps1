@@ -4,9 +4,9 @@ Collects environment information, Netlify and Ollama status, and npm logs.
 It can optionally run a quick or full fix for npm lock issues via existing fix-npm-lock.ps1.
 
 Usage:
-  pwsh -NoProfile -ExecutionPolicy Bypass ./scripts/self-audit.ps1         # read-only audit
-  pwsh -NoProfile -ExecutionPolicy Bypass ./scripts/self-audit.ps1 -Fix  # run quick fix
-  pwsh -NoProfile -ExecutionPolicy Bypass ./scripts/self-audit.ps1 -Fix -FullFix -GlobalNetlify
+  pwsh -NoProfile -ExecutionPolicy Bypass ./scripts/dev/self-audit.ps1         # read-only audit (compat: ./scripts/self-audit.ps1 forwards)
+  pwsh -NoProfile -ExecutionPolicy Bypass ./scripts/dev/self-audit.ps1 -Fix  # run quick fix
+  pwsh -NoProfile -ExecutionPolicy Bypass ./scripts/dev/self-audit.ps1 -Fix -FullFix -GlobalNetlify
 
 Notes:
   - This script does not change files unless -Fix is passed.
@@ -26,6 +26,10 @@ $logDir = Join-Path $root "..\logs" | Resolve-Path -ErrorAction SilentlyContinue
 If (-not $logDir) { New-Item -Path (Join-Path $root "..\logs") -ItemType Directory -Force | Out-Null; $logDir = Join-Path $root "..\logs" }
 $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
 $logFile = Join-Path $logDir "self-audit-$timestamp.log"
+
+Write-Host "Compatibility wrapper — forwarding to scripts/dev/self-audit.ps1"
+& "$(Join-Path $PSScriptRoot 'dev\self-audit.ps1')" @args
+return
 
 Write-Host "Self-audit started. Log: $logFile"
 Start-Transcript -Path $logFile -Force | Out-Null

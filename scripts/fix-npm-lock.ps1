@@ -4,9 +4,9 @@ reinstalling the workspace dependencies and starting Netlify dev with debug.
 
 Usage:
   - From repository root:
-      pwsh ./scripts/fix-npm-lock.ps1           # runs the full fix workflow
+      pwsh ./scripts/dev/fix-npm-lock.ps1           # runs the full fix workflow (compat wrapper available at ./scripts/fix-npm-lock.ps1)
   - To only perform quick cleanup (no reinstall):
-      pwsh ./scripts/fix-npm-lock.ps1 -Quick
+      pwsh ./scripts/dev/fix-npm-lock.ps1 -Quick
 
 This script is designed for Windows PowerShell. It will:
   1) Stop any running Node processes
@@ -30,6 +30,10 @@ param(
 function Write-Section($text) {
   Write-Host "`n=== $text ===`n" -ForegroundColor Cyan
 }
+
+Write-Section "Compatibility wrapper — forwarding to scripts/dev/fix-npm-lock.ps1"
+& "$(Join-Path $PSScriptRoot 'dev\fix-npm-lock.ps1')" @args
+return
 
 Write-Section "Fix NPM Lock: Starting"
 

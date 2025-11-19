@@ -17,6 +17,10 @@ Write-Host "Starting Netlify Dev with DEV_STUB enabled" -ForegroundColor Cyan
 $env:DEV_STUB = '1'
 
 # Kill common dev ports to avoid collisions
+Write-Host "Compatibility wrapper — forwarding to scripts/dev/start-netlify-dev-stub.ps1" -ForegroundColor Yellow
+& "$(Join-Path $PSScriptRoot 'dev\start-netlify-dev-stub.ps1')" @args
+return
+
 Write-Host "Running kill-local-host-sessions.ps1 to free ports" -ForegroundColor Yellow
 & "$(Join-Path $PSScriptRoot 'kill-local-host-sessions.ps1')" -Force
 

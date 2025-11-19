@@ -1,4 +1,3 @@
-// Moved from scripts/app-version/create-tag-sha-backup.mjs -> scripts/backups
 import fs from "fs";
 import { execSync } from "child_process";
 import path from "path";

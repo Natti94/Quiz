@@ -6,13 +6,13 @@ This helps when Netlify Dev cannot bind to port 8888 because another process is 
 
 Usage:
   # Dry-run (default): lists processes using the configured ports
-  pwsh ./scripts/kill-local-host-sessions.ps1
+    pwsh ./scripts/dev/kill-local-host-sessions.ps1
 
   # Interactive kill with confirmation
-  pwsh ./scripts/kill-local-host-sessions.ps1 -ConfirmKill
+    pwsh ./scripts/dev/kill-local-host-sessions.ps1 -ConfirmKill
 
   # Force kill without prompt
-  pwsh ./scripts/kill-local-host-sessions.ps1 -Force
+    pwsh ./scripts/dev/kill-local-host-sessions.ps1 -Force
 
 Options:
   -Ports <int[]>: Ports to target. Default: 8888,5173,5174,3999,60497
@@ -37,6 +37,10 @@ if (-not $KillOllama) {
   # Ensure we don't include Ollama's default port unless explicitly asked
   $Ports = $Ports | Where-Object { $_ -ne 11434 }
 }
+
+Write-Section "Compatibility wrapper — forwarding to scripts/dev/kill-local-host-sessions.ps1"
+& "$(Join-Path $PSScriptRoot 'dev\kill-local-host-sessions.ps1')" @args
+return
 
 Write-Section "Scanning for local TCP listeners on ports: $($Ports -join ', ')"
 

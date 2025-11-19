@@ -3,7 +3,7 @@ Check-Ollama PowerShell Script
 Performs a series of checks to verify Ollama is installed, running, and has the requested model.
 
 Usage:
-  powershell -NoProfile -ExecutionPolicy Bypass ./scripts/dev/check-ollama.ps1       # read-only checks (compat: ./scripts/check-ollama.ps1 still forwards)
+  powershell -NoProfile -ExecutionPolicy Bypass ./scripts/dev/check-ollama.ps1       # read-only checks
   powershell -NoProfile -ExecutionPolicy Bypass ./scripts/dev/check-ollama.ps1 -PullModel  # pull model if missing
 
 Options:
@@ -35,10 +35,6 @@ $status = [ordered]@{
   errors = @()
 }
 
-Write-Section "Compatibility wrapper — forwarding to scripts/dev/check-ollama.ps1"
-& "$(Join-Path $PSScriptRoot 'dev\check-ollama.ps1')" @args
-return
-
 Write-Section "Checking for ollama CLI"
 try {
   $cliV = & ollama --version 2>$null
@@ -52,7 +48,7 @@ try {
 } catch { $status.errors += "Ollama HTTP failed: $_"; Write-Host "Ollama HTTP failed: $_" }
 
 Write-Section "Checking model presence (ollama list)"
-  try {
+try {
   $list = & ollama list 2>$null | Out-String
   if ($list -ne $null -and $list -match [regex]::Escape($ModelName)) {
     $status.modelPresent = $true
@@ -74,8 +70,8 @@ Write-Section "Test generation via Ollama HTTP API (if HTTP is up)"
 if ($status.ollamaHttp) {
   try {
     $body = @{ model = $ModelName; prompt = "diagnostic check"; stream = $false } | ConvertTo-Json
-  $genUri = "$ollamaUrl/api/generate"
-  $genResp = Invoke-WebRequest -Uri $genUri -Method Post -ContentType 'application/json' -Body $body -UseBasicParsing -ErrorAction Stop -TimeoutSec 120
+    $genUri = "$ollamaUrl/api/generate"
+    $genResp = Invoke-WebRequest -Uri $genUri -Method Post -ContentType 'application/json' -Body $body -UseBasicParsing -ErrorAction Stop -TimeoutSec 120
     $status.generateOK = $true
     Write-Host "Generate endpoint responded status: $($genResp.StatusCode)"
   } catch { $status.errors += "Generate test failed: $_"; Write-Host "Generate test failed: $_" }

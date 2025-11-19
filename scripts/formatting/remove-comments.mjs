@@ -1,4 +1,3 @@
-// This file moved from scripts/remove-comments.mjs -> scripts/formatting/
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";

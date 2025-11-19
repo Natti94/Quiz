@@ -8,10 +8,6 @@ Outputs: Node/npm versions, netlify-cli version, Netlify Dev port usage, functio
 
 function Write-Section($header) { Write-Host "`n=== $header ===`n" -ForegroundColor Cyan }
 
-Write-Section "Compatibility wrapper — forwarding to scripts/dev/diagnose-llm.ps1"
-& "$(Join-Path $PSScriptRoot 'dev\diagnose-llm.ps1')" @args
-return
-
 Write-Section "Date / CWD"
 Get-Date
 Get-Location
@@ -37,9 +33,7 @@ Write-Section "Selected env variables"
 Get-ChildItem Env:AI_PROVIDER,Env:OLLAMA_API_URL,Env:OLLAMA_API_KEY,Env:GROQ_API_KEY,Env:HUGGINGFACE_API_KEY,Env:VITE_AUTH_API_BASE_URL -ErrorAction SilentlyContinue | Format-Table Name,Value -AutoSize
 
 Write-Section "OLLAMA: list models + health checks (if ollama CLI exists)"
-try {
-  & ollama list 2>$null | Out-String | Write-Host
-} catch { Write-Host "ollama CLI not found or not in PATH" }
+try { & ollama list 2>$null | Out-String | Write-Host } catch { Write-Host "ollama CLI not found or not in PATH" }
 try { curl -I http://localhost:11434/ -UseBasicParsing -ErrorAction SilentlyContinue | Select-Object StatusCode, StatusDescription } catch { Write-Host "curl to Ollama failed or not installed" }
 
 Write-Section "Test LLM function endpoint (netlify dev should be running)"

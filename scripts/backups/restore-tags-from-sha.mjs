@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-// moved from scripts/restore-tags-from-sha.mjs -> scripts/backups/
 import { execSync } from 'child_process';
 import { promises as fs } from 'fs';
 import path from 'path';

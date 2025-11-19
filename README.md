@@ -294,7 +294,9 @@ Optional (AI evaluation):
   - To restore or import backups from infra into the monorepo archives: run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/infra/move-logs-to-archives.mjs [srcFolderInInfra] --commit`.
     - By default the script copies files into `archives/tag-backups/` but doesn't commit them unless you pass `--commit`.
  - Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/backups/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
+ - Restore tags locally from an archived mapping: if you ever need to re-create local tags, use `node scripts/backups/restore-tags-from-sha.mjs` to re-create tags in your local repo from the latest `*-sha.txt` mapping in `archives/tag-backups/` (script supports `--dry-run`, `--force`, and `--push`).
 - Use CI artifacts: add a workflow that uploads the backup files as artifacts on each release/cleanup.
+ - Dev tools: all developer helper scripts are now grouped under `scripts/dev/` - e.g. `scripts/dev/check-ollama.ps1`, `scripts/dev/diagnose-llm.ps1`, `scripts/dev/test-netlify-dev.ps1`. Old paths still work via compatibility wrappers.
 - Use cloud storage: a small action or script can upload the files to S3 or GCS. Keep secrets outside the repo and add a short archiving job in your release pipeline.
 - Versions are inferred from commit messages (Conventional Commits):
   - `fix: …` → patch (e.g., 2.0.1 → 2.0.2)
