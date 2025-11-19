@@ -22,4 +22,19 @@ Notes:
 - `logfs/` is listed in `.gitignore` so it won't be accidentally committed.
  - Cron cleanup: this repo has a scheduled GitHub Action `.github/workflows/cleanup-logfs.yml` (weekly) that runs `scripts/infra/clean-logfs.mjs` in a dry-run by default; run the workflow manually with `run=true` to perform deletions.
  - To scan if logs were accidentally committed and untrack them from git, use `node scripts/dev/scan-committed-logs.mjs --remove` (review output first with `--dry-run`).
+ - To scan if logs were accidentally committed and untrack them from git, use `node scripts/dev/scan-committed-logs.mjs --remove` (review output first with `--dry-run`). Alternatively use shorthand:
+
+  ```bash
+  npm run scan-committed-logs -- --dry-run
+  # or to remove from tracking (commits are still required):
+  npm run scan-committed-logs -- --remove
+  ```
+
+ - To purge old logs locally (default) or on a schedule (via GitHub Actions):
+
+  ```bash
+  npm run clean-logfs -- --days 30 --dry-run
+  # run for real, remove --dry-run
+  npm run clean-logfs -- --days 30
+  ```
 - Use `--dry-run` and `--force` flags on the helper scripts to check behavior before copying or overwriting anything.
