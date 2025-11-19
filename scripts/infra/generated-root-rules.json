@@ -1,0 +1,9 @@
+[
+  { "regex": "^netlify-dev\\.log$", "dest": "logfs" },
+  { "regex": "\\.log$", "dest": "logfs" },
+  { "regex": "^package-lock\\.json\\.backup$", "dest": "archives/lock-backups" },
+  { "regex": "\\.json\\.backup$", "dest": "archives/lock-backups" },
+  { "regex": "^deno\\.lock$", "dest": "archives/lock-backups" },
+  { "regex": "^.*-sha\\.txt$", "dest": "archives/tag-backups" },
+  { "regex": "^tag-backup-.*\\.txt$", "dest": "archives/tag-backups" }
+]

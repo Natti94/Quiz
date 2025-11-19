@@ -44,6 +44,8 @@ Notes:
   This script uses a default set of simple rules for common generated artifacts (logs, lockfile backups, deno.lock). You can customize the rules via a JSON file:
   ```bash
   node ./scripts/infra/move-root-generated.mjs --rules ./my-rules.json --dry-run
+
+  The repo includes default rules in `scripts/infra/generated-root-rules.json` — use this as a starting point.
   ```
 
   ```bash
