@@ -58,6 +58,27 @@ jobs:
           name: semantic-release-dryrun-log
           path: semantic-release-dryrun.log
 
+      - name: Dump tags and commits visible to runner
+        run: |
+          echo 'Tags (refname|objecttype|taggerdate):' > tags-list.txt
+          git for-each-ref --format='%(refname:short)|%(objecttype)|%(taggerdate)' refs/tags >> tags-list.txt || true
+          echo '\nRecent commits (hash|authorDate|committerDate):' > commits-list.txt
+          # Use the previous tag as the base if available, otherwise show last 100 commits
+          PREV_TAG=$(git describe --tags --abbrev=0 2>/dev/null || true)
+          if [ -n "$PREV_TAG" ]; then
+            git log "$PREV_TAG"..HEAD --pretty=format:'%H|%ai|%ci' >> commits-list.txt || true
+          else
+            git log -n 100 --pretty=format:'%H|%ai|%ci' >> commits-list.txt || true
+          fi
+
+      - name: Upload tags & commits lists
+        uses: actions/upload-artifact@v4
+        with:
+          name: tags-commits-lists
+          path: |
+            tags-list.txt
+            commits-list.txt
+
       - name: Delete existing tag if it already exists (avoid conflict)
         if: steps.next_tag.outputs.tag != ''
         run: |
