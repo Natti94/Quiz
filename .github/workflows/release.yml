@@ -35,16 +35,27 @@ jobs:
 
       - name: Dry-run to get next tag (now works)
         id: next_tag
+        env:
+          DEBUG: semantic-release*
         run: |
-          TAG=$(npx semantic-release --dry-run --no-ci | grep -o 'Published GitHub release .*' | awk '{print $NF}' || true)
+          # Run dry-run with DEBUG and save full log to file so we can inspect failures in CI
+          npx semantic-release --dry-run --no-ci 2>&1 | tee semantic-release-dryrun.log
+          # Try to extract the next tag; if none, leave tag output empty
+          TAG=$(grep -o 'Published GitHub release .*' semantic-release-dryrun.log | awk '{print $NF}' || true)
           if [ -z "$TAG" ]; then
-            TAG=$(npx semantic-release --dry-run --no-ci | grep 'There are no relevant changes' || true)
+            # No release or tag found
             echo "No release needed"
             echo "tag=" >> $GITHUB_OUTPUT
           else
             echo "Next tag: $TAG"
             echo "tag=$TAG" >> $GITHUB_OUTPUT
           fi
+
+      - name: Upload semantic-release dry-run log
+        uses: actions/upload-artifact@v4
+        with:
+          name: semantic-release-dryrun-log
+          path: semantic-release-dryrun.log
 
       - name: Delete existing tag if it already exists (avoid conflict)
         if: steps.next_tag.outputs.tag != ''
