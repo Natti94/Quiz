@@ -29,7 +29,8 @@
 
 ## [1.3.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.2.0...quiz-monorepo-v1.3.0) (2025-11-18)
 
-### Features
+### Features## Test Release  
+This is a test update to trigger semantic-release.
 
 - import logs from infra into archives/tag-backups (with dry-run/commit/force) ([e1953d5](https://github.com/Natti94/Quiz/commit/e1953d5d26bc3d3d371129c7d9e8357f717ddf64))
 
