@@ -1,3 +1,4 @@
+/* global process */
 import { describe, it, expect, beforeEach } from "vitest";
 
 describe("LLM handler (unit)", () => {
