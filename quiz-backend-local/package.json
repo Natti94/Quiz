@@ -1,6 +1,6 @@
 {
   "name": "quiz-backend-local",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Backend API for Quiz App with MongoDB integration",
   "main": "server.js",
   "type": "module",
