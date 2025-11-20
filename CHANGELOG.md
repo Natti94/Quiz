@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.4.0...quiz-monorepo-v1.5.0) (2025-11-20)
+
+
+### Features
+
+* testing semantic release, debugging.. ([3c62925](https://github.com/Natti94/Quiz/commit/3c629253ed09dcfa8d127281a79b02d1230286e8))
+* testing semantic release, debugging.. ([c563093](https://github.com/Natti94/Quiz/commit/c563093ea178006d8fd07fc82f46349365cb864b))
+
 # [1.4.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.3.0...quiz-monorepo-v1.4.0) (2025-11-20)
 
 
