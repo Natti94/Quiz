@@ -25,6 +25,8 @@ logfs/
 # Local transient netlify dev log
 netlify-dev.log
 
+ # Backup lockfiles (we keep in archives/lock-backups)
+
 # OS junk
 .DS_Store
 Thumbs.db

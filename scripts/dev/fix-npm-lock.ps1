@@ -10,5 +10,13 @@ param(
 )
 
 Write-Host "Fix npm lock helper (dev copy)"
-# The actual script is the same as the existing logic; to keep maintainers in sync, we call the original file.
-& "$(Join-Path $PSScriptRoot '..\fix-npm-lock.ps1')" @args
+# Before making changes, save a backup of any package-lock files to archives/lock-backups
+Write-Host "Backing up package-lock.json files to archives/lock-backups/"
+cd $PSScriptRoot\..; node ./scripts/backups/backup-package-locks.mjs
+
+# The actual script is the same as the existing logic; to keep maintainers in sync, we call the original file (if present).
+if (Test-Path (Join-Path $PSScriptRoot '..\fix-npm-lock.ps1')) {
+  & "$(Join-Path $PSScriptRoot '..\fix-npm-lock.ps1')" @args
+} else {
+  Write-Host "Original fix script missing; please run the recommended manual steps from help!/NPM-LOCK-FIX.md" -ForegroundColor Yellow
+}

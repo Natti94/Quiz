@@ -288,14 +288,16 @@ Optional (AI evaluation):
 - Workflow: `.github/workflows/release.yml` (runs on push to `main`).
 - Config: `./.releaserc.json` (monorepo release from repository root). If you previously used `quiz-frontend/.releaserc.json`, you can remove or archive it when switching to root-level releases.
 - Tag and log backups: tag cleanup creates a `archives/tag-backups/tag-backup-*.txt` file and a matching `archives/tag-backups/tag-backup-*-sha.txt` mapping. These are committed to `archives/tag-backups/` by default. You can also store backups in a central infra repository or cloud storage (see next section).
- - Tag and log backups: tag cleanup creates a `archives/tag-backups/tag-backup-*.txt` file and a matching `archives/tag-backups/tag-backup-*-sha.txt` mapping. These are committed to `archives/tag-backups/` by default. You can also store backups in a central infra repository or cloud storage (see next section).
- - Ephemeral runtime logs (Netlify dev output, local diagnostic logs) are stored in the `logfs/` folder. `logfs/` is ignored by git and intended for transient developer logs. Use `scripts/infra/move-logs-to-infra.mjs` to push `logfs/` + `archives/tag-backups/` to a shared infra repo (under `logs/`) when you want to centralize or persist them.
+- Lockfile backups: when running the npm lockfix helper we now save `package-lock.json` backups into `archives/lock-backups/` (timestamped). These are intended for safe, versioned debugging, and can be pushed to infra or kept in the monorepo for audit trails.
+- Tag and log backups: tag cleanup creates a `archives/tag-backups/tag-backup-*.txt` file and a matching `archives/tag-backups/tag-backup-*-sha.txt` mapping. These are committed to `archives/tag-backups/` by default. You can also store backups in a central infra repository or cloud storage (see next section).
+- Ephemeral runtime logs (Netlify dev output, local diagnostic logs) are stored in the `logfs/` folder. `logfs/` is ignored by git and intended for transient developer logs. Use `scripts/infra/move-logs-to-infra.mjs` to push `logfs/` + `archives/tag-backups/` to a shared infra repo (under `logs/`) when you want to centralize or persist them.
   Storing logs & backups elsewhere
 - Use an "infra" repo:
   - To copy local backups into an infra repo (push): run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/move-logs-to-infra.mjs` (if you previously added this helper). That will push `archives/tag-backups/*` into the infra repo under `logs/`.
   - To copy local backups and runtime logs into an infra repo (push): run
     `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/infra/move-logs-to-infra.mjs --commit`.
     That will push both `archives/tag-backups/*` and `logfs/*` into the infra repo under `logs/`.
+    Note: any `archives/lock-backups/*` (package-lock backups) will also be included when using the `move-logs-to-infra` helper.
   - To restore or import backups from infra into the monorepo archives: run `INFRA_GIT_URL=git@github.com:org/infra.git node scripts/archiving/move-logs-to-archives.mjs [srcFolderInInfra] --commit`.
     By default tag backups are copied into `archives/tag-backups/` and other logs are copied into `logfs/`.
     - By default the script copies files into `archives/tag-backups/` but doesn't commit them unless you pass `--commit`.

@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
-import crypto from "crypto";
 import { verifyJWT } from "./jwtUtils.js";
+import crypto from "crypto";
 
 let __clientPromise;
 async function getMongoClient() {
@@ -18,9 +18,7 @@ async function getMongoClient() {
   }
 }
 
-// Keep the server handler small and defensive.
 export async function handler(event) {
-  // Support both POST (write) and GET (read) on the same endpoint.
   if (event.httpMethod === "GET") {
     try {
       const client = await getMongoClient();
@@ -29,22 +27,33 @@ export async function handler(event) {
       const db = client.db(process.env.MONGODB_DB || "quiz-app");
       const col = db.collection("userActivities");
 
-      // Determine the requested userId. Prefer a verified JWT, otherwise accept query param in dev mode.
-      const authHeader = event.headers["authorization"] || event.headers["Authorization"] || "";
+      const authHeader =
+        event.headers["authorization"] || event.headers["Authorization"] || "";
       const match = authHeader.match(/^Bearer\s+(.+)$/i);
       let userId = null;
       if (match) {
         const token = match[1];
-        const payload = verifyJWT(token, process.env.JWT_SECRET || "dev-secret");
-        if (!payload) return { statusCode: 401, body: JSON.stringify({ error: "Invalid token" }) };
+        const payload = verifyJWT(
+          token,
+          process.env.JWT_SECRET || "dev-secret"
+        );
+        if (!payload)
+          return {
+            statusCode: 401,
+            body: JSON.stringify({ error: "Invalid token" }),
+          };
         userId = payload.id || payload.userId || payload.sub || null;
       } else if (process.env.NETLIFY_DEV === "true") {
-        // In local dev we allow a ?userId=abc query parameter for convenience when testing.
-        userId = (event.queryStringParameters && event.queryStringParameters.userId) || null;
+        userId =
+          (event.queryStringParameters && event.queryStringParameters.userId) ||
+          null;
       }
 
       if (!userId) {
-        return { statusCode: 400, body: JSON.stringify({ error: "userId required" }) };
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ error: "userId required" }),
+        };
       }
 
       const docs = await col
@@ -56,17 +65,23 @@ export async function handler(event) {
       return { statusCode: 200, body: JSON.stringify(docs) };
     } catch (err) {
       console.error("listUserActivity error:", err);
-      return { statusCode: 500, body: JSON.stringify({ error: "Internal Error" }) };
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Internal Error" }),
+      };
     }
   }
 
   if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: JSON.stringify({ error: "Method not allowed" }) };
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: "Method not allowed" }),
+    };
   }
 
   try {
-  const body = JSON.parse(event.body || "{}");
-    const userId = body.userId ?? null; // do not accept emails here
+    const body = JSON.parse(event.body || "{}");
+    const userId = body.userId ?? null;
     const action = String(body.action || "unknown");
     const metadata = body.metadata ?? {};
 
@@ -79,11 +94,16 @@ export async function handler(event) {
     const db = client.db(process.env.MONGODB_DB || "quiz-app");
     const col = db.collection("userActivities");
 
-    // Build a safe activity document; avoid storing plain IP or PII.
-    const ip = (event.headers["x-forwarded-for"] || event.headers["client-ip"] || "")
+    const ip = (
+      event.headers["x-forwarded-for"] ||
+      event.headers["client-ip"] ||
+      ""
+    )
       .split(",")[0]
       .trim();
-    const ipHash = ip ? crypto.createHash("sha256").update(ip).digest("hex") : null;
+    const ipHash = ip
+      ? crypto.createHash("sha256").update(ip).digest("hex")
+      : null;
 
     const doc = {
       userId,
@@ -105,6 +125,9 @@ export async function handler(event) {
     return { statusCode: 201, body: JSON.stringify({ ok: true }) };
   } catch (err) {
     console.error("recordUserActivity error:", err);
-    return { statusCode: 500, body: JSON.stringify({ error: "Internal Error" }) };
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Internal Error" }),
+    };
   }
 }

@@ -19,7 +19,7 @@ async function getMongoClient() {
 export function makeMongoStore(name) {
   const uri = process.env.MONGODB_URI;
   if (!uri) return null;
-  const dbName = process.env.MONGODB_DB || "app";
+  const dbName = process.env.MONGODB_DB || "quiz-app";
   return {
     async setJSON(key, value, opts = {}) {
       console.log(`[mongoStore] setJSON: collection=${name}, key=${key}`);

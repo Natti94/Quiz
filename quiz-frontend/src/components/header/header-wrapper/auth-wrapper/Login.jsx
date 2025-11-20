@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useTranslation } from "../../../../lib/i18n/useTranslation";
 import { loginUser } from "../../../../services/index";
 
@@ -10,6 +12,8 @@ function Login({ onSuccess }) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   async function handleLogin(e) {
     e.preventDefault();
     setError(null);
@@ -19,6 +23,9 @@ function Login({ onSuccess }) {
       await loginUser(username, password);
       setSuccess(t("header.loginSuccess"));
       if (onSuccess) onSuccess();
+      setTimeout(() => {
+        navigate("/auth/dashboard");
+      }, 1000);
     } catch {
       setError(t("header.loginError"));
     } finally {

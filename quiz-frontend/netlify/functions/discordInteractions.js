@@ -19,7 +19,7 @@ export const handler = async (event) => {
   }
 
   const headers = Object.fromEntries(
-    Object.entries(event.headers || {}).map(([k, v]) => [k.toLowerCase(), v])
+    Object.entries(event.headers || {}).map(([k, v]) => [k.toLowerCase(), v]),
   );
   const signature = headers["x-signature-ed25519"];
   const timestamp = headers["x-signature-timestamp"];
@@ -32,7 +32,7 @@ export const handler = async (event) => {
       const verified = nacl.sign.detached.verify(
         Buffer.from(timestamp + rawBody),
         Buffer.from(signature, "hex"),
-        Buffer.from(publicKey, "hex")
+        Buffer.from(publicKey, "hex"),
       );
       if (!verified)
         return { statusCode: 401, body: "invalid request signature" };
@@ -70,7 +70,7 @@ export const handler = async (event) => {
       const { token, exp } = signJWT(
         { scope: "pre" },
         process.env.JWT_SECRET,
-        ttl * 60
+        ttl * 60,
       );
       const content = `Första stegets token (giltig i ${ttl} min):\n\`${token}\``;
       return jsonResponse({ type: 4, data: { content, flags: 64 } });

@@ -53,11 +53,13 @@ try {
   const files = await fs.readdir(infraLogsDir);
   const copies = [];
   const localArchiveDir = path.join(process.cwd(), "archives", "tag-backups");
+  const localLockArchiveDir = path.join(process.cwd(), "archives", "lock-backups");
   const localLogfsDir = path.join(process.cwd(), "logfs");
   await fs.mkdir(localArchiveDir, { recursive: true });
+  await fs.mkdir(localLockArchiveDir, { recursive: true });
   await fs.mkdir(localLogfsDir, { recursive: true });
   for (const f of files) {
-    if (f.startsWith("tag-backup-") || f.endsWith("-sha.txt")) {
+  if (f.startsWith("tag-backup-") || f.endsWith("-sha.txt")) {
       const src = path.join(infraLogsDir, f);
       const dest = path.join(localArchiveDir, f);
 
@@ -82,6 +84,33 @@ try {
       }
       await fs.copyFile(src, dest);
       console.log("Copied:", src, "->", dest);
+      copies.push(dest);
+    } else if (f.endsWith('.json.backup') || f.startsWith('quiz-package-lock-') || f.startsWith('package-lock-')) {
+      // handle lock backups separately
+      const src = path.join(infraLogsDir, f);
+      const dest = path.join(localLockArchiveDir, f);
+
+      if (dryRun) {
+        console.log('[DRY RUN] Would copy (lock backup):', src, '->', dest);
+        continue;
+      }
+
+      let shouldCopy = true;
+      try {
+        const [srcBuf, destBuf] = await Promise.all([
+          fs.readFile(src),
+          fs.readFile(dest).catch(() => null),
+        ]);
+        if (destBuf && Buffer.compare(srcBuf, destBuf) === 0) {
+          shouldCopy = false;
+        }
+      } catch (e) {}
+      if (!shouldCopy && !force) {
+        console.log('Skipping (already exists):', dest);
+        continue;
+      }
+      await fs.copyFile(src, dest);
+      console.log('Copied (lock):', src, '->', dest);
       copies.push(dest);
     } else {
       // not a tag backup; copy ephemeral logs into logfs instead

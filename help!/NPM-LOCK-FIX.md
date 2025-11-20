@@ -21,6 +21,15 @@ cd C:\dev_natti\quiz
 ```powershell
 Copy-Item package-lock.json package-lock.json.backup -ErrorAction SilentlyContinue
 If (Test-Path .\quiz-frontend\package-lock.json) { Copy-Item .\quiz-frontend\package-lock.json .\quiz-frontend\package-lock.json.backup }
+The helper now supports saving backups into `archives/lock-backups/` to avoid cluttering the repo root.
+Run the automated helper before other steps:
+
+```
+npm run backup:package-locks
+# or: node ./scripts/backups/backup-package-locks.mjs --commit
+```
+
+This will create timestamped backups under `archives/lock-backups/` instead of `package-lock.json.backup` in the repository root.
 ```
 
 3. Remove node_modules and lock files:

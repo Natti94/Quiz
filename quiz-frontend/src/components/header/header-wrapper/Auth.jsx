@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "../../../lib/i18n/useTranslation";
 import Register from "./auth-wrapper/Register";
 import Login from "./auth-wrapper/Login";
@@ -11,6 +12,9 @@ function Auth({
 }) {
   const { t } = useTranslation();
   const [internalIsLogin, internalSetIsLogin] = useState(true);
+
+  const navigate = useNavigate();
+
   const isLogin =
     typeof isLoginProp === "boolean" ? isLoginProp : internalIsLogin;
   const setIsLogin = setIsLoginProp || internalSetIsLogin;
@@ -21,14 +25,20 @@ function Auth({
         <button
           type="button"
           className="header__btn header__btn--secondary"
-          onClick={() => setIsLogin(true)}
+          onClick={() => {
+            setIsLogin(true);
+            navigate("/auth/login");
+          }}
         >
           {t("header.login")}
         </button>
         <button
           type="button"
           className="header__btn"
-          onClick={() => setIsLogin(false)}
+          onClick={() => {
+            setIsLogin(false);
+            navigate("/auth/register");
+          }}
         >
           {t("header.register")}
         </button>
@@ -43,7 +53,10 @@ function Auth({
         <div className="auth-toggle">
           <button
             type="button"
-            onClick={() => setIsLogin(true)}
+            onClick={() => {
+              setIsLogin(true);
+              navigate("/auth/login");
+            }}
             className={
               isLogin
                 ? "auth-toggle__btn auth-toggle__btn--active"
@@ -54,7 +67,10 @@ function Auth({
           </button>
           <button
             type="button"
-            onClick={() => setIsLogin(false)}
+            onClick={() => {
+              setIsLogin(false);
+              navigate("/auth/register");
+            }}
             className={
               !isLogin
                 ? "auth-toggle__btn auth-toggle__btn--active"

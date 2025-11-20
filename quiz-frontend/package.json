@@ -24,7 +24,7 @@
     "format:repo": "node ../scripts/formatting/format-repository.mjs",
     "test": "vitest --run",
     "test:watch": "vitest",
-  "test:jest": "node --experimental-vm-modules ../node_modules/jest/bin/jest.js --runInBand"
+    "test:jest": "node --experimental-vm-modules ../node_modules/jest/bin/jest.js --runInBand"
   },
   "dependencies": {
     "@semantic-release/npm": "10.0.6",

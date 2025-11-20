@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTranslation } from "../../../../lib/i18n/useTranslation";
 import { registerUser } from "../../../../services/index";
 
@@ -11,6 +12,9 @@ function Register({ onSuccess }) {
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+
+
+  const navigate = useNavigate();
 
   async function handleRegister(e) {
     e.preventDefault();
@@ -29,8 +33,11 @@ function Register({ onSuccess }) {
       });
       setSuccess(t("header.registrationSuccess"));
       if (onSuccess) onSuccess();
-    } catch (err) {
-      setError(err?.message || t("header.registrationError"));
+      setTimeout(() => {
+        navigate("/auth/login");
+      }, 1000);
+    } catch {
+      setError(t("header.registrationError"));
     } finally {
       setLoading(false);
     }
