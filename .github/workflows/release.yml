@@ -53,9 +53,14 @@ jobs:
           fi
         shell: bash
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Prefer repository-scoped secret GITHUB_QUIZ_TOKEN if present, fall back
+          # to the standard GITHUB_TOKEN otherwise. semantic-release expects the
+          # token in the GITHUB_TOKEN (or GH_TOKEN) env var.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_QUIZ_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Semantic Release
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Map the fine-grained token (GITHUB_QUIZ_TOKEN) into GITHUB_TOKEN so
+          # semantic-release can use it. Falls back to default runner token.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_QUIZ_TOKEN || secrets.GITHUB_TOKEN }}
