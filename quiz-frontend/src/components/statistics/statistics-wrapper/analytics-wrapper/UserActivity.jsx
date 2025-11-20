@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { userActivity } from "../../../../lib/analytics/userActivity";
+import { getCurrentUser } from "../../../../services/auth/getCurrentUser";
 
 function Activity() {
   const { t } = useTranslation();
@@ -13,13 +15,17 @@ function Activity() {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch("/api/user/activity");
+  const token = sessionStorage.getItem("jwtToken");
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  const response = await fetch("/api/user/activity", { headers });
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}`);
         }
         const data = await response.json();
         setActivity(data);
         setSuccess(true);
+  const current = getCurrentUser();
+  userActivity(current?.id || current?.sub || null, "fetched_activity");
       } catch (err) {
         setError(err.message);
       } finally {
