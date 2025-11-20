@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.5.0...quiz-monorepo-v1.6.0) (2025-11-20)
+
+
+### Features
+
+* testing release workflow yet again. ([3f65d3b](https://github.com/Natti94/Quiz/commit/3f65d3bbc73ffe45f798ebd31d114272373366f6))
+
 # [1.5.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.4.0...quiz-monorepo-v1.5.0) (2025-11-20)
 
 
