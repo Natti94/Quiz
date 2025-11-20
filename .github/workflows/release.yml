@@ -37,6 +37,7 @@ jobs:
         id: next_tag
         env:
           DEBUG: semantic-release*
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
         run: |
           # Run dry-run with DEBUG and save full log to file so we can inspect failures in CI
           npx semantic-release --dry-run --no-ci 2>&1 | tee semantic-release-dryrun.log
