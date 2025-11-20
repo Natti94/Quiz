@@ -13,11 +13,6 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
-    # Run everything in the repository root so semantic-release reads the
-    # root package.json for the monorepo release.
-    defaults:
-      run:
-        working-directory: .
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,37 +25,41 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          cache-dependency-path: package-lock.json
 
-      - name: Ensure tags are fetched
-        # make sure we have all remote tags and show the last 10 (debug helper)
+      - name: Upgrade semantic-release to v22 (fixes Invalid date bug)
         run: |
-          git fetch --tags --force --prune origin
-          echo "Last 10 tags:" && git tag -l | tail -n 10
+          npm install --save-dev semantic-release@^22.0.0 @semantic-release/changelog@^6 @semantic-release/git@^10 @semantic-release/release-notes-generator@^14
 
-      - name: Install dependencies
-        run: npm ci || npm i --no-audit --no-fund
+      - name: Verify semantic-release version
+        run: npx semantic-release --version
 
-      - name: Delete existing tag if present
+      - name: Dry-run to get next tag (now works)
+        id: next_tag
         run: |
-          TAG=$(npx semantic-release --dry-run | grep 'Release note for version' | awk '{print $NF}')
-          if [ -n "$TAG" ] && git rev-parse "$TAG" >/dev/null 2>&1; then
+          TAG=$(npx semantic-release --dry-run --no-ci | grep -o 'Published GitHub release .*' | awk '{print $NF}' || true)
+          if [ -z "$TAG" ]; then
+            TAG=$(npx semantic-release --dry-run --no-ci | grep 'There are no relevant changes' || true)
+            echo "No release needed"
+            echo "tag=" >> $GITHUB_OUTPUT
+          else
+            echo "Next tag: $TAG"
+            echo "tag=$TAG" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Delete existing tag if it already exists (avoid conflict)
+        if: steps.next_tag.outputs.tag != ''
+        run: |
+          TAG="${{ steps.next_tag.outputs.tag }}"
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
             echo "Deleting existing tag $TAG"
             git tag -d "$TAG"
-            git push --delete origin "$TAG"
-          else
-            echo "No existing tag to delete."
+            git push origin :refs/tags/"$TAG" || true
           fi
-        shell: bash
         env:
-          # Prefer repository-scoped secret GH_TOKEN if present, fall back
-          # to the standard GITHUB_TOKEN otherwise. semantic-release expects the
-          # token in the GITHUB_TOKEN (or GH_TOKEN) env var.
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
 
-      - name: Semantic Release
+      - name: Run semantic-release
         run: npx semantic-release
         env:
-          # Map the fine-grained token (GH_TOKEN) into GITHUB_TOKEN so
-          # semantic-release can use it. Falls back to default runner token.
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN || secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
