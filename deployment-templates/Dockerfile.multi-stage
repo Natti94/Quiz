@@ -1,0 +1,87 @@
+# Multi-Stage Dockerfile Template
+
+# This Dockerfile provides a production-ready, multi-stage build for Node.js applications
+# with security hardening, minimal attack surface, and optimized image size.
+
+# ================================
+# Build Stage
+# ================================
+FROM node:20-alpine AS builder
+
+# Security: Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nextjs -u 1001
+
+# Install build dependencies
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    git
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files for dependency installation
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production --ignore-scripts && \
+    npm cache clean --force
+
+# Copy source code
+COPY . .
+
+# Build application (if needed)
+RUN npm run build || true
+
+# ================================
+# Production Stage
+# ================================
+FROM node:20-alpine AS production
+
+# Install security updates and required packages
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache \
+    dumb-init \
+    curl \
+    && rm -rf /var/cache/apk/*
+
+# Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Copy dependencies from builder stage
+COPY --from=builder /app/node_modules ./node_modules
+
+# Copy built application
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/server.js ./
+COPY --from=builder /app/.next ./.next
+
+# Change ownership to non-root user
+RUN chown -R nodejs:nodejs /app
+
+# Switch to non-root user
+USER nodejs
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3000/health || exit 1
+
+# Expose port
+EXPOSE 3000
+
+# Use dumb-init for proper signal handling
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start application
+CMD ["npm", "start"]
