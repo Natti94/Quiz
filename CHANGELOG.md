@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.7.0...quiz-monorepo-v1.8.0) (2025-11-23)
+
+
+### Features
+
+* vitest for auth and llm. ([14f12b9](https://github.com/Natti94/Quiz/commit/14f12b9f42e3a2eaa642d5c85c71556895e7b904))
+
 # [1.7.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.6.0...quiz-monorepo-v1.7.0) (2025-11-20)
 
 
