@@ -102,7 +102,7 @@ Return only the JSON object, no extra text or formatting.`;
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           prompt: promptText,
-          model: "llama3.2:latest",
+          model: "natnaelberhanesv/quiz-qwen",
         }),
       });
 

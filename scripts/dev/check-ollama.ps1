@@ -8,13 +8,13 @@ Usage:
 
 Options:
   -PullModel    Pull the default model if it's missing (uses 'ollama pull').
-  -ModelName    Name of the ollama model to check (default: 'llama3.2:latest')
+  -ModelName    Name of the ollama model to check (default: 'natnaelberhanesv/quiz-qwen')
 
 Outputs a concise JSON summary to stdout and returns non-zero exit code on failures.
 #>
 
 param(
-  [string]$ModelName = 'llama3.2:latest',
+  [string]$ModelName = 'natnaelberhanesv/quiz-qwen',
   [switch]$PullModel = $false
 )
 

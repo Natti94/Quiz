@@ -63,7 +63,7 @@ export async function handler(event) {
       `Rate limit - Remaining: ${rateCheck.remaining}/${MAX_REQUESTS_PER_MINUTE}`,
     );
 
-    const { prompt, model = "llama3.2:latest" } = body;
+    const { prompt, model = "natnaelberhanesv/quiz-qwen" } = body;
 
     if (!prompt) {
       console.error("No prompt provided");
@@ -85,7 +85,7 @@ export async function handler(event) {
       };
     }
 
-    const ALLOWED_MODELS = ["llama3.2:latest", "llama3.2"];
+    const ALLOWED_MODELS = ["natnaelberhanesv/quiz-qwen", "natnaelberhanesv/quiz-qwen:latest"];
     if (!ALLOWED_MODELS.includes(model)) {
       console.error(`Unauthorized model requested: ${model}`);
       return {

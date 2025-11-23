@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "../../../../lib/i18n/useTranslation";
-import { registerUser } from "../../../../services/index";
+import { useAuth } from "../../../../contexts";
 
 function Register({ onSuccess }) {
   const { t } = useTranslation();
+  const { register } = useAuth();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,10 +27,11 @@ function Register({ onSuccess }) {
     }
     try {
       setLoading(true);
-      await registerUser({
+      await register({
         username: username.trim(),
         email: email.trim(),
         password,
+        confirmPassword,
       });
       setSuccess(t("header.registrationSuccess"));
       if (onSuccess) onSuccess();

@@ -38,7 +38,7 @@ try { curl -I http://localhost:11434/ -UseBasicParsing -ErrorAction SilentlyCont
 
 Write-Section "Test LLM function endpoint (netlify dev should be running)"
 try {
-  $resp = curl -s -X POST http://localhost:8888/.netlify/functions/LLM -H "Content-Type: application/json" -d '{"prompt":"diagnostic check","model":"llama3.2:latest"}' -UseBasicParsing -ErrorAction SilentlyContinue
+  $resp = curl -s -X POST http://localhost:8888/.netlify/functions/LLM -H "Content-Type: application/json" -d '{"prompt":"diagnostic check","model":"natnaelberhanesv/quiz-qwen"}' -UseBasicParsing -ErrorAction SilentlyContinue
   if ($resp) { Write-Host "LLM function response (truncated):"; $resp.Substring(0,[Math]::Min(300,$resp.Length)) | Write-Host } else { Write-Host "No response from LLM function (is netlify dev running?)" }
 } catch { Write-Host "Error invoking LLM function. Netlify Dev may not be running, or endpoint refused." }
 

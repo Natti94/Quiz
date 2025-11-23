@@ -1,6 +1,6 @@
-export { generateCsrf } from "./auth/generateCsrf.js";
-export { loginUser } from "./auth/loginUser.js";
-export { registerUser } from "./auth/registerUser.js";
-export { logoutUser } from "./auth/logoutUser.js";
-export { isAuthenticated } from "./auth/isAuthenticated.js";
-export { getCurrentUser } from "./auth/getCurrentUser.js";
+export { generateCsrf } from "./chatify-auth/generateCsrf.js";
+export { loginUser } from "./chatify-auth/loginUser.js";
+export { registerUser } from "./chatify-auth/registerUser.js";
+export { logoutUser } from "./chatify-auth/logoutUser.js";
+export { isAuthenticated } from "./chatify-auth/isAuthenticated.js";
+export { getCurrentUser } from "./chatify-auth/getCurrentUser.js";

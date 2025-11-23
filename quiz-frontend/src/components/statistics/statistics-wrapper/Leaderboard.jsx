@@ -1,4 +1,4 @@
-import { useTranslation } from "../../../../lib/i18n/useTranslation";
+import { useTranslation } from "../../../lib/i18n/useTranslation";
 
 const Leaderboard = () => {
   const { t } = useTranslation();

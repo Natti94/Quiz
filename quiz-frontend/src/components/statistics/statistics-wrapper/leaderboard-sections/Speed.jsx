@@ -1,4 +1,4 @@
-import { useTranslation } from "../../../../../lib/i18n/useTranslation";
+import { useTranslation } from "../../../../lib/i18n/useTranslation";
 
 function Speed({ data = [] }) {
   const { t } = useTranslation();

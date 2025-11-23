@@ -112,7 +112,7 @@ try {
 
   Write-Section "Testing LLM endpoint"
   try {
-    $body = @{ prompt = 'diagnostic check'; model = 'llama3.2:latest' } | ConvertTo-Json
+    $body = @{ prompt = 'diagnostic check'; model = 'natnaelberhanesv/quiz-qwen' } | ConvertTo-Json
     $res = Invoke-RestMethod -Uri 'http://localhost:8888/.netlify/functions/LLM' -Method Post -ContentType 'application/json' -Body $body -ErrorAction Stop -TimeoutSec 120
     Write-Host "LLM response ok (truncated):" -ForegroundColor Green
     $res | ConvertTo-Json -Depth 2 | Out-String | Select-String -Pattern '.' | Select-Object -First 25 | ForEach-Object { Write-Host $_ }

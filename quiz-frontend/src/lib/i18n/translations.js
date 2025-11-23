@@ -16,6 +16,7 @@ export const translations = {
       confirmPassword: "Bekräfta lösenord",
       login: "Logga in",
       register: "Registrera",
+      logout: "Logga ut",
     },
 
     auth: {
@@ -327,6 +328,14 @@ export const translations = {
       updated: "Cookie-inställningar uppdaterade",
     },
 
+    dashboard: {
+      title: "Dashboard",
+      welcome: "Välkommen",
+      description: "Här kan du hantera ditt konto och komma åt dina quiz-resultat.",
+      goToQuiz: "Gå till Quiz",
+      viewStatistics: "Visa Statistik",
+    },
+
     aria: {
       navigation: "Huvudnavigation",
       toolbar: "Quizkontroller",
@@ -352,6 +361,7 @@ export const translations = {
       confirmPassword: "Confirm password",
       login: "Log in",
       register: "Register",
+      logout: "Log out",
     },
 
     auth: {
@@ -654,6 +664,14 @@ export const translations = {
       savePreferences: "Save preferences",
       manageConsent: "Manage cookies",
       updated: "Cookie preferences updated",
+    },
+
+    dashboard: {
+      title: "Dashboard",
+      welcome: "Welcome",
+      description: "Here you can manage your account and access your quiz results.",
+      goToQuiz: "Go to Quiz",
+      viewStatistics: "View Statistics",
     },
 
     aria: {

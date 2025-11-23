@@ -142,7 +142,7 @@ function Form({ onSelect }) {
         const res = await fetch("/.netlify/functions/LLM", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: "test", model: "llama3.2:latest" }),
+          body: JSON.stringify({ prompt: "test", model: "natnaelberhanesv/quiz-qwen" }),
         });
         const data = await res.json();
 

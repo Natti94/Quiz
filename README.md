@@ -240,8 +240,8 @@ Optional (AI evaluation):
 
 **Local Development:**
 
-- Ollama must be running locally on `localhost:11434` with `llama3.2:latest` model installed
-- Install: `ollama pull llama3.2:latest` (2GB model)
+- Ollama must be running locally on `localhost:11434` with `natnaelberhanesv/quiz-qwen` model installed
+- Install: `ollama pull natnaelberhanesv/quiz-qwen` (2GB model)
 - The AI evaluation endpoint includes rate limiting (10 req/min per IP) and prompt length limits (2000 chars)
 
 **Production Deployment - FREE OPTIONS (Recommended):** ⭐
@@ -398,7 +398,7 @@ Question object shape:
 
 - **Groq:** Uses `llama-3.3-70b-versatile` (powerful 70B parameter model, fast inference)
 - **Hugging Face:** Uses `meta-llama/Llama-3.2-3B-Instruct` (smaller 3B model, slower)
-- **Ollama:** Uses `llama3.2:latest` (local/remote 3B model)
+- **Ollama:** Uses `natnaelberhanesv/quiz-qwen` (local/remote 3B model)
 
 **Usage Estimation (20 students/day):**
 
@@ -441,7 +441,7 @@ ssh root@your-server-ip
 curl -fsSL https://ollama.com/install.sh | sh
 
 # Pull the model
-ollama pull llama3.2:latest
+ollama pull natnaelberhanesv/quiz-qwen
 ```
 
 **3. Configure Ollama to accept external connections:**
@@ -557,7 +557,7 @@ docker run -d \
   ollama/ollama
 
 # Pull model
-docker exec -it ollama ollama pull llama3.2:latest
+docker exec -it ollama ollama pull natnaelberhanesv/quiz-qwen
 ```
 
 ### Security Best Practices
@@ -602,7 +602,7 @@ Test from your local machine:
 curl -X POST https://your-domain.com/api/generate \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "llama3.2:latest",
+    "model": "natnaelberhanesv/quiz-qwen",
     "prompt": "Why is the sky blue?",
     "stream": false
   }'
@@ -634,7 +634,7 @@ curl -X POST https://your-domain.com/api/generate \
   - **Recommended:** Use Groq (free, fast) - See `FREE_AI_SETUP.md`
   - **Local Development:**
     - Ensure Ollama is running: check `http://localhost:11434` in browser
-    - Verify model installed: `ollama list` should show `llama3.2:latest`
+    - Verify model installed: `ollama list` should show `natnaelberhanesv/quiz-qwen`
   - **Production (Groq/Hugging Face):**
     - Check `AI_PROVIDER` and API key are set in Netlify environment variables
     - Test API key: `curl https://api.groq.com/openai/v1/models -H "Authorization: Bearer YOUR_KEY"`

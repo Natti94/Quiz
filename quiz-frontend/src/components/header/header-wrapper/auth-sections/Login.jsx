@@ -1,18 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
 import { useTranslation } from "../../../../lib/i18n/useTranslation";
-import { loginUser } from "../../../../services/index";
+import { useAuth } from "../../../../contexts";
 
 function Login({ onSuccess }) {
   const { t } = useTranslation();
+  const { login } = useAuth();
   const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -20,12 +17,10 @@ function Login({ onSuccess }) {
     setSuccess(null);
     try {
       setLoading(true);
-      await loginUser(username, password);
+      await login(username, password);
       setSuccess(t("header.loginSuccess"));
       if (onSuccess) onSuccess();
-      setTimeout(() => {
-        navigate("/auth/dashboard");
-      }, 1000);
+      // User is now authenticated, header will show dashboard options
     } catch {
       setError(t("header.loginError"));
     } finally {

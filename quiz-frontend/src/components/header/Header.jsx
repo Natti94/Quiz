@@ -6,7 +6,6 @@ import "./header.css";
 
 function Header() {
   const { t } = useTranslation();
-  const [user, _setUser] = useState(null);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const handleClose = () => setIsLoginOpen(false);
@@ -15,37 +14,15 @@ function Header() {
     <header className="header">
       <h1 className="header__title">{t("header.title")}</h1>
       <div className="header__right">
-        {user ? (
-          <div className="header__user">
-            <span className="header__user-icon" aria-hidden="true">
-              👤
-            </span>
-            <span className="header__user-name">{user.username}</span>
-          </div>
-        ) : (
-          <div className="header__auth">
-            <button
-              type="button"
-              className="header__btn header__btn--secondary"
-              onClick={() => {
-                setIsLogin(true);
-                setIsLoginOpen(true);
-              }}
-            >
-              {t("header.login")}
-            </button>
-            <button
-              type="button"
-              className="header__btn"
-              onClick={() => {
-                setIsLogin(false);
-                setIsLoginOpen(true);
-              }}
-            >
-              {t("header.register")}
-            </button>
-          </div>
-        )}
+        <Auth
+          mode="compact"
+          onAuthClick={(loginMode) => {
+            console.log('Header onAuthClick called with loginMode:', loginMode);
+            setIsLogin(loginMode);
+            setIsLoginOpen(true);
+            console.log('Modal should now be open, isLoginOpen:', true);
+          }}
+        />
         <Language />
       </div>
 

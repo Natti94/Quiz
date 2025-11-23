@@ -22,8 +22,11 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (username, password) => {
+    console.log('AuthContext login called with:', username);
     const result = await loginService(username, password);
+    console.log('AuthContext login result:', result);
     setUser(result.user);
+    console.log('AuthContext user set to:', result.user);
     return result;
   };
 
