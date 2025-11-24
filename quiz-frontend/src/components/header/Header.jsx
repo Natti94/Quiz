@@ -2,13 +2,16 @@ import { useState } from "react";
 import { useTranslation } from "../../lib/i18n/useTranslation.js";
 import Language from "./header-wrapper/Language.jsx";
 import Auth from "./header-wrapper/Auth.jsx";
+import Profile from "./header-wrapper/auth-sections/Profile.jsx";
 import "./header.css";
 
 function Header() {
   const { t } = useTranslation();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
   const handleClose = () => setIsLoginOpen(false);
+  const handleProfileClose = () => setIsProfileOpen(false);
 
   return (
     <header className="header">
@@ -22,6 +25,7 @@ function Header() {
             setIsLoginOpen(true);
             console.log('Modal should now be open, isLoginOpen:', true);
           }}
+          onProfileClick={() => setIsProfileOpen(true)}
         />
         <Language />
       </div>
@@ -73,6 +77,39 @@ function Header() {
                 {isLogin ? t("auth.createAccount") : t("auth.loginLink")}
               </button>
             </div>
+          </section>
+        </div>
+      )}
+
+      {isProfileOpen && (
+        <div
+          className="header__modal-overlay"
+          role="dialog"
+          aria-modal="true"
+          onClick={(e) => {
+            if (e.target.classList.contains("header__modal-overlay")) {
+              setIsProfileOpen(false);
+            }
+          }}
+        >
+          <section
+            className="header__modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="header__modal-header">
+              <h3 className="header__modal-title">
+                {t("profile.title")}
+              </h3>
+              <button
+                type="button"
+                className="header__btn header__modal-close"
+                onClick={handleProfileClose}
+                aria-label={t("profile.close")}
+              >
+                ×
+              </button>
+            </div>
+            <Profile mode="modal" onClose={handleProfileClose} />
           </section>
         </div>
       )}

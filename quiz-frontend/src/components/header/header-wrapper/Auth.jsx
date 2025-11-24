@@ -12,10 +12,10 @@ function Auth({
   setIsLogin: setIsLoginProp,
   onSuccess,
   onAuthClick,
+  onProfileClick,
 }) {
   const { t } = useTranslation();
   const [internalIsLogin, internalSetIsLogin] = useState(true);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const { user, isAuthenticated, logout } = useAuth();
 
@@ -33,7 +33,7 @@ function Auth({
             <>
               <div
                 className="header__user-profile"
-                onClick={() => setIsProfileOpen(true)}
+                onClick={() => onProfileClick && onProfileClick()}
                 style={{ cursor: "pointer" }}
               >
                 <div className="header__user-avatar">
@@ -119,20 +119,6 @@ function Auth({
             </>
           )}
         </div>
-
-        {isProfileOpen && (
-          <div
-            className="profile-modal-overlay"
-            onClick={() => setIsProfileOpen(false)}
-          >
-            <div
-              className="profile-modal-content"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <Profile mode="modal" onClose={() => setIsProfileOpen(false)} />
-            </div>
-          </div>
-        )}
       </>
     );
   }
@@ -181,20 +167,6 @@ function Auth({
           )}
         </div>
       </div>
-
-      {isProfileOpen && (
-        <div
-          className="profile-modal-overlay"
-          onClick={() => setIsProfileOpen(false)}
-        >
-          <div
-            className="profile-modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <Profile mode="modal" onClose={() => setIsProfileOpen(false)} />
-          </div>
-        </div>
-      )}
     </>
   );
 }

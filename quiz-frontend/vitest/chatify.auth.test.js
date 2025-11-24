@@ -1,15 +1,16 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { loginUser } from "../../services/chatify-auth/loginUser.js";
+import { describe, it, expect, beforeEach } from "vitest";
 import { registerUser } from "../../services/chatify-auth/registerUser.js";
-import { logoutUser } from "../../services/chatify-auth/logoutUser.js";
+import { loginUser } from "../../services/chatify-auth/loginUser.js";
 import { isAuthenticated } from "../../services/chatify-auth/isAuthenticated.js";
 import { getCurrentUser } from "../../services/chatify-auth/getCurrentUser.js";
+import { logoutUser } from "../../services/chatify-auth/logoutUser.js";
 
 describe("Chatify Auth Service Tests", () => {
   beforeEach(() => {
-    // Clear localStorage before each test
     localStorage.clear();
+    sessionStorage.clear();
   });
+
   it("registerUser should register a new user", async () => {
     const userData = {
       username: "testuser",
@@ -32,10 +33,17 @@ describe("Chatify Auth Service Tests", () => {
     expect(response).toHaveProperty("token");
     expect(localStorage.getItem("chatify_auth_token")).toBe(response.token);
   });
+
   it("isAuthenticated should return true for authenticated user", async () => {
     localStorage.setItem("chatify_auth_token", "dummy_token");
     const authStatus = await isAuthenticated();
     expect(authStatus).toBe(true);
+  });
+
+  it("logoutUser should clear authentication token", async () => {
+    localStorage.setItem("chatify_auth_token", "dummy_token");
+    await logoutUser();
+    expect(localStorage.getItem("chatify_auth_token")).toBeNull();
   });
 
   it("getCurrentUser should return user info for authenticated user", async () => {
