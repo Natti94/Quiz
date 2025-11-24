@@ -20,10 +20,10 @@ function Header() {
         <Auth
           mode="compact"
           onAuthClick={(loginMode) => {
-            console.log('Header onAuthClick called with loginMode:', loginMode);
+            console.log("Header onAuthClick called with loginMode:", loginMode);
             setIsLogin(loginMode);
             setIsLoginOpen(true);
-            console.log('Modal should now be open, isLoginOpen:', true);
+            console.log("Modal should now be open, isLoginOpen:", true);
           }}
           onProfileClick={() => setIsProfileOpen(true)}
         />
@@ -97,9 +97,7 @@ function Header() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="header__modal-header">
-              <h3 className="header__modal-title">
-                {t("profile.title")}
-              </h3>
+              <h3 className="header__modal-title">{t("profile.title")}</h3>
               <button
                 type="button"
                 className="header__btn header__modal-close"

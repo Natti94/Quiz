@@ -22,6 +22,9 @@ quiz-frontend/netlify/functions/test_*
 # Local runtime logs directory (ephemeral)
 logfs/
 
+# Local logs directory (should not be committed)
+logs/
+
 # Local transient netlify dev log
 netlify-dev.log
 

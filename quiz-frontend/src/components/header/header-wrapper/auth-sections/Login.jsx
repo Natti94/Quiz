@@ -20,7 +20,6 @@ function Login({ onSuccess }) {
       await login(username, password);
       setSuccess(t("header.loginSuccess"));
       if (onSuccess) onSuccess();
-      // User is now authenticated, header will show dashboard options
     } catch {
       setError(t("header.loginError"));
     } finally {

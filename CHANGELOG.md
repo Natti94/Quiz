@@ -1,56 +1,51 @@
 # [1.8.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.7.0...quiz-monorepo-v1.8.0) (2025-11-24)
 
-
 ### Features
 
-* vitest for auth and llm. ([14f12b9](https://github.com/Natti94/Quiz/commit/14f12b9f42e3a2eaa642d5c85c71556895e7b904))
+- vitest for auth and llm. ([14f12b9](https://github.com/Natti94/Quiz/commit/14f12b9f42e3a2eaa642d5c85c71556895e7b904))
 
 # [1.7.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.6.0...quiz-monorepo-v1.7.0) (2025-11-20)
 
-
 ### Features
 
-* testing workflow again for release. ([7038749](https://github.com/Natti94/Quiz/commit/7038749c77e68d80e62f13a97daf2ee53b3c59b4))
+- testing workflow again for release. ([7038749](https://github.com/Natti94/Quiz/commit/7038749c77e68d80e62f13a97daf2ee53b3c59b4))
 
 # [1.6.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.5.0...quiz-monorepo-v1.6.0) (2025-11-20)
 
-
 ### Features
 
-* testing release workflow yet again. ([3f65d3b](https://github.com/Natti94/Quiz/commit/3f65d3bbc73ffe45f798ebd31d114272373366f6))
+- testing release workflow yet again. ([3f65d3b](https://github.com/Natti94/Quiz/commit/3f65d3bbc73ffe45f798ebd31d114272373366f6))
 
 # [1.5.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.4.0...quiz-monorepo-v1.5.0) (2025-11-20)
 
-
 ### Features
 
-* testing semantic release, debugging.. ([3c62925](https://github.com/Natti94/Quiz/commit/3c629253ed09dcfa8d127281a79b02d1230286e8))
-* testing semantic release, debugging.. ([c563093](https://github.com/Natti94/Quiz/commit/c563093ea178006d8fd07fc82f46349365cb864b))
+- testing semantic release, debugging.. ([3c62925](https://github.com/Natti94/Quiz/commit/3c629253ed09dcfa8d127281a79b02d1230286e8))
+- testing semantic release, debugging.. ([c563093](https://github.com/Natti94/Quiz/commit/c563093ea178006d8fd07fc82f46349365cb864b))
 
 # [1.4.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.3.0...quiz-monorepo-v1.4.0) (2025-11-20)
 
-
 ### Bug Fixes
 
-* auth endpoints for register, login & dashboard: ([a94ef4d](https://github.com/Natti94/Quiz/commit/a94ef4d44615404b7d29d65cf72cd856900eba94))
-* auth endpoints for register, login & dashboard: ([f83dadc](https://github.com/Natti94/Quiz/commit/f83dadcdd75b7b7e3d1efc69c07e575fdd2201c9))
-* fixed env secret var for release, trying ci/cd. ([55dfdf6](https://github.com/Natti94/Quiz/commit/55dfdf65abf2495c4d5f5a424b0a35bbaf0914fc))
-* testing semantic-release again with updated version ([2218aa8](https://github.com/Natti94/Quiz/commit/2218aa8517332c49a97b8d7aae31c339a8a887ec))
-* testining semantic release again. ([dda0dd1](https://github.com/Natti94/Quiz/commit/dda0dd1514550148c807fe62ae3df365a773ef02))
-
+- auth endpoints for register, login & dashboard: ([a94ef4d](https://github.com/Natti94/Quiz/commit/a94ef4d44615404b7d29d65cf72cd856900eba94))
+- auth endpoints for register, login & dashboard: ([f83dadc](https://github.com/Natti94/Quiz/commit/f83dadcdd75b7b7e3d1efc69c07e575fdd2201c9))
+- fixed env secret var for release, trying ci/cd. ([55dfdf6](https://github.com/Natti94/Quiz/commit/55dfdf65abf2495c4d5f5a424b0a35bbaf0914fc))
+- testing semantic-release again with updated version ([2218aa8](https://github.com/Natti94/Quiz/commit/2218aa8517332c49a97b8d7aae31c339a8a887ec))
+- testining semantic release again. ([dda0dd1](https://github.com/Natti94/Quiz/commit/dda0dd1514550148c807fe62ae3df365a773ef02))
 
 ### Features
 
-* testing semantic release, debugging.. ([0d0fa73](https://github.com/Natti94/Quiz/commit/0d0fa73f5b38f921b33dc06b4dbe012467edd623))
-* testing semantic release, debugging.. ([7a47abf](https://github.com/Natti94/Quiz/commit/7a47abf5ab9d79dbe033f7f395abf00a669db3f2))
-* testing semantic release, debugging.. ([072dcbc](https://github.com/Natti94/Quiz/commit/072dcbcc0d0b8216817dc0d2083e31dc47c64159))
-* testing semantic release, debugging.. ([2f8fca0](https://github.com/Natti94/Quiz/commit/2f8fca0b655342a8bcbcec01ac87e1d339f18952))
-* testing semantic release, debugging.. ([a2ce3f9](https://github.com/Natti94/Quiz/commit/a2ce3f9eb4d0c45f9e51cd36cc82f2fef2bb2d2f))
-* testing semantic release, debugging.. ([0ae7900](https://github.com/Natti94/Quiz/commit/0ae790020f16138308d58f68376d244946955c2d))
+- testing semantic release, debugging.. ([0d0fa73](https://github.com/Natti94/Quiz/commit/0d0fa73f5b38f921b33dc06b4dbe012467edd623))
+- testing semantic release, debugging.. ([7a47abf](https://github.com/Natti94/Quiz/commit/7a47abf5ab9d79dbe033f7f395abf00a669db3f2))
+- testing semantic release, debugging.. ([072dcbc](https://github.com/Natti94/Quiz/commit/072dcbcc0d0b8216817dc0d2083e31dc47c64159))
+- testing semantic release, debugging.. ([2f8fca0](https://github.com/Natti94/Quiz/commit/2f8fca0b655342a8bcbcec01ac87e1d339f18952))
+- testing semantic release, debugging.. ([a2ce3f9](https://github.com/Natti94/Quiz/commit/a2ce3f9eb4d0c45f9e51cd36cc82f2fef2bb2d2f))
+- testing semantic release, debugging.. ([0ae7900](https://github.com/Natti94/Quiz/commit/0ae790020f16138308d58f68376d244946955c2d))
 
 ## [1.3.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.2.0...quiz-monorepo-v1.3.0) (2025-11-18)
 
-### Features## Test Release  
+### Features## Test Release
+
 This is a test update to trigger semantic-release.
 
 - import logs from infra into archives/tag-backups (with dry-run/commit/force) ([e1953d5](https://github.com/Natti94/Quiz/commit/e1953d5d26bc3d3d371129c7d9e8357f717ddf64))

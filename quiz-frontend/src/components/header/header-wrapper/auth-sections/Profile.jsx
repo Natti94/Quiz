@@ -8,18 +8,15 @@ function Profile({ mode = "view", onClose }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
 
-  // Profile state
   const [activeTab, setActiveTab] = useState("bio");
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSaveProfile = (profileData) => {
-    // TODO: Implement profile update API call
     console.log("Saving profile:", profileData);
     setIsEditing(false);
   };
 
   const handleSaveSettings = (settingsData) => {
-    // TODO: Implement settings update API call
     console.log("Saving settings:", settingsData);
   };
 
@@ -124,7 +121,6 @@ function Profile({ mode = "view", onClose }) {
     );
   }
 
-  // Default view mode - just show basic profile info
   return (
     <div className="profile">
       <div className="profile__info">
@@ -133,7 +129,12 @@ function Profile({ mode = "view", onClose }) {
             <img src={user.avatar} alt={t("profile.avatarAlt")} />
           ) : (
             <div className="profile__avatar-placeholder">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <circle cx="12" cy="8" r="4" />
                 <path d="M20 20c0-4.4-3.6-8-8-8s-8 3.6-8 8" />
               </svg>

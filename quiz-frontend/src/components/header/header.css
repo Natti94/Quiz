@@ -6,7 +6,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: calc(16px + env(safe-area-inset-top)) calc(24px + env(safe-area-inset-right)) 16px calc(24px + env(safe-area-inset-left));
+  padding: calc(16px + env(safe-area-inset-top))
+    calc(24px + env(safe-area-inset-right)) 16px
+    calc(24px + env(safe-area-inset-left));
   background: #ffffff;
   border-bottom: 1px solid #e5e7eb;
   margin: 0;
@@ -117,11 +119,12 @@
   flex-wrap: wrap;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .header {
     gap: 16px;
-    padding: calc(12px + env(safe-area-inset-top)) calc(16px + env(safe-area-inset-right)) 12px calc(16px + env(safe-area-inset-left));
+    padding: calc(12px + env(safe-area-inset-top))
+      calc(16px + env(safe-area-inset-right)) 12px
+      calc(16px + env(safe-area-inset-left));
   }
 
   .header__right {

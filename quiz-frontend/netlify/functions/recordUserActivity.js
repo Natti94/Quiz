@@ -35,7 +35,7 @@ export async function handler(event) {
         const token = match[1];
         const payload = verifyJWT(
           token,
-          process.env.JWT_SECRET || "dev-secret"
+          process.env.JWT_SECRET || "dev-secret",
         );
         if (!payload)
           return {

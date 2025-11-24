@@ -3,10 +3,7 @@
   "tagFormat": "quiz-monorepo-v${version}",
   "plugins": [
     ["@semantic-release/commit-analyzer", { "preset": "angular" }],
-    [
-      "@semantic-release/release-notes-generator",
-      { "preset": "angular" }
-    ],
+    ["@semantic-release/release-notes-generator", { "preset": "angular" }],
     ["@semantic-release/changelog", { "changelogFile": "CHANGELOG.md" }],
     ["./scripts/release/semantic-release-update-subpackages.mjs"],
     [

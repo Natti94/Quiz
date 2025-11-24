@@ -24,134 +24,9 @@ Automated releases: the project uses Conventional Commits + semantic-release to 
 - **Dual exam system:** PLU Exam and WAI Exam with shared unlock mechanism
 - **Intelligent AI mode:** VG questions use AI evaluation (textarea), G questions use multiple choice
 
-## 📚 Comprehensive Template Library
+## Project structure
 
-This project includes a complete set of production-ready templates covering the entire web development lifecycle. These templates provide battle-tested implementations for building scalable, secure, and maintainable web applications.
-
-### 🚀 API Templates (`api-templates/`)
-Complete API implementations with modern best practices:
-
-- **`rest-api.js`** - Full REST API with Express.js
-  - JWT authentication & authorization
-  - Input validation with express-validator
-  - Rate limiting & security middleware
-  - Pagination, filtering, and comprehensive error handling
-  - Swagger/OpenAPI documentation integration
-
-- **`graphql-api.js`** - GraphQL API with Apollo Server
-  - Schema-first design with SDL
-  - Authentication with GraphQL Shield
-  - Real-time subscriptions
-  - Query complexity limiting and persisted queries
-
-- **`websocket-api.js`** - Real-time communication with Socket.IO
-  - Live quiz sessions with room management
-  - Collaborative features and real-time notifications
-  - Chat/messaging system
-  - Connection handling and participant tracking
-
-### 🗄️ Database Templates (`database-templates/`)
-Database management and migration tools:
-
-- **`database-management.js`** - Complete database toolkit
-  - Migration templates for PostgreSQL & MongoDB
-  - Automated seed data generation with realistic sample data
-  - Connection pooling and transaction management
-  - Migration runners with rollback support
-  - Database indexing strategies
-
-### 📖 Documentation Templates (`documentation-templates/`)
-Professional API documentation:
-
-- **`api-documentation.js`** - OpenAPI/Swagger documentation
-  - Interactive API explorer
-  - Request/response examples
-  - Authentication documentation
-  - Custom styling and comprehensive error schemas
-
-### 🐳 Deployment Templates (`deployment-templates/`)
-Production-ready deployment configurations:
-
-- **`Dockerfile.multi-stage`** - Multi-stage Docker build
-  - Security hardening with non-root user
-  - Minimal attack surface and health checks
-  - Proper signal handling and optimization
-
-- **`docker-compose.prod.yml`** - Production container orchestration
-  - Multi-service setup with monitoring
-  - Health checks, restart policies, and volume management
-  - Environment-specific configurations
-
-### 📊 Monitoring Templates (`monitoring-templates/`)
-Comprehensive logging and health monitoring:
-
-- **`winston-logger.js`** - Structured logging with Winston
-  - Multiple transports and daily rotation
-  - Performance logging and request tracking
-  - Exception handling and correlation IDs
-
-- **`health-check-api.js`** - Health monitoring endpoints
-  - Readiness/liveness probes and dependency checking
-  - System metrics collection
-  - Prometheus metrics integration
-
-### 🧪 Testing Templates (`testing-templates/`)
-Complete testing suite:
-
-- **`api-unit-tests.js`** - Comprehensive testing template
-  - Jest testing framework with Supertest
-  - Mock data factories and authentication testing
-  - Performance and load testing patterns
-
-### 🎯 Key Features Implemented
-
-**🔐 Security:**
-- JWT authentication with refresh tokens
-- Input validation and sanitization
-- Rate limiting and DDoS protection
-- CORS configuration and CSP headers
-- SQL injection prevention and XSS protection
-
-**📊 Monitoring & Observability:**
-- Structured logging with correlation IDs
-- Health check endpoints and performance metrics
-- Error tracking and alerting
-- Database connection pooling
-
-**🧪 Testing:**
-- Unit tests for business logic
-- Integration tests for API endpoints
-- Mock data generation and test utilities
-- CI/CD integration ready
-
-**🚀 Performance:**
-- Database query optimization and caching strategies
-- Connection pooling and background job processing
-- CDN integration ready
-
-**📚 Documentation:**
-- OpenAPI/Swagger specifications
-- Interactive API documentation
-- Code examples and usage guides
-- Error response documentation
-
-### 🛠️ Quick Start with Templates
-
-1. **Choose your stack** from the template categories above
-2. **Install dependencies** - each template includes required packages
-3. **Configure environment** - set up environment variables
-4. **Run migrations** - use database templates to set up schema
-5. **Generate seed data** - create realistic sample data
-6. **Start developing** - use API templates as your foundation
-
-### 📋 Template Prerequisites
-
-- Node.js 18+ with ESM support
-- PostgreSQL 12+ or MongoDB 4.4+
-- Redis (for caching and sessions)
-- Docker and Docker Compose (for deployment)
-
-All templates follow consistent patterns and include comprehensive error handling, security considerations, and production best practices.
+This is a **monorepo** with frontend and backend:
 
 ```
 quiz/                    # Root monorepo
@@ -365,8 +240,8 @@ Optional (AI evaluation):
 
 **Local Development:**
 
-- Ollama must be running locally on `localhost:11434` with `natnaelberhanesv/quiz-qwen` model installed
-- Install: `ollama pull natnaelberhanesv/quiz-qwen` (2GB model)
+- Ollama must be running locally on `localhost:11434` with `llama3.2:latest` model installed
+- Install: `ollama pull llama3.2:latest` (2GB model)
 - The AI evaluation endpoint includes rate limiting (10 req/min per IP) and prompt length limits (2000 chars)
 
 **Production Deployment - FREE OPTIONS (Recommended):** ⭐
@@ -523,7 +398,7 @@ Question object shape:
 
 - **Groq:** Uses `llama-3.3-70b-versatile` (powerful 70B parameter model, fast inference)
 - **Hugging Face:** Uses `meta-llama/Llama-3.2-3B-Instruct` (smaller 3B model, slower)
-- **Ollama:** Uses `natnaelberhanesv/quiz-qwen` (local/remote 3B model)
+- **Ollama:** Uses `llama3.2:latest` (local/remote 3B model)
 
 **Usage Estimation (20 students/day):**
 
@@ -566,7 +441,7 @@ ssh root@your-server-ip
 curl -fsSL https://ollama.com/install.sh | sh
 
 # Pull the model
-ollama pull natnaelberhanesv/quiz-qwen
+ollama pull llama3.2:latest
 ```
 
 **3. Configure Ollama to accept external connections:**
@@ -682,7 +557,7 @@ docker run -d \
   ollama/ollama
 
 # Pull model
-docker exec -it ollama ollama pull natnaelberhanesv/quiz-qwen
+docker exec -it ollama ollama pull llama3.2:latest
 ```
 
 ### Security Best Practices
@@ -727,7 +602,7 @@ Test from your local machine:
 curl -X POST https://your-domain.com/api/generate \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "natnaelberhanesv/quiz-qwen",
+    "model": "llama3.2:latest",
     "prompt": "Why is the sky blue?",
     "stream": false
   }'
@@ -759,7 +634,7 @@ curl -X POST https://your-domain.com/api/generate \
   - **Recommended:** Use Groq (free, fast) - See `FREE_AI_SETUP.md`
   - **Local Development:**
     - Ensure Ollama is running: check `http://localhost:11434` in browser
-    - Verify model installed: `ollama list` should show `natnaelberhanesv/quiz-qwen`
+    - Verify model installed: `ollama list` should show `llama3.2:latest`
   - **Production (Groq/Hugging Face):**
     - Check `AI_PROVIDER` and API key are set in Netlify environment variables
     - Test API key: `curl https://api.groq.com/openai/v1/models -H "Authorization: Bearer YOUR_KEY"`

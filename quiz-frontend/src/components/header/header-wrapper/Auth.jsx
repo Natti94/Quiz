@@ -4,7 +4,6 @@ import { useTranslation } from "../../../lib/i18n/useTranslation";
 import { useAuth } from "../../../contexts";
 import Register from "./auth-sections/Register";
 import Login from "./auth-sections/Login";
-import Profile from "./auth-sections/Profile";
 
 function Auth({
   mode = "page",

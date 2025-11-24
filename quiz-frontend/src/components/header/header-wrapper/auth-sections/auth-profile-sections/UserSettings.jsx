@@ -6,7 +6,9 @@ function UserSettings({ onSave }) {
   const { t } = useTranslation();
   const { user } = useAuth();
 
-  const [notifications, setNotifications] = useState(user?.settings?.notifications ?? true);
+  const [notifications, setNotifications] = useState(
+    user?.settings?.notifications ?? true,
+  );
   const [theme, setTheme] = useState(user?.settings?.theme || "light");
   const [language, setLanguage] = useState(user?.settings?.language || "en");
 

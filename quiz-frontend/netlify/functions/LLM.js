@@ -85,7 +85,10 @@ export async function handler(event) {
       };
     }
 
-    const ALLOWED_MODELS = ["natnaelberhanesv/quiz-qwen", "natnaelberhanesv/quiz-qwen:latest"];
+    const ALLOWED_MODELS = [
+      "natnaelberhanesv/quiz-qwen",
+      "natnaelberhanesv/quiz-qwen:latest",
+    ];
     if (!ALLOWED_MODELS.includes(model)) {
       console.error(`Unauthorized model requested: ${model}`);
       return {

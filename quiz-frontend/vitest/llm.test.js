@@ -1,4 +1,3 @@
-/* global process */
 import { describe, it, expect, beforeEach } from "vitest";
 
 describe("LLM handler (unit)", () => {
@@ -8,7 +7,10 @@ describe("LLM handler (unit)", () => {
 
   it("returns a canned response when DEV_STUB=1", async () => {
     const { handler } = await import("../netlify/functions/LLM.js");
-    const ev = { headers: {}, body: JSON.stringify({ prompt: "Vitest: Test Prompt" }) };
+    const ev = {
+      headers: {},
+      body: JSON.stringify({ prompt: "Vitest: Test Prompt" }),
+    };
     const res = await handler(ev);
     expect(res.statusCode).toBe(200);
     const body = JSON.parse(res.body);

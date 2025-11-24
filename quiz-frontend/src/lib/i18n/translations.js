@@ -331,7 +331,8 @@ export const translations = {
     dashboard: {
       title: "Dashboard",
       welcome: "Välkommen",
-      description: "Här kan du hantera ditt konto och komma åt dina quiz-resultat.",
+      description:
+        "Här kan du hantera ditt konto och komma åt dina quiz-resultat.",
       goToQuiz: "Gå till Quiz",
       viewStatistics: "Visa Statistik",
     },
@@ -669,7 +670,8 @@ export const translations = {
     dashboard: {
       title: "Dashboard",
       welcome: "Welcome",
-      description: "Here you can manage your account and access your quiz results.",
+      description:
+        "Here you can manage your account and access your quiz results.",
       goToQuiz: "Go to Quiz",
       viewStatistics: "View Statistics",
     },
