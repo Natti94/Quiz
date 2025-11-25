@@ -1,8 +1,8 @@
 export const handler = async (event) => {
   const qs = event.queryStringParameters || {};
 
-  const ALLOWED_OWNER = process.env.GITHUB_OWNER || "Natti94";
-  const ALLOWED_REPO = process.env.GITHUB_REPO || "Quiz";
+  const ALLOWED_OWNER = "Natti94";
+  const ALLOWED_REPO = "Quiz";
 
   if (
     (qs.owner && String(qs.owner) !== ALLOWED_OWNER) ||
