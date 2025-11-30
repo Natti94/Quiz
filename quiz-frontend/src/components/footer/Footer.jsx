@@ -5,7 +5,7 @@ import Version from "./footer-wrapper/Version";
 import Copyright from "./footer-wrapper/Copyright";
 import Cookies from "./footer-wrapper/Cookies";
 import Updates from "./footer-wrapper/Updates";
-import "./footer.css";
+import "./Footer.css";
 
 function Footer() {
   const { t } = useTranslation();

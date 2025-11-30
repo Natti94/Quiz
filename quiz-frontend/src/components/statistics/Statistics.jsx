@@ -1,5 +1,5 @@
 import Leaderboard from "./statistics-wrapper/Leaderboard";
-import "./statistics.css";
+import "./Statistics.css";
 
 const Statistics = ({ activeCategory }) => {
   switch (activeCategory) {
