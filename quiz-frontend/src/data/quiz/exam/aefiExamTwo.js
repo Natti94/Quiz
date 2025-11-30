@@ -2,28 +2,43 @@ export const questionsAefiExamTwo = [
   {
     question:
       "Förklara syftet med en kassaflödesanalys vid fastighetsvärdering och hur den används för att bedöma en fastighets avkastningsförmåga.",
-    options: [],
-    correct: -1,
+    options: [
+      "Kassaflödesanalys visar in- och utbetalningar över tid för att bedöma avkastningsförmåga genom diskontering till nuvärde - används för att beräkna internränta och NPV vid investeringsbeslut",
+      "Kassaflödesanalys används endast för att räkna totala intäkter",
+      "Den visar endast utgifter utan hänsyn till intäkter",
+      "Kassaflödesanalys är irrelevant för fastighetsvärdering",
+    ],
+    correct: 0,
     explanation:
-      "Ett väl godkänt svar bör innehålla: 1) Förklaring av hur kassaflödesanalys används för att bedöma avkastningsförmåga, 2) Analys av in- och utbetalningar över tid, 3) Koppling till fastighetens lönsamhet och framtida värde, 4) Praktiska exempel på användningsområden.",
+      "Kassaflödesanalys är grundläggande för fastighetsvärdering genom att visa den ekonomiska avkastningen över tid. Genom diskontering av framtida kassaflöden till nuvärde kan investerare bedöma om en fastighet ger tillräcklig avkastning.",
     level: "VG",
   },
   {
     question:
       "Beskriv hur historiska data används vid värdering av fastigheter och vilka risker som kan uppstå om data är bristfällig.",
-    options: [],
-    correct: -1,
+    options: [
+      "Historiska data används för att prognostisera framtida intäkter och kostnader genom trender och säsongsmönster - bristfällig data leder till felaktiga prognoser och övervärdering av risker",
+      "Historiska data används endast för att beräkna nuvarande värde",
+      "Brisfällig data påverkar aldrig värderingen",
+      "Historiska data är alltid tillförlitliga och behöver inte verifieras",
+    ],
+    correct: 0,
     explanation:
-      "Ett väl godkänt svar bör innehålla: 1) Metoder för insamling och analys av historiska data, 2) Tillämpning vid värdering, 3) Risker och begränsningar med bristfällig data.",
+      "Historiska data ger underlag för prognoser om vakansgrad, hyresutveckling och underhållskostnader. Bristfällig data kan leda till felaktiga antaganden som resulterar i över- eller undervärdering av fastigheter.",
     level: "VG",
   },
   {
     question:
       "Resonera kring hur demografiska förändringar och samhällsutveckling påverkar marknadshyror på olika orter.",
-    options: [],
-    correct: -1,
+    options: [
+      "Demografiska förändringar som urbanisering och åldersfördelning påverkar efterfrågan på olika typer av lokaler - samhällsutveckling som infrastruktur och näringslivsutveckling styr hyresnivåer regionalt",
+      "Demografiska förändringar påverkar aldrig fastighetshyror",
+      "Alla orter har samma hyresutveckling oavsett demografi",
+      "Samhällsutveckling är irrelevant för hyressättning",
+    ],
+    correct: 0,
     explanation:
-      "Ett väl godkänt svar bör innehålla: 1) Analys av demografiska faktorer, 2) Koppling till samhällsutveckling, 3) Exempel på påverkan på marknadshyra.",
+      "Demografiska trender som befolkningsökning i storstäder driver upp hyror för bostäder och kontor. Samhällsutveckling som nya kommunikationer eller näringsetableringar skapar lokala hyrespremium.",
     level: "VG",
   },
   {

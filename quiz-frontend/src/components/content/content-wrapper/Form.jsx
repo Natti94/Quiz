@@ -7,7 +7,10 @@ function Form({ onSelect }) {
   const [aiAvailable, setAiAvailable] = useState(true);
   const [showUnlock, setShowUnlock] = useState(false);
   const [hasPreAccess, setHasPreAccess] = useState(false);
-  const [examMode, setExamMode] = useState("AI");
+  const [examMode, setExamMode] = useState(() => {
+    const saved = localStorage.getItem('examMode');
+    return saved || 'AI';
+  });
   const [unlockStep, setUnlockStep] = useState("request");
   const [preToken, setPreToken] = useState("");
   const [formKey, setFormKey] = useState("");
@@ -399,7 +402,11 @@ function Form({ onSelect }) {
         <select
           id="exam-difficulty"
           value={examMode}
-          onChange={(e) => setExamMode(e.target.value)}
+          onChange={(e) => {
+            const newMode = e.target.value;
+            setExamMode(newMode);
+            localStorage.setItem('examMode', newMode);
+          }}
           disabled={!aiAvailable && examMode !== "standard"}
         >
           <option value="standard">{t("form.standard")}</option>
