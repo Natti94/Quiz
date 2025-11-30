@@ -291,6 +291,42 @@ function Form({ onSelect }) {
             <div className="subject__desc">{t("form.pluDesc")}</div>
           </div>
         </button>
+        <button
+          type="button"
+          className="subject"
+          onClick={() => onSelect && onSelect("nyckeltal", "standard")}
+          aria-label={t("form.ariaSelectNyckeltal")}
+        >
+          <div className="subject__icon subject__icon--nyckeltal" aria-hidden>
+            📊
+          </div>
+          <div className="subject__content">
+            <div className="subject__title">{t("subjects.nyckeltal")}</div>
+            <div className="subject__desc">{t("form.nyckeltalDesc")}</div>
+          </div>
+        </button>
+
+        <button
+          type="button"
+          className="subject"
+          onClick={() => onSelect && onSelect("produktkalkylering", "standard")}
+          aria-label={t("form.ariaSelectProduktkalkylering")}
+        >
+          <div
+            className="subject__icon subject__icon--produktkalkylering"
+            aria-hidden
+          >
+            🧾
+          </div>
+          <div className="subject__content">
+            <div className="subject__title">
+              {t("subjects.produktkalkylering")}
+            </div>
+            <div className="subject__desc">
+              {t("form.produktkalkyleringDesc")}
+            </div>
+          </div>
+        </button>
 
         <button
           type="button"
@@ -565,6 +601,64 @@ function Form({ onSelect }) {
               </div>
               <div className="subject__desc">
                 {t("form.aefiDescTwo")}{" "}
+                {examUnlocked ? t("form.unlocked") : t("form.locked")}
+                {examMode === "AI" && examUnlocked && t("form.aiActivated")}
+              </div>
+            </div>
+          </button>
+          <button
+            type="button"
+            className={`subject ${examUnlocked ? "subject--unlocked" : ""} ${examMode === "AI" && !examUnlocked ? "subject--disabled" : ""}`}
+            onClick={() => examUnlocked && handleExamClick("nyckeltal-exam")}
+            disabled={examMode === "AI" && !examUnlocked}
+            aria-label={
+              examUnlocked ? t("form.ariaOpenNyckeltalExam") : t("form.ariaNyckeltalLocked")
+            }
+            style={
+              examMode === "AI" && !examUnlocked
+                ? { opacity: 0.6, cursor: "not-allowed" }
+                : {}
+            }
+          >
+            <div className="subject__icon subject__icon--nyckeltal" aria-hidden>
+              📊
+            </div>
+            <div className="subject__content">
+              <div className="subject__title">
+                <strong>{t("form.examPrefix")}</strong>
+                {t("subjects.nyckeltal")}
+              </div>
+              <div className="subject__desc">
+                {t("form.nyckeltalDesc")}{" "}
+                {examUnlocked ? t("form.unlocked") : t("form.locked")}
+                {examMode === "AI" && examUnlocked && t("form.aiActivated")}
+              </div>
+            </div>
+          </button>
+          <button
+            type="button"
+            className={`subject ${examUnlocked ? "subject--unlocked" : ""} ${examMode === "AI" && !examUnlocked ? "subject--disabled" : ""}`}
+            onClick={() => examUnlocked && handleExamClick("produktkalkylering-exam")}
+            disabled={examMode === "AI" && !examUnlocked}
+            aria-label={
+              examUnlocked ? t("form.ariaOpenProduktkalkyleringExam") : t("form.ariaProduktkalkyleringLocked")
+            }
+            style={
+              examMode === "AI" && !examUnlocked
+                ? { opacity: 0.6, cursor: "not-allowed" }
+                : {}
+            }
+          >
+            <div className="subject__icon subject__icon--produktkalkylering" aria-hidden>
+              🧾
+            </div>
+            <div className="subject__content">
+              <div className="subject__title">
+                <strong>{t("form.examPrefix")}</strong>
+                {t("subjects.produktkalkylering")}
+              </div>
+              <div className="subject__desc">
+                {t("form.produktkalkyleringDesc")}{" "}
                 {examUnlocked ? t("form.unlocked") : t("form.locked")}
                 {examMode === "AI" && examUnlocked && t("form.aiActivated")}
               </div>

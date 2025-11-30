@@ -22,7 +22,7 @@ function App() {
 
   const subpagePaths = ["/statistics", "/analytics"];
   const isSubpage = subpagePaths.some(
-    (p) => location.pathname === p || location.pathname.startsWith(p + "/"),
+    (p) => location.pathname === p || location.pathname.startsWith(p + "/")
   );
 
   const subjectMeta = {
@@ -53,6 +53,11 @@ function App() {
     "aefi-exam-two": {
       label: t("subjects.aefi-exam-two"),
       icon: "💼",
+    },
+    "nyckeltal-exam": { label: t("subjects.nyckeltal-exam"), icon: "📊" },
+    "produktkalkylering-exam": {
+      label: t("subjects.produktkalkylering-exam"),
+      icon: "🧾",
     },
   };
 

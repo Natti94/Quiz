@@ -130,6 +130,18 @@
   flex-shrink: 0;
 }
 
+.subject__icon--nyckeltal {
+  background: linear-gradient(180deg, #e6fffa, #ddf6f4);
+  border-color: #bfeee6;
+  color: #065f46;
+}
+
+.subject__icon--produktkalkylering {
+  background: linear-gradient(180deg, #fff7ed, #fff1dd);
+  border-color: #ffe7c3;
+  color: #7c2d12;
+}
+
 .subject__desc {
   color: #4b5563;
   font-size: clamp(0.85rem, 2vw, 0.95rem);

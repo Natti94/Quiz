@@ -97,6 +97,10 @@ export const translations = {
       waiDesc: "HTTP, Säkerhet, Kryptografi och Loggning.",
       aefiDescOne: "Affärs och Ekonomi inom Fastighetsbranschen Del 1.",
       aefiDescTwo: "Affärs och Ekonomi inom Fastighetsbranschen Del 2.",
+      nyckeltalDesc:
+        "Nyckeltal, driftnetto, direktavkastning och nyckeltalsanalys inom fastighetsekonomi",
+      produktkalkyleringDesc:
+        "Produktkalkylering: divisjonsmetod, påläggsmetod och bidragskalkylering",
       examPrefix: "Tenta: ",
 
       difficultyLabel: "Svårighet:",
@@ -161,15 +165,23 @@ export const translations = {
       ariaSelectPLU: "Välj Paketering, Leverans och Uppföljning",
       ariaSelectAPT: "Välj Agil Projektmetodik och Testning",
       ariaSelectWAI: "Välj Webbsäkerhet; Analys och Implementation",
-      ariaSelectAEFIOne: "Välj Affärs och Ekonomi inom Fastighetsbranschen Del 1",
-      ariaSelectAEFITwo: "Välj Affärs och Ekonomi inom Fastighetsbranschen Del 2",
+      ariaSelectAEFIOne:
+        "Välj Affärs och Ekonomi inom Fastighetsbranschen Del 1",
+      ariaSelectAEFITwo:
+        "Välj Affärs och Ekonomi inom Fastighetsbranschen Del 2",
       ariaSelectAEFI: "Välj Affärs och Ekonomi inom Fastighetsbranschen",
+      ariaSelectNyckeltal: "Välj Nyckeltal och Fastighetsekonomi",
+      ariaSelectProduktkalkylering: "Välj Produktkalkylering",
       ariaOpenPLUExam: "Öppna PLU tenta",
       ariaPLULocked: "PLU Tenta - Låst",
       ariaOpenWAIExam: "Öppna WAI tenta",
       ariaWAILocked: "WAI Tenta - Låst",
       ariaOpenAEFIExam: "Öppna AEFI tenta",
       ariaAEFILocked: "AEFI Tenta - Låst",
+      ariaOpenNyckeltalExam: "Öppna Nyckeltal tenta",
+      ariaNyckeltalLocked: "Nyckeltal Tenta - Låst",
+      ariaOpenProduktkalkyleringExam: "Öppna Produktkalkylering tenta",
+      ariaProduktkalkyleringLocked: "Produktkalkylering Tenta - Låst",
       ariaUnlockDialog: "Lås upp tenta",
       ariaDiscordLink: "Öppna Discord för att få admin-nyckeln",
       titleDiscord: "Discord",
@@ -309,6 +321,10 @@ export const translations = {
       "aefi-exam-one":
         "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 1",
       aefiTwo: "Affärs och Ekonomi inom Fastighetsbranschen Del 2",
+      "nyckeltal-exam": "Tenta: Nyckeltal & Fastighetsekonomi",
+      "produktkalkylering-exam": "Tenta: Produktkalkylering",
+      nyckeltal: "Nyckeltal & Fastighetsekonomi",
+      produktkalkylering: "Produktkalkylering",
       "aefi-exam-two":
         "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 2",
     },
@@ -439,6 +455,10 @@ export const translations = {
       waiDesc: "HTTP, Security, Cryptography and Logging.",
       aefiDescOne: "Business and Economics in the Real Estate Industry Part 1.",
       aefiDescTwo: "Business and Economics in the Real Estate Industry Part 2.",
+      nyckeltalDesc:
+        "Key ratios, net operating income and valuation metrics in real estate economics",
+      produktkalkyleringDesc:
+        "Product costing methods: divisions, allocation and contribution",
       examPrefix: "Exam: ",
 
       difficultyLabel: "Difficulty:",
@@ -503,8 +523,12 @@ export const translations = {
       ariaSelectPLU: "Select Packaging, Delivery and Follow-up",
       ariaSelectAPT: "Select Agile Project Methodology and Testing",
       ariaSelectWAI: "Select Web Security; Analysis and Implementation",
-      ariaSelectAEFIOne: "Select Business and Economics in the Real Estate Industry Part 1",
-      ariaSelectAEFITwo: "Select Business and Economics in the Real Estate Industry Part 2",
+      ariaSelectAEFIOne:
+        "Select Business and Economics in the Real Estate Industry Part 1",
+      ariaSelectNyckeltal: "Select Key Ratios & Real Estate Economics",
+      ariaSelectProduktkalkylering: "Select Product Costing",
+      ariaSelectAEFITwo:
+        "Select Business and Economics in the Real Estate Industry Part 2",
       ariaSelectAEFI:
         "Select Business and Economics in the Real Estate Industry",
       ariaOpenPLUExam: "Open PLU exam",
@@ -513,6 +537,10 @@ export const translations = {
       ariaWAILocked: "WAI Exam - Locked",
       ariaOpenAEFIExam: "Open AEFI exam",
       ariaAEFILocked: "AEFI Exam - Locked",
+      ariaOpenNyckeltalExam: "Open Nyckeltal exam",
+      ariaNyckeltalLocked: "Nyckeltal Exam - Locked",
+      ariaOpenProduktkalkyleringExam: "Open Product Costing exam",
+      ariaProduktkalkyleringLocked: "Product Costing Exam - Locked",
       ariaUnlockDialog: "Unlock exam",
       ariaDiscordLink: "Open Discord to get admin key",
       titleDiscord: "Discord",
@@ -653,8 +681,12 @@ export const translations = {
       "aefi-exam-one":
         "Exam: Business and Economics in the Real Estate Industry Part 1",
       aefiTwo: "Business and Economics in the Real Estate Industry Part 2",
+      nyckeltal: "Key Ratios & Real Estate Economics",
+      produktkalkylering: "Product Costing",
       "aefi-exam-two":
         "Exam: Business and Economics in the Real Estate Industry Part 2",
+      "nyckeltal-exam": "Exam: Key Ratios & Real Estate Economics",
+      "produktkalkylering-exam": "Exam: Product Costing",
     },
 
     cookies: {
