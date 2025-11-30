@@ -3,7 +3,7 @@ import { useTranslation } from "../../lib/i18n/useTranslation.js";
 import Language from "./header-wrapper/Language.jsx";
 import Auth from "./header-wrapper/Auth.jsx";
 import Profile from "./header-wrapper/auth-sections/Profile.jsx";
-import "./Header.css";
+import "./header.css";
 
 function Header() {
   const { t } = useTranslation();

@@ -1,4 +1,7 @@
 import Leaderboard from "./statistics-wrapper/Leaderboard";
+import Points from "./statistics-wrapper/leaderboard-sections/Points";
+import Speed from "./statistics-wrapper/leaderboard-sections/Speed";
+import Excellence from "./statistics-wrapper/leaderboard-sections/Excellence";
 import "./Statistics.css";
 
 const Statistics = ({ activeCategory }) => {
