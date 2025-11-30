@@ -4,8 +4,6 @@ import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const packageJson = JSON.parse(
@@ -18,7 +16,7 @@ export default defineConfig({
     __APP_VERSION__: JSON.stringify(packageJson.version),
   },
   proxy: {
-    target: API_BASE_URL,
+    target: "https://chatify-api.up.railway.app",
     changeOrigin: true,
     secure: false,
   },

@@ -161,6 +161,8 @@ export const translations = {
       ariaSelectPLU: "Välj Paketering, Leverans och Uppföljning",
       ariaSelectAPT: "Välj Agil Projektmetodik och Testning",
       ariaSelectWAI: "Välj Webbsäkerhet; Analys och Implementation",
+      ariaSelectAEFIOne: "Välj Affärs och Ekonomi inom Fastighetsbranschen Del 1",
+      ariaSelectAEFITwo: "Välj Affärs och Ekonomi inom Fastighetsbranschen Del 2",
       ariaSelectAEFI: "Välj Affärs och Ekonomi inom Fastighetsbranschen",
       ariaOpenPLUExam: "Öppna PLU tenta",
       ariaPLULocked: "PLU Tenta - Låst",
@@ -301,6 +303,8 @@ export const translations = {
       apt: "Agil Projektmetodik & Testning",
       wai: "Webbsäkerhet; Analys och Implementation",
       "wai-exam": "Tenta: Webbsäkerhet; Analys och Implementation",
+      "aefi-one": "Affärs och Ekonomi inom Fastighetsbranschen Del 1",
+      "aefi-two": "Affärs och Ekonomi inom Fastighetsbranschen Del 2",
       aefiOne: "Affärs och Ekonomi inom Fastighetsbranschen Del 1",
       "aefi-exam-one":
         "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 1",
@@ -499,6 +503,8 @@ export const translations = {
       ariaSelectPLU: "Select Packaging, Delivery and Follow-up",
       ariaSelectAPT: "Select Agile Project Methodology and Testing",
       ariaSelectWAI: "Select Web Security; Analysis and Implementation",
+      ariaSelectAEFIOne: "Select Business and Economics in the Real Estate Industry Part 1",
+      ariaSelectAEFITwo: "Select Business and Economics in the Real Estate Industry Part 2",
       ariaSelectAEFI:
         "Select Business and Economics in the Real Estate Industry",
       ariaOpenPLUExam: "Open PLU exam",
@@ -641,6 +647,8 @@ export const translations = {
       apt: "Agile Project Methodology & Testing",
       wai: "Web Security; Analysis and Implementation",
       "wai-exam": "Exam: Web Security; Analysis and Implementation",
+      "aefi-one": "Business and Economics in the Real Estate Industry Part 1",
+      "aefi-two": "Business and Economics in the Real Estate Industry Part 2",
       aefiOne: "Business and Economics in the Real Estate Industry Part 1",
       "aefi-exam-one":
         "Exam: Business and Economics in the Real Estate Industry Part 1",

@@ -320,6 +320,36 @@ function Form({ onSelect }) {
             <div className="subject__desc">{t("form.waiDesc")}</div>
           </div>
         </button>
+
+        <button
+          type="button"
+          className="subject"
+          onClick={() => onSelect && onSelect("aefi-one", "standard")}
+          aria-label={t("form.ariaSelectAEFIOne")}
+        >
+          <div className="subject__icon subject__icon--aefi" aria-hidden>
+            💼
+          </div>
+          <div className="subject__content">
+            <div className="subject__title">{t("subjects.aefi-one")}</div>
+            <div className="subject__desc">{t("form.aefiDescOne")}</div>
+          </div>
+        </button>
+
+        <button
+          type="button"
+          className="subject"
+          onClick={() => onSelect && onSelect("aefi-two", "standard")}
+          aria-label={t("form.ariaSelectAEFITwo")}
+        >
+          <div className="subject__icon subject__icon--aefi" aria-hidden>
+            💼
+          </div>
+          <div className="subject__content">
+            <div className="subject__title">{t("subjects.aefi-two")}</div>
+            <div className="subject__desc">{t("form.aefiDescTwo")}</div>
+          </div>
+        </button>
       </div>
       <hr className="subject__divider" />
       <h2

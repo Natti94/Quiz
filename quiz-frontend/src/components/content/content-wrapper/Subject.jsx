@@ -3,6 +3,8 @@ import { useTranslation } from "../../../lib/i18n/useTranslation";
 import { questionsPlu } from "../../../data/index";
 import { questionsApt } from "../../../data/index";
 import { questionsWai } from "../../../data/index";
+import { questionsAefiOne } from "../../../data/index";
+import { questionsAefiTwo } from "../../../data/index";
 import { questionsAefiExamOne } from "../../../data/index";
 import { questionsAefiExamTwo } from "../../../data/index";
 import { questionsPluExam } from "../../../data/index";
@@ -43,6 +45,10 @@ function Subject({ subject, mode: difficultyMode }, ref) {
       baseQuestions = questionsWai;
     } else if (subject === "wai-exam") {
       baseQuestions = questionsWaiExam;
+    } else if (subject === "aefi-one") {
+      baseQuestions = questionsAefiOne;
+    } else if (subject === "aefi-two") {
+      baseQuestions = questionsAefiTwo;
     } else if (subject === "aefi-exam-one") {
       baseQuestions = questionsAefiExamOne;
     } else if (subject === "aefi-exam-two") {

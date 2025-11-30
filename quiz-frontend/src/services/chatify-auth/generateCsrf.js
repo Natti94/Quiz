@@ -1,6 +1,6 @@
 import { apiRequest } from "../../lib";
 
-const AUTH_API_BASE = import.meta.env.VITE_AUTH_API_BASE_URL;
+const AUTH_API_BASE = "https://chatify-api.up.railway.app";
 
 export async function generateCsrf() {
   try {
