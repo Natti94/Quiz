@@ -3,6 +3,20 @@
 
 ### Bug Fixes
 
+* adjusting casing of components/css files due to sensitivy on deployment. ([b5a5879](https://github.com/Natti94/Quiz/commit/b5a5879cb1e7a21cb5cdf8b9e7da74bf41c4d01b))
+* adjusting content of new subjects ([2b9903b](https://github.com/Natti94/Quiz/commit/2b9903bcb706216de9234fc07b3088f88ea4bb9a))
+
+
+### Features
+
+* some additional subjects for practice. ([47113e1](https://github.com/Natti94/Quiz/commit/47113e1265cfbef6e7964dd8da74d830d212cc92))
+* vitest for auth and llm. ([14f12b9](https://github.com/Natti94/Quiz/commit/14f12b9f42e3a2eaa642d5c85c71556895e7b904))
+
+# [1.8.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.7.0...quiz-monorepo-v1.8.0) (2025-11-30)
+
+
+### Bug Fixes
+
 * adjusting content of new subjects ([2b9903b](https://github.com/Natti94/Quiz/commit/2b9903bcb706216de9234fc07b3088f88ea4bb9a))
 
 
