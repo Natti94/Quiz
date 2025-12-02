@@ -1,3 +1,20 @@
+# [1.8.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.7.0...quiz-monorepo-v1.8.0) (2025-12-02)
+
+
+### Bug Fixes
+
+* adjusting casing of components/css files due to sensitivy on deployment. ([b5a5879](https://github.com/Natti94/Quiz/commit/b5a5879cb1e7a21cb5cdf8b9e7da74bf41c4d01b))
+* adjusting content of new subjects ([2b9903b](https://github.com/Natti94/Quiz/commit/2b9903bcb706216de9234fc07b3088f88ea4bb9a))
+* adjustments. ([1947f0a](https://github.com/Natti94/Quiz/commit/1947f0ac3b5b79c6e62a055ac17d44185d34fd0b))
+
+
+### Features
+
+* added a new subject for the app. ([fa8f823](https://github.com/Natti94/Quiz/commit/fa8f82368af9267bb089aa896bf5cc89e4d23448))
+* fixed issues with multiple choice alternatives not being available on some subjects on standard mode, fixed local storage for when user set mode - does not fall back to AI on when exiting current existing quiz session, could be annoying in UX. ([c6cda63](https://github.com/Natti94/Quiz/commit/c6cda63d56c2541b3aa4bc3f4851b31068765832))
+* some additional subjects for practice. ([47113e1](https://github.com/Natti94/Quiz/commit/47113e1265cfbef6e7964dd8da74d830d212cc92))
+* vitest for auth and llm. ([14f12b9](https://github.com/Natti94/Quiz/commit/14f12b9f42e3a2eaa642d5c85c71556895e7b904))
+
 # [1.8.0](https://github.com/Natti94/Quiz/compare/quiz-monorepo-v1.7.0...quiz-monorepo-v1.8.0) (2025-11-30)
 
 ### Bug Fixes
