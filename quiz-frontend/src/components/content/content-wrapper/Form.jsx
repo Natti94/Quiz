@@ -8,8 +8,8 @@ function Form({ onSelect }) {
   const [showUnlock, setShowUnlock] = useState(false);
   const [hasPreAccess, setHasPreAccess] = useState(false);
   const [examMode, setExamMode] = useState(() => {
-    const saved = localStorage.getItem('examMode');
-    return saved || 'AI';
+    const saved = localStorage.getItem("examMode");
+    return saved || "AI";
   });
   const [unlockStep, setUnlockStep] = useState("request");
   const [preToken, setPreToken] = useState("");
@@ -164,6 +164,10 @@ function Form({ onSelect }) {
 
     checkAI();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("examMode", examMode);
+  }, [examMode]);
 
   function getFunctionBases() {
     try {
@@ -389,6 +393,21 @@ function Form({ onSelect }) {
             <div className="subject__desc">{t("form.aefiDescTwo")}</div>
           </div>
         </button>
+
+        <button
+          type="button"
+          className="subject"
+          onClick={() => onSelect && onSelect("ams", "standard")}
+          aria-label={t("form.ariaSelectAMS")}
+        >
+          <div className="subject__icon subject__icon--ams" aria-hidden>
+            📚
+          </div>
+          <div className="subject__content">
+            <div className="subject__title">{t("subjects.ams")}</div>
+            <div className="subject__desc">{t("form.amsDesc")}</div>
+          </div>
+        </button>
       </div>
       <hr className="subject__divider" />
       <h2
@@ -405,7 +424,7 @@ function Form({ onSelect }) {
           onChange={(e) => {
             const newMode = e.target.value;
             setExamMode(newMode);
-            localStorage.setItem('examMode', newMode);
+            localStorage.setItem("examMode", newMode);
           }}
           disabled={!aiAvailable && examMode !== "standard"}
         >
@@ -619,7 +638,9 @@ function Form({ onSelect }) {
             onClick={() => examUnlocked && handleExamClick("nyckeltal-exam")}
             disabled={examMode === "AI" && !examUnlocked}
             aria-label={
-              examUnlocked ? t("form.ariaOpenNyckeltalExam") : t("form.ariaNyckeltalLocked")
+              examUnlocked
+                ? t("form.ariaOpenNyckeltalExam")
+                : t("form.ariaNyckeltalLocked")
             }
             style={
               examMode === "AI" && !examUnlocked
@@ -645,10 +666,14 @@ function Form({ onSelect }) {
           <button
             type="button"
             className={`subject ${examUnlocked ? "subject--unlocked" : ""} ${examMode === "AI" && !examUnlocked ? "subject--disabled" : ""}`}
-            onClick={() => examUnlocked && handleExamClick("produktkalkylering-exam")}
+            onClick={() =>
+              examUnlocked && handleExamClick("produktkalkylering-exam")
+            }
             disabled={examMode === "AI" && !examUnlocked}
             aria-label={
-              examUnlocked ? t("form.ariaOpenProduktkalkyleringExam") : t("form.ariaProduktkalkyleringLocked")
+              examUnlocked
+                ? t("form.ariaOpenProduktkalkyleringExam")
+                : t("form.ariaProduktkalkyleringLocked")
             }
             style={
               examMode === "AI" && !examUnlocked
@@ -656,7 +681,10 @@ function Form({ onSelect }) {
                 : {}
             }
           >
-            <div className="subject__icon subject__icon--produktkalkylering" aria-hidden>
+            <div
+              className="subject__icon subject__icon--produktkalkylering"
+              aria-hidden
+            >
               🧾
             </div>
             <div className="subject__content">
@@ -666,6 +694,35 @@ function Form({ onSelect }) {
               </div>
               <div className="subject__desc">
                 {t("form.produktkalkyleringDesc")}{" "}
+                {examUnlocked ? t("form.unlocked") : t("form.locked")}
+                {examMode === "AI" && examUnlocked && t("form.aiActivated")}
+              </div>
+            </div>
+          </button>
+          <button
+            type="button"
+            className={`subject ${examUnlocked ? "subject--unlocked" : ""} ${examMode === "AI" && !examUnlocked ? "subject--disabled" : ""}`}
+            onClick={() => examUnlocked && handleExamClick("ams-exam")}
+            disabled={examMode === "AI" && !examUnlocked}
+            aria-label={
+              examUnlocked ? t("form.ariaOpenAMSExam") : t("form.ariaAMSLocked")
+            }
+            style={
+              examMode === "AI" && !examUnlocked
+                ? { opacity: 0.6, cursor: "not-allowed" }
+                : {}
+            }
+          >
+            <div className="subject__icon subject__icon--ams" aria-hidden>
+              📚
+            </div>
+            <div className="subject__content">
+              <div className="subject__title">
+                <strong>{t("form.examPrefix")}</strong>
+                {t("subjects.ams")}
+              </div>
+              <div className="subject__desc">
+                {t("form.amsDesc")}{" "}
                 {examUnlocked ? t("form.unlocked") : t("form.locked")}
                 {examMode === "AI" && examUnlocked && t("form.aiActivated")}
               </div>

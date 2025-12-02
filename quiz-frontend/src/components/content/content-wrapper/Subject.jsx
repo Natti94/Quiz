@@ -7,12 +7,14 @@ import { questionsAefiOne } from "../../../data/index";
 import { questionsAefiTwo } from "../../../data/index";
 import { questionsNyckeltal } from "../../../data/index";
 import { questionsProduktkalkylering } from "../../../data/index";
+import { questionsAms } from "../../../data/index";
 import { questionsAefiExamOne } from "../../../data/index";
 import { questionsAefiExamTwo } from "../../../data/index";
 import { questionsPluExam } from "../../../data/index";
 import { questionsWaiExam } from "../../../data/index";
 import { questionsNyckeltalExam } from "../../../data/index";
 import { questionsProduktkalkyleringExam } from "../../../data/index";
+import { questionsAmsExam } from "../../../data/index";
 import shuffleQuestion from "../../../lib/quiz/shuffleQuestion.js";
 
 function Subject({ subject, mode: difficultyMode }, ref) {
@@ -57,6 +59,8 @@ function Subject({ subject, mode: difficultyMode }, ref) {
       baseQuestions = questionsNyckeltal;
     } else if (subject === "produktkalkylering") {
       baseQuestions = questionsProduktkalkylering;
+    } else if (subject === "ams") {
+      baseQuestions = questionsAms;
     } else if (subject === "aefi-exam-one") {
       baseQuestions = questionsAefiExamOne;
     } else if (subject === "aefi-exam-two") {
@@ -65,6 +69,8 @@ function Subject({ subject, mode: difficultyMode }, ref) {
       baseQuestions = questionsNyckeltalExam;
     } else if (subject === "produktkalkylering-exam") {
       baseQuestions = questionsProduktkalkyleringExam;
+    } else if (subject === "ams-exam") {
+      baseQuestions = questionsAmsExam;
     }
 
     const filtered = filterQuestionsByMode(baseQuestions, mode);

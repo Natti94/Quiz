@@ -101,6 +101,8 @@ export const translations = {
         "Nyckeltal, driftnetto, direktavkastning och nyckeltalsanalys inom fastighetsekonomi",
       produktkalkyleringDesc:
         "Produktkalkylering: divisjonsmetod, påläggsmetod och bidragskalkylering",
+      amsDesc:
+        "Affärsmannaskap: företagsformer, bokföring, kostnader och marknadsföring",
       examPrefix: "Tenta: ",
 
       difficultyLabel: "Svårighet:",
@@ -172,6 +174,7 @@ export const translations = {
       ariaSelectAEFI: "Välj Affärs och Ekonomi inom Fastighetsbranschen",
       ariaSelectNyckeltal: "Välj Nyckeltal och Fastighetsekonomi",
       ariaSelectProduktkalkylering: "Välj Produktkalkylering",
+      ariaSelectAMS: "Välj Affärsmannaskap",
       ariaOpenPLUExam: "Öppna PLU tenta",
       ariaPLULocked: "PLU Tenta - Låst",
       ariaOpenWAIExam: "Öppna WAI tenta",
@@ -182,6 +185,8 @@ export const translations = {
       ariaNyckeltalLocked: "Nyckeltal Tenta - Låst",
       ariaOpenProduktkalkyleringExam: "Öppna Produktkalkylering tenta",
       ariaProduktkalkyleringLocked: "Produktkalkylering Tenta - Låst",
+      ariaOpenAMSExam: "Öppna Affärsmannaskap tenta",
+      ariaAMSLocked: "Affärsmannaskap Tenta - Låst",
       ariaUnlockDialog: "Lås upp tenta",
       ariaDiscordLink: "Öppna Discord för att få admin-nyckeln",
       titleDiscord: "Discord",
@@ -327,6 +332,8 @@ export const translations = {
       produktkalkylering: "Produktkalkylering",
       "aefi-exam-two":
         "Tenta: Affärs och Ekonomi inom Fastighetsbranschen Del 2",
+      ams: "Affärsmannaskap",
+      "ams-exam": "Tenta: Affärsmannaskap",
     },
 
     cookies: {
